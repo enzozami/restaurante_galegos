@@ -45,7 +45,7 @@ class LoginPage extends GetView<LoginController> {
                           children: [
                             GalegosTextFormField(
                               controller: _usuarioEC,
-                              label: 'E-mail ou CNPJ',
+                              label: 'CPF ou CNPJ',
                               validator: Validatorless.multiple([
                                 Validatorless.required('Campo obrigatório'),
                               ]),
@@ -55,6 +55,7 @@ class LoginPage extends GetView<LoginController> {
                             ),
                             GalegosTextFormField(
                               controller: _passwordEC,
+                              obscureText: true,
                               label: 'Senha',
                             ),
                             const SizedBox(
@@ -76,9 +77,12 @@ class LoginPage extends GetView<LoginController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        SizedBox(
+                          height: context.heightTransformer(reducedBy: 75),
+                        ),
                         Text('Não possui cadastro?'),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () => Get.toNamed('/auth/register'),
                           child: Text(
                             'Clique aqui',
                             style: TextStyle(

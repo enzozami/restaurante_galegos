@@ -4,18 +4,21 @@ class GalegosTextFormField extends StatelessWidget {
   final String label;
   final FormFieldValidator<String>? validator;
   final TextEditingController? controller;
+  final bool obscureText;
 
   const GalegosTextFormField({
     super.key,
     this.controller,
     required this.label,
     this.validator,
+    this.obscureText = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      obscureText: obscureText,
       validator: validator,
       decoration: InputDecoration(
         labelText: label,

@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   get: ^4.7.2
   validatorless: ^1.2.5
+  json_rest_server: ^3.2.1
 
 dev_dependencies:
   flutter_test:

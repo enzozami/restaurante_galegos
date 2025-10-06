@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 
 class GalegosButtonDefault extends StatelessWidget {
-  final Color? color;
   final String label;
   final VoidCallback onPressed;
   final double? width;
@@ -12,8 +12,7 @@ class GalegosButtonDefault extends StatelessWidget {
     required this.label,
     required this.onPressed,
     this.width = 200,
-    this.heigth = 80,
-    this.color = Colors.amber,
+    this.heigth = 50,
   });
 
   @override
@@ -23,15 +22,14 @@ class GalegosButtonDefault extends StatelessWidget {
       height: heigth,
       child: ElevatedButton(
         onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.black,
-        ),
+        style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+        // style: ElevatedButton.styleFrom(
+        //   backgroundColor: Colors.black,
+        // ),
         child: Text(
           label,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: color,
-          ),
+          style: TextStyle(),
         ),
       ),
     );
