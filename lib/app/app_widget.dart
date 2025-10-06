@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:restaurante_galegos/app/core/bindings/galegos_bindings.dart';
 import 'package:restaurante_galegos/app/routes/auth_routers.dart';
 import 'package:restaurante_galegos/app/routes/splash_routers.dart';
 
@@ -11,6 +12,7 @@ class AppWidget extends StatelessWidget {
     return GetMaterialApp(
       title: 'Restaurante Galegos',
       initialRoute: '/',
+      initialBinding: GalegosBindings(),
       getPages: [
         ...SplashRouters.routers,
         ...AuthRouters.routers,

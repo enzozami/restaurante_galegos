@@ -1,16 +1,25 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/core/enums/galegos_enum.dart';
+import 'package:restaurante_galegos/app/core/masks/mask_cnpj.dart';
+import 'package:restaurante_galegos/app/core/masks/mask_cpf.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:validatorless/validatorless.dart';
 import './login_controller.dart';
 
-class LoginPage extends GetView<LoginController> {
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends GalegosState<LoginPage, LoginController> {
   final _formKey = GlobalKey<FormState>();
   final _usuarioEC = TextEditingController();
   final _passwordEC = TextEditingController();
-
-  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,19 +52,50 @@ class LoginPage extends GetView<LoginController> {
                         key: _formKey,
                         child: Column(
                           children: [
-                            GalegosTextFormField(
-                              controller: _usuarioEC,
-                              label: 'CPF ou CNPJ',
-                              validator: Validatorless.multiple([
-                                Validatorless.required('Campo obrigatório'),
-                              ]),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: DropdownMenu(
+                                dropdownMenuEntries: [
+                                  DropdownMenuEntry(value: GalegosEnum.cpf, label: 'CPF'),
+                                  DropdownMenuEntry(value: GalegosEnum.cnpj, label: 'CNPJ'),
+                                ],
+                                initialSelection: GalegosEnum.cpf,
+                                onSelected: (GalegosEnum? newValue) {
+                                  if (newValue != null) {
+                                    controller.onSelected(newValue);
+                                  }
+                                },
+                              ),
                             ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            Obx(() {
+                              final mask = (controller.type.value == GalegosEnum.cpf)
+                                  ? MaskCpf()
+                                  : MaskCnpj();
+                              return GalegosTextFormField(
+                                controller: _usuarioEC,
+                                mask: mask,
+                                label: (controller.type.value == GalegosEnum.cpf) ? 'CPF' : 'CNPJ',
+                                validator: Validatorless.multiple([
+                                  Validatorless.required('Campo obrigatório'),
+                                  (controller.type.value == GalegosEnum.cpf)
+                                      ? Validatorless.cpf('CPF inválido')
+                                      : Validatorless.cnpj('CNPJ inválido'),
+                                ]),
+                              );
+                            }),
                             const SizedBox(
                               height: 25,
                             ),
                             GalegosTextFormField(
                               controller: _passwordEC,
                               obscureText: true,
+                              validator: Validatorless.multiple([
+                                Validatorless.required('Senha obrigatória'),
+                                Validatorless.min(6, 'Senha deve ter 6 dígitos'),
+                              ]),
                               label: 'Senha',
                             ),
                             const SizedBox(
@@ -63,7 +103,15 @@ class LoginPage extends GetView<LoginController> {
                             ),
                             GalegosButtonDefault(
                               label: 'Entrar',
-                              onPressed: () {},
+                              onPressed: () {
+                                final formValid = _formKey.currentState?.validate() ?? false;
+                                if (formValid) {
+                                  controller.login(
+                                    password: _passwordEC.text,
+                                    user: _usuarioEC.text,
+                                  );
+                                }
+                              },
                             ),
                             const SizedBox(
                               height: 15,

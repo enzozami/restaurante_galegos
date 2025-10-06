@@ -37,6 +37,7 @@ dependencies:
   get: ^4.7.2
   validatorless: ^1.2.5
   json_rest_server: ^3.2.1
+  mask_text_input_formatter: ^2.9.0
 
 dev_dependencies:
   flutter_test:

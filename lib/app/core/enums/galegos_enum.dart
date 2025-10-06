@@ -1,0 +1,4 @@
+enum GalegosEnum {
+  cpf,
+  cnpj,
+}

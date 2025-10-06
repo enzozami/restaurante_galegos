@@ -4,8 +4,15 @@
             "id": 0,
             "name": "Enzo",
             "cpf": "12345678900",
+            "cnpj": "",
+            "password": "123456"
+        },
+        {
+            "id": 1,
+            "name": "Enzo",
+            "cpf": "",
             "cnpj": "43506747000129",
-            "password": "1234"
+            "password": "123456"
         }
     ],
     "adm_users": [
