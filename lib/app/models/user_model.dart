@@ -6,6 +6,7 @@ class UserModel {
   String? cpf;
   String? cnpj;
   String password;
+
   UserModel({
     required this.id,
     required this.name,
@@ -15,21 +16,24 @@ class UserModel {
   });
 
   Map<String, dynamic> toMap() {
-    return {
+    final map = <String, dynamic>{
       'id': id,
       'name': name,
-      'cpf': cpf,
-      'cnpj': cnpj,
       'password': password,
     };
+
+    if (cpf != null) map['cpf'] = cpf;
+    if (cnpj != null) map['cnpj'] = cnpj;
+
+    return map;
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
-      cpf: map['cpf']?.toInt(),
-      cnpj: map['cnpj']?.toInt(),
+      cpf: map['cpf']?.toString(),
+      cnpj: map['cnpj']?.toString(),
       password: map['password'] ?? '',
     );
   }

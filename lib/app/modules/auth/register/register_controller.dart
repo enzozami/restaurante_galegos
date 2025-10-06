@@ -1,27 +1,47 @@
-import 'package:flutter/widgets.dart';
+import 'dart:developer';
+
 import 'package:get/get.dart';
-import 'package:validatorless/validatorless.dart';
+import 'package:restaurante_galegos/app/core/enums/galegos_enum.dart';
+import 'package:restaurante_galegos/app/core/masks/mask_cpf.dart';
+import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
+import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
+import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 
-class RegisterController extends GetxController {
-  final isChecked = false.obs;
+class RegisterController extends GetxController with LoaderMixin, MessagesMixin {
+  final AuthServices _authServices;
+  final _loading = false.obs;
+  final _message = Rxn<MessageModel>();
+  final type = GalegosEnum.cpf.obs;
+  final typeMask = MaskCpf().obs;
 
-  void isToggleCheckBox(bool? value) {
-    if (value != null) {
-      isChecked.value = value;
-    }
+  RegisterController({
+    required AuthServices authServices,
+  }) : _authServices = authServices;
+
+  @override
+  void onInit() {
+    super.onInit();
+    loaderListener(_loading);
+    messageListener(_message);
   }
 
-  FormFieldValidator<String?> isValidCNPJOrCPF() {
-    if (isChecked.value) {
-      return Validatorless.multiple([
-        Validatorless.required('CNPJ obrigatório'),
-        Validatorless.cnpj('CNPJ inválido'),
-      ]);
-    } else {
-      return Validatorless.multiple([
-        Validatorless.required('CPF obrigatório'),
-        Validatorless.cpf('CPF inválido'),
-      ]);
+  Future<void> register({
+    required String name,
+    required password,
+  }) async {
+    log('CONTROLLERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR');
+    try {
+      _loading.toggle();
+      await _authServices.register(name, type.value, password);
+      _loading.toggle();
+      Get.offAllNamed('/auth/login');
+    } catch (e, s) {
+      _loading.toggle();
+      log(e.toString());
+      log(s.toString());
+      MessageModel(title: 'Erro', message: 'Erro ao cadastrar usuário', type: MessageType.error);
+    } finally {
+      _loading(false);
     }
   }
 }

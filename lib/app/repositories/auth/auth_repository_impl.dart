@@ -17,7 +17,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<UserModel> login(String user, GalegosEnum type, String password) async {
     final result = await _restClient.post('/users', {
       'user': user,
-      'type': GalegosEnum.values,
+      'type': type.name,
       'password': password,
     });
 
@@ -25,7 +25,7 @@ class AuthRepositoryImpl implements AuthRepository {
       if (result.statusCode == 403) {
         log('Usuário ou senha inválidos');
       }
-      log('Erro logar');
+      log('Erro logar, ${result.statusText}');
     }
 
     return UserModel.fromMap(result.body);
@@ -35,12 +35,12 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<UserModel> register(String name, GalegosEnum type, String password) async {
     final result = await _restClient.post('/users', {
       'name': name,
-      'type': type,
+      'type': type.name,
       'password': password,
     });
 
     if (result.hasError) {
-      log('Erro ao cadastrar usuário');
+      log('Erro ao cadastrar usuário, ${result.statusText}');
     }
 
     return UserModel.fromMap(result.body);

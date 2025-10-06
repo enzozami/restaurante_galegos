@@ -22,6 +22,13 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
   final _passwordEC = TextEditingController();
 
   @override
+  void dispose() {
+    _usuarioEC.dispose();
+    _passwordEC.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: LayoutBuilder(

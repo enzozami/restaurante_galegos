@@ -1,13 +1,27 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/core/enums/galegos_enum.dart';
+import 'package:restaurante_galegos/app/core/masks/mask_cnpj.dart';
+import 'package:restaurante_galegos/app/core/masks/mask_cpf.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:restaurante_galegos/app/modules/auth/register/widgets/galegos_check_box.dart';
 import 'package:validatorless/validatorless.dart';
 import './register_controller.dart';
 
-class RegisterPage extends GetView<RegisterController> {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> {
+  final _formKey = GlobalKey<FormState>();
+  final _nameEC = TextEditingController();
+  final _usuarioEC = TextEditingController();
+  final _passwordEC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +51,11 @@ class RegisterPage extends GetView<RegisterController> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Form(
-                        // key: _formKey,
+                        key: _formKey,
                         child: Column(
                           children: [
                             GalegosTextFormField(
-                              // controller: _usuarioEC,
+                              controller: _nameEC,
                               label: 'Nome completo',
                               validator: Validatorless.multiple([
                                 Validatorless.required('Campo obrigatório'),
@@ -53,39 +67,66 @@ class RegisterPage extends GetView<RegisterController> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text('CNPJ'),
+                                Obx(() {
+                                  return Text(
+                                      (controller.type.value == GalegosEnum.cpf) ? 'CNPJ' : 'CNPJ');
+                                }),
                                 GalegosCheckBox(),
                               ],
                             ),
                             Obx(() {
+                              final mask = (controller.type.value == GalegosEnum.cpf)
+                                  ? MaskCpf()
+                                  : MaskCnpj();
                               return GalegosTextFormField(
-                                // controller: _usuarioEC,
-                                label: controller.isChecked.value ? 'CNPJ' : 'CPF',
-                                validator: controller.isValidCNPJOrCPF(),
+                                controller: _usuarioEC,
+                                mask: mask,
+                                label: (controller.type.value == GalegosEnum.cpf) ? 'CPF' : 'CNPJ',
+                                validator: Validatorless.multiple([
+                                  Validatorless.required('Campo obrigatório'),
+                                  (controller.type.value == GalegosEnum.cpf)
+                                      ? Validatorless.cpf('CPF inválido')
+                                      : Validatorless.cnpj('CNPJ inválido'),
+                                ]),
                               );
                             }),
                             const SizedBox(
                               height: 25,
                             ),
                             GalegosTextFormField(
-                              // controller: _passwordEC,
+                              controller: _passwordEC,
                               obscureText: true,
                               label: 'Senha',
+                              validator: Validatorless.multiple([
+                                Validatorless.required('Senha obrigatória'),
+                                Validatorless.min(6, 'Senha obrigatória'),
+                              ]),
                             ),
                             const SizedBox(
                               height: 25,
                             ),
                             GalegosTextFormField(
-                              // controller: _passwordEC,
                               obscureText: true,
                               label: 'Confirma senha',
+                              validator: Validatorless.multiple([
+                                Validatorless.required('Confirma senha obrigatória'),
+                                Validatorless.compare(_passwordEC, 'Senhas diferentes'),
+                              ]),
                             ),
                             const SizedBox(
                               height: 25,
                             ),
                             GalegosButtonDefault(
                               label: 'Cadastrar',
-                              onPressed: () {},
+                              onPressed: () {
+                                final formValid = _formKey.currentState?.validate() ?? false;
+                                if (formValid) {
+                                  controller.register(
+                                    name: _nameEC.text,
+                                    password: _passwordEC.text,
+                                  );
+                                }
+                              },
                             ),
                             const SizedBox(
                               height: 15,
