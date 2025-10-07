@@ -6,4 +6,11 @@ abstract interface class AuthRepository {
     required String value,
     required String password,
   });
+
+  Future<UserModel> register({
+    required bool isCpf,
+    required String name,
+    required String value,
+    required String password,
+  });
 }

@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/core/enums/galegos_enum.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cnpj.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cpf.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
@@ -68,23 +67,19 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Obx(() {
-                                  return Text(
-                                      (controller.type.value == GalegosEnum.cpf) ? 'CNPJ' : 'CNPJ');
+                                  return Text((controller.isCpf == true) ? 'CNPJ' : 'CNPJ');
                                 }),
                                 GalegosCheckBox(),
                               ],
                             ),
                             Obx(() {
-                              final mask = (controller.type.value == GalegosEnum.cpf)
-                                  ? MaskCpf()
-                                  : MaskCnpj();
                               return GalegosTextFormField(
                                 controller: _usuarioEC,
-                                mask: mask,
-                                label: (controller.type.value == GalegosEnum.cpf) ? 'CPF' : 'CNPJ',
+                                mask: (controller.isCpf == true) ? MaskCpf() : MaskCnpj(),
+                                label: (controller.isChecked) ? 'CNPJ' : 'CPF',
                                 validator: Validatorless.multiple([
                                   Validatorless.required('Campo obrigatório'),
-                                  (controller.type.value == GalegosEnum.cpf)
+                                  (controller.isCpf == true)
                                       ? Validatorless.cpf('CPF inválido')
                                       : Validatorless.cnpj('CNPJ inválido'),
                                 ]),
@@ -123,7 +118,7 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                                 if (formValid) {
                                   controller.register(
                                     name: _nameEC.text,
-                                    usuario: _usuarioEC.text,
+                                    value: _usuarioEC.text,
                                     password: _passwordEC.text,
                                   );
                                 }

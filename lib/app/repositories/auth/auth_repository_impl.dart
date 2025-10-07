@@ -24,7 +24,35 @@ class AuthRepositoryImpl implements AuthRepository {
       log('Erro ao realizar login:', error: result.statusText, stackTrace: StackTrace.current);
       throw RestClientException(message: 'Erro ao fazer login');
     }
+    final data = List<Map<String, dynamic>>.from(result.body);
 
-    return UserModel.fromMap(result.body);
+    log('hkjlmkjmnlmnl$data');
+
+    final user = data.firstWhere((u) => u['value'] == value);
+    log('asdwasd w$user');
+
+    return UserModel.fromMap(user);
+  }
+
+  @override
+  Future<UserModel> register({
+    required bool isCpf,
+    required String name,
+    required String value,
+    required String password,
+  }) async {
+    final result = await _restClient.post('/users', {
+      'isCpf': isCpf,
+      'name': name,
+      'value': value,
+      'password': password,
+    });
+
+    if (result.hasError) {
+      log('Erro ao realizar cadastro:', error: result.statusText, stackTrace: StackTrace.current);
+      throw RestClientException(message: 'Erro ao fazer cadastro');
+    }
+
+    return login(isCpf: isCpf, value: value, password: password);
   }
 }

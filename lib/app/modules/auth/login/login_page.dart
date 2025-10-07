@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/core/enums/galegos_enum.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cnpj.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cpf.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
@@ -20,7 +19,6 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
   final _formKey = GlobalKey<FormState>();
   final _usuarioEC = TextEditingController();
   final _passwordEC = TextEditingController();
-  final _isCpf = false;
 
   @override
   void dispose() {
@@ -64,14 +62,14 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                               alignment: Alignment.centerRight,
                               child: DropdownMenu(
                                 dropdownMenuEntries: [
-                                  DropdownMenuEntry(value: , label: 'CPF'),
-                                  DropdownMenuEntry(value: , label: 'CNPJ'),
+                                  DropdownMenuEntry(
+                                      value: (controller.isCpf == true), label: 'CPF'),
+                                  DropdownMenuEntry(
+                                      value: (controller.isCpf == false), label: 'CNPJ'),
                                 ],
-                                initialSelection: _isCpf,
-                                onSelected: (bool isCpf) {
-                                  if (isCpf == true) {
-                                    controller.onSelected(isCpf);
-                                  }
+                                initialSelection: controller.isCpf,
+                                onSelected: (value) {
+                                  controller.onSelected(value ?? true);
                                 },
                               ),
                             ),
@@ -79,15 +77,13 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                               height: 25,
                             ),
                             Obx(() {
-                              final mask = (controller.type.value == GalegosEnum.cpf)
-                                  ? MaskCpf()
-                                  : MaskCnpj();
                               return GalegosTextFormField(
                                 controller: _usuarioEC,
-                                mask: mask,
-                                label: (controller.) ? 'CPF' : 'CNPJ',
+                                mask: (controller.isCpf == true) ? MaskCpf() : MaskCnpj(),
+                                label: (controller.isCpf == true) ? 'CPF' : 'CNPJ',
                                 validator: Validatorless.multiple([
                                   Validatorless.required('Campo obrigatório'),
+                                  (controller.isCpf == true)
                                       ? Validatorless.cpf('CPF inválido')
                                       : Validatorless.cnpj('CNPJ inválido'),
                                 ]),
@@ -113,7 +109,10 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                               onPressed: () {
                                 final formValid = _formKey.currentState?.validate() ?? false;
                                 if (formValid) {
-                                  controller.login();
+                                  controller.login(
+                                    value: _usuarioEC.text,
+                                    password: _passwordEC.text,
+                                  );
                                 }
                               },
                             ),
