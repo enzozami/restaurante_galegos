@@ -23,7 +23,7 @@ class SplashPage extends GetView<SplashController> {
             ),
             GalegosButtonDefault(
               label: 'Acessar',
-              onPressed: () => Get.toNamed('/auth/login'),
+              onPressed: () => controller.checkLogged(),
             ),
           ],
         ),

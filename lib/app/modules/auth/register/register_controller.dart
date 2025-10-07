@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:restaurante_galegos/app/core/constants/constants.dart';
 import 'package:restaurante_galegos/app/core/enums/galegos_enum.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cpf.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
@@ -27,13 +29,16 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
 
   Future<void> register({
     required String name,
+    required usuario,
     required password,
   }) async {
     log('CONTROLLERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR');
     try {
       _loading.toggle();
-      await _authServices.register(name, type.value, password);
+      final userLogged = await _authServices.register(name, type.value, usuario, password);
       _loading.toggle();
+      final storage = GetStorage();
+      storage.write(Constants.USER_KEY, userLogged.id);
       Get.offAllNamed('/auth/login');
     } catch (e, s) {
       _loading.toggle();

@@ -3,37 +3,34 @@ import 'dart:convert';
 class UserModel {
   int id;
   String name;
-  String? cpf;
-  String? cnpj;
+  bool isCpf;
+  String value;
   String password;
 
   UserModel({
     required this.id,
     required this.name,
-    this.cpf,
-    this.cnpj,
+    required this.isCpf,
+    required this.value,
     required this.password,
   });
 
   Map<String, dynamic> toMap() {
-    final map = <String, dynamic>{
+    return {
       'id': id,
       'name': name,
+      'isCpf': isCpf,
+      'value': value,
       'password': password,
     };
-
-    if (cpf != null) map['cpf'] = cpf;
-    if (cnpj != null) map['cnpj'] = cnpj;
-
-    return map;
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
-      cpf: map['cpf']?.toString(),
-      cnpj: map['cnpj']?.toString(),
+      isCpf: map['isCpf'] ?? false,
+      value: map['value'] ?? '',
       password: map['password'] ?? '',
     );
   }

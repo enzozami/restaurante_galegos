@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:restaurante_galegos/app/core/enums/galegos_enum.dart';
 import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
 import 'package:restaurante_galegos/app/models/user_model.dart';
 
@@ -14,33 +13,16 @@ class AuthRepositoryImpl implements AuthRepository {
   }) : _restClient = restClient;
 
   @override
-  Future<UserModel> login(String user, GalegosEnum type, String password) async {
-    final result = await _restClient.post('/users', {
-      'user': user,
-      'type': type.name,
-      'password': password,
-    });
+  Future<UserModel> login({
+    required bool isCpf,
+    required String value,
+    required String password,
+  }) async {
+    final result = await _restClient.get('/users');
 
     if (result.hasError) {
-      if (result.statusCode == 403) {
-        log('Usuário ou senha inválidos');
-      }
-      log('Erro logar, ${result.statusText}');
-    }
-
-    return UserModel.fromMap(result.body);
-  }
-
-  @override
-  Future<UserModel> register(String name, GalegosEnum type, String password) async {
-    final result = await _restClient.post('/users', {
-      'name': name,
-      'type': type.name,
-      'password': password,
-    });
-
-    if (result.hasError) {
-      log('Erro ao cadastrar usuário, ${result.statusText}');
+      log('Erro ao realizar login:', error: result.statusText, stackTrace: StackTrace.current);
+      throw RestClientException(message: 'Erro ao fazer login');
     }
 
     return UserModel.fromMap(result.body);

@@ -20,6 +20,7 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
   final _formKey = GlobalKey<FormState>();
   final _usuarioEC = TextEditingController();
   final _passwordEC = TextEditingController();
+  final _isCpf = false;
 
   @override
   void dispose() {
@@ -63,13 +64,13 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                               alignment: Alignment.centerRight,
                               child: DropdownMenu(
                                 dropdownMenuEntries: [
-                                  DropdownMenuEntry(value: GalegosEnum.cpf, label: 'CPF'),
-                                  DropdownMenuEntry(value: GalegosEnum.cnpj, label: 'CNPJ'),
+                                  DropdownMenuEntry(value: , label: 'CPF'),
+                                  DropdownMenuEntry(value: , label: 'CNPJ'),
                                 ],
-                                initialSelection: GalegosEnum.cpf,
-                                onSelected: (GalegosEnum? newValue) {
-                                  if (newValue != null) {
-                                    controller.onSelected(newValue);
+                                initialSelection: _isCpf,
+                                onSelected: (bool isCpf) {
+                                  if (isCpf == true) {
+                                    controller.onSelected(isCpf);
                                   }
                                 },
                               ),
@@ -84,10 +85,9 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                               return GalegosTextFormField(
                                 controller: _usuarioEC,
                                 mask: mask,
-                                label: (controller.type.value == GalegosEnum.cpf) ? 'CPF' : 'CNPJ',
+                                label: (controller.) ? 'CPF' : 'CNPJ',
                                 validator: Validatorless.multiple([
                                   Validatorless.required('Campo obrigatório'),
-                                  (controller.type.value == GalegosEnum.cpf)
                                       ? Validatorless.cpf('CPF inválido')
                                       : Validatorless.cnpj('CNPJ inválido'),
                                 ]),
@@ -113,10 +113,7 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                               onPressed: () {
                                 final formValid = _formKey.currentState?.validate() ?? false;
                                 if (formValid) {
-                                  controller.login(
-                                    password: _passwordEC.text,
-                                    user: _usuarioEC.text,
-                                  );
+                                  controller.login();
                                 }
                               },
                             ),

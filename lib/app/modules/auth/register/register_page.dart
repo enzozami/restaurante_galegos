@@ -123,6 +123,7 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                                 if (formValid) {
                                   controller.register(
                                     name: _nameEC.text,
+                                    usuario: _usuarioEC.text,
                                     password: _passwordEC.text,
                                   );
                                 }
