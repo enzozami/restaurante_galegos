@@ -1,0 +1,33 @@
+import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
+import 'package:restaurante_galegos/app/modules/products/widgets/filter_tag.dart';
+
+class ProductHeader extends GetView<ProductsController> {
+  const ProductHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Obx(() {
+          final categories = controller.categoty;
+          return Row(
+            children: categories
+                .map(
+                  (c) => FilterTag(
+                    model: c,
+                    onPressed: () {},
+                    // isSelected: ,
+                  ),
+                )
+                .toList(),
+          );
+        }),
+      ),
+    );
+  }
+}
