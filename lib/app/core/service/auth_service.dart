@@ -13,11 +13,12 @@ class AuthService extends GetxService {
       _isLogged(value != null);
     });
     log('asdwjahksdjhwkjahsdkjhw $_isLogged');
+
     ever(_isLogged, (isLogged) {
-      if (isLogged == true) {
-        Get.offAllNamed('/home');
-      } else {
+      if (isLogged == null || !isLogged) {
         Get.offAllNamed('/auth/login');
+      } else {
+        Get.offAllNamed('/home');
       }
     });
 

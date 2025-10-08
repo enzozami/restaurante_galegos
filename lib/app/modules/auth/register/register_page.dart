@@ -66,9 +66,7 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Obx(() {
-                                  return Text((controller.isCpf == true) ? 'CNPJ' : 'CNPJ');
-                                }),
+                                Text('CNPJ'),
                                 GalegosCheckBox(),
                               ],
                             ),

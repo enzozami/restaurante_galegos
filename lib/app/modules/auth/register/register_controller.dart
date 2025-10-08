@@ -33,6 +33,7 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
 
   void onSelected(bool value) {
     _isChecked.value = value;
+    _isCpf.value = !value;
   }
 
   Future<void> register({
@@ -40,7 +41,6 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
     required String value,
     required String password,
   }) async {
-    log('CONTROLLERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR');
     try {
       _loading.toggle();
       final userLogged = await _authServices.register(
@@ -49,10 +49,9 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
         value: value,
         password: password,
       );
-      _loading.toggle();
       final storage = GetStorage();
       storage.write(Constants.USER_KEY, userLogged.id);
-      Get.offAllNamed('/auth/login');
+      _loading.toggle();
     } catch (e, s) {
       _loading.toggle();
       log(e.toString());
