@@ -14,12 +14,12 @@ class ProductHeader extends GetView<ProductsController> {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Obx(() {
-          final categories = controller.categoty;
+          final products = controller.product;
           return Row(
-            children: categories
+            children: products
                 .map(
-                  (c) => FilterTag(
-                    model: c,
+                  (p) => FilterTag(
+                    model: p,
                     onPressed: () {},
                     // isSelected: ,
                   ),

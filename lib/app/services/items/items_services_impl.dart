@@ -12,5 +12,5 @@ class ItemsServicesImpl implements ItemsServices {
       : _itemsRepository = itemsRepository;
 
   @override
-  Future<List<List<ItemModel>>> getItems() => _itemsRepository.getItems();
+  Future<List<ItemModel>> getItems() => _itemsRepository.getItems();
 }

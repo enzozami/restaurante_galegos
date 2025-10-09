@@ -11,7 +11,7 @@ class ItemsRepositoryImpl implements ItemsRepository {
   ItemsRepositoryImpl({required RestClient restClient}) : _restClient = restClient;
 
   @override
-  Future<List<List<ItemModel>>> getItems() async {
+  Future<List<ItemModel>> getItems() async {
     final result = await _restClient.get('/products');
 
     if (result.hasError) {
@@ -21,12 +21,7 @@ class ItemsRepositoryImpl implements ItemsRepository {
 
     final data = List<Map<String, dynamic>>.from(result.body);
 
-    final items = data.map<List<ItemModel>>(
-      (produto) {
-        final item = List<Map<String, dynamic>>.from(produto['items']);
-        return item.map((item) => ItemModel.fromMap(item)).toList();
-      },
-    ).toList();
+    final items = data.map((i) => ItemModel.fromMap(i)).toList();
 
     // final items = result.body['products']
     //     .map<List<ItemModel>>(

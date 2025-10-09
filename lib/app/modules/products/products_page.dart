@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/modules/products/widgets/product_header.dart';
+import 'package:restaurante_galegos/app/modules/products/widgets/products_group.dart';
 import './products_controller.dart';
 
 class ProductsPage extends GetView<ProductsController> {
@@ -14,6 +15,7 @@ class ProductsPage extends GetView<ProductsController> {
         child: ListView(
           children: [
             ProductHeader(),
+            ProductsGroup(),
           ],
         ),
       ),
