@@ -10,21 +10,19 @@ class ProductsGroup extends GetView<ProductsController> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: Get.height,
-      child: ListView.builder(
-        // itemCount: ,
-        itemBuilder: (context, index) {
-          return Obx(() {
-            final products = controller.product;
-            final items = controller.items;
-            return Column(
-              children: products.map((p) {
-                final itensProduto = items.where((i) => i.id == p.id).toList();
-                return ProductItems(modelItem: itensProduto, modelProduct: p);
-              }).toList(),
-            );
-          });
-        },
-      ),
+      child: Obx(() {
+        final products = controller.product;
+
+        return ListView.builder(
+          itemCount: products.length,
+          itemBuilder: (context, index) {
+            // final product = products[index];
+            // final itensProduto = items.map((i) => i).toList();
+
+            return ProductItems(modelProduct: products[index]);
+          },
+        );
+      }),
     );
   }
 }

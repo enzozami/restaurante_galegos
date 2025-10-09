@@ -5,18 +5,18 @@ import 'package:restaurante_galegos/app/models/item_model.dart';
 class ProductModel {
   int id;
   String category;
-  List<ItemModel> item;
+  List<ItemModel> items;
   ProductModel({
     required this.id,
     required this.category,
-    required this.item,
+    required this.items,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'category': category,
-      'item': item.map((x) => x.toMap()).toList(),
+      'items': items.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -24,7 +24,7 @@ class ProductModel {
     return ProductModel(
       id: map['id']?.toInt() ?? 0,
       category: map['category'] ?? '',
-      item: List<ItemModel>.from(map['item']?.map((x) => ItemModel.fromMap(x)) ?? const []),
+      items: List<ItemModel>.from(map['items']?.map((x) => ItemModel.fromMap(x)) ?? []),
     );
   }
 

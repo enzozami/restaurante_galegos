@@ -79,91 +79,91 @@
             "category": "Lanches",
             "items": [
                 {
-                    "id": 0,
+                    "id": 10,
                     "name": "Americano",
                     "price": 15.00,
                     "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-sanduiche-americano.jpg"
                 },
                 {
-                    "id": 1,
+                    "id": 11,
                     "name": "Bauru",
                     "price": 13.00,
                     "description": "Pão francês, presunto, queijo e tomate",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-sanduiche-bauru.jpg"
                 },
                 {
-                    "id": 2,
+                    "id": 12,
                     "name": "X-Burguer",
                     "price": 14.00,
                     "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-burguer.jpg"
                 },
                 {
-                    "id": 3,
+                    "id": 13,
                     "name": "X-Salada",
                     "price": 15.00,
                     "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-salada.jpg"
                 },
                 {
-                    "id": 4,
+                    "id": 14,
                     "name": "X-Egg",
                     "price": 15.00,
                     "description": "Pão de hambúrguer, hambúrguer, queijo, ovo e maionese",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-egg.jpg"
                 },
                 {
-                    "id": 5,
+                    "id": 15,
                     "name": "X-Tudo",
                     "price": 21.00,
                     "description": "Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-tudo.jpg"
                 },
                 {
-                    "id": 6,
+                    "id": 16,
                     "name": "Churrasco com Queijo",
                     "price": 18.00,
                     "description": "Pão francês ,contra filé e queijo",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-sanduiche-de-churrasco-com-queijo.jpg"
                 },
                 {
-                    "id": 7,
+                    "id": 17,
                     "name": "Churrasco Completo",
                     "price": 21.00,
                     "description": "Pão francês, contra filé, presunto, queijo, bacon, alface, tomate, maionese e ovo",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-sanduiche-de-churrasco-completo.jpg"
                 },
                 {
-                    "id": 8,
+                    "id": 18,
                     "name": "Misto Quente",
                     "price": 12.00,
                     "description": "Pão de forma, presunto e queijo",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-misto-quente.jpg"
                 },
                 {
-                    "id": 9,
+                    "id": 19,
                     "name": "X-Calabresa",
                     "price": 18.00,
                     "description": "Pão de hambúrguer, calabresa, queijo, alface e tomate",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-calabresa.jpg"
                 },
                 {
-                    "id": 10,
+                    "id": 110,
                     "name": "X-Frango",
                     "price": 18.00,
                     "description": "Pão francês, filé de frango, queijo, alface, tomate e maionese",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-frango.jpg"
                 },
                 {
-                    "id": 11,
+                    "id": 111,
                     "name": "X-Frango Completo",
                     "price": 21.00,
                     "description": "Pão francês, filé de frango, queijo, presunto, ovo, alface e tomate",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-bacon.jpg"
                 },
                 {
-                    "id": 12,
+                    "id": 112,
                     "name": "X-Bacon",
                     "price": 16.00,
                     "description": "Pão de hambúrguer, hambúrguer, queijo, bacon e maionese",
@@ -176,42 +176,42 @@
             "category": "Bebidas",
             "items": [
                 {
-                    "id": 0,
+                    "id": 20,
                     "name": "Coca-Cola Lata",
                     "price": 6.00,
                     "description": "Refrigerante Coca-Cola lata 350ml",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-coca-cola-lata.jpg"
                 },
                 {
-                    "id": 1,
+                    "id": 21,
                     "name": "Coca-Cola 600ml",
                     "price": 8.00,
                     "description": "Refrigerante Coca-Cola garrafa pet 600ml",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-coca-cola-600ml.jpg"
                 },
                 {
-                    "id": 2,
+                    "id": 22,
                     "name": "Coca-Cola 2L",
                     "price": 12.00,
                     "description": "Refrigerante Coca-Cola garrafa pet 2 litros",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-coca-cola-2l.jpg"
                 },
                 {
-                    "id": 3,
+                    "id": 23,
                     "name": "Guaraná Antártica Lata",
                     "price": 6.00,
                     "description": "Refrigerante Guaraná Antártica lata 350ml",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-guarana-antarctica-lata.jpg"
                 },
                 {
-                    "id": 4,
+                    "id": 24,
                     "name": "Guaraná Antártica 600ml",
                     "price": 8.00,
                     "description": "Refrigerante Guaraná Antártica garrafa pet 600ml",
                     "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-guarana-antarctica-600ml.jpg"
                 },
                 {
-                    "id": 5,
+                    "id": 25,
                     "name": "Guaraná Antártica 2L",
                     "price": 12.00,
                     "description": "Refrigerante Guaraná Antártica garrafa pet 2 litros",
@@ -224,89 +224,89 @@
             "category": "Porções",
             "items": [
                 {
-                    "id": 0,
+                    "id": 30,
                     "name": "1/2 Porção Calabresa",
                     "price": 25.00
                 },
                 {
-                    "id": 1,
+                    "id": 31,
                     "name": "1/2 Porção Couve",
                     "price": 15.00
                 },
                 {
-                    "id": 2,
+                    "id": 32,
                     "name": "1/2 Porção Picadinho",
                     "price": 20.00
                 },
                 {
-                    "id": 3,
+                    "id": 33,
                     "name": "1/2 Porção Vinagrete",
                     "price": 12.00
                 },
                 {
-                    "id": 4,
+                    "id": 34,
                     "name": "Acompanhamentos Feijoada",
                     "description": "Couve, torresmo, vinagrete e farofa (3 pessoas)",
                     "price": 25.00
                 },
                 {
-                    "id": 5,
+                    "id": 35,
                     "name": "Arroz",
                     "price": 15.00
                 },
                 {
-                    "id": 6,
+                    "id": 36,
                     "name": "Calabresa Inteira",
                     "price": 40.00
                 },
                 {
-                    "id": 7,
+                    "id": 37,
                     "name": "COMBO DE FEIJOADA Serve Até 4 Pessoas",
                     "description": "1 Porção de arroz, 1 porção de feijoada, 1 porção com couve, torresmo e farofa e 1 mini porção de vinagrete",
                     "price": 99.90
                 },
                 {
-                    "id": 8,
+                    "id": 38,
                     "name": "Feijão",
                     "price": 15.00
                 },
                 {
-                    "id": 9,
+                    "id": 39,
                     "name": "Feijoada (Não Vendemos Feijoada Light)",
                     "price": 28.00
                 },
                 {
-                    "id": 10,
+                    "id": 310,
                     "name": "Frango À Passarinho 1/2",
                     "price": 20.00
                 },
                 {
-                    "id": 11,
+                    "id": 311,
                     "name": "Frango À Passarinho Inteira",
                     "price": 40.00
                 },
                 {
-                    "id": 12,
+                    "id": 312,
                     "name": "Fritas 1/2",
                     "price": 15.00
                 },
                 {
-                    "id": 13,
+                    "id": 313,
                     "name": "Fritas Inteira",
                     "price": 30.00
                 },
                 {
-                    "id": 14,
+                    "id": 314,
                     "name": "Picadinho Inteira",
                     "price": 40.00
                 },
                 {
-                    "id": 15,
+                    "id": 315,
                     "name": "Torresmo 1/2",
                     "price": 20.00
                 },
                 {
-                    "id": 16,
+                    "id": 316,
                     "name": "Torresmo Inteira",
                     "price": 40.00
                 }
@@ -317,22 +317,22 @@
             "category": "Saladas",
             "items": [
                 {
-                    "id": 0,
+                    "id": 40,
                     "name": "Salada Mini",
                     "price": 12.00
                 },
                 {
-                    "id": 1,
+                    "id": 41,
                     "name": "Mini salada de alface e tomate",
                     "price": 9.00
                 },
                 {
-                    "id": 2,
+                    "id": 42,
                     "name": "Mini Salada Mista",
                     "price": 12.00
                 },
                 {
-                    "id": 3,
+                    "id": 43,
                     "name": "Salada Mista Grande",
                     "price": 16.00
                 }
