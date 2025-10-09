@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/galegos_drawer.dart';
 import './home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -12,6 +13,7 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GalegosAppBar(),
+      drawer: GalegosDrawer(),
       bottomNavigationBar: Obx(() {
         log('${controller.onGeneratedRoute(const RouteSettings())}');
         return BottomNavigationBar(
