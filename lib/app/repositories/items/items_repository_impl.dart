@@ -12,25 +12,30 @@ class ItemsRepositoryImpl implements ItemsRepository {
 
   @override
   Future<List<ItemModel>> getItems() async {
-    final result = await _restClient.get('/products');
+    final result = await _restClient.get(
+      '/products',
+    );
 
     if (result.hasError) {
       log('Erro ao carregar items');
-      throw Exception('Erro ao carregar items');
     }
 
-    final data = List<Map<String, dynamic>>.from(result.body);
+    final data = (result.body as List);
 
-    final items = data.map((i) => ItemModel.fromMap(i)).toList();
 
-    // final items = result.body['products']
-    //     .map<List<ItemModel>>(
-    //       (produto) => produto['items'],
-    //     )
-    //     .toList();
+    var list = [];
 
-    log('$items');
 
-    return items;
+    
+    for (var item in data) {
+      list = [...(item['items'] as List).map((e) => e)];
+    }
+
+    // final itemData = data;
+    // var lists = itemData.map((i) => i['items']).toList();
+
+    return list.map((e) => ItemModel.fromMap(e)).toList();
+
+    // return result.body ?? <ItemModel>[];
   }
 }

@@ -15,7 +15,7 @@ class HomePage extends GetView<HomeController> {
       appBar: GalegosAppBar(),
       drawer: GalegosDrawer(),
       bottomNavigationBar: Obx(() {
-        log('${controller.onGeneratedRoute(const RouteSettings())}');
+        // log('${controller.onGeneratedRoute(const RouteSettings())}');
         return BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.white60,

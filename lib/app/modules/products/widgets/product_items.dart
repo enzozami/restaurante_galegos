@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/models/item_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
 
 class ProductItems extends GetView<ProductsController> {
-  final List<ItemModel> modelItem;
   final ProductModel modelProduct;
 
   const ProductItems({
-    required this.modelItem,
     required this.modelProduct,
     super.key,
   });
@@ -33,29 +30,29 @@ class ProductItems extends GetView<ProductsController> {
           child: InkWell(
             // onTap: onTap,
             child: Container(
-                color: Colors.red,
-                constraints: BoxConstraints(
-                  minHeight: 100,
-                ),
-                width: context.width,
-                child: Column(
-                  children: [
-                    ...modelItem.map(
-                      (i) => ListTile(
-                        title: Text(
-                          i.name,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
+              constraints: BoxConstraints(
+                minHeight: 100,
+              ),
+              width: context.width,
+              child: Column(
+                children: [
+                  ...modelProduct.items.map(
+                    (i) => ListTile(
+                      title: Text(
+                        i.name,
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
-                        subtitle: Text(i.description ?? ''),
-                        trailing: Text('${i.price}'),
                       ),
+                      subtitle: Text(i.description ?? ''),
+                      trailing: Text('${i.price}'),
                     ),
-                  ],
-                )),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ],

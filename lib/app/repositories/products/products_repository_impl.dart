@@ -12,20 +12,22 @@ class ProductsRepositoryImpl implements ProductsRepository {
 
   @override
   Future<List<ProductModel>> getProducts() async {
-    final result = await _restClient.get('/products');
-    log('Resultado da api: ${result.body}');
+    final result = await _restClient.get<List<ProductModel>>(
+      '/products',
+      decoder: (data) {
+        final resultData = data['products'];
+        if (resultData != null) {
+          return resultData.map((p) => ProductModel.fromMap(p)).toList();
+        }
+        return <ProductModel>[];
+      },
+    );
 
     if (result.hasError) {
       log('Erro ao buscar produtos');
       throw Exception('Erro ao buscar produtos');
     }
 
-    final data = List<Map<String, dynamic>>.from(result.body);
-    log('Conversão para Lista: $data');
-
-    final products = data.map((p) => ProductModel.fromMap(p)).toList();
-    log('Conversão para o ProductModel: $products');
-
-    return products;
+    return result.body ?? <ProductModel>[];
   }
 }

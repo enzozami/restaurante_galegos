@@ -14,8 +14,8 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
 
-  final product = <ProductModel>[].obs;
   final items = <ItemModel>[].obs;
+  final product = <ProductModel>[].obs;
 
   ProductsController({
     required ProductsServices productsServices,
@@ -33,7 +33,19 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   @override
   Future<void> onReady() async {
     super.onReady();
-    getProducts();
+    try {
+      final itemData = await _itemsServices.getItems();
+      log('itemData runtimeType: ${itemData.runtimeType}');
+      log('itemData content: $itemData');
+      items.assignAll(itemData);
+
+      getProducts();
+    } catch (e, s) {
+      log(e.toString());
+      log(s.toString());
+
+      _message(MessageModel(title: 'Erro', message: 'Erro ', type: MessageType.error));
+    }
   }
 
   Future<void> getProducts() async {
@@ -41,9 +53,8 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       log('ASDJAHDWKJAHKSJDHWJAKJSDHWASD GETPRODUCTS');
       _loading.toggle();
       final products = await _productsServices.getProducts();
-      final itemData = await _itemsServices.getItems();
       product.assignAll(products);
-      items.assignAll(itemData);
+
       _loading.toggle();
     } catch (e) {
       _loading.toggle();
