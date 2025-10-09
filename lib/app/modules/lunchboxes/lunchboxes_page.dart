@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import './drinks_controller.dart';
+import './lunchboxes_controller.dart';
 
-class DrinksPage extends GetView<DrinksController> {
-  const DrinksPage({super.key});
+class LunchboxesPage extends GetView<LunchboxesController> {
+  const LunchboxesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class DrinksPage extends GetView<DrinksController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Drinks'),
+            Text('Lunchboxes'),
           ],
         ),
       ),
