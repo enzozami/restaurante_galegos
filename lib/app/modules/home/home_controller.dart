@@ -2,14 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/modules/drinks/drinks_bindings.dart';
-import 'package:restaurante_galegos/app/modules/drinks/drinks_page.dart';
+import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_bindings.dart';
+import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_page.dart';
 import 'package:restaurante_galegos/app/modules/order/order_bindings.dart';
 import 'package:restaurante_galegos/app/modules/order/order_page.dart';
 import 'package:restaurante_galegos/app/modules/products/products_bindings.dart';
 import 'package:restaurante_galegos/app/modules/products/products_page.dart';
-import 'package:restaurante_galegos/app/modules/shopping_card/shopping_card_bindings.dart';
-import 'package:restaurante_galegos/app/modules/shopping_card/shopping_card_page.dart';
 
 class HomeController extends GetxController {
   // ignore: non_constant_identifier_names
@@ -18,6 +16,7 @@ class HomeController extends GetxController {
   final _selectedIndex = 0.obs;
   final _tabs = [
     '/products',
+    '/lunchboxes',
     '/order',
   ];
 
@@ -39,6 +38,14 @@ class HomeController extends GetxController {
         transition: Transition.fadeIn,
       );
     }
+    if (settings.name == '/lunchboxes') {
+      return GetPageRoute(
+        settings: settings,
+        page: () => LunchboxesPage(),
+        binding: LunchboxesBindings(),
+        transition: Transition.fadeIn,
+      );
+    }
     if (settings.name == '/order') {
       return GetPageRoute(
         settings: settings,
@@ -47,23 +54,6 @@ class HomeController extends GetxController {
         transition: Transition.fadeIn,
       );
     }
-    if (settings.name == '/drinks') {
-      return GetPageRoute(
-        settings: settings,
-        page: () => DrinksPage(),
-        binding: DrinksBindings(),
-        transition: Transition.fadeIn,
-      );
-    }
-    if (settings.name == '/shopping_card') {
-      return GetPageRoute(
-        settings: settings,
-        page: () => ShoppingCardPage(),
-        binding: ShoppingCardBindings(),
-        transition: Transition.fadeIn,
-      );
-    }
-
     return null;
   }
 }

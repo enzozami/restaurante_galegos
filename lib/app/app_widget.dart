@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:restaurante_galegos/app/core/bindings/galegos_bindings.dart';
 import 'package:restaurante_galegos/app/routes/auth_routers.dart';
-import 'package:restaurante_galegos/app/routes/drinks_routers.dart';
+import 'package:restaurante_galegos/app/routes/lunchboxes_routers.dart';
 import 'package:restaurante_galegos/app/routes/home_routers.dart';
 import 'package:restaurante_galegos/app/routes/order_routers.dart';
 import 'package:restaurante_galegos/app/routes/products_routers.dart';
@@ -24,7 +24,7 @@ class AppWidget extends StatelessWidget {
         ...HomeRouters.routers,
         ...ProductsRouters.routers,
         ...OrderRouters.routers,
-        ...DrinksRouters.routers,
+        ...LunchboxesRouters.routers,
         ...ShoppginCardRouters.routers,
       ],
     );
