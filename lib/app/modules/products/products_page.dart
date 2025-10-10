@@ -10,15 +10,17 @@ class ProductsPage extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        width: Get.width,
-        child: ListView(
-          children: [
-            ProductHeader(),
-            ProductsGroup(),
-          ],
-        ),
+        body: SingleChildScrollView(
+      controller: controller.scrollController,
+      // physics: NeverScrollableScrollPhysics(),
+      child: Column(
+        children: [
+          ProductHeader(),
+          ProductsGroup(
+            scrollController: controller.scrollController,
+          ),
+        ],
       ),
-    );
+    ));
   }
 }

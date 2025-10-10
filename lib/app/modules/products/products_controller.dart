@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
@@ -10,6 +11,7 @@ import 'package:restaurante_galegos/app/services/products/products_services.dart
 
 class ProductsController extends GetxController with LoaderMixin, MessagesMixin {
   final ProductsServices _productsServices;
+  final ScrollController scrollController = ScrollController();
   final ItemsServices _itemsServices;
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();

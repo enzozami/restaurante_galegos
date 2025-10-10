@@ -18,54 +18,65 @@ class ProductItems extends GetView<ProductsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Text(
-            modelProduct.category,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              modelProduct.category,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            // onTap: onTap,
-            child: Container(
-              constraints: BoxConstraints(
-                minHeight: 100,
-              ),
-              width: context.width,
-              child: Column(
-                children: modelItem
-                    .where((element) {
-                      log('CategoryID: ${element.categoryId}');
-                      log('Category: ${modelProduct.category}');
-                      return element.categoryId == modelProduct.category;
-                    })
-                    .map<ListTile>(
-                      (e) => ListTile(
-                        title: Text(
-                          e.name,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        subtitle: Text(e.description ?? ''),
-                        trailing: Text('${e.price}'),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: modelItem.where((element) {
+                // log('CategoryID: ${element.categoryId}');
+                // log('Category: ${modelProduct.category}');
+                return element.categoryId == modelProduct.category;
+              }).map<Widget>((e) {
+                return Material(
+                  child: InkWell(
+                    splashColor: Colors.blue,
+                    onTap: () {
+                      log('hjiygygjgygugku ${e.name}');
+                    },
+                    child: Container(
+                      constraints: BoxConstraints(
+                        minHeight: 100,
                       ),
-                    )
-                    .toList(),
-              ),
+                      width: context.width,
+                      child: Column(
+                        children: [
+                          Divider(),
+                          ListTile(
+                            title: Text(
+                              e.name,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            subtitle: Text(e.description ?? ''),
+                            trailing: Text('${e.price}'),
+                          ),
+                          Divider(),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

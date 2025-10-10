@@ -6,28 +6,37 @@ import 'package:restaurante_galegos/app/modules/products/products_controller.dar
 import 'package:restaurante_galegos/app/modules/products/widgets/product_items.dart';
 
 class ProductsGroup extends GetView<ProductsController> {
-  const ProductsGroup({super.key});
+  final ScrollController scrollController;
+  const ProductsGroup({required this.scrollController, super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Get.height,
+      // height: Get.height,
       child: Obx(() {
         final products = controller.product;
         final items = controller.items;
         log(items.toString());
 
         return ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          controller: scrollController,
           itemCount: products.length,
           itemBuilder: (context, index) {
             final product = products[index];
             log('$product');
             // final item = items[index];
 
-            return ProductItems(
-              modelProduct: product,
-              // modelItem: itemList,
-              modelItem: items,
+            return Column(
+              children: [
+                Divider(),
+                ProductItems(
+                  modelProduct: product,
+                  // modelItem: itemList,
+                  modelItem: items,
+                ),
+              ],
             );
           },
         );
