@@ -13,6 +13,10 @@ class LunchboxesPage extends GetView<LunchboxesController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Lunchboxes'),
+            ElevatedButton(
+              onPressed: () => controller.aparecerLoading(),
+              child: Text('Loading'),
+            )
           ],
         ),
       ),

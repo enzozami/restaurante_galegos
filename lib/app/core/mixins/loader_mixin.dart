@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 mixin LoaderMixin on GetxController {
-  void loaderListener(RxBool loading) {
+  void loaderListener(RxBool rxLoading) {
     ever(
-      loading,
-      (_) async {
-        if (loading.isTrue) {
+      rxLoading,
+      (loading) async {
+        if (loading) {
           await Get.dialog(
-            PopScope(
-              canPop: false,
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
+            Center(
+              child: CircularProgressIndicator(),
             ),
             barrierDismissible: false,
           );

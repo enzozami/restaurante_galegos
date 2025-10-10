@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:restaurante_galegos/app/core/constants/constants.dart';
@@ -35,6 +37,7 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
   }) async {
     try {
       _loading.toggle();
+      log('LOADINNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG $_loading');
       final userLogger = await _authServices.login(isCpf: isCpf, value: value, password: password);
       final storage = GetStorage();
       storage.write(Constants.USER_KEY, userLogger.id);
