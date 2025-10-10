@@ -7,6 +7,7 @@ class GalegosTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final bool obscureText;
   final MaskTextInputFormatter? mask;
+  final TextInputType inputType;
 
   const GalegosTextFormField({
     super.key,
@@ -15,6 +16,7 @@ class GalegosTextFormField extends StatelessWidget {
     this.validator,
     this.obscureText = false,
     this.mask,
+    this.inputType = TextInputType.text,
   });
 
   @override
@@ -22,6 +24,7 @@ class GalegosTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
+      keyboardType: inputType,
       validator: validator,
       inputFormatters: [
         if (mask != null) mask!,

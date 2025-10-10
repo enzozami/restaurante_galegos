@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/item_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
@@ -64,7 +65,13 @@ class ProductItems extends GetView<ProductsController> {
                               ),
                             ),
                             subtitle: Text(e.description ?? ''),
-                            trailing: Text('${e.price}'),
+                            trailing: Text(
+                              FormatterHelper.formatCurrency(e.price),
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                           Divider(),
                         ],
