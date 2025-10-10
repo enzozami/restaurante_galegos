@@ -10,7 +10,7 @@ class ProductHeader extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
+      padding: const EdgeInsets.only(top: 30.0),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Obx(() {

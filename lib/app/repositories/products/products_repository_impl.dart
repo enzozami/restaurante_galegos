@@ -23,7 +23,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
 
     final products = data.map((e) => ProductModel.fromMap(e)).toList();
 
-    log('produtos: $products');
+    // log('produtos: $products');
 
     return products;
   }

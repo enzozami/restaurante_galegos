@@ -16,6 +16,9 @@ class ProductsPage extends GetView<ProductsController> {
       child: Column(
         children: [
           ProductHeader(),
+          const SizedBox(
+            height: 20,
+          ),
           ProductsGroup(
             scrollController: controller.scrollController,
           ),

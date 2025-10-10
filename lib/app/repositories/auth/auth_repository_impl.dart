@@ -26,10 +26,10 @@ class AuthRepositoryImpl implements AuthRepository {
     }
     final data = List<Map<String, dynamic>>.from(result.body);
 
-    log('hkjlmkjmnlmnl$data');
+    // log('hkjlmkjmnlmnl$data');
 
     final user = data.firstWhere((u) => u['value'] == value);
-    log('asdwasd w$user');
+    // log('asdwasd w$user');
 
     return UserModel.fromMap(user);
   }
