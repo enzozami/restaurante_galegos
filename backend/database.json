@@ -80,6 +80,7 @@
             "items": [
                 {
                     "id": 10,
+                    "categoryId": "Lanches",
                     "name": "Americano",
                     "price": 15.00,
                     "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
@@ -87,6 +88,7 @@
                 },
                 {
                     "id": 11,
+                    "categoryId": "Lanches",
                     "name": "Bauru",
                     "price": 13.00,
                     "description": "Pão francês, presunto, queijo e tomate",
@@ -94,6 +96,7 @@
                 },
                 {
                     "id": 12,
+                    "categoryId": "Lanches",
                     "name": "X-Burguer",
                     "price": 14.00,
                     "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
@@ -101,6 +104,7 @@
                 },
                 {
                     "id": 13,
+                    "categoryId": "Lanches",
                     "name": "X-Salada",
                     "price": 15.00,
                     "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
@@ -108,6 +112,7 @@
                 },
                 {
                     "id": 14,
+                    "categoryId": "Lanches",
                     "name": "X-Egg",
                     "price": 15.00,
                     "description": "Pão de hambúrguer, hambúrguer, queijo, ovo e maionese",
@@ -115,6 +120,7 @@
                 },
                 {
                     "id": 15,
+                    "categoryId": "Lanches",
                     "name": "X-Tudo",
                     "price": 21.00,
                     "description": "Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese",
@@ -122,6 +128,7 @@
                 },
                 {
                     "id": 16,
+                    "categoryId": "Lanches",
                     "name": "Churrasco com Queijo",
                     "price": 18.00,
                     "description": "Pão francês ,contra filé e queijo",
@@ -129,6 +136,7 @@
                 },
                 {
                     "id": 17,
+                    "categoryId": "Lanches",
                     "name": "Churrasco Completo",
                     "price": 21.00,
                     "description": "Pão francês, contra filé, presunto, queijo, bacon, alface, tomate, maionese e ovo",
@@ -136,6 +144,7 @@
                 },
                 {
                     "id": 18,
+                    "categoryId": "Lanches",
                     "name": "Misto Quente",
                     "price": 12.00,
                     "description": "Pão de forma, presunto e queijo",
@@ -143,6 +152,7 @@
                 },
                 {
                     "id": 19,
+                    "categoryId": "Lanches",
                     "name": "X-Calabresa",
                     "price": 18.00,
                     "description": "Pão de hambúrguer, calabresa, queijo, alface e tomate",
@@ -150,6 +160,7 @@
                 },
                 {
                     "id": 110,
+                    "categoryId": "Lanches",
                     "name": "X-Frango",
                     "price": 18.00,
                     "description": "Pão francês, filé de frango, queijo, alface, tomate e maionese",
@@ -157,6 +168,7 @@
                 },
                 {
                     "id": 111,
+                    "categoryId": "Lanches",
                     "name": "X-Frango Completo",
                     "price": 21.00,
                     "description": "Pão francês, filé de frango, queijo, presunto, ovo, alface e tomate",
@@ -164,6 +176,7 @@
                 },
                 {
                     "id": 112,
+                    "categoryId": "Lanches",
                     "name": "X-Bacon",
                     "price": 16.00,
                     "description": "Pão de hambúrguer, hambúrguer, queijo, bacon e maionese",
@@ -177,6 +190,7 @@
             "items": [
                 {
                     "id": 20,
+                    "categoryId": "Bebidas",
                     "name": "Coca-Cola Lata",
                     "price": 6.00,
                     "description": "Refrigerante Coca-Cola lata 350ml",
@@ -184,6 +198,7 @@
                 },
                 {
                     "id": 21,
+                    "categoryId": "Bebidas",
                     "name": "Coca-Cola 600ml",
                     "price": 8.00,
                     "description": "Refrigerante Coca-Cola garrafa pet 600ml",
@@ -191,6 +206,7 @@
                 },
                 {
                     "id": 22,
+                    "categoryId": "Bebidas",
                     "name": "Coca-Cola 2L",
                     "price": 12.00,
                     "description": "Refrigerante Coca-Cola garrafa pet 2 litros",
@@ -198,6 +214,7 @@
                 },
                 {
                     "id": 23,
+                    "categoryId": "Bebidas",
                     "name": "Guaraná Antártica Lata",
                     "price": 6.00,
                     "description": "Refrigerante Guaraná Antártica lata 350ml",
@@ -205,6 +222,7 @@
                 },
                 {
                     "id": 24,
+                    "categoryId": "Bebidas",
                     "name": "Guaraná Antártica 600ml",
                     "price": 8.00,
                     "description": "Refrigerante Guaraná Antártica garrafa pet 600ml",
@@ -212,6 +230,7 @@
                 },
                 {
                     "id": 25,
+                    "categoryId": "Bebidas",
                     "name": "Guaraná Antártica 2L",
                     "price": 12.00,
                     "description": "Refrigerante Guaraná Antártica garrafa pet 2 litros",
@@ -225,88 +244,105 @@
             "items": [
                 {
                     "id": 30,
+                    "categoryId": "Porções",
                     "name": "1/2 Porção Calabresa",
                     "price": 25.00
                 },
                 {
                     "id": 31,
+                    "categoryId": "Porções",
                     "name": "1/2 Porção Couve",
                     "price": 15.00
                 },
                 {
                     "id": 32,
+                    "categoryId": "Porções",
                     "name": "1/2 Porção Picadinho",
                     "price": 20.00
                 },
                 {
                     "id": 33,
+                    "categoryId": "Porções",
                     "name": "1/2 Porção Vinagrete",
                     "price": 12.00
                 },
                 {
                     "id": 34,
+                    "categoryId": "Porções",
                     "name": "Acompanhamentos Feijoada",
                     "description": "Couve, torresmo, vinagrete e farofa (3 pessoas)",
                     "price": 25.00
                 },
                 {
                     "id": 35,
+                    "categoryId": "Porções",
                     "name": "Arroz",
                     "price": 15.00
                 },
                 {
                     "id": 36,
+                    "categoryId": "Porções",
                     "name": "Calabresa Inteira",
                     "price": 40.00
                 },
                 {
                     "id": 37,
+                    "categoryId": "Porções",
                     "name": "COMBO DE FEIJOADA Serve Até 4 Pessoas",
                     "description": "1 Porção de arroz, 1 porção de feijoada, 1 porção com couve, torresmo e farofa e 1 mini porção de vinagrete",
                     "price": 99.90
                 },
                 {
                     "id": 38,
+                    "categoryId": "Porções",
                     "name": "Feijão",
                     "price": 15.00
                 },
                 {
                     "id": 39,
+                    "categoryId": "Porções",
                     "name": "Feijoada (Não Vendemos Feijoada Light)",
                     "price": 28.00
                 },
                 {
                     "id": 310,
+                    "categoryId": "Porções",
                     "name": "Frango À Passarinho 1/2",
                     "price": 20.00
                 },
                 {
                     "id": 311,
+                    "categoryId": "Porções",
                     "name": "Frango À Passarinho Inteira",
                     "price": 40.00
                 },
                 {
                     "id": 312,
+                    "categoryId": "Porções",
                     "name": "Fritas 1/2",
                     "price": 15.00
                 },
                 {
                     "id": 313,
+                    "categoryId": "Porções",
                     "name": "Fritas Inteira",
                     "price": 30.00
                 },
                 {
                     "id": 314,
+                    "categoryId": "Porções",
                     "name": "Picadinho Inteira",
                     "price": 40.00
                 },
                 {
                     "id": 315,
+                    "categoryId": "Porções",
                     "name": "Torresmo 1/2",
                     "price": 20.00
                 },
                 {
                     "id": 316,
+                    "categoryId": "Porções",
                     "name": "Torresmo Inteira",
                     "price": 40.00
                 }
@@ -318,21 +354,25 @@
             "items": [
                 {
                     "id": 40,
+                    "categoryId": "Saladas",
                     "name": "Salada Mini",
                     "price": 12.00
                 },
                 {
                     "id": 41,
+                    "categoryId": "Saladas",
                     "name": "Mini salada de alface e tomate",
                     "price": 9.00
                 },
                 {
                     "id": 42,
+                    "categoryId": "Saladas",
                     "name": "Mini Salada Mista",
                     "price": 12.00
                 },
                 {
                     "id": 43,
+                    "categoryId": "Saladas",
                     "name": "Salada Mista Grande",
                     "price": 16.00
                 }

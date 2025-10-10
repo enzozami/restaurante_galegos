@@ -35,11 +35,14 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     super.onReady();
     try {
       final itemData = await _itemsServices.getItems();
-      log('itemData runtimeType: ${itemData.runtimeType}');
-      log('itemData content: $itemData');
+      log('Items: ${itemData.length}');
+      log('Items: $itemData');
       items.assignAll(itemData);
 
-      getProducts();
+      if (items.isNotEmpty) {
+        log('Items: $itemData || ASKLJDHAKSJDHKASJDHSA');
+        getProdutos();
+      }
     } catch (e, s) {
       log(e.toString());
       log(s.toString());
@@ -48,16 +51,19 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
   }
 
-  Future<void> getProducts() async {
+  Future<void> getProdutos() async {
     try {
       log('ASDJAHDWKJAHKSJDHWJAKJSDHWASD GETPRODUCTS');
       _loading.toggle();
+      log(product.toString());
       final products = await _productsServices.getProducts();
+      log(product.toString());
       product.assignAll(products);
 
       _loading.toggle();
-    } catch (e) {
+    } catch (e, s) {
       _loading.toggle();
+      log('ERROOOOOOOOOOOOOOOOOO', error: e, stackTrace: s);
       _message(
         MessageModel(
           title: 'Erro',
