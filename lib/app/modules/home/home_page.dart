@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
@@ -23,7 +21,7 @@ class HomePage extends GetView<HomeController> {
           unselectedItemColor: Colors.black,
           // onTap: (index) => controller.selectedIndex = index,
           onTap: (index) {
-            log('Índice selecionado: $index');
+            // log('Índice selecionado: $index');
             controller.selectedIndex = index;
           },
           currentIndex: controller.selectedIndex,

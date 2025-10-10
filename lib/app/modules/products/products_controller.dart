@@ -37,12 +37,12 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     super.onReady();
     try {
       final itemData = await _itemsServices.getItems();
-      log('Items: ${itemData.length}');
-      log('Items: $itemData');
+      // log('Items: ${itemData.length}');
+      // log('Items: $itemData');
       items.assignAll(itemData);
 
       if (items.isNotEmpty) {
-        log('Items: $itemData || ASKLJDHAKSJDHKASJDHSA');
+        // log('Items: $itemData || ASKLJDHAKSJDHKASJDHSA');
         getProdutos();
       }
     } catch (e, s) {
@@ -55,7 +55,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   Future<void> getProdutos() async {
     try {
-      log('ASDJAHDWKJAHKSJDHWJAKJSDHWASD GETPRODUCTS');
+      // log('ASDJAHDWKJAHKSJDHWJAKJSDHWASD GETPRODUCTS');
       _loading.toggle();
       log(product.toString());
       final products = await _productsServices.getProducts();

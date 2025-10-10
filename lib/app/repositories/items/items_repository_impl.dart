@@ -21,15 +21,15 @@ class ItemsRepositoryImpl implements ItemsRepository {
     final data = (result.body as List);
 
     var list = [];
-    log('DATA: $data');
+    // log('DATA: $data');
 
 // feito pela julie
     for (var item in data) {
       final listData = [...(item['items'] as List).map((e) => e)];
       list.add(listData);
-      log('ITEMS: $list');
+      // log('ITEMS: $list');
     }
-    log('Lista de ITEMS: $list');
+    // log('Lista de ITEMS: $list');
 
     return list.expand((e) => e).map((e) => ItemModel.fromMap(e)).toList();
   }

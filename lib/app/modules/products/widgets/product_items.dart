@@ -42,7 +42,7 @@ class ProductItems extends GetView<ProductsController> {
               }).map<Widget>((e) {
                 return Material(
                   child: InkWell(
-                    splashColor: Colors.blue,
+                    splashColor: Colors.amber,
                     onTap: () {
                       log('hjiygygjgygugku ${e.name}');
                     },

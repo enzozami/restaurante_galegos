@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_bindings.dart';
@@ -29,7 +27,7 @@ class HomeController extends GetxController {
   int get selectedIndex => _selectedIndex.value;
 
   GetPageRoute? onGeneratedRoute(RouteSettings settings) {
-    log('onGeneratedRoute chamado com: ${settings.name}');
+    // log('onGeneratedRoute chamado com: ${settings.name}');
     if (settings.name == '/products') {
       return GetPageRoute(
         settings: settings,
