@@ -1,14 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/models/item_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
 
 class ProductItems extends GetView<ProductsController> {
   final ProductModel modelProduct;
+  final List<ItemModel> modelItem;
 
   const ProductItems({
-    required this.modelProduct,
     super.key,
+    required this.modelProduct,
+    required this.modelItem,
   });
 
   @override
@@ -35,22 +40,27 @@ class ProductItems extends GetView<ProductsController> {
               ),
               width: context.width,
               child: Column(
-                children: [
-                  ...modelProduct.items.map(
-                    (i) => ListTile(
-                      title: Text(
-                        i.name,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                children: modelItem
+                    .where((element) {
+                      log('CategoryID: ${element.categoryId}');
+                      log('Category: ${modelProduct.category}');
+                      return element.categoryId == modelProduct.category;
+                    })
+                    .map<ListTile>(
+                      (e) => ListTile(
+                        title: Text(
+                          e.name,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
+                        subtitle: Text(e.description ?? ''),
+                        trailing: Text('${e.price}'),
                       ),
-                      subtitle: Text(i.description ?? ''),
-                      trailing: Text('${i.price}'),
-                    ),
-                  ),
-                ],
+                    )
+                    .toList(),
               ),
             ),
           ),

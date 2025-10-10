@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
@@ -12,14 +14,21 @@ class ProductsGroup extends GetView<ProductsController> {
       height: Get.height,
       child: Obx(() {
         final products = controller.product;
+        final items = controller.items;
+        log(items.toString());
 
         return ListView.builder(
           itemCount: products.length,
           itemBuilder: (context, index) {
-            // final product = products[index];
-            // final itensProduto = items.map((i) => i).toList();
+            final product = products[index];
+            log('$product');
+            // final item = items[index];
 
-            return ProductItems(modelProduct: products[index]);
+            return ProductItems(
+              modelProduct: product,
+              // modelItem: itemList,
+              modelItem: items,
+            );
           },
         );
       }),
