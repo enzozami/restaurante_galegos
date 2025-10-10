@@ -73,6 +73,7 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                             Obx(() {
                               return GalegosTextFormField(
                                 controller: _usuarioEC,
+                                inputType: TextInputType.number,
                                 mask: (controller.isCpf == true) ? MaskCpf() : MaskCnpj(),
                                 label: (controller.isChecked) ? 'CNPJ' : 'CPF',
                                 validator: Validatorless.multiple([

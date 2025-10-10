@@ -10,20 +10,21 @@ class ProductsPage extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-      controller: controller.scrollController,
-      // physics: NeverScrollableScrollPhysics(),
-      child: Column(
-        children: [
-          ProductHeader(),
-          const SizedBox(
-            height: 20,
-          ),
-          ProductsGroup(
-            scrollController: controller.scrollController,
-          ),
-        ],
+      body: SingleChildScrollView(
+        controller: controller.scrollController,
+        // physics: NeverScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            ProductHeader(),
+            const SizedBox(
+              height: 20,
+            ),
+            ProductsGroup(
+              scrollController: controller.scrollController,
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

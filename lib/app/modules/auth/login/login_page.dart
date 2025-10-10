@@ -79,6 +79,7 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                             Obx(() {
                               return GalegosTextFormField(
                                 controller: _usuarioEC,
+                                inputType: TextInputType.number,
                                 mask: (controller.isCpf == true) ? MaskCpf() : MaskCnpj(),
                                 label: (controller.isCpf == true) ? 'CPF' : 'CNPJ',
                                 validator: Validatorless.multiple([
