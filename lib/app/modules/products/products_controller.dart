@@ -91,9 +91,13 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       return;
     }
 
+    var newProducts =
+        _productOriginal.where((p) => p.category == categorySelected.value!.category).toList();
+
     var newItems =
         _itemsOriginal.where((e) => e.categoryId == categorySelected.value!.category).toList();
 
+    product.assignAll(newProducts);
     items.assignAll(newItems);
   }
 }
