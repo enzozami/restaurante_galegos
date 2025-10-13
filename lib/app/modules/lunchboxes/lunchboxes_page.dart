@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/modules/lunchboxes/widgets/lunchboxes_header.dart';
+// import 'package:restaurante_galegos/app/modules/lunchboxes/widgets/lunchboxes_header.dart';
 import './lunchboxes_controller.dart';
 
 class LunchboxesPage extends GetView<LunchboxesController> {
@@ -8,15 +10,10 @@ class LunchboxesPage extends GetView<LunchboxesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Lunchboxes'),
-            ElevatedButton(
-              onPressed: () => controller.aparecerLoading(),
-              child: Text('Loading'),
-            )
+            LunchboxesHeader(),
           ],
         ),
       ),
