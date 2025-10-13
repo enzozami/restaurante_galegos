@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/models/day_model.dart';
 
 import 'package:restaurante_galegos/app/models/menu_model.dart';
 
 class ButtonTag extends StatelessWidget {
-  final DayModel model;
+  final MenuModel model;
   final bool isSelected;
   final VoidCallback onPressed;
 

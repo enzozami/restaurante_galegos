@@ -15,4 +15,7 @@ class LunchboxesServicesImpl implements LunchboxesServices {
 
   @override
   Future<List<MenuModel>> getMenu() => _lunchboxesRepository.getMenu();
+
+  @override
+  Future<List<MenuModel>> getData() => _lunchboxesRepository.getData();
 }

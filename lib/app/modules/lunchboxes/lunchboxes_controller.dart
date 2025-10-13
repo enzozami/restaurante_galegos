@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/models/alimento_model.dart';
-import 'package:restaurante_galegos/app/models/day_model.dart';
 import 'package:restaurante_galegos/app/models/menu_model.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
 
@@ -15,6 +14,8 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   final menu = <MenuModel>[].obs;
   final alimentos = <AlimentoModel>[].obs;
+
+  final days = <MenuModel>[].obs;
 
   LunchboxesController({required LunchboxesServices lunchboxesServices})
       : _lunchboxesServices = lunchboxesServices;
@@ -29,7 +30,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   @override
   void onReady() async {
     super.onReady();
-    await getMenu();
+    await getDay();
   }
 
   Future<void> getMenu() async {
@@ -43,6 +44,13 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     _loading.toggle();
     final alimentoData = await _lunchboxesServices.getFood();
     alimentos.assignAll(alimentoData);
+    _loading.toggle();
+  }
+
+  Future<void> getDay() async {
+    _loading.toggle();
+    final dayData = await _lunchboxesServices.getData();
+    days.assignAll(dayData);
     _loading.toggle();
   }
 }

@@ -50,4 +50,24 @@ class LunchboxesRepositoryImpl implements LunchboxesRepository {
 
     return menu;
   }
+
+  @override
+  Future<List<MenuModel>> getData() async {
+    final result = await _restClient.get('/menu');
+
+    if (result.hasError) {
+      log('Erro ao buscar alimentos', error: result.statusText);
+      throw Exception('Erro ao buscar alimentos');
+    }
+
+    final data = (result.body as List);
+
+    final list = [];
+    for (var day in data) {
+      final listData = [...(day['day'] as List).map((e) => e)];
+      list.add(listData);
+    }
+
+    return list.expand((e) => e).map((e) => MenuModel.fromMap(e)).toList();
+  }
 }
