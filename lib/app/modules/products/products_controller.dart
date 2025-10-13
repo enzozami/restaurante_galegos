@@ -19,6 +19,11 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final items = <ItemModel>[].obs;
   final product = <ProductModel>[].obs;
 
+  var _productOriginal = <ProductModel>[];
+  final _itemsOriginal = <ItemModel>[];
+
+  final categorySelected = Rxn<ProductModel>();
+
   ProductsController({
     required ProductsServices productsServices,
     required ItemsServices itemsServices,
@@ -36,15 +41,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   Future<void> onReady() async {
     super.onReady();
     try {
-      final itemData = await _itemsServices.getItems();
-      // log('Items: ${itemData.length}');
-      // log('Items: $itemData');
-      items.assignAll(itemData);
-
-      if (items.isNotEmpty) {
-        // log('Items: $itemData || ASKLJDHAKSJDHKASJDHSA');
-        getProdutos();
-      }
+      await getProdutos();
     } catch (e, s) {
       log(e.toString());
       log(s.toString());
@@ -55,12 +52,16 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   Future<void> getProdutos() async {
     try {
-      // log('ASDJAHDWKJAHKSJDHWJAKJSDHWASD GETPRODUCTS');
       _loading.toggle();
-      log(product.toString());
-      final products = await _productsServices.getProducts();
-      log(product.toString());
-      product.assignAll(products);
+      final productsData = await _productsServices.getProducts();
+      product.assignAll(productsData);
+      _productOriginal = productsData;
+
+      final itemData = await _itemsServices.getItems();
+      items.assignAll(itemData);
+      _itemsOriginal
+        ..clear()
+        ..addAll(itemData);
 
       _loading.toggle();
     } catch (e, s) {
@@ -76,5 +77,23 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     } finally {
       _loading(false);
     }
+  }
+
+  void searchItemsByFilter(ProductModel? productModel) async {
+    if (productModel?.category == categorySelected.value?.category) {
+      categorySelected.value = null;
+    } else {
+      categorySelected.value = productModel;
+    }
+
+    if (categorySelected.value == null) {
+      product.assignAll(_productOriginal);
+      return;
+    }
+
+    var newItems =
+        _itemsOriginal.where((e) => e.categoryId == categorySelected.value!.category).toList();
+
+    items.assignAll(newItems);
   }
 }
