@@ -1,13 +1,13 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/alimento_model.dart';
 import 'package:restaurante_galegos/app/models/menu_model.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
 
 class LunchboxesController extends GetxController with LoaderMixin, MessagesMixin {
+  final ScrollController scrollController = ScrollController();
   final LunchboxesServices _lunchboxesServices;
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
@@ -16,6 +16,8 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   final alimentos = <AlimentoModel>[].obs;
 
   final days = <MenuModel>[].obs;
+
+  final dayNow = FormatterHelper.formatDate;
 
   LunchboxesController({required LunchboxesServices lunchboxesServices})
       : _lunchboxesServices = lunchboxesServices;
@@ -30,27 +32,19 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   @override
   void onReady() async {
     super.onReady();
-    await getDay();
+    await getLunchboxes();
   }
 
-  Future<void> getMenu() async {
-    _loading.toggle();
-    final menuData = await _lunchboxesServices.getMenu();
-    menu.assignAll(menuData);
-    log('MENU CONTROLER: $menu');
-  }
-
-  Future<void> getAlimentos() async {
-    _loading.toggle();
-    final alimentoData = await _lunchboxesServices.getFood();
-    alimentos.assignAll(alimentoData);
-    _loading.toggle();
-  }
-
-  Future<void> getDay() async {
+  Future<void> getLunchboxes() async {
     _loading.toggle();
     final dayData = await _lunchboxesServices.getData();
     days.assignAll(dayData);
+
+    final getAlimentos = await _lunchboxesServices.getFood();
+    alimentos.where((e) => e.dayName == dayNow).toList().assignAll(getAlimentos);
+
     _loading.toggle();
   }
 }
+
+class ScrollController {}
