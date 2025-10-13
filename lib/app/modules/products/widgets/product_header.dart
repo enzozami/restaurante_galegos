@@ -20,8 +20,8 @@ class ProductHeader extends GetView<ProductsController> {
                 .map(
                   (p) => FilterTag(
                     model: p,
-                    onPressed: () {},
-                    // isSelected: ,
+                    onPressed: () => controller.searchItemsByFilter(p),
+                    isSelected: controller.categorySelected.value?.category == p.category,
                   ),
                 )
                 .toList(),

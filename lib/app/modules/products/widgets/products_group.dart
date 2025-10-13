@@ -15,8 +15,6 @@ class ProductsGroup extends GetView<ProductsController> {
       // height: Get.height,
       child: Obx(() {
         final products = controller.product;
-        final items = controller.items;
-        log(items.toString());
 
         return ListView.builder(
           physics: NeverScrollableScrollPhysics(),
@@ -33,8 +31,6 @@ class ProductsGroup extends GetView<ProductsController> {
                 Divider(),
                 ProductItems(
                   modelProduct: product,
-                  // modelItem: itemList,
-                  modelItem: items,
                 ),
               ],
             );
