@@ -28,7 +28,6 @@ class ProductsGroup extends GetView<ProductsController> {
 
             return Column(
               children: [
-                Divider(),
                 ProductItems(
                   modelProduct: product,
                 ),

@@ -68,6 +68,7 @@ class ProductItems extends GetView<ProductsController> {
                                     ),
                                   ),
                                 ),
+                                Divider(),
                               ],
                             ),
                           ),
