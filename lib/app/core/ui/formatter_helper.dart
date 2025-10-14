@@ -6,7 +6,11 @@ class FormatterHelper {
     symbol: r'R$',
   );
 
+  static final _currentDate = DateFormat.EEEE('pt_BR');
+
   FormatterHelper._();
 
   static String formatCurrency(double value) => _currentFormat.format(value);
+
+  static String formatDate() => toBeginningOfSentenceCase(_currentDate.format(DateTime.now()))!;
 }
