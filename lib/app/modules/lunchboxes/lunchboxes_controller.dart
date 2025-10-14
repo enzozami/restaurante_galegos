@@ -11,10 +11,14 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   final _message = Rxn<MessageModel>();
 
   final sizes = <String>[].obs;
+  final _sizesOriginal = <String>[];
 
   final alimentos = <AlimentoModel>[].obs;
+  final _alimentosOriginal = <AlimentoModel>[];
 
   final dayNow = FormatterHelper.formatDate();
+
+  final sizeSelected = Rxn<String>();
 
   LunchboxesController({required LunchboxesServices lunchboxesServices})
       : _lunchboxesServices = lunchboxesServices;
@@ -40,10 +44,33 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     final List<String> sizesList = List<String>.from(menuData.first.pricePerSize);
 
     sizes.assignAll(sizesList);
+    _sizesOriginal
+      ..clear()
+      ..addAll(sizesList);
 
     final filtered = alimentosData.where((e) => e.dayName == dayNow);
 
     alimentos.assignAll(filtered);
+    _alimentosOriginal
+      ..clear()
+      ..addAll(filtered);
     _loading.toggle();
+  }
+
+  void filterPrice(String selectedSize) {
+    if (sizeSelected.value == selectedSize) {
+      sizeSelected.value = '';
+      sizes.assignAll(_sizesOriginal);
+      return;
+    }
+
+    sizeSelected.value = selectedSize;
+
+    final filtered = _alimentosOriginal.where((alimento) {
+      return alimento.pricePerSize.containsKey((selectedSize));
+    }).toList();
+
+    sizes.assignAll(
+        filtered.map((e) => e.pricePerSize.keys.toList()).expand((e) => e).toSet().toList());
   }
 }
