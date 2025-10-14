@@ -35,39 +35,19 @@ class LunchboxesRepositoryImpl implements LunchboxesRepository {
   Future<List<MenuModel>> getMenu() async {
     final result = await _restClient.get('/menu');
 
-    if (result.hasError) {
-      log('Erro ao buscar alimentos', error: result.statusText);
-      throw Exception('Erro ao buscar alimentos');
-    }
-
-    final data = List<Map<String, dynamic>>.from(result.body as List);
-
-    log('Buscando menu: $data');
-
-    final menu = data.map((e) => MenuModel.fromMap(e)).toList();
-
-    log('MENU: $menu');
-
-    return menu;
-  }
-
-  @override
-  Future<List<MenuModel>> getData() async {
-    final result = await _restClient.get('/menu');
+    log('MENU RESPONSE: ${result.body}');
 
     if (result.hasError) {
-      log('Erro ao buscar alimentos', error: result.statusText);
-      throw Exception('Erro ao buscar alimentos');
+      log('Erro ao buscar menu', error: result.statusText);
+      throw Exception('Erro ao buscar menu');
     }
 
-    final data = (result.body as List);
+    final List data = (result.body as List);
 
-    final list = [];
-    for (var day in data) {
-      final listData = [...(day['day'] as List).map((e) => e)];
-      list.add(listData);
-    }
+    final menuList = data.map((d) => MenuModel.fromMap(d)).toList();
 
-    return list.expand((e) => e).map((e) => MenuModel.fromMap(e)).toList();
+    log('REPOSITORIO MENU: $menuList');
+
+    return menuList;
   }
 }
