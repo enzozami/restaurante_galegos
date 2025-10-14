@@ -426,120 +426,120 @@
             }
         },
         {
-            "name": "Bife Gralhado",
+            "name": "Bife à Milanesa",
             "dayName":"Terça-feira",
-            "description": "Para 1 pessoa",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
-                "mini": 15,
-                "media": 0
+                "mini": 22,
+                "media": 24
             }
         },
         {
-            "name": "Bife Milanesa",
+            "name": "Bife a Parmegiana",
             "dayName":"Terça-feira",
-            "description": "Para 1 pessoa",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
-                "mini": 15,
-                "media": 0
+                "mini": 23,
+                "media": 25
             }
         },
         {
-            "name": "Bife Parmegiana",
+            "name": "Bife Grelhado",
             "dayName":"Terça-feira",
-            "description": "Para 1 pessoa",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
-                "mini": 16,
-                "media": 0
+                "mini": 22,
+                "media": 24
             }
         },
         {
-            "name": "Calabresa",
+            "name": "Cupim Assado ao Molho de Madeira",
             "dayName":"Terça-feira",
-            "description": "Para 1 pessoa",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
-                "mini": 15,
-                "media": 0
+                "mini": 23,
+                "media": 25
             }
         },
         {
-            "name": "Cupim Assado ao Molho Madeira",
+            "name": "Filé de Frango à Milanesa",
             "dayName":"Terça-feira",
-            "description": "Para 1 pessoa",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
-                "mini": 16,
-                "media": 0
+                "mini": 22,
+                "media": 24
             }
         },
         {
-            "name": "Filé de Frango Grelhado",
+            "name": "Filé de Frango à Parmegiana",
             "dayName":"Terça-feira",
-            "description": "Para 1 pessoa",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
-                "mini": 15,
-                "media": 0
+                "mini": 23,
+                "media": 25
             }
         },
         {
-            "name": "Filé de Frango Parmegiana",
+            "name": "Fil[e de Frango Grelhado",
             "dayName":"Terça-feira",
-            "description": "Para 1 pessoa",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
-                "mini": 16,
-                "media": 0
+                "mini": 22,
+                "media": 24
             }
         },
         {
-            "name": "Filé Milanesa",
+            "name": "Frango a Passarinho",
             "dayName":"Terça-feira",
-            "description": "Para 1 pessoa",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
-                "mini": 15,
-                "media": 0
-            }
-        },
-        {
-            "name": "Frango à Passarinho",
-            "dayName":"Terça-feira",
-            "description": "Para 1 pessoa",
-            "pricePerSize": {
-                "mini": 15,
-                "media": 0
+                "mini": 22,
+                "media": 24
             }
         },
         {
             "name": "Frango ao Molho",
             "dayName":"Terça-feira",
-            "description": "Para 1 pessoa",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
-                "mini": 15,
-                "media": 0
+                "mini": 22,
+                "media": 24
             }
         },
         {
-            "name": "Hmaburguer Parmegiana",
+            "name": "Hamburguer Parmegiana",
             "dayName":"Terça-feira",
-            "description": "Para 1 pessoa",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
-                "mini": 16,
-                "media": 0
+                "mini": 23,
+                "media": 25
             }
         },
         {
             "name": "Linguiça Toscana",
             "dayName":"Terça-feira",
-            "description": "Para 1 pessoa",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
-                "mini": 15,
-                "media": 0
+                "mini": 22,
+                "media": 24
             }
         },
         {
             "name": "Omelete de presunto e queijo",
             "dayName":"Terça-feira",
-            "description": "Para 1 pessoa",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
-                "mini": 16,
-                "media": 0
+                "mini": 23,
+                "media": 25
+            }
+        },
+        {
+            "name": "Strogonoff de Frango",
+            "dayName":"Terça-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22,
+                "media": 24
             }
         }
     ],

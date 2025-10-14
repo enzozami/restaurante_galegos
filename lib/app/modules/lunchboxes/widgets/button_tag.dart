@@ -33,7 +33,7 @@ class ButtonTag extends StatelessWidget {
         child: Align(
           alignment: Alignment.center,
           child: Text(
-            model.day,
+            '${model.day.map((e) => e)}',
             style: TextStyle(
               color: isSelected ? Colors.black : Colors.amber,
             ),

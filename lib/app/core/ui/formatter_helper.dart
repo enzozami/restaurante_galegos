@@ -11,5 +11,6 @@ class FormatterHelper {
   FormatterHelper._();
 
   static String formatCurrency(double value) => _currentFormat.format(value);
-  static String formatDate = toBeginningOfSentenceCase(_currentDate.format(DateTime.now()));
+
+  static String formatDate() => toBeginningOfSentenceCase(_currentDate.format(DateTime.now()))!;
 }
