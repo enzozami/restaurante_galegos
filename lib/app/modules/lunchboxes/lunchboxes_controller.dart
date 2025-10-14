@@ -41,8 +41,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
     final List<String> sizesList = List<String>.from(menuData.first.pricePerSize);
 
-    log('TAMANHOS: $sizesList');
-
     sizes.assignAll(sizesList);
 
     final filtered = alimentosData.where((e) => e.dayName == dayNow);
