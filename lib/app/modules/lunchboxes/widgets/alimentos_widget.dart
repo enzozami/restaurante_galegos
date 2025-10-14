@@ -17,7 +17,6 @@ class AlimentosWidget extends GetView<LunchboxesController> {
   Widget build(BuildContext context) {
     final priceMini = alimentoModel.pricePerSize['mini'] ?? 0;
     final priceMedia = alimentoModel.pricePerSize['media'] ?? 0;
-    log('$priceMini');
 
     return Material(
       child: Container(

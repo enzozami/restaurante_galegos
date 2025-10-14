@@ -386,23 +386,25 @@
             ]
         }
     ],
-    "menu": {
-        "day": [
-            "Segunda-feira",
-            "Terça-feira",
-            "Quarta-feira",
-            "Quinta-feira",
-            "Sexta-feira"
-        ],
-        "pricePerSize": [
-            "mini",
-            "media" 
-        ]
-    }, 
+    "menu": [
+        {
+            "day": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira"
+            ],
+            "pricePerSize": [
+                "mini",
+                "media"
+            ]
+        }
+    ],
     "alimentos": [
         {
             "name": "sla",
-            "dayName":"segunda-feira",
+            "dayName": "segunda-feira",
             "description": "descricao do alimento",
             "pricePerSize": {
                 "mini": 10,
@@ -411,7 +413,7 @@
         },
         {
             "name": "Bife à Milanesa",
-            "dayName":"Terça-feira",
+            "dayName": "Terça-feira",
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 22,
@@ -420,7 +422,7 @@
         },
         {
             "name": "Bife a Parmegiana",
-            "dayName":"Terça-feira",
+            "dayName": "Terça-feira",
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 23,
@@ -429,7 +431,7 @@
         },
         {
             "name": "Bife Grelhado",
-            "dayName":"Terça-feira",
+            "dayName": "Terça-feira",
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 22,
@@ -438,7 +440,7 @@
         },
         {
             "name": "Cupim Assado ao Molho de Madeira",
-            "dayName":"Terça-feira",
+            "dayName": "Terça-feira",
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 23,
@@ -447,7 +449,7 @@
         },
         {
             "name": "Filé de Frango à Milanesa",
-            "dayName":"Terça-feira",
+            "dayName": "Terça-feira",
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 22,
@@ -456,7 +458,7 @@
         },
         {
             "name": "Filé de Frango à Parmegiana",
-            "dayName":"Terça-feira",
+            "dayName": "Terça-feira",
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 23,
@@ -465,7 +467,7 @@
         },
         {
             "name": "Fil[e de Frango Grelhado",
-            "dayName":"Terça-feira",
+            "dayName": "Terça-feira",
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 22,
@@ -474,7 +476,7 @@
         },
         {
             "name": "Frango a Passarinho",
-            "dayName":"Terça-feira",
+            "dayName": "Terça-feira",
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 22,
@@ -483,7 +485,7 @@
         },
         {
             "name": "Frango ao Molho",
-            "dayName":"Terça-feira",
+            "dayName": "Terça-feira",
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 22,
@@ -492,7 +494,7 @@
         },
         {
             "name": "Hamburguer Parmegiana",
-            "dayName":"Terça-feira",
+            "dayName": "Terça-feira",
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 23,
@@ -501,7 +503,7 @@
         },
         {
             "name": "Linguiça Toscana",
-            "dayName":"Terça-feira",
+            "dayName": "Terça-feira",
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 22,
@@ -510,7 +512,7 @@
         },
         {
             "name": "Omelete de presunto e queijo",
-            "dayName":"Terça-feira",
+            "dayName": "Terça-feira",
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 23,
@@ -519,7 +521,7 @@
         },
         {
             "name": "Strogonoff de Frango",
-            "dayName":"Terça-feira",
+            "dayName": "Terça-feira",
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 22,

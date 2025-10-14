@@ -14,7 +14,21 @@ class LunchboxesPage extends GetView<LunchboxesController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0, bottom: 15),
+              child: Text(
+                'MARMITAS DE HOJE: \n${controller.dayNow}',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
             LunchboxesHeader(),
+            const SizedBox(
+              height: 15,
+            ),
             LunchboxesGroup(),
           ],
         ),
