@@ -386,35 +386,19 @@
             ]
         }
     ],
-    "menu": [
-        {
-            "day": [
-                {
-                    "day": "Segunda-feira"
-                },
-                {
-                    "day": "Terça-feira"
-                },
-                {
-                    "day": "Quarta-feira"
-                },
-                {
-                    "day": "Quinta-feira"
-                },
-                {
-                    "day": "Sexta-feira"
-                }
-            ],
-            "pricePerSize": [
-                {
-                    "tamanho": "mini"
-                },
-                {
-                    "tamanho": "media"
-                }
-            ]
-        }
-    ],
+    "menu": {
+        "day": [
+            "Segunda-feira",
+            "Terça-feira",
+            "Quarta-feira",
+            "Quinta-feira",
+            "Sexta-feira"
+        ],
+        "pricePerSize": [
+            "mini",
+            "media" 
+        ]
+    }, 
     "alimentos": [
         {
             "name": "sla",
@@ -539,7 +523,7 @@
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 22,
-                "media": 24
+                "media": 22
             }
         }
     ],
