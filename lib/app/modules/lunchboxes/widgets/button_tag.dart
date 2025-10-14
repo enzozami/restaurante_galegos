@@ -33,7 +33,7 @@ class ButtonTag extends StatelessWidget {
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                model,
+                model.isNotEmpty ? model[0].toUpperCase() + model.substring(1) : model,
                 style: TextStyle(
                   color: isSelected ? Colors.amber : Colors.amber,
                 ),
