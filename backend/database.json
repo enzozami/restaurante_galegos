@@ -415,5 +415,133 @@
             ]
         }
     ],
+    "alimentos": [
+        {
+            "name": "sla",
+            "dayName":"segunda-feira",
+            "description": "descricao do alimento",
+            "pricePerSize": {
+                "mini": 10,
+                "media": 15
+            }
+        },
+        {
+            "name": "Bife Gralhado",
+            "dayName":"Terça-feira",
+            "description": "Para 1 pessoa",
+            "pricePerSize": {
+                "mini": 15,
+                "media": 0
+            }
+        },
+        {
+            "name": "Bife Milanesa",
+            "dayName":"Terça-feira",
+            "description": "Para 1 pessoa",
+            "pricePerSize": {
+                "mini": 15,
+                "media": 0
+            }
+        },
+        {
+            "name": "Bife Parmegiana",
+            "dayName":"Terça-feira",
+            "description": "Para 1 pessoa",
+            "pricePerSize": {
+                "mini": 16,
+                "media": 0
+            }
+        },
+        {
+            "name": "Calabresa",
+            "dayName":"Terça-feira",
+            "description": "Para 1 pessoa",
+            "pricePerSize": {
+                "mini": 15,
+                "media": 0
+            }
+        },
+        {
+            "name": "Cupim Assado ao Molho Madeira",
+            "dayName":"Terça-feira",
+            "description": "Para 1 pessoa",
+            "pricePerSize": {
+                "mini": 16,
+                "media": 0
+            }
+        },
+        {
+            "name": "Filé de Frango Grelhado",
+            "dayName":"Terça-feira",
+            "description": "Para 1 pessoa",
+            "pricePerSize": {
+                "mini": 15,
+                "media": 0
+            }
+        },
+        {
+            "name": "Filé de Frango Parmegiana",
+            "dayName":"Terça-feira",
+            "description": "Para 1 pessoa",
+            "pricePerSize": {
+                "mini": 16,
+                "media": 0
+            }
+        },
+        {
+            "name": "Filé Milanesa",
+            "dayName":"Terça-feira",
+            "description": "Para 1 pessoa",
+            "pricePerSize": {
+                "mini": 15,
+                "media": 0
+            }
+        },
+        {
+            "name": "Frango à Passarinho",
+            "dayName":"Terça-feira",
+            "description": "Para 1 pessoa",
+            "pricePerSize": {
+                "mini": 15,
+                "media": 0
+            }
+        },
+        {
+            "name": "Frango ao Molho",
+            "dayName":"Terça-feira",
+            "description": "Para 1 pessoa",
+            "pricePerSize": {
+                "mini": 15,
+                "media": 0
+            }
+        },
+        {
+            "name": "Hmaburguer Parmegiana",
+            "dayName":"Terça-feira",
+            "description": "Para 1 pessoa",
+            "pricePerSize": {
+                "mini": 16,
+                "media": 0
+            }
+        },
+        {
+            "name": "Linguiça Toscana",
+            "dayName":"Terça-feira",
+            "description": "Para 1 pessoa",
+            "pricePerSize": {
+                "mini": 15,
+                "media": 0
+            }
+        },
+        {
+            "name": "Omelete de presunto e queijo",
+            "dayName":"Terça-feira",
+            "description": "Para 1 pessoa",
+            "pricePerSize": {
+                "mini": 16,
+                "media": 0
+            }
+        }
+    ],
     "orders": []
 }
