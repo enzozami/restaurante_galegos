@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:restaurante_galegos/app/models/alimento_model.dart';
-import 'package:restaurante_galegos/app/models/product_model.dart';
+import 'package:restaurante_galegos/app/models/item_model.dart';
 
 class ShoppingCardModel {
   int quantity;
-  ProductModel? product;
+  ItemModel? product;
   AlimentoModel? food;
 
   ShoppingCardModel({
@@ -25,7 +25,7 @@ class ShoppingCardModel {
   factory ShoppingCardModel.fromMap(Map<String, dynamic> map) {
     return ShoppingCardModel(
       quantity: map['quantity']?.toInt() ?? 0,
-      product: map['product'] != null ? ProductModel.fromMap(map['product']) : null,
+      product: map['product'] != null ? ItemModel.fromMap(map['product']) : null,
       food: map['food'] != null ? AlimentoModel.fromMap(map['food']) : null,
     );
   }

@@ -4,6 +4,7 @@ import 'package:restaurante_galegos/app/repositories/auth/auth_repository.dart';
 import 'package:restaurante_galegos/app/repositories/auth/auth_repository_impl.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services_impl.dart';
+import 'package:restaurante_galegos/app/services/shopping/shopping_services.dart';
 
 class GalegosBindings implements Bindings {
   @override
@@ -13,5 +14,6 @@ class GalegosBindings implements Bindings {
         fenix: true);
     Get.lazyPut<AuthServices>(() => AuthServicesImpl(authRepository: Get.find<AuthRepository>()),
         fenix: true);
+    Get.lazyPut(() => ShoppingServices());
   }
 }

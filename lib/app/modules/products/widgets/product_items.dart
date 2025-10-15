@@ -46,6 +46,8 @@ class ProductItems extends GetView<ProductsController> {
                           (e) => InkWell(
                             splashColor: Colors.amber,
                             onTap: () {
+                              controller.selectItem(e);
+                              controller.addProduct();
                               log('Item clicado: ${e.name} - ${e.price}');
                             },
                             child: Column(

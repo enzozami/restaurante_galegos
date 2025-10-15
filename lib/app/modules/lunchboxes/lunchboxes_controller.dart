@@ -4,11 +4,25 @@ import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/alimento_model.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
+import 'package:restaurante_galegos/app/services/shopping/shopping_services.dart';
 
 class LunchboxesController extends GetxController with LoaderMixin, MessagesMixin {
   final LunchboxesServices _lunchboxesServices;
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
+
+  final ShoppingServices _shoppingServices;
+  final _quantity = 0.obs;
+  int get quantity => _quantity.value;
+  final _food = Rxn<AlimentoModel>();
+
+  AlimentoModel? get food => _food.value;
+  void selectFood(AlimentoModel newFood) {
+    _food.value = newFood;
+  }
+
+  final _alreadyAdded = false.obs;
+  bool get alreadyAdded => _alreadyAdded.value;
 
   final sizes = <String>[].obs;
   final _sizesOriginal = <String>[];
@@ -20,14 +34,24 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   final sizeSelected = Rxn<String>();
 
-  LunchboxesController({required LunchboxesServices lunchboxesServices})
-      : _lunchboxesServices = lunchboxesServices;
+  LunchboxesController({
+    required LunchboxesServices lunchboxesServices,
+    required ShoppingServices shoppingServices,
+  })  : _lunchboxesServices = lunchboxesServices,
+        _shoppingServices = shoppingServices;
 
   @override
   void onInit() {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
+    if (food != null) {
+      final foodShopping = _shoppingServices.getById(food!.id);
+      if (foodShopping != null) {
+        _quantity(foodShopping.quantity);
+        _alreadyAdded(true);
+      }
+    }
   }
 
   @override
@@ -72,5 +96,13 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
     sizes.assignAll(
         filtered.map((e) => e.pricePerSize.keys.toList()).expand((e) => e).toSet().toList());
+  }
+
+  void addFood() {
+    _quantity.value++;
+  }
+
+  void addFoodInShoppingCard() {
+    _shoppingServices.addAndRemoveFoodInShoppingCard(food, quantity: quantity);
   }
 }
