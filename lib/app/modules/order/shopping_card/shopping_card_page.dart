@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import './order_controller.dart';
+import 'shopping_card_controller.dart';
 
-class OrderPage extends GetView<OrderController> {
-  const OrderPage({super.key});
+class ShoppingCardPage extends GetView<ShoppingCardController> {
+  const ShoppingCardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class OrderPage extends GetView<OrderController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Order'),
+            Text('ShoppingCard'),
           ],
         ),
       ),
