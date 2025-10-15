@@ -16,9 +16,11 @@ class LunchboxesHeader extends GetView<LunchboxesController> {
           shrinkWrap: true,
           itemCount: controller.sizes.length,
           itemBuilder: (context, index) {
+            final size = controller.sizes[index];
             return ButtonTag(
-              model: controller.sizes[index],
-              onPressed: () {},
+              model: size,
+              onPressed: () => controller.filterPrice(size),
+              isSelected: controller.sizeSelected.value == size,
             );
           },
         );

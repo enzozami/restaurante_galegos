@@ -41,7 +41,7 @@ class ButtonTag extends StatelessWidget {
             ),
           ),
         ),
-      ],
-    );
+      ),
+    )
   }
 }

@@ -15,54 +15,49 @@ class AlimentosWidget extends GetView<LunchboxesController> {
 
   @override
   Widget build(BuildContext context) {
-    final priceMini = alimentoModel.pricePerSize['mini'] ?? 0;
-    final priceMedia = alimentoModel.pricePerSize['media'] ?? 0;
-
-    return Material(
-      child: Container(
-        constraints: BoxConstraints(
-          minHeight: 100,
-        ),
-        width: context.width,
-        child: InkWell(
-          splashColor: Colors.amber,
-          onTap: () => log('Item clicado: ${alimentoModel.name} - $priceMini'),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ListTile(
-                title: Text(
-                  alimentoModel.name,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
+    return Obx(() {
+      final selectedSize = controller.sizeSelected.value;
+      final price = selectedSize != '' ? alimentoModel.pricePerSize[selectedSize] ?? 0 : null;
+      return Material(
+        child: Container(
+          constraints: BoxConstraints(
+            minHeight: 100,
+          ),
+          width: context.width,
+          child: InkWell(
+            splashColor: Colors.amber,
+            onTap: () => log('Item clicado: ${alimentoModel.name} - $price'),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ListTile(
+                  title: Text(
+                    alimentoModel.name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  subtitle: Text(alimentoModel.description),
+                  trailing: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (price != null)
+                        Text(
+                          FormatterHelper.formatCurrency(price),
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                    ],
                   ),
                 ),
-                subtitle: Text(alimentoModel.description),
-                trailing: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      FormatterHelper.formatCurrency(priceMini),
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      FormatterHelper.formatCurrency(priceMedia),
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
