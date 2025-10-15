@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
+import 'package:restaurante_galegos/app/modules/order/shopping_card/widgets/list_shopping_card.dart';
 import 'shopping_card_controller.dart';
 
 class ShoppingCardPage extends GetView<ShoppingCardController> {
@@ -8,13 +10,45 @@ class ShoppingCardPage extends GetView<ShoppingCardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('ShoppingCard'),
-          ],
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
+            child: Text(
+              'Carrinho',
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            color: Colors.red,
+            constraints: BoxConstraints(
+              maxHeight: context.heightTransformer(reducedBy: 40),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListShoppingCard(),
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Spacer(),
+          Center(
+            child: GalegosButtonDefault(
+              label: 'FINALIZAR COMPRA',
+              width: context.widthTransformer(reducedBy: 10),
+              onPressed: () {},
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+        ],
       ),
     );
   }
