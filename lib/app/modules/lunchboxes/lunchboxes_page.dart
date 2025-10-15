@@ -11,6 +11,7 @@ class LunchboxesPage extends GetView<LunchboxesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: LunchboxesHeader(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -25,11 +26,10 @@ class LunchboxesPage extends GetView<LunchboxesController> {
                 ),
               ),
             ),
-            LunchboxesHeader(),
-            const SizedBox(
-              height: 15,
-            ),
             LunchboxesGroup(),
+            const SizedBox(
+              height: 65,
+            ),
           ],
         ),
       ),
