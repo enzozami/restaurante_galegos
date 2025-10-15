@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_bindings.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_page.dart';
-import 'package:restaurante_galegos/app/modules/order/order_bindings.dart';
-import 'package:restaurante_galegos/app/modules/order/order_page.dart';
+import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_bindings.dart';
+import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_page.dart';
 import 'package:restaurante_galegos/app/modules/products/products_bindings.dart';
 import 'package:restaurante_galegos/app/modules/products/products_page.dart';
 
@@ -15,7 +15,7 @@ class HomeController extends GetxController {
   final _tabs = [
     '/products',
     '/lunchboxes',
-    '/order',
+    '/order/shopping',
   ];
 
   set selectedIndex(int index) {
@@ -44,11 +44,11 @@ class HomeController extends GetxController {
         transition: Transition.fadeIn,
       );
     }
-    if (settings.name == '/order') {
+    if (settings.name == '/order/shopping') {
       return GetPageRoute(
         settings: settings,
-        page: () => OrderPage(),
-        binding: OrderBindings(),
+        page: () => ShoppingCardPage(),
+        binding: ShoppingCardBindings(),
         transition: Transition.fadeIn,
       );
     }
