@@ -466,7 +466,7 @@
             }
         },
         {
-            "name": "Fil[e de Frango Grelhado",
+            "name": "Filé de Frango Grelhado",
             "dayName": "Terça-feira",
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
@@ -526,6 +526,141 @@
             "pricePerSize": {
                 "mini": 22,
                 "media": 22
+            }
+        },
+        {
+            "name": "Bife à Milanesa",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22,
+                "media": 24
+            }
+        },
+        {
+            "name": "Bife a Parmegiana",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23,
+                "media": 25
+            }
+        },
+        {
+            "name": "Bife Grelhado",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22,
+                "media": 24
+            }
+        },
+        {
+            "name": "Feijoada",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijoada, couve, torresmo, vinagrete e farofa",
+            "pricePerSize": {
+                "mini": 26,
+                "media": 28
+            }
+        },
+        {
+            "name": "Filé de Frango à Milanesa",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22,
+                "media": 24
+            }
+        },
+        {
+            "name": "Filé de Frango à Parmegiana",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23,
+                "media": 25
+            }
+        },
+        {
+            "name": "Filé de Frango Grelhado",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22,
+                "media": 24
+            }
+        },
+        {
+            "name": "Filé Recheado de Queijo e Presunto",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23,
+                "media": 25
+            }
+        },
+        {
+            "name": "Frango a Passarinho",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22,
+                "media": 24
+            }
+        },
+        {
+            "name": "Hamburguer com Queijo",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22,
+                "media": 25
+            }
+        },
+        {
+            "name": "Linguiça com Queijo",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23,
+                "media": 25
+            }
+        },
+        {
+            "name": "Linguiça Toscana",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22,
+                "media": 24
+            }
+        },
+        {
+            "name": "Omelete de presunto/queijo e tomate",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23,
+                "media": 25
+            }
+        },
+        {
+            "name": "Peixe",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23,
+                "media": 25
+            }
+        },
+        {
+            "name": "Picadinho",
+            "dayName": "Quarta-feira",
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22,
+                "media": 24
             }
         }
     ],
