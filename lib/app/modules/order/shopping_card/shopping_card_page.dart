@@ -25,7 +25,10 @@ class ShoppingCardPage extends GetView<ShoppingCardController> {
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
-            color: Colors.red,
+            decoration: BoxDecoration(
+              border: Border.all(),
+              borderRadius: BorderRadius.circular(20),
+            ),
             constraints: BoxConstraints(
               maxHeight: context.heightTransformer(reducedBy: 40),
             ),
