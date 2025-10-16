@@ -35,6 +35,7 @@ class AlimentosWidget extends GetView<LunchboxesController> {
                   controller.addFood();
                   controller.addFoodShoppingCard();
                   log('Item clicado: ${alimentoModel.name} - $price');
+                  Get.snackbar('Item ${alimentoModel.name}', 'Item adicionado ao carrinho');
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

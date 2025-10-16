@@ -115,6 +115,8 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
           type: MessageType.error,
         ),
       );
+    } finally {
+      _loading(false);
     }
   }
 
@@ -123,6 +125,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   }
 
   void addFoodShoppingCard() {
-    _shoppingCardServices.addOrUpdateFood(productsSelected, quantity: quantity);
+    _shoppingCardServices.addOrUpdateFood(productsSelected,
+        quantity: quantity, selectedSize: sizeSelected.value ?? '');
   }
 }

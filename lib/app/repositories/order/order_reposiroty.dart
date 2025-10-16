@@ -1,6 +1,6 @@
-import 'package:restaurante_galegos/app/models/order_finished.dart';
-import 'package:restaurante_galegos/app/models/order_model.dart';
+import 'package:restaurante_galegos/app/models/card_model.dart';
+import 'package:restaurante_galegos/app/models/item_carrinho.dart';
 
 abstract interface class OrderReposiroty {
-  Future<OrderFinished> createOrder(OrderModel order);
+  Future<CardModel> createOrder(ItemCarrinho order);
 }

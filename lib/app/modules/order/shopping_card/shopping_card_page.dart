@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/modules/order/shopping_card/widgets/list_shopping_card.dart';
 import 'shopping_card_controller.dart';
@@ -42,10 +43,24 @@ class ShoppingCardPage extends GetView<ShoppingCardController> {
           ),
           Spacer(),
           Center(
-            child: GalegosButtonDefault(
-              label: 'FINALIZAR COMPRA',
-              width: context.widthTransformer(reducedBy: 10),
-              onPressed: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      Text('Valor final da compra:'),
+                      AmounToPay(),
+                    ],
+                  ),
+                  GalegosButtonDefault(
+                    label: 'FINALIZAR COMPRA',
+                    width: context.widthTransformer(reducedBy: 40),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(
@@ -54,5 +69,15 @@ class ShoppingCardPage extends GetView<ShoppingCardController> {
         ],
       ),
     );
+  }
+}
+
+class AmounToPay extends GetView<ShoppingCardController> {
+  const AmounToPay({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final total = controller.totalPay();
+    return Text(FormatterHelper.formatCurrency(total ?? 0));
   }
 }

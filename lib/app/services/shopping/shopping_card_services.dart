@@ -10,6 +10,16 @@ class ShoppingCardServices extends GetxService {
 
   ShoppingCardModel? getById(int id) => _shoppingCard[id];
 
+  double get amountToPay {
+    double amount = 0;
+    for (var item in _shoppingCard.values) {
+      final productPrice = item.product?.price ?? 0.0;
+      final priceFood = item.selectedPrice ?? 0.0;
+      amount += productPrice + priceFood;
+    }
+    return amount;
+  }
+
   void addOrUpdateProduct(ItemModel? itemModel, {required int quantity}) {
     if (itemModel == null) return;
 
@@ -19,32 +29,39 @@ class ShoppingCardServices extends GetxService {
       _shoppingCard.update(
         itemModel.id,
         (item) {
-          item.quantity = quantity;
           return item;
         },
         ifAbsent: () {
-          return ShoppingCardModel(quantity: quantity, product: itemModel);
+          return ShoppingCardModel(product: itemModel);
         },
       );
     }
   }
 
-  void addOrUpdateFood(AlimentoModel? alimentoModel, {required int quantity}) {
+  void addOrUpdateFood(
+    AlimentoModel? alimentoModel, {
+    required int quantity,
+    required String selectedSize,
+  }) {
     if (alimentoModel == null) return;
 
     if (quantity == 0) {
       _shoppingCard.remove(alimentoModel.id);
     } else {
+      final selectedPrice = alimentoModel.pricePerSize[selectedSize] ?? 0.0;
+
       _shoppingCard.update(
-        alimentoModel.id,
-        (food) {
-          food.quantity = quantity;
-          return food;
-        },
-        ifAbsent: () {
-          return ShoppingCardModel(quantity: quantity, food: alimentoModel);
-        },
-      );
+          alimentoModel.id,
+          (food) => ShoppingCardModel(
+                food: alimentoModel,
+                selectSize: selectedSize,
+                selectedPrice: selectedPrice,
+              ),
+          ifAbsent: () => ShoppingCardModel(
+                food: alimentoModel,
+                selectSize: selectedSize,
+                selectedPrice: selectedPrice,
+              ));
     }
   }
 }
