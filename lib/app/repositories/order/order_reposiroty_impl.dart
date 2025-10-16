@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
+import 'package:restaurante_galegos/app/models/order_finished.dart';
 import 'package:restaurante_galegos/app/models/order_model.dart';
 
 import './order_reposiroty.dart';
@@ -11,7 +12,7 @@ class OrderReposirotyImpl implements OrderReposiroty {
   OrderReposirotyImpl({required RestClient restClient}) : _restClient = restClient;
 
   @override
-  Future<OrderModel> createOrder(OrderModel order) async {
+  Future<OrderFinished> createOrder(OrderModel order) async {
     final result = await _restClient.post('/order', {
       'userId': order.userId,
       'address': order.address,
@@ -33,6 +34,6 @@ class OrderReposirotyImpl implements OrderReposiroty {
       RestClientException(message: 'Erro ao enviar novo pedido');
     }
 
-    return OrderModel.fromMap(result.body);
+    return OrderFinished.fromMap(result.body);
   }
 }

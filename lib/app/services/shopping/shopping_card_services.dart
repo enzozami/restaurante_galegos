@@ -6,7 +6,7 @@ import 'package:restaurante_galegos/app/models/shopping_card_model.dart';
 class ShoppingCardServices extends GetxService {
   final RxMap<int, ShoppingCardModel> _shoppingCard = <int, ShoppingCardModel>{}.obs;
 
-  List<ShoppingCardModel> get products => _shoppingCard.values.toList();
+  List<ShoppingCardModel> get productsSelected => _shoppingCard.values.toList();
 
   ShoppingCardModel? getById(int id) => _shoppingCard[id];
 
@@ -37,9 +37,9 @@ class ShoppingCardServices extends GetxService {
     } else {
       _shoppingCard.update(
         alimentoModel.id,
-        (item) {
-          item.quantity = quantity;
-          return item;
+        (food) {
+          food.quantity = quantity;
+          return food;
         },
         ifAbsent: () {
           return ShoppingCardModel(quantity: quantity, food: alimentoModel);

@@ -12,6 +12,7 @@ import 'package:restaurante_galegos/app/services/shopping/shopping_card_services
 class ShoppingCardController extends GetxController with LoaderMixin, MessagesMixin {
   final OrderServices _orderServices;
   final AuthService _authService;
+
   final ShoppingCardServices _cardServices;
 
   final _loading = false.obs;
@@ -27,7 +28,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
         _authService = authService,
         _cardServices = cardServices;
 
-  List<ShoppingCardModel> get products => _cardServices.products;
+  List<ShoppingCardModel> get products => _cardServices.productsSelected;
 
   @override
   void onInit() {
@@ -43,7 +44,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     final order = OrderModel(
       userId: user!,
       address: _address.value,
-      items: _cardServices.products,
+      items: _cardServices.productsSelected,
     );
 
     _orderServices.createOrder(order);

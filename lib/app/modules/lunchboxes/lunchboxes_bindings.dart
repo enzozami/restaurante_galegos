@@ -17,7 +17,7 @@ class LunchboxesBindings implements Bindings {
     Get.lazyPut(
       () => LunchboxesController(
         lunchboxesServices: Get.find<LunchboxesServices>(),
-        shoppingServices: Get.find<ShoppingCardServices>(),
+        shoppingCardServices: Get.find<ShoppingCardServices>(),
       ),
     );
   }

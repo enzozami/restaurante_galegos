@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_controller.dart';
 
 class ListShoppingCard extends GetView<ShoppingCardController> {
@@ -8,28 +8,28 @@ class ListShoppingCard extends GetView<ShoppingCardController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final products = controller.products.toList();
       return ListView.separated(
+        itemCount: controller.products.length,
         shrinkWrap: true,
-        itemBuilder: (context, index) {
-          final p = products[index];
-
+        itemBuilder: (BuildContext context, int index) {
+          final p = controller.products[index];
           final foodName = p.food?.name ?? '';
-          final productName = p.product?.name ?? '';
+          final itemName = p.product?.name ?? '';
+
+          late String nameItem;
+          if (foodName.isEmpty) {
+            nameItem = itemName;
+          } else {
+            nameItem = foodName;
+          }
           return ListTile(
-            title: Text(
-              foodName.isNotEmpty ? foodName : productName,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Text('Quantidade: ${p.quantity}'),
+            title: Text(nameItem),
+            subtitle: Text('Quantidade ${p.quantity}'),
           );
         },
         separatorBuilder: (context, index) {
           return Divider();
         },
-        itemCount: products.length,
       );
     });
   }
