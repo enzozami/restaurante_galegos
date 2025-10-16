@@ -11,19 +11,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
 
-  final ShoppingCardServices _shoppingServices;
-  final _quantity = 0.obs;
-  int get quantity => _quantity.value;
-  final _food = Rxn<AlimentoModel>();
-
-  AlimentoModel? get food => _food.value;
-  void selectFood(AlimentoModel newFood) {
-    _food.value = newFood;
-  }
-
-  final _alreadyAdded = false.obs;
-  bool get alreadyAdded => _alreadyAdded.value;
-
   final sizes = <String>[].obs;
   final _sizesOriginal = <String>[];
 
@@ -34,24 +21,27 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   final sizeSelected = Rxn<String>();
 
+  // SHOPPING CARD
+  final ShoppingCardServices _shoppingCardServices;
+  final foodSelect = Rxn<AlimentoModel>();
+  AlimentoModel? get productsSelected => foodSelect.value;
+
+  final _quantity = 0.obs;
+  int get quantity => _quantity.value;
+  final _alreadyAdded = false.obs;
+  bool get alreadyAdded => _alreadyAdded.value;
+
   LunchboxesController({
     required LunchboxesServices lunchboxesServices,
-    required ShoppingCardServices shoppingServices,
+    required ShoppingCardServices shoppingCardServices,
   })  : _lunchboxesServices = lunchboxesServices,
-        _shoppingServices = shoppingServices;
+        _shoppingCardServices = shoppingCardServices;
 
   @override
   void onInit() {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
-    if (food != null) {
-      final foodShopping = _shoppingServices.getById(food!.id);
-      if (foodShopping != null) {
-        _quantity(foodShopping.quantity);
-        _alreadyAdded(true);
-      }
-    }
   }
 
   @override
@@ -100,5 +90,9 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   void addFood() {
     _quantity.value++;
+  }
+
+  void addFoodShoppingCard() {
+    _shoppingCardServices.addOrUpdateFood(productsSelected, quantity: quantity);
   }
 }

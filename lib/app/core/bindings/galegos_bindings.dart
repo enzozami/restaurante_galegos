@@ -14,6 +14,6 @@ class GalegosBindings implements Bindings {
         fenix: true);
     Get.lazyPut<AuthServices>(() => AuthServicesImpl(authRepository: Get.find<AuthRepository>()),
         fenix: true);
-    Get.lazyPut(() => ShoppingCardServices());
+    Get.lazyPut(() => ShoppingCardServices(), fenix: true);
   }
 }

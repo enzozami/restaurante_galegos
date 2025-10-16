@@ -46,8 +46,10 @@ class ProductItems extends GetView<ProductsController> {
                           (e) => InkWell(
                             splashColor: Colors.amber,
                             onTap: () {
-                              //controller.selectItem(e);
+                              controller.itemSelect(e);
                               controller.addProduct();
+                              controller.addItemsShoppingCard();
+                              Get.snackbar('Item: ${e.name}', 'Item adicionado ao carrinho');
                               log('Item clicado: ${e.name} - ${e.price}');
                             },
                             child: Column(

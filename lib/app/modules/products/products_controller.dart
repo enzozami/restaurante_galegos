@@ -8,7 +8,7 @@ import 'package:restaurante_galegos/app/models/item_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/services/items/items_services.dart';
 import 'package:restaurante_galegos/app/services/products/products_services.dart';
-//import 'package:restaurante_galegos/app/services/shopping/shopping_services.dart';
+import 'package:restaurante_galegos/app/services/shopping/shopping_card_services.dart';
 
 class ProductsController extends GetxController with LoaderMixin, MessagesMixin {
   final ProductsServices _productsServices;
@@ -16,10 +16,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final ItemsServices _itemsServices;
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
-
-  final _quantity = 0.obs;
-  final _alreadyAdded = false.obs;
-  bool get alreadyAdded => _alreadyAdded.value;
 
   final items = <ItemModel>[].obs;
   final product = <ProductModel>[].obs;
@@ -29,11 +25,23 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   final categorySelected = Rxn<ProductModel>();
 
+  // SHOPPING CARD
+  final ShoppingCardServices _shoppingCardServices;
+  final itemSelect = Rxn<ItemModel>();
+  ItemModel? get productsSelected => itemSelect.value;
+
+  final _quantity = 0.obs;
+  int get quantity => _quantity.value;
+  final _alreadyAdded = false.obs;
+  bool get alreadyAdded => _alreadyAdded.value;
+
   ProductsController({
     required ProductsServices productsServices,
     required ItemsServices itemsServices,
+    required ShoppingCardServices shoppingCardServices,
   })  : _productsServices = productsServices,
-        _itemsServices = itemsServices;
+        _itemsServices = itemsServices,
+        _shoppingCardServices = shoppingCardServices;
 
   @override
   void onInit() {
@@ -108,5 +116,9 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   void addProduct() {
     _quantity.value++;
+  }
+
+  void addItemsShoppingCard() {
+    _shoppingCardServices.addOrUpdateProduct(productsSelected, quantity: quantity);
   }
 }
