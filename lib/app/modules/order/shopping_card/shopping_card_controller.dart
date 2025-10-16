@@ -38,15 +38,30 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   }
 
   void createOrder() {
-    _loading.toggle();
-    final user = _authService.getUserId();
-    log('USUÁRIO: $user');
-    final order = OrderModel(
-      userId: user!,
-      address: _address.value,
-      items: _cardServices.productsSelected,
-    );
+    try {
+      _loading.toggle();
+      final user = _authService.getUserId();
+      log('USUÁRIO: $user');
+      final order = OrderModel(
+        userId: user!,
+        address: _address.value,
+        items: _cardServices.productsSelected,
+      );
 
-    _orderServices.createOrder(order);
+      _orderServices.createOrder(order);
+      _loading.toggle();
+    } catch (e, s) {
+      _loading.toggle();
+      log('Erro ao carregar produtos no carrinho', error: e, stackTrace: s);
+      _message(
+        MessageModel(
+          title: 'Erro',
+          message: 'Erro ao carregar produtos no carrinho',
+          type: MessageType.error,
+        ),
+      );
+    } finally {
+      _loading(false);
+    }
   }
 }
