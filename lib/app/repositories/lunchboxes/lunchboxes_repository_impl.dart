@@ -39,7 +39,7 @@ class LunchboxesRepositoryImpl implements LunchboxesRepository {
 
     if (result.hasError) {
       log('Erro ao buscar menu', error: result.statusText);
-      throw Exception('Erro ao buscar menu');
+      RestClientException(message: 'Erro ao buscar marmitas');
     }
 
     final List data = (result.body as List);

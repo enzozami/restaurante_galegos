@@ -4,14 +4,14 @@ import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/alimento_model.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
-import 'package:restaurante_galegos/app/services/shopping/shopping_services.dart';
+import 'package:restaurante_galegos/app/services/shopping/shopping_card_services.dart';
 
 class LunchboxesController extends GetxController with LoaderMixin, MessagesMixin {
   final LunchboxesServices _lunchboxesServices;
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
 
-  final ShoppingServices _shoppingServices;
+  final ShoppingCardServices _shoppingServices;
   final _quantity = 0.obs;
   int get quantity => _quantity.value;
   final _food = Rxn<AlimentoModel>();
@@ -36,7 +36,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   LunchboxesController({
     required LunchboxesServices lunchboxesServices,
-    required ShoppingServices shoppingServices,
+    required ShoppingCardServices shoppingServices,
   })  : _lunchboxesServices = lunchboxesServices,
         _shoppingServices = shoppingServices;
 
@@ -100,9 +100,5 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   void addFood() {
     _quantity.value++;
-  }
-
-  void addFoodInShoppingCard() {
-    _shoppingServices.addAndRemoveFoodInShoppingCard(food, quantity: quantity);
   }
 }

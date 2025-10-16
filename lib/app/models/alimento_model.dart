@@ -30,7 +30,10 @@ class AlimentoModel {
       name: map['name'] ?? '',
       dayName: map['dayName'] ?? '',
       description: map['description'] ?? '',
-      pricePerSize: Map<String, double>.from(map['pricePerSize'] ?? const {}),
+      pricePerSize: (map['pricePerSize'] as Map<String, dynamic>?)?.map(
+            (key, value) => MapEntry(key, (value as num).toDouble()),
+          ) ??
+          const {},
     );
   }
 

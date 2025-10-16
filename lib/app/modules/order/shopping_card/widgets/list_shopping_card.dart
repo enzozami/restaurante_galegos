@@ -8,31 +8,28 @@ class ListShoppingCard extends GetView<ShoppingCardController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final cart = controller.cart;
+      final products = controller.products.toList();
       return ListView.separated(
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          final c = cart[index];
+          final p = products[index];
 
-          final foodName = c.food?.name ?? '';
-          final productName = c.product?.name ?? '';
-
-          return Visibility(
-            visible: foodName.isNotEmpty || productName.isNotEmpty,
-            child: ListTile(
-              title: Column(
-                children: [
-                  if (foodName.isNotEmpty) Text(foodName),
-                  if (productName.isNotEmpty) Text(productName),
-                ],
+          final foodName = p.food?.name ?? '';
+          final productName = p.product?.name ?? '';
+          return ListTile(
+            title: Text(
+              foodName.isNotEmpty ? foodName : productName,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
               ),
             ),
+            subtitle: Text('Quantidade: ${p.quantity}'),
           );
         },
         separatorBuilder: (context, index) {
           return Divider();
         },
-        itemCount: cart.length,
+        itemCount: products.length,
       );
     });
   }
