@@ -691,6 +691,136 @@
                 "mini": 22.0,
                 "media": 24.0
             }
+        },
+        {
+            "name": "Bife à Milanesa",
+            "dayName": "Quinta-feira",
+            "id": 30,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 0.0
+            }
+        },
+        {
+            "name": "Bife a Parmegiana",
+            "dayName": "Quinta-feira",
+            "id": 31,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 0.0
+            }
+        },
+        {
+            "name": "Bife Grelhado",
+            "dayName": "Quinta-feira",
+            "id": 32,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 0.0
+            }
+        },
+        {
+            "name": "Carne Moída / Batata / Cenoura",
+            "dayName": "Quinta-feira",
+            "id": 33,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 0.0
+            }
+        },
+        {
+            "name": "Coxa Assada",
+            "dayName": "Quinta-feira",
+            "id":34 ,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 0.0
+            }
+        },
+        {
+            "name": "Filé de Frango à Milanesa",
+            "dayName": "Quinta-feira",
+            "id": 35,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini":22.0,
+                "media": 0.0
+            }
+        },
+        {
+            "name": "Filé de Frango à Parmegiana",
+            "dayName": "Quinta-feira",
+            "id": 36,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 0.0
+            }
+        },
+        {
+            "name": "Filé de Frango Grelhado",
+            "dayName": "Quinta-feira",
+            "id": 37,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 0.0
+            }
+        },
+        {
+            "name": "Frango a Passarinho",
+            "dayName": "Quinta-feira",
+            "id": 38,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 0.0
+            }
+        },
+        {
+            "name": "Frango ao Molho",
+            "dayName": "Quinta-feira",
+            "id": 39,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 0.0
+            }
+        },
+        {
+            "name": "Lasanha à Bolonhesa",
+            "dayName": "Quinta-feira",
+            "id": 40,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 0.0
+            }
+        },
+        {
+            "name": "Linguiça Toscana",
+            "dayName": "Quinta-feira",
+            "id": 41,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 0.0
+            }
+        },
+        {
+            "name": "Omelete de presunto e queijo",
+            "dayName": "Quinta-feira",
+            "id": 42,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 0.0
+            }
         }
     ],
     "orders": []
