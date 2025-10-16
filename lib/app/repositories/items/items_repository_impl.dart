@@ -16,6 +16,7 @@ class ItemsRepositoryImpl implements ItemsRepository {
 
     if (result.hasError) {
       log('Erro ao carregar items', error: result.statusText, stackTrace: StackTrace.current);
+      RestClientException(message: 'Erro ao carregar itens');
     }
 
     final data = (result.body as List);

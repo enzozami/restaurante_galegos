@@ -28,7 +28,12 @@ class AlimentosWidget extends GetView<LunchboxesController> {
             width: context.width,
             child: InkWell(
               splashColor: Colors.amber,
-              onTap: () => log('Item clicado: ${alimentoModel.name} - $price'),
+              onTap: () {
+                controller.foodSelect(alimentoModel);
+                controller.addFood();
+                controller.addFoodShoppingCard();
+                log('Item clicado: ${alimentoModel.name} - $price');
+              },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

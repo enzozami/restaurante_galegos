@@ -1,3 +1,4 @@
+import 'package:restaurante_galegos/app/models/order_finished.dart';
 import 'package:restaurante_galegos/app/models/order_model.dart';
 import 'package:restaurante_galegos/app/repositories/order/order_reposiroty.dart';
 
@@ -10,5 +11,5 @@ class OrderServicesImpl implements OrderServices {
       : _orderReposiroty = orderRepository;
 
   @override
-  Future<OrderModel> createOrder(OrderModel order) => _orderReposiroty.createOrder(order);
+  Future<OrderFinished> createOrder(OrderModel order) => _orderReposiroty.createOrder(order);
 }

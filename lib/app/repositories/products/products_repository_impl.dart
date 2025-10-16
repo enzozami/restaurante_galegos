@@ -16,7 +16,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
 
     if (result.hasError) {
       log('Erro ao buscar produtos');
-      throw Exception('Erro ao buscar produtos');
+      RestClientException(message: 'Erro ao buscar produtos');
     }
 
     final data = List<Map<String, dynamic>>.from(result.body as List);
