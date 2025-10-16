@@ -79,7 +79,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       _loading.toggle();
     } catch (e, s) {
       _loading.toggle();
-      log('ERROOOOOOOOOOOOOOOOOO', error: e, stackTrace: s);
+      log('Erro ao carregar categorias', error: e, stackTrace: s);
       _message(
         MessageModel(
           title: 'Erro',
@@ -93,25 +93,34 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   }
 
   void searchItemsByFilter(ProductModel? productModel) async {
-    if (productModel?.category == categorySelected.value?.category) {
-      categorySelected.value = null;
-    } else {
-      categorySelected.value = productModel;
+    try {
+      _loading.toggle();
+      if (productModel?.category == categorySelected.value?.category) {
+        categorySelected.value = null;
+      } else {
+        categorySelected.value = productModel;
+      }
+
+      if (categorySelected.value == null) {
+        product.assignAll(_productOriginal);
+        return;
+      }
+
+      var newProducts =
+          _productOriginal.where((p) => p.category == categorySelected.value!.category).toList();
+
+      var newItems =
+          _itemsOriginal.where((e) => e.categoryId == categorySelected.value!.category).toList();
+
+      product.assignAll(newProducts);
+      items.assignAll(newItems);
+      _loading.toggle();
+    } catch (e, s) {
+      _loading.toggle();
+      log('Erro ao filtrar', error: e, stackTrace: s);
+    } finally {
+      _loading(false);
     }
-
-    if (categorySelected.value == null) {
-      product.assignAll(_productOriginal);
-      return;
-    }
-
-    var newProducts =
-        _productOriginal.where((p) => p.category == categorySelected.value!.category).toList();
-
-    var newItems =
-        _itemsOriginal.where((e) => e.categoryId == categorySelected.value!.category).toList();
-
-    product.assignAll(newProducts);
-    items.assignAll(newItems);
   }
 
   void addProduct() {

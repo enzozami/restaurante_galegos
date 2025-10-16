@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
@@ -51,41 +53,69 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   }
 
   Future<void> getLunchboxes() async {
-    _loading.toggle();
-    final menuData = await _lunchboxesServices.getMenu();
-    final alimentosData = await _lunchboxesServices.getFood();
+    try {
+      _loading.toggle();
+      final menuData = await _lunchboxesServices.getMenu();
+      final alimentosData = await _lunchboxesServices.getFood();
 
-    final List<String> sizesList = List<String>.from(menuData.first.pricePerSize);
+      final List<String> sizesList = List<String>.from(menuData.first.pricePerSize);
 
-    sizes.assignAll(sizesList);
-    _sizesOriginal
-      ..clear()
-      ..addAll(sizesList);
+      sizes.assignAll(sizesList);
+      _sizesOriginal
+        ..clear()
+        ..addAll(sizesList);
 
-    final filtered = alimentosData.where((e) => e.dayName == dayNow);
+      final filtered = alimentosData.where((e) => e.dayName == dayNow);
 
-    alimentos.assignAll(filtered);
-    _alimentosOriginal
-      ..clear()
-      ..addAll(filtered);
-    _loading.toggle();
+      alimentos.assignAll(filtered);
+      _alimentosOriginal
+        ..clear()
+        ..addAll(filtered);
+      _loading.toggle();
+    } catch (e, s) {
+      _loading.toggle();
+      log('Erro ao carregar marmitas', error: e, stackTrace: s);
+      _message(
+        MessageModel(
+          title: 'Erro',
+          message: 'Erro ao carregar marmitas',
+          type: MessageType.error,
+        ),
+      );
+    } finally {
+      _loading(false);
+    }
   }
 
   void filterPrice(String selectedSize) {
-    if (sizeSelected.value == selectedSize) {
-      sizeSelected.value = '';
-      sizes.assignAll(_sizesOriginal);
-      return;
+    try {
+      _loading.toggle();
+      if (sizeSelected.value == selectedSize) {
+        sizeSelected.value = '';
+        sizes.assignAll(_sizesOriginal);
+        return;
+      }
+
+      sizeSelected.value = selectedSize;
+
+      final filtered = _alimentosOriginal.where((alimento) {
+        return alimento.pricePerSize.containsKey((selectedSize));
+      }).toList();
+
+      sizes.assignAll(
+          filtered.map((e) => e.pricePerSize.keys.toList()).expand((e) => e).toSet().toList());
+      _loading.toggle();
+    } catch (e, s) {
+      _loading.toggle();
+      log('Erro ao filtar marmitas', error: e, stackTrace: s);
+      _message(
+        MessageModel(
+          title: 'Erro',
+          message: 'Erro ao filtrar marmitas',
+          type: MessageType.error,
+        ),
+      );
     }
-
-    sizeSelected.value = selectedSize;
-
-    final filtered = _alimentosOriginal.where((alimento) {
-      return alimento.pricePerSize.containsKey((selectedSize));
-    }).toList();
-
-    sizes.assignAll(
-        filtered.map((e) => e.pricePerSize.keys.toList()).expand((e) => e).toSet().toList());
   }
 
   void addFood() {
