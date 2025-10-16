@@ -4,6 +4,7 @@ import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/alimento_model.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
+import 'package:restaurante_galegos/app/services/shopping/shopping_card_services.dart';
 
 class LunchboxesController extends GetxController with LoaderMixin, MessagesMixin {
   final LunchboxesServices _lunchboxesServices;
@@ -20,8 +21,21 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   final sizeSelected = Rxn<String>();
 
-  LunchboxesController({required LunchboxesServices lunchboxesServices})
-      : _lunchboxesServices = lunchboxesServices;
+  // SHOPPING CARD
+  final ShoppingCardServices _shoppingCardServices;
+  final foodSelect = Rxn<AlimentoModel>();
+  AlimentoModel? get productsSelected => foodSelect.value;
+
+  final _quantity = 0.obs;
+  int get quantity => _quantity.value;
+  final _alreadyAdded = false.obs;
+  bool get alreadyAdded => _alreadyAdded.value;
+
+  LunchboxesController({
+    required LunchboxesServices lunchboxesServices,
+    required ShoppingCardServices shoppingCardServices,
+  })  : _lunchboxesServices = lunchboxesServices,
+        _shoppingCardServices = shoppingCardServices;
 
   @override
   void onInit() {
@@ -72,5 +86,13 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
     sizes.assignAll(
         filtered.map((e) => e.pricePerSize.keys.toList()).expand((e) => e).toSet().toList());
+  }
+
+  void addFood() {
+    _quantity.value++;
+  }
+
+  void addFoodShoppingCard() {
+    _shoppingCardServices.addOrUpdateFood(productsSelected, quantity: quantity);
   }
 }
