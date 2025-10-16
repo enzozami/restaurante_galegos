@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_controller.dart';
 
 class ListShoppingCard extends GetView<ShoppingCardController> {
@@ -22,9 +23,12 @@ class ListShoppingCard extends GetView<ShoppingCardController> {
           } else {
             nameItem = foodName;
           }
+
+          final priceFood = p.selectedPrice ?? 0.0;
+
           return ListTile(
             title: Text(nameItem),
-            subtitle: Text('Quantidade ${p.quantity}'),
+            trailing: Text(FormatterHelper.formatCurrency(p.product?.price ?? priceFood)),
           );
         },
         separatorBuilder: (context, index) {

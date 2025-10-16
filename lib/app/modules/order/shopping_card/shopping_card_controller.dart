@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
-import 'package:restaurante_galegos/app/models/order_model.dart';
+import 'package:restaurante_galegos/app/models/item_carrinho.dart';
 import 'package:restaurante_galegos/app/models/shopping_card_model.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/shopping_card_services.dart';
@@ -19,6 +19,9 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   final _message = Rxn<MessageModel>();
 
   final _address = ''.obs;
+  final _quantity = 0.obs;
+
+  // final _price = 0.0.obs;
 
   ShoppingCardController({
     required OrderServices orderServices,
@@ -42,13 +45,15 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       _loading.toggle();
       final user = _authService.getUserId();
       log('USUÁRIO: $user');
-      final order = OrderModel(
+      final order = ItemCarrinho(
         userId: user!,
         address: _address.value,
         items: _cardServices.productsSelected,
+        quantity: _quantity.value,
       );
 
       _orderServices.createOrder(order);
+
       _loading.toggle();
     } catch (e, s) {
       _loading.toggle();
@@ -63,5 +68,9 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     } finally {
       _loading(false);
     }
+  }
+
+  double? totalPay() {
+    return _cardServices.amountToPay;
   }
 }
