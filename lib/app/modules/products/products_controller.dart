@@ -8,7 +8,7 @@ import 'package:restaurante_galegos/app/models/item_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/services/items/items_services.dart';
 import 'package:restaurante_galegos/app/services/products/products_services.dart';
-import 'package:restaurante_galegos/app/services/shopping/shopping_services.dart';
+//import 'package:restaurante_galegos/app/services/shopping/shopping_services.dart';
 
 class ProductsController extends GetxController with LoaderMixin, MessagesMixin {
   final ProductsServices _productsServices;
@@ -16,13 +16,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final ItemsServices _itemsServices;
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
-
-  final ShoppingServices _shoppingServices;
-  final _itemModel = Rxn<ItemModel>();
-  ItemModel? get item => _itemModel.value;
-  void selectItem(ItemModel newItem) {
-    _itemModel.value = newItem;
-  }
 
   final _quantity = 0.obs;
   final _alreadyAdded = false.obs;
@@ -39,24 +32,14 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   ProductsController({
     required ProductsServices productsServices,
     required ItemsServices itemsServices,
-    required ShoppingServices shoppingServices,
   })  : _productsServices = productsServices,
-        _itemsServices = itemsServices,
-        _shoppingServices = shoppingServices;
+        _itemsServices = itemsServices;
 
   @override
   void onInit() {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
-
-    if (item != null) {
-      final shoppingItem = _shoppingServices.getById(item!.id);
-      if (shoppingItem != null) {
-        _quantity(shoppingItem.quantity);
-        _alreadyAdded(true);
-      }
-    }
   }
 
   @override
@@ -125,12 +108,5 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   void addProduct() {
     _quantity.value++;
-  }
-
-  void addProductInShoppingCard() {
-    _shoppingServices.addAndRemoveItemInShoppingCard(
-      item,
-      quantity: _quantity.value,
-    );
   }
 }
