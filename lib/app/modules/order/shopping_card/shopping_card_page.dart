@@ -12,6 +12,7 @@ class ShoppingCardPage extends GetView<ShoppingCardController> {
   Widget build(BuildContext context) {
     var total = controller.totalPay();
     var label = FormatterHelper.formatCurrency(total ?? 0);
+    var quantityItems = controller.products.fold<int>(0, (sum, e) => sum + e.quantity);
 
     return Scaffold(
       body: Visibility(
@@ -77,7 +78,7 @@ class ShoppingCardPage extends GetView<ShoppingCardController> {
                           label,
                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                         ),
-                        Text(' / ${controller.products.length} itens'),
+                        Text(' / $quantityItems itens'),
                       ],
                     ),
                     GalegosButtonDefault(

@@ -32,6 +32,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
         _cardServices = cardServices;
 
   List<ShoppingCardModel> get products => _cardServices.productsSelected;
+  int get quantity => _quantity.value;
 
   @override
   void onInit() {
