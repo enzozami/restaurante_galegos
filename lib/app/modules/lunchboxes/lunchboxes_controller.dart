@@ -23,6 +23,9 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   final sizeSelected = Rxn<String>();
 
+  final _quantityUnit = 0.obs;
+  int get quantityUnit => _quantityUnit.value;
+
   // SHOPPING CARD
   final ShoppingCardServices _shoppingCardServices;
   final foodSelect = Rxn<AlimentoModel>();
@@ -122,10 +125,14 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   void addFood() {
     _quantity.value++;
+    _quantityUnit.value++;
   }
 
   void addFoodShoppingCard() {
-    _shoppingCardServices.addOrUpdateFood(productsSelected,
-        quantity: quantity, selectedSize: sizeSelected.value ?? '');
+    _shoppingCardServices.addOrUpdateFood(
+      productsSelected,
+      quantity: quantity,
+      selectedSize: sizeSelected.value ?? '',
+    );
   }
 }

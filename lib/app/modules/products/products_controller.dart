@@ -35,6 +35,9 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final _alreadyAdded = false.obs;
   bool get alreadyAdded => _alreadyAdded.value;
 
+  final _totalPrice = 0.0.obs;
+  double get totalPrice => _totalPrice.value;
+
   ProductsController({
     required ProductsServices productsServices,
     required ItemsServices itemsServices,
@@ -55,6 +58,16 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     super.onReady();
     try {
       await getProdutos();
+
+      // ever<int>(_quantity, (quantity) {
+      //   _totalPrice(totalPrice * quantity);
+      // });
+
+      // final productShoppingCard = _shoppingCardServices.getById(itemSelect.value!.id);
+      // if (productShoppingCard != null) {
+      //   _quantity(productShoppingCard.quantity);
+      //   _alreadyAdded(true);
+      // }
     } catch (e, s) {
       log(e.toString());
       log(s.toString());
@@ -123,11 +136,21 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
   }
 
-  void addProduct() {
+  void addProductUnit() {
+    log('LADJLJSDLKJWALDJS $quantity');
     _quantity.value++;
+    log('LADJLJSDLKJWALDJS $quantity');
+  }
+
+  void removeProductUnit() {
+    if (_quantity.value > 0) _quantity.value--;
   }
 
   void addItemsShoppingCard() {
-    _shoppingCardServices.addOrUpdateProduct(productsSelected, quantity: quantity);
+    _shoppingCardServices.addOrUpdateProduct(
+      productsSelected,
+      quantity: quantity,
+    );
+    Get.back();
   }
 }
