@@ -19,9 +19,10 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   final _message = Rxn<MessageModel>();
 
   final _address = ''.obs;
-  final _quantity = 0.obs;
+  final quantityRx = Rxn<int>();
+  int get quantity => quantityRx.value!.toInt();
 
-  // final _price = 0.0.obs;
+  // final _totalPrice = 0.0.obs;
 
   ShoppingCardController({
     required OrderServices orderServices,
@@ -32,13 +33,16 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
         _cardServices = cardServices;
 
   List<ShoppingCardModel> get products => _cardServices.productsSelected;
-  int get quantity => _quantity.value;
 
   @override
   void onInit() {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
+
+    // ever(quantityRx, (quantity) {
+    //   _totalPrice(quantity?.toDouble());
+    // });
   }
 
   void addQuantityProduct(ShoppingCardModel shoppingCardModel) {
@@ -76,7 +80,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
         userId: user!,
         address: _address.value,
         items: _cardServices.productsSelected,
-        quantity: _quantity.value,
+        quantity: quantity,
       );
 
       _orderServices.createOrder(order);
