@@ -10,63 +10,90 @@ class ShoppingCardPage extends GetView<ShoppingCardController> {
 
   @override
   Widget build(BuildContext context) {
+    var total = controller.totalPay();
+    var label = FormatterHelper.formatCurrency(total ?? 0);
+
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
-            child: Text(
-              'Carrinho',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
+      body: Visibility(
+        visible: controller.products.isNotEmpty,
+        replacement: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Text(
+                  'Nenhum item no carrinho!',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
+              child: Text(
+                'Carrinho',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(
-              border: Border.all(),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            constraints: BoxConstraints(
-              maxHeight: context.heightTransformer(reducedBy: 40),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListShoppingCard(),
-            ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          Spacer(),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      Text('Valor final da compra:'),
-                      AmounToPay(),
-                    ],
-                  ),
-                  GalegosButtonDefault(
-                    label: 'FINALIZAR COMPRA',
-                    width: context.widthTransformer(reducedBy: 40),
-                    onPressed: () {},
-                  ),
-                ],
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                border: Border.all(),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              constraints: BoxConstraints(
+                maxHeight: context.heightTransformer(reducedBy: 40),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListShoppingCard(),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-        ],
+            const SizedBox(
+              height: 30,
+            ),
+            Spacer(),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          label,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        Text(' / ${controller.products.length} itens'),
+                      ],
+                    ),
+                    GalegosButtonDefault(
+                      label: 'FINALIZAR',
+                      width: context.widthTransformer(reducedBy: 60),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+          ],
+        ),
       ),
     );
   }
