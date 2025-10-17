@@ -821,6 +821,126 @@
                 "mini": 23.0,
                 "media": 25.0
             }
+        },
+        {
+            "name": "Almôndegas",
+            "dayName": "Sexta-feira",
+            "id": 43    ,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Bife à Milanesa",
+            "dayName": "Sexta-feira",
+            "id": 44,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Bife a Parmegiana",
+            "dayName": "Sexta-feira",
+            "id": 45,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Bife Grelhado",
+            "dayName": "Sexta-feira",
+            "id": 46,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Filé de Frango à Milanesa",
+            "dayName": "Sexta-feira",
+            "id": 47,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Filé de Frango à Parmegiana",
+            "dayName": "Sexta-feira",
+            "id": 48,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Filé de Frango Grelhado",
+            "dayName": "Sexta-feira",
+            "id": 49,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Frango a Passarinho",
+            "dayName": "Sexta-feira",
+            "id": 50,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Linguiça Toscana",
+            "dayName": "Sexta-feira",
+            "id": 51,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Omelete de presunto/queijo e tomate",
+            "dayName": "Sexta-feira",
+            "id": 52,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Peixe",
+            "dayName": "Sexta-feira",
+            "id": 53,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Rabada",
+            "dayName": "Sexta-feira",
+            "id": 54,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos / Polenta / Farofa",
+            "pricePerSize": {
+                "mini": 26.0,
+                "media": 28.0
+            }
         }
     ],
     "orders": []
