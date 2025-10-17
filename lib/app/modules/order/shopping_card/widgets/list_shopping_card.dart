@@ -28,6 +28,7 @@ class ListShoppingCard extends GetView<ShoppingCardController> {
 
           return ListTile(
             title: Text(nameItem),
+            subtitle: Text('Quantidade: ${p.quantity}'),
             trailing: Text(FormatterHelper.formatCurrency(p.product?.price ?? priceFood)),
           );
         },
