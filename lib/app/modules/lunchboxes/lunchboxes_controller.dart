@@ -23,12 +23,15 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   final sizeSelected = Rxn<String>();
 
+  final _quantityUnit = 0.obs;
+  int get quantityUnit => _quantityUnit.value;
+
   // SHOPPING CARD
   final ShoppingCardServices _shoppingCardServices;
   final foodSelect = Rxn<AlimentoModel>();
   AlimentoModel? get productsSelected => foodSelect.value;
 
-  final _quantity = 0.obs;
+  final _quantity = 1.obs;
   int get quantity => _quantity.value;
   final _alreadyAdded = false.obs;
   bool get alreadyAdded => _alreadyAdded.value;
@@ -115,6 +118,8 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
           type: MessageType.error,
         ),
       );
+    } finally {
+      _loading(false);
     }
   }
 
@@ -122,7 +127,17 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     _quantity.value++;
   }
 
+  void removeFood() {
+    if (_quantity.value > 0) _quantity.value--;
+  }
+
   void addFoodShoppingCard() {
-    _shoppingCardServices.addOrUpdateFood(productsSelected, quantity: quantity);
+    _shoppingCardServices.addOrUpdateFood(
+      productsSelected,
+      quantity: quantity,
+      selectedSize: sizeSelected.value ?? '',
+    );
+    _quantity.value = 1;
+    Get.back();
   }
 }

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
 import 'package:restaurante_galegos/app/models/alimento_model.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
 
@@ -32,9 +33,55 @@ class AlimentosWidget extends GetView<LunchboxesController> {
                 splashColor: Colors.amber,
                 onTap: () {
                   controller.foodSelect(alimentoModel);
-                  controller.addFood();
-                  controller.addFoodShoppingCard();
-                  log('Item clicado: ${alimentoModel.name} - $price');
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        backgroundColor: Colors.black,
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                alimentoModel.name,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            Obx(() {
+                              return GalegosPlusMinus(
+                                addCallback: () => controller.addFood(),
+                                removeCallback: () => controller.removeFood(),
+                                quantityUnit: controller.quantity,
+                              );
+                            }),
+                          ],
+                        ),
+                        content: Text(
+                          alimentoModel.description,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        actions: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+                            onPressed: () {
+                              controller.addFood();
+                              controller.addFoodShoppingCard();
+                              log('Item clicado: ${alimentoModel.name} - $price');
+                              Get.snackbar(
+                                  'Item ${alimentoModel.name}', 'Item adicionado ao carrinho');
+
+                              Get.back();
+                            },
+                            child: Text(
+                              'Adicionar',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

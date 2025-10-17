@@ -30,10 +30,13 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final itemSelect = Rxn<ItemModel>();
   ItemModel? get productsSelected => itemSelect.value;
 
-  final _quantity = 0.obs;
+  final _quantity = 1.obs;
   int get quantity => _quantity.value;
   final _alreadyAdded = false.obs;
   bool get alreadyAdded => _alreadyAdded.value;
+
+  final _totalPrice = 0.0.obs;
+  double get totalPrice => _totalPrice.value;
 
   ProductsController({
     required ProductsServices productsServices,
@@ -48,6 +51,25 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
+
+    // Usa 'productsSelected' que é um getter para 'itemSelect.value'
+    if (productsSelected != null) {
+      _totalPrice(productsSelected!.price);
+
+      // Apenas tenta buscar no carrinho se houver um item selecionado.
+      final productShoppingCard = _shoppingCardServices.getById(productsSelected!.id);
+      if (productShoppingCard != null) {
+        _quantity(productShoppingCard.quantity);
+        _alreadyAdded(true);
+      }
+    }
+
+    // O 'ever' deve ser seguro, pois ele só usará productsSelected se não for nulo.
+    ever<int>(_quantity, (quantity) {
+      if (productsSelected != null) {
+        _totalPrice(productsSelected!.price * quantity);
+      }
+    });
   }
 
   @override
@@ -123,11 +145,20 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
   }
 
-  void addProduct() {
+  void addProductUnit() {
     _quantity.value++;
   }
 
+  void removeProductUnit() {
+    if (_quantity.value > 0) _quantity.value--;
+  }
+
   void addItemsShoppingCard() {
-    _shoppingCardServices.addOrUpdateProduct(productsSelected, quantity: quantity);
+    _shoppingCardServices.addOrUpdateProduct(
+      productsSelected,
+      quantity: quantity,
+    );
+    _quantity.value = 1;
+    Get.back();
   }
 }
