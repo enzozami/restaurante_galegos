@@ -8,11 +8,13 @@ class ShoppingCardModel {
   AlimentoModel? food;
   String? selectSize;
   double? selectedPrice;
+  int quantity;
   ShoppingCardModel({
     this.product,
     this.food,
     this.selectSize,
     this.selectedPrice,
+    required this.quantity,
   });
 
   Map<String, dynamic> toMap() {
@@ -21,6 +23,7 @@ class ShoppingCardModel {
       'food': food?.toMap(),
       'selectSize': selectSize,
       'selectedPrice': selectedPrice,
+      'quantity': quantity,
     };
   }
 
@@ -30,6 +33,7 @@ class ShoppingCardModel {
       food: map['food'] != null ? AlimentoModel.fromMap(map['food']) : null,
       selectSize: map['selectSize'],
       selectedPrice: map['selectedPrice']?.toDouble(),
+      quantity: map['quantity']?.toInt() ?? 0,
     );
   }
 

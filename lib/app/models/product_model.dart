@@ -24,7 +24,7 @@ class ProductModel {
     return ProductModel(
       id: map['id']?.toInt() ?? 0,
       category: map['category'] ?? '',
-      items: List<ItemModel>.from(map['items']?.map((x) => ItemModel.fromMap(x)) ?? []),
+      items: List<ItemModel>.from(map['items']?.map((x) => ItemModel.fromMap(x)) ?? const []),
     );
   }
 

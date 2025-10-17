@@ -15,12 +15,15 @@ class ShoppingCardServices extends GetxService {
     for (var item in _shoppingCard.values) {
       final productPrice = item.product?.price ?? 0.0;
       final priceFood = item.selectedPrice ?? 0.0;
-      amount += productPrice + priceFood;
+      amount += (productPrice + priceFood) * item.quantity;
     }
     return amount;
   }
 
-  void addOrUpdateProduct(ItemModel? itemModel, {required int quantity}) {
+  void addOrUpdateProduct(
+    ItemModel? itemModel, {
+    required int quantity,
+  }) {
     if (itemModel == null) return;
 
     if (quantity == 0) {
@@ -28,11 +31,15 @@ class ShoppingCardServices extends GetxService {
     } else {
       _shoppingCard.update(
         itemModel.id,
-        (item) {
-          return item;
-        },
+        (item) => ShoppingCardModel(
+          quantity: quantity,
+          product: itemModel,
+        ),
         ifAbsent: () {
-          return ShoppingCardModel(product: itemModel);
+          return ShoppingCardModel(
+            quantity: quantity,
+            product: itemModel,
+          );
         },
       );
     }
@@ -51,17 +58,20 @@ class ShoppingCardServices extends GetxService {
       final selectedPrice = alimentoModel.pricePerSize[selectedSize] ?? 0.0;
 
       _shoppingCard.update(
-          alimentoModel.id,
-          (food) => ShoppingCardModel(
-                food: alimentoModel,
-                selectSize: selectedSize,
-                selectedPrice: selectedPrice,
-              ),
-          ifAbsent: () => ShoppingCardModel(
-                food: alimentoModel,
-                selectSize: selectedSize,
-                selectedPrice: selectedPrice,
-              ));
+        alimentoModel.id,
+        (food) => ShoppingCardModel(
+          quantity: quantity,
+          food: alimentoModel,
+          selectSize: selectedSize,
+          selectedPrice: selectedPrice,
+        ),
+        ifAbsent: () => ShoppingCardModel(
+          quantity: quantity,
+          food: alimentoModel,
+          selectSize: selectedSize,
+          selectedPrice: selectedPrice,
+        ),
+      );
     }
   }
 }

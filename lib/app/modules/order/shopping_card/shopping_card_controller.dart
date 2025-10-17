@@ -40,6 +40,32 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     messageListener(_message);
   }
 
+  void addQuantityProduct(ShoppingCardModel shoppingCardModel) {
+    _cardServices.addOrUpdateProduct(shoppingCardModel.product,
+        quantity: shoppingCardModel.quantity + 1);
+  }
+
+  void removeQuantityProduct(ShoppingCardModel shoppingCardModel) {
+    _cardServices.addOrUpdateProduct(shoppingCardModel.product,
+        quantity: shoppingCardModel.quantity - 1);
+  }
+
+  void addQuantityFood(ShoppingCardModel shoppingCardModel) {
+    _cardServices.addOrUpdateFood(
+      shoppingCardModel.food,
+      quantity: shoppingCardModel.quantity + 1,
+      selectedSize: shoppingCardModel.selectSize ?? '',
+    );
+  }
+
+  void removeQuantityFood(ShoppingCardModel shoppingCardModel) {
+    _cardServices.addOrUpdateFood(
+      shoppingCardModel.food,
+      quantity: shoppingCardModel.quantity - 1,
+      selectedSize: shoppingCardModel.selectSize ?? '',
+    );
+  }
+
   void createOrder() {
     try {
       _loading.toggle();
