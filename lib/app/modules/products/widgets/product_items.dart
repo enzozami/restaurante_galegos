@@ -56,9 +56,12 @@ class ProductItems extends GetView<ProductsController> {
                                     title: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          e.name,
-                                          style: TextStyle(color: Colors.white),
+                                        Expanded(
+                                          child: Text(
+                                            e.name,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(color: Colors.white),
+                                          ),
                                         ),
                                         Obx(() {
                                           return GalegosPlusMinus(

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class GalegosPlusMinus extends StatelessWidget {
   final VoidCallback addCallback;
   final VoidCallback removeCallback;
+  final Color? color;
   final int quantityUnit;
   const GalegosPlusMinus({
     super.key,
     required this.addCallback,
     required this.removeCallback,
     required this.quantityUnit,
+    this.color,
   });
 
   @override
@@ -19,7 +21,7 @@ class GalegosPlusMinus extends StatelessWidget {
           onPressed: removeCallback,
           icon: Icon(
             Icons.remove,
-            color: Colors.white,
+            color: color ?? Colors.white,
           ),
         ),
         Text(
@@ -32,7 +34,7 @@ class GalegosPlusMinus extends StatelessWidget {
           onPressed: addCallback,
           icon: Icon(
             Icons.add,
-            color: Colors.white,
+            color: color ?? Colors.white,
           ),
         ),
       ],

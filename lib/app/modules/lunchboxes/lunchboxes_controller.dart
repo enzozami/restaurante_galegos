@@ -31,7 +31,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   final foodSelect = Rxn<AlimentoModel>();
   AlimentoModel? get productsSelected => foodSelect.value;
 
-  final _quantity = 0.obs;
+  final _quantity = 1.obs;
   int get quantity => _quantity.value;
   final _alreadyAdded = false.obs;
   bool get alreadyAdded => _alreadyAdded.value;
@@ -125,7 +125,10 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   void addFood() {
     _quantity.value++;
-    _quantityUnit.value++;
+  }
+
+  void removeFood() {
+    if (_quantity.value > 0) _quantity.value--;
   }
 
   void addFoodShoppingCard() {
@@ -134,5 +137,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       quantity: quantity,
       selectedSize: sizeSelected.value ?? '',
     );
+    _quantity.value = 1;
+    Get.back();
   }
 }
