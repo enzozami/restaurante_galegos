@@ -53,16 +53,16 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     messageListener(_message);
 
     // Usa 'productsSelected' que é um getter para 'itemSelect.value'
-    if (productsSelected != null) {
-      _totalPrice(productsSelected!.price);
+    // if (productsSelected != null) {
+    //   _totalPrice(productsSelected!.price);
 
-      // Apenas tenta buscar no carrinho se houver um item selecionado.
-      final productShoppingCard = _shoppingCardServices.getById(productsSelected!.id);
-      if (productShoppingCard != null) {
-        _quantity(productShoppingCard.quantity);
-        _alreadyAdded(true);
-      }
-    }
+    //   // Apenas tenta buscar no carrinho se houver um item selecionado.
+    //   final productShoppingCard = _shoppingCardServices.getById(productsSelected?.key);
+    //   if (productShoppingCard != null) {
+    //     _quantity(productShoppingCard.quantity);
+    //     _alreadyAdded(true);
+    //   }
+    // }
 
     // O 'ever' deve ser seguro, pois ele só usará productsSelected se não for nulo.
     ever<int>(_quantity, (quantity) {
