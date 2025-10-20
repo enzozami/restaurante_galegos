@@ -4,11 +4,15 @@ import 'package:restaurante_galegos/app/models/item_model.dart';
 import 'package:restaurante_galegos/app/models/shopping_card_model.dart';
 
 class ShoppingCardServices extends GetxService {
-  final RxMap<int, ShoppingCardModel> _shoppingCard = <int, ShoppingCardModel>{}.obs;
+  final RxMap<String, ShoppingCardModel> _shoppingCard = <String, ShoppingCardModel>{}.obs;
+
+  String _getProductKey(ItemModel item) => 'P_${item.id}';
+  String _getFoodKey(AlimentoModel alimento, String selectedSize) =>
+      'F_${alimento.id}_$selectedSize';
 
   List<ShoppingCardModel> get productsSelected => _shoppingCard.values.toList();
 
-  ShoppingCardModel? getById(int id) => _shoppingCard[id];
+  ShoppingCardModel? getById(String key) => _shoppingCard[key];
 
   double get amountToPay {
     double amount = 0;
@@ -26,11 +30,13 @@ class ShoppingCardServices extends GetxService {
   }) {
     if (itemModel == null) return;
 
+    final key = _getProductKey(itemModel);
+
     if (quantity == 0) {
-      _shoppingCard.remove(itemModel.id);
+      _shoppingCard.remove(key);
     } else {
       _shoppingCard.update(
-        itemModel.id,
+        key,
         (item) => ShoppingCardModel(
           quantity: quantity,
           product: itemModel,
@@ -52,13 +58,15 @@ class ShoppingCardServices extends GetxService {
   }) {
     if (alimentoModel == null) return;
 
+    final key = _getFoodKey(alimentoModel, selectedSize);
+
     if (quantity == 0) {
-      _shoppingCard.remove(alimentoModel.id);
+      _shoppingCard.remove(key);
     } else {
       final selectedPrice = alimentoModel.pricePerSize[selectedSize] ?? 0.0;
 
       _shoppingCard.update(
-        alimentoModel.id,
+        key,
         (food) => ShoppingCardModel(
           quantity: quantity,
           food: alimentoModel,

@@ -18,6 +18,7 @@ class ListShoppingCard extends GetView<ShoppingCardController> {
           var product = p.food ?? p.product;
           final foodName = p.food?.name ?? '';
           final itemName = p.product?.name ?? '';
+          final sizeSelected = p.selectSize;
 
           final VoidCallback add = (product == p.food)
               ? () => controller.addQuantityFood(p)
@@ -47,6 +48,9 @@ class ListShoppingCard extends GetView<ShoppingCardController> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  subtitle: Text((sizeSelected != null)
+                      ? sizeSelected[0].toUpperCase() + sizeSelected.substring(1)
+                      : sizeSelected ?? ''),
                   trailing: Text(
                     FormatterHelper.formatCurrency(p.product?.price ?? priceFood),
                     style: TextStyle(
