@@ -65,7 +65,6 @@ class AlimentosWidget extends GetView<LunchboxesController> {
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
                             onPressed: () {
-                              controller.addFood();
                               controller.addFoodShoppingCard();
                               log('Item clicado: ${alimentoModel.name} - $price');
                               Get.snackbar(
