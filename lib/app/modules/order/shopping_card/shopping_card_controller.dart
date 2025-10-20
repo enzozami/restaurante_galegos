@@ -18,11 +18,10 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
 
-  final _address = ''.obs;
   final quantityRx = Rxn<int>();
   int get quantity => quantityRx.value!.toInt();
 
-  // final _totalPrice = 0.0.obs;
+  double get totalValue => _cardServices.amountToPay;
 
   ShoppingCardController({
     required OrderServices orderServices,
@@ -71,21 +70,28 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     );
   }
 
-  void createOrder() {
+  void clear() => _cardServices.clear();
+
+  void createOrder({required String address}) async {
     try {
       _loading.toggle();
       final user = _authService.getUserId();
       log('USUÁRIO: $user');
       final order = ItemCarrinho(
         userId: user!,
-        address: _address.value,
+        address: address,
         items: _cardServices.productsSelected,
         quantity: quantity,
       );
 
-      _orderServices.createOrder(order);
+      var createOrder = await _orderServices.createOrder(order);
+      log('ITEMS SELECIONADOS 2: ${_cardServices.productsSelected.toString()}');
 
+      createOrder = createOrder.copyWith(amountToPay: totalValue);
       _loading.toggle();
+
+      Get.offNamed('/order/finished', arguments: createOrder);
+      clear();
     } catch (e, s) {
       _loading.toggle();
       log('Erro ao carregar produtos no carrinho', error: e, stackTrace: s);

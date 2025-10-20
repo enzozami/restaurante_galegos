@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:restaurante_galegos/app/models/shopping_card_model.dart';
+import 'package:restaurante_galegos/app/models/item_carrinho.dart';
 
 class CardModel {
-  int id;
-  List<ShoppingCardModel> productsSelected;
+  String id;
+  List<ItemCarrinho> productsSelected;
   double amountToPay;
   CardModel({
     required this.id,
@@ -21,21 +21,37 @@ class CardModel {
   }
 
   factory CardModel.fromMap(Map<String, dynamic> map) {
+    final rawProducts = map['productsSelected'];
+    List<ItemCarrinho> parsedProducts = [];
+
+    if (rawProducts is List) {
+      parsedProducts = rawProducts.map<ItemCarrinho>((x) {
+        if (x is ItemCarrinho) return x;
+        if (x is Map) return ItemCarrinho.fromMap(Map<String, dynamic>.from(x));
+        // fallback: try decode if it's a json string
+        if (x is String) {
+          final decoded = json.decode(x);
+          return ItemCarrinho.fromMap(Map<String, dynamic>.from(decoded));
+        }
+        throw FormatException('Formato inválido em productsSelected');
+      }).toList();
+    }
+
     return CardModel(
-      id: map['id']?.toInt() ?? 0,
-      productsSelected: List<ShoppingCardModel>.from(
-          map['productsSelected']?.map((x) => ShoppingCardModel.fromMap(x)) ?? const []),
-      amountToPay: map['amountToPay']?.toDouble() ?? 0.0,
+      id: map['id']?.toString() ?? '',
+      productsSelected: parsedProducts,
+      amountToPay: (map['amountToPay'] as num?)?.toDouble() ?? 0.0,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory CardModel.fromJson(String source) => CardModel.fromMap(json.decode(source));
+  factory CardModel.fromJson(String source) =>
+      CardModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   CardModel copyWith({
-    int? id,
-    List<ShoppingCardModel>? productsSelected,
+    String? id,
+    List<ItemCarrinho>? productsSelected,
     double? amountToPay,
   }) {
     return CardModel(

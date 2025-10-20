@@ -1,3 +1,5 @@
+import 'package:restaurante_galegos/app/models/alimento_model.dart';
+import 'package:restaurante_galegos/app/models/item_model.dart';
 import 'package:restaurante_galegos/app/models/shopping_card_model.dart';
 
 class ItemCarrinho {
@@ -11,5 +13,8 @@ class ItemCarrinho {
     required this.address,
     required this.items,
     required this.quantity,
+    String? selectedSize,
+    AlimentoModel? food,
+    ItemModel? product,
   });
 }

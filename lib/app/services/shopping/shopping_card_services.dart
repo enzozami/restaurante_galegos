@@ -82,4 +82,6 @@ class ShoppingCardServices extends GetxService {
       );
     }
   }
+
+  void clear() => _shoppingCard.clear();
 }
