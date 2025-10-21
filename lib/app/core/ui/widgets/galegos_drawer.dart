@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 
 class GalegosDrawer extends StatelessWidget {
   const GalegosDrawer({super.key});
@@ -8,6 +9,7 @@ class GalegosDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: GalegosUiDefaut.theme.drawerTheme.backgroundColor,
       width: context.widthTransformer(reducedBy: 20),
       elevation: 1,
       child: Column(

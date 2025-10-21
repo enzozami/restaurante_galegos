@@ -9,7 +9,9 @@ mixin LoaderMixin on GetxController {
         if (loading) {
           await Get.dialog(
             Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Colors.amber,
+              ),
             ),
             barrierDismissible: false,
           );
