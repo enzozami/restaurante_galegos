@@ -21,7 +21,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   final quantityRx = Rxn<int>();
   int get quantity => quantityRx.value!.toInt();
 
-  void clear() => _cardServices.clear();
+  double get totalValue => _cardServices.amountToPay;
 
   ShoppingCardController({
     required OrderServices orderServices,
@@ -70,7 +70,9 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     );
   }
 
-  Future<void> createOrder({required String address}) async {
+  void clear() => _cardServices.clear();
+
+  void createOrder({required String address}) async {
     try {
       _loading.toggle();
       final user = _authService.getUserId();
@@ -82,16 +84,14 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
         quantity: quantity,
       );
 
-      log('ORDER-json: ${order.items.map((e) => e.toJson())}');
-
-      var finished = await _orderServices.createOrder(order);
-      finished = finished.copyWith(amountToPay: totalPay());
-      log('ORDER-FINALIZADO: ${finished.toJson()}');
+      var createOrder = await _orderServices.createOrder(order);
+      log('ITEMS SELECIONADOS 2: ${_cardServices.productsSelected.toString()}');
 
       createOrder = createOrder.copyWith(amountToPay: totalValue);
       _loading.toggle();
+
+      Get.offNamed('/order/finished', arguments: createOrder);
       clear();
-      await Get.offNamed('/order/finished', arguments: finished);
     } catch (e, s) {
       _loading.toggle();
       log('Erro ao carregar produtos no carrinho', error: e, stackTrace: s);

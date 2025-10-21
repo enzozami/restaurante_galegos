@@ -3,19 +3,19 @@ import 'dart:convert';
 import 'package:restaurante_galegos/app/models/item_carrinho.dart';
 
 class CardModel {
-  int id;
-  List<ShoppingCardModel> items;
+  String id;
+  List<ItemCarrinho> productsSelected;
   double amountToPay;
   CardModel({
     required this.id,
-    required this.items,
+    required this.productsSelected,
     required this.amountToPay,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'items': items.map((x) => x.toMap()).toList(),
+      'productsSelected': productsSelected.map((x) => x.toMap()).toList(),
       'amountToPay': amountToPay,
     };
   }
@@ -38,10 +38,9 @@ class CardModel {
     }
 
     return CardModel(
-      id: map['id']?.toInt() ?? 0,
-      items: List<ShoppingCardModel>.from(
-          (map['items'] as List? ?? []).map((x) => ShoppingCardModel.fromMap(x))),
-      amountToPay: map['amountToPay']?.toDouble() ?? 0.0,
+      id: map['id']?.toString() ?? '',
+      productsSelected: parsedProducts,
+      amountToPay: (map['amountToPay'] as num?)?.toDouble() ?? 0.0,
     );
   }
 
@@ -51,13 +50,13 @@ class CardModel {
       CardModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   CardModel copyWith({
-    int? id,
-    List<ShoppingCardModel>? items,
+    String? id,
+    List<ItemCarrinho>? productsSelected,
     double? amountToPay,
   }) {
     return CardModel(
       id: id ?? this.id,
-      items: items ?? this.items,
+      productsSelected: productsSelected ?? this.productsSelected,
       amountToPay: amountToPay ?? this.amountToPay,
     );
   }

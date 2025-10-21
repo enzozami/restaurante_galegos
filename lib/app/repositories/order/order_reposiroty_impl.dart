@@ -16,15 +16,18 @@ class OrderReposirotyImpl implements OrderReposiroty {
     final result = await _restClient.post('/orders', {
       'userId': order.userId,
       'address': order.address,
-      'items': order.items
-          .map((shoppingCard) => {
-                'product': shoppingCard.product?.toMap(),
-                'food': shoppingCard.food?.toMap(),
-                'quantity': shoppingCard.quantity,
-                'selectedSize': shoppingCard.selectSize,
-                'selectedPrice': shoppingCard.selectedPrice,
-              })
-          .toList(),
+      'items': order.items.map((shoppingCard) {
+        // Verifica se é produto (ItemModel) ou marmita (AlimentoModel)
+        final isFood = shoppingCard.food != null;
+
+        return {
+          'itemId': isFood ? shoppingCard.food!.id : shoppingCard.product!.id,
+          'quantity': shoppingCard.quantity,
+          'type': isFood ? 'food' : 'product',
+          // Adiciona o tamanho apenas se for marmita
+          if (isFood) 'size': shoppingCard.selectSize,
+        };
+      }).toList(),
     });
 
     if (result.hasError) {
