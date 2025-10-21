@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:get/get.dart';
@@ -170,8 +171,12 @@ class FinishedController extends GetxController {
     );
     final output = await getTemporaryDirectory();
     final file = File("${output.path}/pedido_${orderFinished.id}.pdf");
-    await file.writeAsBytes(await pdf.save());
-
-    await Printing.sharePdf(bytes: await pdf.save(), filename: 'pedido_${orderFinished.id}.pdf');
+    try {
+      final bytes = await pdf.save();
+      await file.writeAsBytes(bytes);
+      await Printing.sharePdf(bytes: bytes, filename: 'pedido_${orderFinished.id}.pdf');
+    } catch (e, s) {
+      log('Erro ao gerar PDF: $e', stackTrace: s);
+    }
   }
 }
