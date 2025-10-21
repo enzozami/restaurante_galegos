@@ -4,7 +4,11 @@ class GalegosUiDefaut {
   GalegosUiDefaut._();
 
   static final ThemeData theme = ThemeData(
-    primaryColor: Colors.amber,
+    primaryColor: Colors.white,
+    scaffoldBackgroundColor: Colors.white,
+    appBarTheme: AppBarTheme(
+      backgroundColor: Colors.white,
+    ),
     primaryColorDark: Colors.black,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
