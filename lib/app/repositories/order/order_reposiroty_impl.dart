@@ -33,7 +33,13 @@ class OrderReposirotyImpl implements OrderReposiroty {
         error: result.statusText,
         stackTrace: StackTrace.current,
       );
-      RestClientException(message: 'Erro ao enviar novo pedido');
+      throw RestClientException(message: 'Erro ao enviar novo pedido');
+    }
+
+    // CORREÇÃO: Tratar o caso em que o corpo (body) é nulo, mesmo sem 'hasError'
+    if (result.body == null) {
+      log('Corpo da resposta nulo após sucesso aparente.', stackTrace: StackTrace.current);
+      throw RestClientException(message: 'Resposta vazia do servidor.');
     }
 
     return CardModel.fromMap(result.body);

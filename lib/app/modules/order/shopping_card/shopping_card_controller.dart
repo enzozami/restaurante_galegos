@@ -88,6 +88,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       finished = finished.copyWith(amountToPay: totalPay());
       log('ORDER-FINALIZADO: ${finished.toJson()}');
 
+      createOrder = createOrder.copyWith(amountToPay: totalValue);
       _loading.toggle();
       clear();
       await Get.offNamed('/order/finished', arguments: finished);

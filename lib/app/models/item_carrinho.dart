@@ -15,6 +15,9 @@ class ItemCarrinho {
     required this.address,
     required this.items,
     required this.quantity,
+    String? selectedSize,
+    AlimentoModel? food,
+    ItemModel? product,
   });
 
   Map<String, dynamic> toMap() {
