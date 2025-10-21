@@ -13,13 +13,16 @@ class OrderReposirotyImpl implements OrderReposiroty {
 
   @override
   Future<CardModel> createOrder(ItemCarrinho order) async {
-    final result = await _restClient.post('/order', {
+    final result = await _restClient.post('/orders', {
       'userId': order.userId,
       'address': order.address,
       'items': order.items
           .map((shoppingCard) => {
-                'product': shoppingCard.product,
-                'food': shoppingCard.food,
+                'product': shoppingCard.product?.toMap(),
+                'food': shoppingCard.food?.toMap(),
+                'quantity': shoppingCard.quantity,
+                'selectedSize': shoppingCard.selectSize,
+                'selectedPrice': shoppingCard.selectedPrice,
               })
           .toList(),
     });
