@@ -6,6 +6,9 @@ class GalegosUiDefaut {
   static final ThemeData theme = ThemeData(
     primaryColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,
+    drawerTheme: DrawerThemeData(
+      backgroundColor: Colors.white,
+    ),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.white,
     ),
