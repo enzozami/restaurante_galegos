@@ -31,6 +31,9 @@ class GalegosTextFormField extends StatelessWidget {
       ],
       decoration: InputDecoration(
         labelText: label,
+        labelStyle: TextStyle(
+          color: Colors.black,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(
@@ -38,6 +41,8 @@ class GalegosTextFormField extends StatelessWidget {
           ),
         ),
         filled: true,
+        // fillColor: Colors.yellow[200],
+        fillColor: Colors.amber[200],
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(

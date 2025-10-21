@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
@@ -36,6 +37,7 @@ class ProductItems extends GetView<ProductsController> {
             child: Column(
               children: [
                 Material(
+                  color: GalegosUiDefaut.theme.primaryColor,
                   child: Container(
                     constraints: BoxConstraints(
                       minHeight: 100,

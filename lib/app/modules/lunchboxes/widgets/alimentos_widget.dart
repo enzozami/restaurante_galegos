@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
 import 'package:restaurante_galegos/app/models/alimento_model.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
@@ -24,6 +25,7 @@ class AlimentosWidget extends GetView<LunchboxesController> {
         return Visibility(
           visible: (selectedSize?.isNotEmpty ?? false),
           child: Material(
+            color: GalegosUiDefaut.theme.primaryColor,
             child: Container(
               constraints: BoxConstraints(
                 minHeight: 100,
