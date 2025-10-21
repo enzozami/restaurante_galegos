@@ -512,7 +512,6 @@
                 "media": 28.0
             }
         },
-        
         {
             "name": "Bife à Milanesa",
             "dayName": "Terça-feira",
@@ -926,7 +925,7 @@
         {
             "name": "Almôndegas",
             "dayName": "Sexta-feira",
-            "id": 53    ,
+            "id": 53,
             "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
             "pricePerSize": {
                 "mini": 22.0,
@@ -1042,7 +1041,479 @@
                 "mini": 26.0,
                 "media": 28.0
             }
-      }
+        }
     ],
-    "orders": []
+    "orders": [
+        {
+            "id": 1,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": "{\"id\":10,\"categoryId\":\"Lanches\",\"name\":\"Americano\",\"description\":\"Pão francês, presunto, queijo, ovo, alface, tomate e maionese\",\"price\":15.0}",
+                    "food": null
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": "{\"id\":11,\"categoryId\":\"Lanches\",\"name\":\"Bauru\",\"description\":\"Pão francês, presunto, queijo e tomate\",\"price\":13.0}",
+                    "food": null
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": "{\"id\":12,\"categoryId\":\"Lanches\",\"name\":\"X-Burguer\",\"description\":\"Pão de hambúrguer, hambúrguer, queijo e maionese\",\"price\":14.0}",
+                    "food": null
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": "{\"id\":13,\"categoryId\":\"Lanches\",\"name\":\"X-Salada\",\"description\":\"Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese\",\"price\":15.0}",
+                    "food": null
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": "{\"id\":14,\"categoryId\":\"Lanches\",\"name\":\"X-Egg\",\"description\":\"Pão de hambúrguer, hambúrguer, queijo, ovo e maionese\",\"price\":15.0}",
+                    "food": null
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": "{\"id\":15,\"categoryId\":\"Lanches\",\"name\":\"X-Tudo\",\"description\":\"Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese\",\"price\":21.0}",
+                    "food": null
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": "{\"id\":15,\"categoryId\":\"Lanches\",\"name\":\"X-Tudo\",\"description\":\"Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese\",\"price\":21.0}",
+                    "food": null
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": "{\"id\":18,\"categoryId\":\"Lanches\",\"name\":\"Misto Quente\",\"description\":\"Pão de forma, presunto e queijo\",\"price\":12.0}",
+                    "food": null
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": "{\"id\":110,\"categoryId\":\"Lanches\",\"name\":\"X-Frango\",\"description\":\"Pão francês, filé de frango, queijo, alface, tomate e maionese\",\"price\":18.0}",
+                    "food": null
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": {
+                        "id": 20,
+                        "categoryId": "Bebidas",
+                        "name": "Coca-Cola Lata",
+                        "description": "Refrigerante Coca-Cola lata 350ml",
+                        "price": 6.0
+                    },
+                    "food": null,
+                    "quantity": 1,
+                    "selectedSize": null
+                }
+            ]
+        },
+        {
+            "id": 11,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": "{\"id\":15,\"categoryId\":\"Lanches\",\"name\":\"X-Tudo\",\"description\":\"Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese\",\"price\":21.0}",
+                    "food": null
+                }
+            ]
+        },
+        {
+            "id": 12,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": {
+                        "id": 13,
+                        "categoryId": "Lanches",
+                        "name": "X-Salada",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
+                        "price": 15.0
+                    },
+                    "food": null,
+                    "quantity": 1,
+                    "selectedSize": null
+                }
+            ]
+        },
+        {
+            "id": 13,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": {
+                        "id": 12,
+                        "categoryId": "Lanches",
+                        "name": "X-Burguer",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
+                        "price": 14.0
+                    },
+                    "food": null,
+                    "quantity": 1,
+                    "selectedSize": null
+                },
+                {
+                    "product": {
+                        "id": 14,
+                        "categoryId": "Lanches",
+                        "name": "X-Egg",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, ovo e maionese",
+                        "price": 15.0
+                    },
+                    "food": null,
+                    "quantity": 1,
+                    "selectedSize": null
+                }
+            ]
+        },
+        {
+            "id": 14,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": {
+                        "id": 13,
+                        "categoryId": "Lanches",
+                        "name": "X-Salada",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
+                        "price": 15.0
+                    },
+                    "food": null,
+                    "quantity": 1,
+                    "selectedSize": null
+                },
+                {
+                    "product": {
+                        "id": 14,
+                        "categoryId": "Lanches",
+                        "name": "X-Egg",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, ovo e maionese",
+                        "price": 15.0
+                    },
+                    "food": null,
+                    "quantity": 2,
+                    "selectedSize": null
+                }
+            ]
+        },
+        {
+            "id": 15,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": {
+                        "id": 18,
+                        "categoryId": "Lanches",
+                        "name": "Misto Quente",
+                        "description": "Pão de forma, presunto e queijo",
+                        "price": 12.0
+                    },
+                    "food": null,
+                    "quantity": 1,
+                    "selectedSize": null
+                },
+                {
+                    "product": {
+                        "id": 110,
+                        "categoryId": "Lanches",
+                        "name": "X-Frango",
+                        "description": "Pão francês, filé de frango, queijo, alface, tomate e maionese",
+                        "price": 18.0
+                    },
+                    "food": null,
+                    "quantity": 4,
+                    "selectedSize": null
+                }
+            ]
+        },
+        {
+            "id": 16,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": null,
+                    "food": {
+                        "id": 14,
+                        "name": "Bife Grelhado",
+                        "dayName": "Terça-feira",
+                        "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                        "pricePerSize": {
+                            "mini": 22.0,
+                            "media": 24.0
+                        }
+                    },
+                    "quantity": 1,
+                    "selectedSize": "media"
+                }
+            ]
+        },
+        {
+            "id": 17,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": {
+                        "id": 13,
+                        "categoryId": "Lanches",
+                        "name": "X-Salada",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
+                        "price": 15.0
+                    },
+                    "food": null,
+                    "quantity": 1,
+                    "selectedSize": null
+                }
+            ]
+        },
+        {
+            "id": 18,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": null,
+                    "food": {
+                        "id": 15,
+                        "name": "Cupim Assado ao Molho de Madeira",
+                        "dayName": "Terça-feira",
+                        "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                        "pricePerSize": {
+                            "mini": 23.0,
+                            "media": 25.0
+                        }
+                    },
+                    "quantity": 1,
+                    "selectedSize": "mini"
+                }
+            ]
+        },
+        {
+            "id": 19,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": null,
+                    "food": {
+                        "id": 13,
+                        "name": "Bife a Parmegiana",
+                        "dayName": "Terça-feira",
+                        "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                        "pricePerSize": {
+                            "mini": 23.0,
+                            "media": 25.0
+                        }
+                    },
+                    "quantity": 1,
+                    "selectedSize": "mini"
+                }
+            ]
+        },
+        {
+            "id": 20,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": null,
+                    "food": {
+                        "id": 17,
+                        "name": "Filé de Frango à Parmegiana",
+                        "dayName": "Terça-feira",
+                        "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                        "pricePerSize": {
+                            "mini": 23.0,
+                            "media": 25.0
+                        }
+                    },
+                    "quantity": 1,
+                    "selectedSize": "mini"
+                }
+            ]
+        },
+        {
+            "id": 21,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": null,
+                    "food": {
+                        "id": 17,
+                        "name": "Filé de Frango à Parmegiana",
+                        "dayName": "Terça-feira",
+                        "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                        "pricePerSize": {
+                            "mini": 23.0,
+                            "media": 25.0
+                        }
+                    },
+                    "quantity": 1,
+                    "selectedSize": "mini"
+                }
+            ]
+        },
+        {
+            "id": 22,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": {
+                        "id": 13,
+                        "categoryId": "Lanches",
+                        "name": "X-Salada",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
+                        "price": 15.0
+                    },
+                    "food": null,
+                    "quantity": 1,
+                    "selectedSize": null
+                }
+            ]
+        },
+        {
+            "id": 23,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": null,
+                    "food": {
+                        "id": 15,
+                        "name": "Cupim Assado ao Molho de Madeira",
+                        "dayName": "Terça-feira",
+                        "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                        "pricePerSize": {
+                            "mini": 23.0,
+                            "media": 25.0
+                        }
+                    },
+                    "quantity": 1,
+                    "selectedSize": "mini",
+                    "selectedPrice": 23.0
+                }
+            ]
+        },
+        {
+            "id": 24,
+            "userId": 11,
+            "address": "",
+            "items": [
+                {
+                    "product": null,
+                    "food": {
+                        "id": 13,
+                        "name": "Bife a Parmegiana",
+                        "dayName": "Terça-feira",
+                        "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                        "pricePerSize": {
+                            "mini": 23.0,
+                            "media": 25.0
+                        }
+                    },
+                    "quantity": 3,
+                    "selectedSize": "media",
+                    "selectedPrice": 25.0
+                }
+            ]
+        },
+        {
+            "id": 25,
+            "userId": 11,
+            "address": "avenida ",
+            "items": [
+                {
+                    "product": {
+                        "id": 12,
+                        "categoryId": "Lanches",
+                        "name": "X-Burguer",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
+                        "price": 14.0
+                    },
+                    "food": null,
+                    "quantity": 1,
+                    "selectedSize": null,
+                    "selectedPrice": null
+                },
+                {
+                    "product": null,
+                    "food": {
+                        "id": 12,
+                        "name": "Bife à Milanesa",
+                        "dayName": "Terça-feira",
+                        "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                        "pricePerSize": {
+                            "mini": 22.0,
+                            "media": 24.0
+                        }
+                    },
+                    "quantity": 1,
+                    "selectedSize": "mini",
+                    "selectedPrice": 22.0
+                }
+            ]
+        }
+    ]
 }

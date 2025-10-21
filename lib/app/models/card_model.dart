@@ -4,18 +4,18 @@ import 'package:restaurante_galegos/app/models/shopping_card_model.dart';
 
 class CardModel {
   int id;
-  List<ShoppingCardModel> productsSelected;
+  List<ShoppingCardModel> items;
   double amountToPay;
   CardModel({
     required this.id,
-    required this.productsSelected,
+    required this.items,
     required this.amountToPay,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'productsSelected': productsSelected.map((x) => x.toMap()).toList(),
+      'items': items.map((x) => x.toMap()).toList(),
       'amountToPay': amountToPay,
     };
   }
@@ -23,8 +23,8 @@ class CardModel {
   factory CardModel.fromMap(Map<String, dynamic> map) {
     return CardModel(
       id: map['id']?.toInt() ?? 0,
-      productsSelected: List<ShoppingCardModel>.from(
-          map['productsSelected']?.map((x) => ShoppingCardModel.fromMap(x)) ?? const []),
+      items: List<ShoppingCardModel>.from(
+          (map['items'] as List? ?? []).map((x) => ShoppingCardModel.fromMap(x))),
       amountToPay: map['amountToPay']?.toDouble() ?? 0.0,
     );
   }
@@ -35,12 +35,12 @@ class CardModel {
 
   CardModel copyWith({
     int? id,
-    List<ShoppingCardModel>? productsSelected,
+    List<ShoppingCardModel>? items,
     double? amountToPay,
   }) {
     return CardModel(
       id: id ?? this.id,
-      productsSelected: productsSelected ?? this.productsSelected,
+      items: items ?? this.items,
       amountToPay: amountToPay ?? this.amountToPay,
     );
   }
