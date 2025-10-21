@@ -6,10 +6,12 @@ import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/models/card_model.dart';
+import 'package:restaurante_galegos/app/modules/order/finished/finished_controller.dart';
 import 'package:restaurante_galegos/app/modules/order/finished/widgets/galegos_table.dart';
 
 class FinishedPage extends StatelessWidget {
   final CardModel orderFinished = Get.arguments;
+  final FinishedController controller = Get.put(FinishedController());
   FinishedPage({super.key});
 
   @override
@@ -194,7 +196,9 @@ class FinishedPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GalegosButtonDefault(
-                onPressed: () {},
+                onPressed: () {
+                  controller.generatePDF();
+                },
                 label: 'Gerar PDF',
               ),
               GalegosButtonDefault(
