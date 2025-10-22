@@ -130,7 +130,7 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: context.heightTransformer(reducedBy: 80),
+                          height: context.heightTransformer(reducedBy: 85),
                         ),
                         Text('Não possui cadastro?'),
                         TextButton(
