@@ -40,9 +40,9 @@ class GalegosTextFormField extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-        filled: true,
+        // filled: true,
         // fillColor: Colors.yellow[200],
-        fillColor: Colors.amber[200],
+        // fillColor: Colors.amber[200],
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(
