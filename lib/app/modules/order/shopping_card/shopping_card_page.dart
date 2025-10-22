@@ -128,11 +128,20 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                                 GalegosButtonDefault(
                                   label: 'FINALIZAR',
                                   width: context.widthTransformer(reducedBy: 60),
-                                  onPressed: () {
+                                  onPressed: () async {
                                     final formValid = _formKey.currentState?.validate() ?? false;
                                     if (formValid) {
                                       controller.quantityRx(quantityItems);
-                                      controller.createOrder(address: _addressEC.text);
+                                      final success =
+                                          await controller.createOrder(address: _addressEC.text);
+                                      if (success) {
+                                        Get.snackbar(
+                                          'Pedido feito com sucesso',
+                                          'Seu pedido foi enviado com sucesso, enviaremos para você o quanto antes!',
+                                          duration: 3.seconds,
+                                          backgroundColor: Colors.amberAccent,
+                                        );
+                                      }
                                     }
                                   },
                                 ),
