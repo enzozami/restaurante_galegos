@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:restaurante_galegos/app/core/constants/constants.dart';
@@ -12,7 +10,6 @@ class AuthService extends GetxService {
     _getStorage.listenKey(Constants.USER_KEY, (value) {
       _isLogged(value != null);
     });
-    log('asdwjahksdjhwkjahsdkjhw $_isLogged');
 
     ever(_isLogged, (isLogged) {
       if (isLogged == null || !isLogged) {
