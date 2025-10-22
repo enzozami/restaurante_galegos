@@ -69,6 +69,13 @@
             "name": "Julia",
             "value": "438.810.400-05",
             "password": "abc123"
+        },
+        {
+            "id": 11,
+            "isCpf": true,
+            "name": "Neytan",
+            "value": "631.313.200-95",
+            "password": "123456"
         }
     ],
     "adm_users": [
@@ -2414,6 +2421,49 @@
                     "quantity": 1,
                     "selectedSize": null,
                     "selectedPrice": null
+                }
+            ]
+        },
+        {
+            "id": 70,
+            "userId": 11,
+            "address": "hdgqhwhhs",
+            "items": [
+                {
+                    "product": {
+                        "id": 10,
+                        "categoryId": "Lanches",
+                        "name": "Americano",
+                        "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                        "price": 15.0
+                    },
+                    "food": null,
+                    "quantity": 8,
+                    "selectedSize": null,
+                    "selectedPrice": null
+                }
+            ]
+        },
+        {
+            "id": 71,
+            "userId": 11,
+            "address": "igog",
+            "items": [
+                {
+                    "product": null,
+                    "food": {
+                        "id": 28,
+                        "name": "Feijoada",
+                        "dayName": "Quarta-feira",
+                        "description": "Acompanha arroz, feijoada, couve, torresmo, vinagrete e farofa",
+                        "pricePerSize": {
+                            "mini": 26.0,
+                            "media": 28.0
+                        }
+                    },
+                    "quantity": 1,
+                    "selectedSize": "mini",
+                    "selectedPrice": 26.0
                 }
             ]
         }
