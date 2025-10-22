@@ -9,6 +9,8 @@ class GalegosTextFormField extends StatelessWidget {
   final MaskTextInputFormatter? mask;
   final TextInputType inputType;
 
+  final bool? enabled;
+
   const GalegosTextFormField({
     super.key,
     this.controller,
@@ -17,6 +19,7 @@ class GalegosTextFormField extends StatelessWidget {
     this.obscureText = false,
     this.mask,
     this.inputType = TextInputType.text,
+    this.enabled,
   });
 
   @override
@@ -24,13 +27,16 @@ class GalegosTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
+      enabled: enabled,
       keyboardType: inputType,
       validator: validator,
       inputFormatters: [
         if (mask != null) mask!,
       ],
       decoration: InputDecoration(
+        // suffixIcon: icon
         labelText: label,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
         labelStyle: TextStyle(
           color: Colors.black,
         ),
