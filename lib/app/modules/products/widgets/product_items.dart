@@ -48,6 +48,7 @@ class ProductItems extends GetView<ProductsController> {
                         ...items.map(
                           (e) => InkWell(
                             splashColor: Colors.amber,
+                            borderRadius: BorderRadius.circular(30),
                             onTap: () {
                               controller.itemSelect(e);
                               showDialog(
@@ -119,7 +120,12 @@ class ProductItems extends GetView<ProductsController> {
                                     ),
                                   ),
                                 ),
-                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 10.0,
+                                  ), // recuo igual ao título
+                                  child: const Divider(height: 0.5, thickness: 1),
+                                ),
                               ],
                             ),
                           ),
