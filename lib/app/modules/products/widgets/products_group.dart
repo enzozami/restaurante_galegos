@@ -10,7 +10,6 @@ class ProductsGroup extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // height: Get.height,
       child: Obx(() {
         final products = controller.product;
 
@@ -20,11 +19,6 @@ class ProductsGroup extends GetView<ProductsController> {
           controller: scrollController,
           itemCount: controller.categorySelected.value == null ? products.length : 1,
           itemBuilder: (context, index) {
-            // final product = products[index];
-
-            // log('$product');
-            // final item = items[index];
-
             return Column(
               children: [
                 ProductItems(
