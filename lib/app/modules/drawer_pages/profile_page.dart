@@ -71,10 +71,9 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                           children: [
                             ProfileData(
                               title: 'Nome:',
-                              label: controller.name.string,
+                              label: controller.name,
                               controller: _newNameEC,
                               isSelected: controller.isSelected,
-                              validator: Validatorless.required('Campo obrigatório'),
                             ),
                             ProfileData(
                               title: 'CPF/CNPJ:',
@@ -83,25 +82,21 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                             ),
                             ProfileData(
                               title: 'Senha:',
-                              label: controller.password.value,
+                              label: controller.password,
                               controller: _newPasswordEC,
                               isSelected: controller.isSelected,
-                              obscure: controller.isObscure,
-                              validator: Validatorless.multiple([
-                                Validatorless.required('Campo obrigatório'),
-                                Validatorless.min(6, 'Mínimo 6 caracteres')
-                              ]),
+                              obscure: true,
+                              validator: Validatorless.min(6, 'Mínimo 6 caracteres'),
                             ),
-                            ProfileData(
-                              title: 'Confirmar Senha:',
-                              label: controller.password.value,
-                              isSelected: controller.isSelected,
-                              obscure: controller.isObscure,
-                              validator: Validatorless.multiple([
-                                Validatorless.required('Campo obrigatório'),
-                                Validatorless.compare(_newPasswordEC, 'Senhas precisam ser iguais')
-                              ]),
-                            ),
+                            // ProfileData(
+                            //   title: 'Confirmar Senha:',
+                            //   label: controller.password,
+                            //   isSelected: controller.isSelected,
+                            //   obscure: controller.isObscure,
+                            //   validator: Validatorless.multiple([
+                            //     Validatorless.compare(_newPasswordEC, 'Senhas diferente'),
+                            //   ]),
+                            // ),
                           ],
                         ),
                       ),
@@ -113,7 +108,21 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                             alignment: Alignment.centerRight,
                             child: GalegosButtonDefault(
                               label: 'Atualizar',
-                              onPressed: () {},
+                              onPressed: () {
+                                final formValid = _formKey.currentState?.validate() ?? false;
+                                if (formValid) {
+                                  final name = _newNameEC.text;
+                                  final password = _newPasswordEC.text;
+                                  controller.updateUser(name, password);
+                                }
+                                controller.isSelected = false;
+                                Get.snackbar(
+                                  'Sucesso',
+                                  'Dados atualizados com sucesso',
+                                  duration: 3.seconds,
+                                  backgroundColor: Colors.amberAccent,
+                                );
+                              },
                             ),
                           ),
                         ),

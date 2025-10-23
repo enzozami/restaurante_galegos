@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
@@ -14,10 +16,13 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   final _isObscure = true.obs;
 
   bool get isSelected => _isSelected.value;
+  set isSelected(bool value) => _isSelected.value = value;
   bool get isObscure => _isObscure.value;
 
-  var name = ''.obs;
-  var password = ''.obs;
+  final _name = ''.obs;
+  String get name => _name.value;
+  final _password = ''.obs;
+  String get password => _password.value;
   final valueCpfOrCnpj = ''.obs;
 
   GalegosDrawerController({
@@ -43,17 +48,33 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
     _isSelected.toggle();
   }
 
-  void obscure() {
-    _isObscure.toggle();
-  }
-
   Future<void> getUser() async {
     final userId = _authService.getUserId();
     if (userId != null) {
       final userData = await _userServices.getUser(id: userId);
-      name.value = userData.name;
-      password.value = userData.password;
+      _name.value = userData.name;
+      _password.value = userData.password;
       valueCpfOrCnpj.value = userData.value;
+    }
+  }
+
+  Future<void> updateUser(
+    String? name,
+    String? password,
+  ) async {
+    final userId = _authService.getUserId();
+    if (userId != null) {
+      log(name ?? 'nome nao digitado');
+      log(password ?? 'senha nao digitada');
+      if (name != null && name != '' && password == '' && password != null) {
+        await _userServices.updateUser(name, _password.value, id: userId);
+      } else if (name != null && password != null && password != '') {
+        await _userServices.updateUser(_name.value, password, id: userId);
+      } else if (name != null && name != '' && password != null && password != '') {
+        await _userServices.updateUser(name, password, id: userId);
+      } else if (name != null && password != null && name == '' && password == '') {
+        await _userServices.updateUser(_name.value, _password.value, id: userId);
+      }
     }
   }
 }

@@ -28,7 +28,8 @@ class AuthRepositoryImpl implements AuthRepository {
 
     // log('hkjlmkjmnlmnl$data');
 
-    final user = data.firstWhere((u) => u['value'] == value);
+    final user = data.firstWhere((u) => u['value'] == value && u['password'] == password);
+
     // log('asdwasd w$user');
 
     return UserModel.fromMap(user);
@@ -55,4 +56,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
     return login(isCpf: isCpf, value: value, password: password);
   }
+}
+
+class AuthException implements Exception {
+  final String message;
+  AuthException(this.message);
 }
