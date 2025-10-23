@@ -3,25 +3,26 @@ import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 
 class ProfileData extends StatelessWidget {
-  final String label;
   final String title;
-  final TextEditingController controller;
-  final bool isSelected;
-  final VoidCallback onPressed;
+  final String label;
+  final TextEditingController? controller;
+  final bool? isSelected;
   final bool? obscure;
+  final FormFieldValidator<String>? validator;
 
   const ProfileData({
-    required this.controller,
+    this.controller,
     super.key,
     required this.label,
-    required this.isSelected,
-    required this.onPressed,
+    this.isSelected,
     required this.title,
     this.obscure,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
+    final maskedLabel = obscure == true ? '••••••••' : label;
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -31,23 +32,15 @@ class ProfileData extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
             child: Text(title),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: context.widthTransformer(reducedBy: 20),
-                child: GalegosTextFormField(
-                  label: label,
-                  controller: controller,
-                  enabled: isSelected,
-                  obscureText: obscure ?? false,
-                ),
-              ),
-              IconButton(
-                onPressed: onPressed,
-                icon: isSelected ? Icon(Icons.close) : Icon(Icons.edit),
-              ),
-            ],
+          SizedBox(
+            width: context.widthTransformer(reducedBy: 10),
+            child: GalegosTextFormField(
+              label: (isSelected != null && isSelected == true) ? label : maskedLabel,
+              controller: controller,
+              enabled: isSelected ?? true,
+              obscureText: obscure ?? false,
+              validator: validator,
+            ),
           ),
         ],
       ),

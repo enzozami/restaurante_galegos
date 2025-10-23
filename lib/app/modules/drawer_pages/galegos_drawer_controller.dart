@@ -18,6 +18,7 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
 
   var name = ''.obs;
   var password = ''.obs;
+  final valueCpfOrCnpj = ''.obs;
 
   GalegosDrawerController({
     required UserServices userServices,
@@ -52,6 +53,7 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
       final userData = await _userServices.getUser(id: userId);
       name.value = userData.name;
       password.value = userData.password;
+      valueCpfOrCnpj.value = userData.value;
     }
   }
 }
