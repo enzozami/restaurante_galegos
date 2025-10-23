@@ -52,19 +52,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     loaderListener(_loading);
     messageListener(_message);
 
-    // Usa 'productsSelected' que é um getter para 'itemSelect.value'
-    // if (productsSelected != null) {
-    //   _totalPrice(productsSelected!.price);
-
-    //   // Apenas tenta buscar no carrinho se houver um item selecionado.
-    //   final productShoppingCard = _shoppingCardServices.getById(productsSelected?.key);
-    //   if (productShoppingCard != null) {
-    //     _quantity(productShoppingCard.quantity);
-    //     _alreadyAdded(true);
-    //   }
-    // }
-
-    // O 'ever' deve ser seguro, pois ele só usará productsSelected se não for nulo.
     ever<int>(_quantity, (quantity) {
       if (productsSelected != null) {
         _totalPrice(productsSelected!.price * quantity);
@@ -128,14 +115,18 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         return;
       }
 
-      var newProducts =
-          _productOriginal.where((p) => p.category == categorySelected.value!.category).toList();
+      // var newProducts = _productOriginal
+      //     .where((p) => p.category.contains(categorySelected.value!.category))
+      //     .toList();
+      log('CATEGORIA SELECIONADA: ${categorySelected.value!.category}');
 
-      var newItems =
-          _itemsOriginal.where((e) => e.categoryId == categorySelected.value!.category).toList();
+      var newItems = _itemsOriginal
+          .where((e) => e.categoryId.contains(categorySelected.value!.category))
+          .toList();
 
-      product.assignAll(newProducts);
+      // product.assignAll(newProducts);
       items.assignAll(newItems);
+      log('items da categoria: ${items.map((e) => e.name)}');
       _loading.toggle();
     } catch (e, s) {
       _loading.toggle();
