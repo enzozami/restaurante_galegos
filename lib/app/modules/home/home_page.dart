@@ -28,7 +28,7 @@ class HomePage extends GetView<HomeController> {
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.lunch_dining), label: 'Produto'),
             BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: 'Marmitas'),
-            BottomNavigationBarItem(icon: Icon(Icons.list_alt_outlined), label: 'Pedidos'),
+            BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined), label: 'Carrinho'),
           ],
         );
       }),

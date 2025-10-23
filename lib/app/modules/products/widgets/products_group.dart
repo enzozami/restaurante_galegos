@@ -18,16 +18,17 @@ class ProductsGroup extends GetView<ProductsController> {
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           controller: scrollController,
-          itemCount: products.length,
+          itemCount: controller.categorySelected.value == null ? products.length : 1,
           itemBuilder: (context, index) {
-            final product = products[index];
+            // final product = products[index];
+
             // log('$product');
             // final item = items[index];
 
             return Column(
               children: [
                 ProductItems(
-                  modelProduct: product,
+                  modelProduct: controller.categorySelected.value ?? products[index],
                 ),
               ],
             );
