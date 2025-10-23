@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 
 class GalegosAppBar extends AppBar {
-  GalegosAppBar({super.key})
+  GalegosAppBar({super.key, Widget? icon})
       : super(
           elevation: 0,
+          scrolledUnderElevation: 0,
           backgroundColor: GalegosUiDefaut.theme.appBarTheme.backgroundColor,
           centerTitle: true,
           title: Padding(
@@ -14,5 +15,6 @@ class GalegosAppBar extends AppBar {
               width: 100,
             ),
           ),
+          actions: [icon ?? SizedBox.shrink()],
         );
 }

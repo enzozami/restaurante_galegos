@@ -19,9 +19,9 @@ class GalegosDrawer extends StatelessWidget {
             height: 50,
           ),
           ButtonDrawer(
-            title: 'Configurações',
+            title: 'Perfil',
             onTap: () {
-              Get.toNamed('/configuration');
+              Get.toNamed('/profile');
             },
           ),
           Divider(),

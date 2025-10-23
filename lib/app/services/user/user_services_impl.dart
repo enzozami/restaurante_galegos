@@ -12,4 +12,8 @@ class UserServicesImpl implements UserServices {
 
   @override
   Future<UserModel> getUser({required int id}) => _userRepository.getUser(id: id);
+
+  @override
+  Future<UserModel> updateUser(String name, String password, {required int id}) =>
+      _userRepository.updateUser(name, password, id: id);
 }
