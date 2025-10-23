@@ -26,9 +26,9 @@ class HomePage extends GetView<HomeController> {
           },
           currentIndex: controller.selectedIndex,
           items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Produto'),
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Marmitas'),
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Pedidos'),
+            BottomNavigationBarItem(icon: Icon(Icons.lunch_dining), label: 'Produto'),
+            BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: 'Marmitas'),
+            BottomNavigationBarItem(icon: Icon(Icons.list_alt_outlined), label: 'Pedidos'),
           ],
         );
       }),

@@ -63,7 +63,9 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                               child: DropdownMenu(
                                 dropdownMenuEntries: [
                                   DropdownMenuEntry(
-                                      value: (controller.isCpf == true), label: 'CPF'),
+                                    value: (controller.isCpf == true),
+                                    label: 'CPF',
+                                  ),
                                   DropdownMenuEntry(
                                       value: (controller.isCpf == false), label: 'CNPJ'),
                                 ],
@@ -71,6 +73,9 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                                 onSelected: (value) {
                                   controller.onSelected(value ?? true);
                                 },
+                                menuStyle: MenuStyle(
+                                  backgroundColor: WidgetStatePropertyAll(Colors.white),
+                                ),
                               ),
                             ),
                             SizedBox(
