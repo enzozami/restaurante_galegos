@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class GalegosTextFormField extends StatelessWidget {
-  final String label;
+  final String? label;
   final FormFieldValidator<String>? validator;
   final TextEditingController? controller;
   final bool obscureText;
   final MaskTextInputFormatter? mask;
   final TextInputType inputType;
 
+  final bool? enabled;
+
   const GalegosTextFormField({
     super.key,
     this.controller,
-    required this.label,
+    this.label,
     this.validator,
     this.obscureText = false,
     this.mask,
     this.inputType = TextInputType.text,
+    this.enabled,
   });
 
   @override
@@ -24,13 +27,16 @@ class GalegosTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
+      enabled: enabled,
       keyboardType: inputType,
       validator: validator,
       inputFormatters: [
         if (mask != null) mask!,
       ],
       decoration: InputDecoration(
+        // suffixIcon: icon
         labelText: label,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
         labelStyle: TextStyle(
           color: Colors.black,
         ),

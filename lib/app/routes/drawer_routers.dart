@@ -1,5 +1,5 @@
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:restaurante_galegos/app/modules/drawer_pages/configuration_page.dart';
+import 'package:restaurante_galegos/app/modules/drawer_pages/profile_page.dart';
 import 'package:restaurante_galegos/app/modules/drawer_pages/galegos_drawer_bindings.dart';
 
 class DrawerRouters {
@@ -7,9 +7,9 @@ class DrawerRouters {
 
   static final routers = <GetPage>[
     GetPage(
-      name: '/configuration',
+      name: '/profile',
       binding: GalegosDrawerBindings(),
-      page: () => ConfigurationPage(),
+      page: () => ProfilePage(),
     ),
   ];
 }

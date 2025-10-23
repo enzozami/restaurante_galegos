@@ -22,7 +22,6 @@ class UserRepositoryImpl implements UserRepository {
       );
       throw RestClientException(message: 'Erro ao buscar dados do usuário');
     }
-    log('jkasdhkjashdkihwakijshdhwakjshdkjhwakjshdkwhakjsdhw ${result.body}');
 
     final data = List<Map<String, dynamic>>.from(result.body);
 
@@ -32,8 +31,21 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<UserModel> updateUser() {
-    // TODO: implement updateUser
-    throw UnimplementedError();
+  Future<UserModel> updateUser(
+    String name,
+    String password, {
+    required int id,
+  }) async {
+    final result = await _restClient.put('/users/$id', {
+      'name': name,
+      'password': password,
+    });
+
+    if (result.hasError) {
+      log('Erro ao atualizar dados', error: result.statusText, stackTrace: StackTrace.current);
+      throw RestClientException(message: 'Erro ao atualizar dados');
+    }
+
+    return UserModel.fromMap(result.body);
   }
 }
