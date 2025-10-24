@@ -11,14 +11,14 @@ import 'package:restaurante_galegos/app/services/products/products_services.dart
 import 'package:restaurante_galegos/app/services/shopping/shopping_card_services.dart';
 
 class ProductsController extends GetxController with LoaderMixin, MessagesMixin {
+  // --- 2. SERVIÇOS (Dependências Injetadas) ---
   final ProductsServices _productsServices;
   final ItemsServices _itemsServices;
   final ShoppingCardServices _shoppingCardServices;
 
-  // --- 3. DADOS DE APRESENTAÇÃO/CONTROLE (Não reativos ou de terceiros) ---
   final ScrollController scrollController = ScrollController();
 
-  // --- 4. ESTADO REATIVO PRIVADO (os "._") ---
+  // --- ESTADO REATIVO PRIVADO   ---
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
 
@@ -26,7 +26,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final _productsOriginal = <ProductModel>[];
   final _itemsOriginal = <ItemModel>[];
 
-  // --- 5. DADOS/ESTADO PÚBLICO REATIVO (os ".obs" que a View acessa) ---
+  // --- DADOS/ESTADO PÚBLICO REATIVO ---
   final items = <ItemModel>[].obs;
   final products = <ProductModel>[].obs;
 
@@ -34,13 +34,12 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final categorySelected = Rxn<ProductModel>();
   final itemSelect = Rxn<ItemModel>();
 
-  // Estado da Compra
+  // Estado da Compra (para o modal)
   final _quantity = 1.obs;
   final _alreadyAdded = false.obs;
   final _totalPrice = 0.0.obs;
 
-  // --- 6. GETTERS ---
-  // Renomeado para 'selectedItem'
+  // --- GETTERS ---
   ItemModel? get selectedItem => itemSelect.value;
   int get quantity => _quantity.value;
   bool get alreadyAdded => _alreadyAdded.value;
@@ -50,7 +49,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   ProductsController({
     required ProductsServices productsServices,
     required ItemsServices itemsServices,
-    // Corrigido para ShoppingCartServices
     required ShoppingCardServices shoppingCardServices,
   })  : _productsServices = productsServices,
         _itemsServices = itemsServices,
@@ -64,32 +62,36 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
     ever<ItemModel?>(itemSelect, (item) {
       if (item != null) {
-        _quantity.value = 1;
-        _totalPrice(item.price * _quantity.value);
-      } else {
-        _quantity.value = 1;
-        _totalPrice.value = 0.0;
+        // log('ITEM SELECIONADO: ${item.name}');
+        final list = _shoppingCardServices.productsSelected
+            .where((element) => element.product?.id == item.id);
+        // log('VER SE TEM NA LISTA: $list');
+        if (list.isNotEmpty) {
+          final itemList = list.map((e) => e.product?.id).toList();
+
+          if (itemList.isNotEmpty && itemList.contains(item.id)) {
+            _quantity(list.first.quantity);
+            _totalPrice(item.price * quantity);
+          }
+        } else {
+          _alreadyAdded(false);
+          _quantity(1);
+        }
       }
-      _alreadyAdded.value = false;
     });
   }
 
   @override
   Future<void> onReady() async {
     super.onReady();
-    try {
-      await getProdutos();
-    } catch (e, s) {
-      log(e.toString());
-      log(s.toString());
 
-      _message(MessageModel(title: 'Erro', message: 'Erro ', type: MessageType.error));
-    }
+    await _fetchProductsAndItems();
   }
 
-  Future<void> getProdutos() async {
+  // 9. Renomeado e tornado privado e mais robusto
+  Future<void> _fetchProductsAndItems() async {
+    _loading(true);
     try {
-      _loading.toggle();
       final productsData = await _productsServices.getProducts();
       products.assignAll(productsData);
       _productsOriginal
@@ -101,15 +103,12 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       _itemsOriginal
         ..clear()
         ..addAll(itemData);
-
-      _loading.toggle();
     } catch (e, s) {
-      _loading.toggle();
-      log('Erro ao carregar categorias', error: e, stackTrace: s);
+      log('Erro ao carregar dados', error: e, stackTrace: s);
       _message(
         MessageModel(
           title: 'Erro',
-          message: 'Erro ao carregar categorias',
+          message: 'Não foi possível carregar os produtos e categorias.',
           type: MessageType.error,
         ),
       );
@@ -118,9 +117,10 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
   }
 
-  void searchItemsByFilter(ProductModel? productModel) async {
+  void searchItemsByFilter(ProductModel? productModel) {
+    // Removi 'async' desnecessário
+    _loading(true);
     try {
-      _loading.toggle();
       if (productModel == null) return;
 
       final currentCategory = categorySelected.value;
@@ -134,16 +134,14 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
       categorySelected.value = productModel;
 
-      final newItem = _itemsOriginal
+      final newItems = _itemsOriginal
           .where(
-            (e) => e.categoryId == categorySelected.value!.category,
+            (e) => e.categoryId == (categorySelected.value?.category ?? ''),
           )
           .toList();
 
-      items.assignAll(newItem);
-      _loading.toggle();
+      items.assignAll(newItems);
     } catch (e, s) {
-      _loading.toggle();
       log('Erro ao filtrar', error: e, stackTrace: s);
     } finally {
       _loading(false);
@@ -155,24 +153,23 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   }
 
   void removeProductUnit() {
-    if (_quantity.value > 0) _quantity.value--;
+    if (_quantity.value > 1) {
+      _quantity.value--;
+    }
   }
 
   void addItemsToCart() {
     final selected = selectedItem;
 
     if (selected == null) {
-      _alreadyAdded.value = false;
+      _alreadyAdded(false);
       return;
     }
-
     _shoppingCardServices.addOrUpdateProduct(
       selected,
       quantity: quantity,
     );
-    _alreadyAdded.value = true;
-    _quantity.value = 1;
-    itemSelect.value = null;
+    log('QUANTIDADE ENVIADA : $quantity');
     Get.back();
   }
 }

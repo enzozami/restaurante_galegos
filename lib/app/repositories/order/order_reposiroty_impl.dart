@@ -15,6 +15,7 @@ class OrderReposirotyImpl implements OrderReposiroty {
   Future<CardModel> createOrder(ItemCarrinho order) async {
     final result = await _restClient.post('/orders', {
       'userId': order.userId,
+      'quantity': order.quantity,
       'address': order.address,
       'items': order.items
           .map((shoppingCard) => {

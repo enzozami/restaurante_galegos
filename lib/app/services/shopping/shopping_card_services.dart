@@ -11,8 +11,9 @@ class ShoppingCardServices extends GetxService {
       'F_${alimento.id}_$selectedSize';
 
   List<ShoppingCardModel> get productsSelected => _shoppingCard.values.toList();
+  // ShoppingCardModel? getProductQuantity()
 
-  ShoppingCardModel? getById(String key) => _shoppingCard[key];
+  ShoppingCardModel? getByKey(String key) => _shoppingCard[key];
 
   double get amountToPay {
     double amount = 0;

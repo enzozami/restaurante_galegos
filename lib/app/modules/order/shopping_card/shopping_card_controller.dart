@@ -40,9 +40,9 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     loaderListener(_loading);
     messageListener(_message);
 
-    // ever(quantityRx, (quantity) {
-    //   _totalPrice(quantity?.toDouble());
-    // });
+    ever(quantityRx, (quantity) {
+      quantity;
+    });
   }
 
   void addQuantityProduct(ShoppingCardModel shoppingCardModel) {
