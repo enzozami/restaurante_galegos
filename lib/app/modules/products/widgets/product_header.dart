@@ -14,7 +14,7 @@ class ProductHeader extends GetView<ProductsController> {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Obx(() {
-          final products = controller.product;
+          final products = controller.products;
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(

@@ -12,7 +12,10 @@ class LunchboxesGroup extends GetView<LunchboxesController> {
     return SizedBox(
       child: Obx(() {
         final alimentos = controller.alimentos;
-        return ListView.builder(
+        return ListView.separated(
+          separatorBuilder: (context, index) => const SizedBox(
+            height: 5,
+          ),
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: alimentos.length,

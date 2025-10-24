@@ -28,7 +28,8 @@ class LunchboxesPage extends GetView<LunchboxesController> {
             ),
             Obx(() {
               return Visibility(
-                visible: (controller.sizeSelected.value?.isEmpty ?? false),
+                visible:
+                    (controller.sizeSelected.value == null || controller.sizeSelected.value == ''),
                 child: Column(
                   children: [
                     SizedBox(

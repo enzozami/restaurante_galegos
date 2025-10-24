@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
@@ -14,6 +12,94 @@ class AlimentosWidget extends GetView<LunchboxesController> {
     required this.alimentoModel,
     super.key,
   });
+
+  void _showItemDetailDialog(BuildContext context, AlimentoModel alimento) {
+    controller.foodSelect(alimento);
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.black,
+          titlePadding: EdgeInsets.only(top: 20, left: 24, right: 20, bottom: 0),
+          contentPadding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+          actionsPadding: EdgeInsets.all(20),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  alimento.name,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+              IconButton(
+                onPressed: () => Get.back(),
+                icon: Icon(
+                  Icons.close,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                alimento.description,
+                style: const TextStyle(color: Colors.white70, fontSize: 14),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Obx(() {
+                    return GalegosPlusMinus(
+                      addCallback: controller.addFood,
+                      removeCallback: controller.removeFood,
+                      quantityUnit: controller.quantity,
+                    );
+                  }),
+                ],
+              ),
+            ],
+          ),
+          actions: [
+            Obx(() {
+              return ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.amber,
+                    minimumSize: Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                onPressed: () {
+                  controller.addFoodShoppingCard();
+                  Get.snackbar(
+                    'Item: ${alimento.name}',
+                    'Item adicionado ao carrinho',
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.amber,
+                    colorText: Colors.black,
+                  );
+                },
+                child: Text(
+                  'Adicionar (${FormatterHelper.formatCurrency(controller.totalPrice)})',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              );
+            }),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,87 +117,47 @@ class AlimentosWidget extends GetView<LunchboxesController> {
                 minHeight: 100,
               ),
               width: context.width,
-              child: InkWell(
-                splashColor: Colors.amber,
-                onTap: () {
-                  controller.foodSelect(alimentoModel);
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        backgroundColor: Colors.black,
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                alimentoModel.name,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                            Obx(() {
-                              return GalegosPlusMinus(
-                                addCallback: () => controller.addFood(),
-                                removeCallback: () => controller.removeFood(),
-                                quantityUnit: controller.quantity,
-                              );
-                            }),
-                          ],
-                        ),
-                        content: Text(
-                          alimentoModel.description,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        actions: [
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
-                            onPressed: () {
-                              controller.addFoodShoppingCard();
-                              log('Item clicado: ${alimentoModel.name} - $price');
-                              Get.snackbar(
-                                  'Item ${alimentoModel.name}', 'Item adicionado ao carrinho');
-
-                              Get.back();
-                            },
-                            child: Text(
-                              'Adicionar',
-                              style: TextStyle(color: Colors.black),
+              child: Card(
+                elevation: 5,
+                color: GalegosUiDefaut.theme.primaryColor,
+                margin: EdgeInsets.symmetric(horizontal: 8),
+                child: Container(
+                  constraints: BoxConstraints(
+                    minHeight: 100,
+                  ),
+                  width: context.width,
+                  child: InkWell(
+                    splashColor: Colors.amber,
+                    onTap: () => _showItemDetailDialog(context, alimentoModel),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ListTile(
+                          title: Text(
+                            alimentoModel.name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
                             ),
                           ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ListTile(
-                      title: Text(
-                        alimentoModel.name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          subtitle: Text(alimentoModel.description),
+                          trailing: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (price != null)
+                                Text(
+                                  FormatterHelper.formatCurrency(price),
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
-                      ),
-                      subtitle: Text(alimentoModel.description),
-                      trailing: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          if (price != null)
-                            Text(
-                              FormatterHelper.formatCurrency(price),
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                        ],
-                      ),
+                      ],
                     ),
-                    Divider(),
-                  ],
+                  ),
                 ),
               ),
             ),
