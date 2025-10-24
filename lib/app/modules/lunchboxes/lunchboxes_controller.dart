@@ -156,11 +156,12 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   void addFoodShoppingCard() {
     final selected = selectedFood;
 
-    if (selected != null) {
+    if (selected == null) {
       _alreadyAdded.value = false;
       return;
     }
 
+    log('ALIMENTO SELECIONADO: ${selected.name}');
     _shoppingCardServices.addOrUpdateFood(
       selected,
       quantity: quantity,
@@ -169,7 +170,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     _alreadyAdded.value = true;
     _quantity.value = 1;
     foodSelect.value = null;
-    sizeSelected.value = null;
+
     Get.back();
   }
 }
