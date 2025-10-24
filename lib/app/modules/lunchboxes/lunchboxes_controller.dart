@@ -52,28 +52,33 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
-
-    ever<AlimentoModel?>(foodSelect, (alimento) {
-      if (alimento != null) {
-        _quantity.value = 1;
-        final size = sizeSelected.value;
-        if (size != null) {
-          final price = alimento.pricePerSize[size];
-          if (price != null) {
-            _totalPrice(price * _quantity.value);
-          }
-        }
-      } else {
-        _quantity.value = 1;
-        _totalPrice.value = 0.0;
-      }
-      _alreadyAdded.value = false;
-    });
   }
 
   @override
   void onReady() async {
     super.onReady();
+    ever<AlimentoModel?>(foodSelect, (alimento) {
+      if (alimento != null) {
+        final size = sizeSelected.value;
+        final list = _shoppingCardServices.productsSelected
+            .where((element) => element.food?.id == alimento.id);
+
+        if (list.isNotEmpty) {
+          final foodList = list.map((e) => e.food?.id).toList();
+
+          if (foodList.isNotEmpty && foodList.contains(alimento.id)) {
+            _quantity(list.first.quantity);
+            final price = alimento.pricePerSize[size];
+            if (price != null) {
+              _totalPrice(price * _quantity.value);
+            }
+          }
+        }
+      } else {
+        _alreadyAdded(false);
+        _quantity(1);
+      }
+    });
     await getLunchboxes();
   }
 
@@ -167,10 +172,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       quantity: quantity,
       selectedSize: sizeSelected.value ?? '',
     );
-    _alreadyAdded.value = true;
-    _quantity.value = 1;
-    foodSelect.value = null;
-
     Get.back();
   }
 }
