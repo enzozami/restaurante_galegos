@@ -80,7 +80,7 @@ class AlimentosWidget extends GetView<LunchboxesController> {
                   Get.snackbar(
                     'Item: ${alimento.name}',
                     'Item adicionado ao carrinho',
-                    snackPosition: SnackPosition.BOTTOM,
+                    snackPosition: SnackPosition.TOP,
                     backgroundColor: Colors.amber,
                     colorText: Colors.black,
                   );
