@@ -77,7 +77,12 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
           _alreadyAdded(false);
           _quantity(1);
         }
+        update();
       }
+    });
+
+    ever<int>(_quantity, (quantity) {
+      log('QUANTIDADE EVER: $quantity');
     });
   }
 
