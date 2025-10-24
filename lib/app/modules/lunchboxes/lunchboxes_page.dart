@@ -26,6 +26,27 @@ class LunchboxesPage extends GetView<LunchboxesController> {
                 ),
               ),
             ),
+            Obx(() {
+              return Visibility(
+                visible: (controller.sizeSelected.value?.isEmpty ?? false),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: context.heightTransformer(reducedBy: 75),
+                    ),
+                    Center(
+                      child: Text(
+                        'Selecione um tamanho*',
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
             LunchboxesGroup(),
             const SizedBox(
               height: 65,
