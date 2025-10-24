@@ -137,12 +137,16 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                         SizedBox(
                           height: context.heightTransformer(reducedBy: 85),
                         ),
-                        Text('Não possui cadastro?'),
+                        Text(
+                          'Não possui cadastro?',
+                          style: TextStyle(fontSize: 15),
+                        ),
                         TextButton(
                           onPressed: () => Get.toNamed('/auth/register'),
                           child: Text(
                             'Clique aqui',
                             style: TextStyle(
+                              fontSize: 15,
                               color: Colors.amber,
                             ),
                           ),

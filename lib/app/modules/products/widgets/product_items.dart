@@ -77,9 +77,9 @@ class ProductItems extends GetView<ProductsController> {
                   Get.snackbar(
                     'Item: ${item.name}',
                     'Item adicionado ao carrinho',
-                    snackPosition: SnackPosition.BOTTOM,
-                    backgroundColor: Colors.green,
-                    colorText: Colors.white,
+                    snackPosition: SnackPosition.TOP,
+                    backgroundColor: Colors.amber,
+                    colorText: Colors.black,
                   );
                   log('Item clicado: ${item.name} - ${item.price}');
                 },
