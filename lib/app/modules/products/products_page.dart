@@ -19,18 +19,13 @@ class ProductsPage extends GetView<ProductsController> {
             const SizedBox(
               height: 20,
             ),
-            Obx(() {
-              return Visibility(
-                visible: (controller.totalPrice == 0),
-                child: Text(
-                  'Selecione algum item para adicionar ao carrinho*',
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontSize: 10,
-                  ),
-                ),
-              );
-            }),
+            Text(
+              'Selecione algum item para adicionar ao carrinho*',
+              style: TextStyle(
+                fontStyle: FontStyle.italic,
+                fontSize: 11,
+              ),
+            ),
             ProductsGroup(
               scrollController: controller.scrollController,
             ),

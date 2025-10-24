@@ -12,35 +12,45 @@ import 'package:restaurante_galegos/app/services/shopping/shopping_card_services
 
 class ProductsController extends GetxController with LoaderMixin, MessagesMixin {
   final ProductsServices _productsServices;
-  final ScrollController scrollController = ScrollController();
   final ItemsServices _itemsServices;
+  final ShoppingCardServices _shoppingCardServices;
+
+  // --- 3. DADOS DE APRESENTAÇÃO/CONTROLE (Não reativos ou de terceiros) ---
+  final ScrollController scrollController = ScrollController();
+
+  // --- 4. ESTADO REATIVO PRIVADO (os "._") ---
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
 
-  final items = <ItemModel>[].obs;
-  final product = <ProductModel>[].obs;
-
-  var _productOriginal = <ProductModel>[];
+  // Backups para filtragem
+  final _productsOriginal = <ProductModel>[];
   final _itemsOriginal = <ItemModel>[];
 
+  // --- 5. DADOS/ESTADO PÚBLICO REATIVO (os ".obs" que a View acessa) ---
+  final items = <ItemModel>[].obs;
+  final products = <ProductModel>[].obs;
+
+  // Estado de Seleção
   final categorySelected = Rxn<ProductModel>();
-
-  // SHOPPING CARD
-  final ShoppingCardServices _shoppingCardServices;
   final itemSelect = Rxn<ItemModel>();
-  ItemModel? get productsSelected => itemSelect.value;
 
+  // Estado da Compra
   final _quantity = 1.obs;
-  int get quantity => _quantity.value;
   final _alreadyAdded = false.obs;
-  bool get alreadyAdded => _alreadyAdded.value;
-
   final _totalPrice = 0.0.obs;
+
+  // --- 6. GETTERS ---
+  // Renomeado para 'selectedItem'
+  ItemModel? get selectedItem => itemSelect.value;
+  int get quantity => _quantity.value;
+  bool get alreadyAdded => _alreadyAdded.value;
   double get totalPrice => _totalPrice.value;
 
+  // --- Construtor ---
   ProductsController({
     required ProductsServices productsServices,
     required ItemsServices itemsServices,
+    // Corrigido para ShoppingCartServices
     required ShoppingCardServices shoppingCardServices,
   })  : _productsServices = productsServices,
         _itemsServices = itemsServices,
@@ -52,10 +62,15 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     loaderListener(_loading);
     messageListener(_message);
 
-    ever<int>(_quantity, (quantity) {
-      if (productsSelected != null) {
-        _totalPrice(productsSelected!.price * quantity);
+    ever<ItemModel?>(itemSelect, (item) {
+      if (item != null) {
+        _quantity.value = 1;
+        _totalPrice(item.price * _quantity.value);
+      } else {
+        _quantity.value = 1;
+        _totalPrice.value = 0.0;
       }
+      _alreadyAdded.value = false;
     });
   }
 
@@ -76,8 +91,10 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     try {
       _loading.toggle();
       final productsData = await _productsServices.getProducts();
-      product.assignAll(productsData);
-      _productOriginal = productsData;
+      products.assignAll(productsData);
+      _productsOriginal
+        ..clear()
+        ..addAll(productsData);
 
       final itemData = await _itemsServices.getItems();
       items.assignAll(itemData);
@@ -104,29 +121,26 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   void searchItemsByFilter(ProductModel? productModel) async {
     try {
       _loading.toggle();
-      if (productModel?.category == categorySelected.value?.category) {
-        categorySelected.value = null;
-      } else {
-        categorySelected.value = productModel;
-      }
+      if (productModel == null) return;
 
-      if (categorySelected.value == null) {
-        product.assignAll(_productOriginal);
+      final currentCategory = categorySelected.value;
+
+      if (productModel.category == currentCategory?.category) {
+        categorySelected.value = null;
+        products.assignAll(_productsOriginal);
+        items.assignAll(_itemsOriginal);
         return;
       }
 
-      // var newProducts = _productOriginal
-      //     .where((p) => p.category.contains(categorySelected.value!.category))
-      //     .toList();
-      log('CATEGORIA SELECIONADA: ${categorySelected.value!.category}');
+      categorySelected.value = productModel;
 
-      var newItems = _itemsOriginal
-          .where((e) => e.categoryId.contains(categorySelected.value!.category))
+      final newItem = _itemsOriginal
+          .where(
+            (e) => e.categoryId == categorySelected.value!.category,
+          )
           .toList();
 
-      // product.assignAll(newProducts);
-      items.assignAll(newItems);
-      log('items da categoria: ${items.map((e) => e.name)}');
+      items.assignAll(newItem);
       _loading.toggle();
     } catch (e, s) {
       _loading.toggle();
@@ -144,12 +158,21 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     if (_quantity.value > 0) _quantity.value--;
   }
 
-  void addItemsShoppingCard() {
+  void addItemsToCart() {
+    final selected = selectedItem;
+
+    if (selected == null) {
+      _alreadyAdded.value = false;
+      return;
+    }
+
     _shoppingCardServices.addOrUpdateProduct(
-      productsSelected,
+      selected,
       quantity: quantity,
     );
+    _alreadyAdded.value = true;
     _quantity.value = 1;
+    itemSelect.value = null;
     Get.back();
   }
 }

@@ -14,9 +14,9 @@ class LunchboxesHeader extends GetView<LunchboxesController> {
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: controller.sizes.length,
+          itemCount: controller.availableSizes.length,
           itemBuilder: (context, index) {
-            final size = controller.sizes[index];
+            final size = controller.availableSizes[index];
             return ButtonTag(
               model: size,
               onPressed: () => controller.filterPrice(size),

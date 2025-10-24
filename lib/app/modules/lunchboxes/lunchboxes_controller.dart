@@ -10,28 +10,36 @@ import 'package:restaurante_galegos/app/services/shopping/shopping_card_services
 
 class LunchboxesController extends GetxController with LoaderMixin, MessagesMixin {
   final LunchboxesServices _lunchboxesServices;
+  final ShoppingCardServices _shoppingCardServices;
+
+  // --- ESTADO REATIVO CENTRALIZADO ---
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
 
-  final sizes = <String>[].obs;
-  final _sizesOriginal = <String>[];
+  // --- DADOS PRINCIPAIS E BACKUPS ---
+  // Renomear para 'availableSizes' para clareza
+  final availableSizes = <String>[].obs;
+  final _availableSizesOriginal = <String>[];
 
   final alimentos = <AlimentoModel>[].obs;
   final _alimentosOriginal = <AlimentoModel>[];
 
+  // 3. O dia atual deve ser um Rx ou ser calculado na UI, mas manter como final para simplicidade.
   final dayNow = FormatterHelper.formatDate();
 
-  final sizeSelected = Rxn<String>();
-
-  // SHOPPING CARD
-  final ShoppingCardServices _shoppingCardServices;
-  final foodSelect = Rxn<AlimentoModel>();
-  AlimentoModel? get productsSelected => foodSelect.value;
+  // --- ESTADO DE SELEÇÃO E COMPRA ---
+  final sizeSelected = Rxn<String>(); // O tamanho selecionado
+  final foodSelect = Rxn<AlimentoModel>(); // O alimento selecionado
 
   final _quantity = 1.obs;
-  int get quantity => _quantity.value;
   final _alreadyAdded = false.obs;
+  final _totalPrice = 0.0.obs;
+
+  // --- GETTERS ---
+  AlimentoModel? get selectedFood => foodSelect.value;
+  int get quantity => _quantity.value;
   bool get alreadyAdded => _alreadyAdded.value;
+  double get totalPrice => _totalPrice.value;
 
   LunchboxesController({
     required LunchboxesServices lunchboxesServices,
@@ -44,6 +52,23 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
+
+    ever<AlimentoModel?>(foodSelect, (alimento) {
+      if (alimento != null) {
+        _quantity.value = 1;
+        final size = sizeSelected.value;
+        if (size != null) {
+          final price = alimento.pricePerSize[size];
+          if (price != null) {
+            _totalPrice(price * _quantity.value);
+          }
+        }
+      } else {
+        _quantity.value = 1;
+        _totalPrice.value = 0.0;
+      }
+      _alreadyAdded.value = false;
+    });
   }
 
   @override
@@ -60,8 +85,8 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
       final List<String> sizesList = List<String>.from(menuData.first.pricePerSize);
 
-      sizes.assignAll(sizesList);
-      _sizesOriginal
+      availableSizes.assignAll(sizesList);
+      _availableSizesOriginal
         ..clear()
         ..addAll(sizesList);
 
@@ -92,7 +117,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       _loading.toggle();
       if (sizeSelected.value == selectedSize) {
         sizeSelected.value = '';
-        sizes.assignAll(_sizesOriginal);
+        availableSizes.assignAll(_availableSizesOriginal);
         return;
       }
 
@@ -102,7 +127,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
         return alimento.pricePerSize.containsKey((selectedSize));
       }).toList();
 
-      sizes.assignAll(
+      availableSizes.assignAll(
           filtered.map((e) => e.pricePerSize.keys.toList()).expand((e) => e).toSet().toList());
       _loading.toggle();
     } catch (e, s) {
@@ -129,12 +154,22 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   }
 
   void addFoodShoppingCard() {
+    final selected = selectedFood;
+
+    if (selected != null) {
+      _alreadyAdded.value = false;
+      return;
+    }
+
     _shoppingCardServices.addOrUpdateFood(
-      productsSelected,
+      selected,
       quantity: quantity,
       selectedSize: sizeSelected.value ?? '',
     );
+    _alreadyAdded.value = true;
     _quantity.value = 1;
+    foodSelect.value = null;
+    sizeSelected.value = null;
     Get.back();
   }
 }
