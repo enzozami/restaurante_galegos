@@ -3,18 +3,18 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
-import 'package:restaurante_galegos/app/models/alimento_model.dart';
+import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
 
 class AlimentosWidget extends GetView<LunchboxesController> {
-  final AlimentoModel alimentoModel;
+  final FoodModel alimentoModel;
   const AlimentosWidget({
     required this.alimentoModel,
     super.key,
   });
 
-  void _showItemDetailDialog(BuildContext context, AlimentoModel alimento) {
-    controller.foodSelect(alimento);
+  void _showItemDetailDialog(BuildContext context, FoodModel alimento) {
+    controller.setFoodSelected(alimento);
     showDialog(
       context: context,
       builder: (context) {

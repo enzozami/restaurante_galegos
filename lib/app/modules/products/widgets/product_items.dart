@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
+import 'package:restaurante_galegos/app/models/item.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
-import 'package:restaurante_galegos/app/models/item_model.dart';
 
 class ProductItems extends GetView<ProductsController> {
   final ProductModel modelProduct;
@@ -14,8 +14,8 @@ class ProductItems extends GetView<ProductsController> {
     super.key,
     required this.modelProduct,
   });
-  void _showItemDetailDialog(BuildContext context, ItemModel item) {
-    controller.itemSelect(item);
+  void _showItemDetailDialog(BuildContext context, Item item) {
+    controller.setSelectedItem(item);
     showDialog(
       context: context,
       builder: (context) {

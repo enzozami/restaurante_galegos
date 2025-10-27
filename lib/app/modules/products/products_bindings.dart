@@ -8,7 +8,7 @@ import 'package:restaurante_galegos/app/services/items/items_services.dart';
 import 'package:restaurante_galegos/app/services/items/items_services_impl.dart';
 import 'package:restaurante_galegos/app/services/products/products_services.dart';
 import 'package:restaurante_galegos/app/services/products/products_services_impl.dart';
-import 'package:restaurante_galegos/app/services/shopping/shopping_card_services.dart';
+import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 //import 'package:restaurante_galegos/app/services/shopping/shopping_services.dart';
 import './products_controller.dart';
 
@@ -34,7 +34,7 @@ class ProductsBindings implements Bindings {
       () => ProductsController(
         productsServices: Get.find<ProductsServices>(),
         itemsServices: Get.find<ItemsServices>(),
-        shoppingCardServices: Get.find<ShoppingCardServices>(),
+        carrinhoServices: Get.find<CarrinhoServices>(),
       ),
       fenix: true,
     );

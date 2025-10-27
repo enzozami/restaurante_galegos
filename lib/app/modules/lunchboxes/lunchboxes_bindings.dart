@@ -4,7 +4,7 @@ import 'package:restaurante_galegos/app/repositories/lunchboxes/lunchboxes_repos
 import 'package:restaurante_galegos/app/repositories/lunchboxes/lunchboxes_repository_impl.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services_impl.dart';
-import 'package:restaurante_galegos/app/services/shopping/shopping_card_services.dart';
+import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 import './lunchboxes_controller.dart';
 
 class LunchboxesBindings implements Bindings {
@@ -17,7 +17,7 @@ class LunchboxesBindings implements Bindings {
     Get.lazyPut(
       () => LunchboxesController(
         lunchboxesServices: Get.find<LunchboxesServices>(),
-        shoppingCardServices: Get.find<ShoppingCardServices>(),
+        carrinhoServices: Get.find<CarrinhoServices>(),
       ),
     );
   }

@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
-import 'package:restaurante_galegos/app/models/alimento_model.dart';
+import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
-import 'package:restaurante_galegos/app/services/shopping/shopping_card_services.dart';
+import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
 class LunchboxesController extends GetxController with LoaderMixin, MessagesMixin {
   final LunchboxesServices _lunchboxesServices;
-  final ShoppingCardServices _shoppingCardServices;
+  final CarrinhoServices _carrinhoServices;
 
   // --- ESTADO REATIVO CENTRALIZADO ---
   final _loading = false.obs;
@@ -21,64 +21,45 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   final availableSizes = <String>[].obs;
   final _availableSizesOriginal = <String>[];
 
-  final alimentos = <AlimentoModel>[].obs;
-  final _alimentosOriginal = <AlimentoModel>[];
+  final alimentos = <FoodModel>[].obs;
+  final _alimentosOriginal = <FoodModel>[];
 
   // 3. O dia atual deve ser um Rx ou ser calculado na UI, mas manter como final para simplicidade.
   final dayNow = FormatterHelper.formatDate();
 
   // --- ESTADO DE SELEÇÃO E COMPRA ---
   final sizeSelected = Rxn<String>(); // O tamanho selecionado
-  final foodSelect = Rxn<AlimentoModel>(); // O alimento selecionado
+  final foodSelect = Rxn<FoodModel>(); // O alimento selecionado
 
   final _quantity = 1.obs;
   final _alreadyAdded = false.obs;
   final _totalPrice = 0.0.obs;
 
   // --- GETTERS ---
-  AlimentoModel? get selectedFood => foodSelect.value;
+  FoodModel? get selectedFood => foodSelect.value;
   int get quantity => _quantity.value;
   bool get alreadyAdded => _alreadyAdded.value;
   double get totalPrice => _totalPrice.value;
 
   LunchboxesController({
     required LunchboxesServices lunchboxesServices,
-    required ShoppingCardServices shoppingCardServices,
+    required CarrinhoServices carrinhoServices,
   })  : _lunchboxesServices = lunchboxesServices,
-        _shoppingCardServices = shoppingCardServices;
+        _carrinhoServices = carrinhoServices;
 
   @override
   void onInit() {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
+    ever<int>(_quantity, (quantity) {
+      _totalPrice(selectedFood?.pricePerSize[sizeSelected.value]);
+    });
   }
 
   @override
   void onReady() async {
     super.onReady();
-    ever<AlimentoModel?>(foodSelect, (alimento) {
-      if (alimento != null) {
-        final size = sizeSelected.value;
-        final list = _shoppingCardServices.productsSelected
-            .where((element) => element.food?.id == alimento.id);
-
-        if (list.isNotEmpty) {
-          final foodList = list.map((e) => e.food?.id).toList();
-
-          if (foodList.isNotEmpty && foodList.contains(alimento.id)) {
-            _quantity(list.first.quantity);
-            final price = alimento.pricePerSize[size];
-            if (price != null) {
-              _totalPrice(price * _quantity.value);
-            }
-          }
-        }
-      } else {
-        _alreadyAdded(false);
-        _quantity(1);
-      }
-    });
     await getLunchboxes();
   }
 
@@ -158,6 +139,19 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     if (_quantity.value > 0) _quantity.value--;
   }
 
+  void setFoodSelected(FoodModel food) {
+    foodSelect.value = food;
+
+    final carrinhoItem = _carrinhoServices.getById(food.id);
+    if (carrinhoItem != null) {
+      _quantity(carrinhoItem.item.quantidade);
+      _alreadyAdded(true);
+    } else {
+      _quantity(1);
+      _alreadyAdded(false);
+    }
+  }
+
   void addFoodShoppingCard() {
     final selected = selectedFood;
 
@@ -167,9 +161,9 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     }
 
     log('ALIMENTO SELECIONADO: ${selected.name}');
-    _shoppingCardServices.addOrUpdateFood(
+    _carrinhoServices.addOrUpdateFood(
       selected,
-      quantity: quantity,
+      quantity: _quantity.value,
       selectedSize: sizeSelected.value ?? '',
     );
     Get.back();

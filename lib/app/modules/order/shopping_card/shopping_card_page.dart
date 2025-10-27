@@ -101,7 +101,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                         var label = FormatterHelper.formatCurrency(total ?? 0);
                         var quantityItems = controller.products.fold<int>(
                           0,
-                          (sum, e) => sum + e.quantity,
+                          (sum, e) => sum + e.item.quantidade,
                         );
                         return Column(
                           children: [
