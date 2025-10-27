@@ -1067,25 +1067,34 @@
     "orders": [
         {
             "id": 1,
-            "userId": 11,
-            "address": "",
+            "userId": 1,
+            "address": "oi",
             "items": [
                 {
                     "product": "{\"id\":10,\"categoryId\":\"Lanches\",\"name\":\"Americano\",\"description\":\"Pão francês, presunto, queijo, ovo, alface, tomate e maionese\",\"price\":15.0}",
                     "food": null
                 }
-            ]
+            ],
+            "cart": [
+                "{\"item\":{\"produto\":{\"id\":10,\"categoryId\":\"Lanches\",\"name\":\"Americano\",\"description\":\"Pão francês, presunto, queijo, ovo, alface, tomate e maionese\",\"price\":15.0},\"alimento\":null,\"quantidade\":1,\"tamanho\":null,\"valorPorTamanho\":null}}"
+            ],
+            "amountToPay": 15.0
         },
         {
             "id": 2,
-            "userId": 11,
-            "address": "",
+            "userId": 1,
+            "address": "y",
             "items": [
                 {
                     "product": "{\"id\":11,\"categoryId\":\"Lanches\",\"name\":\"Bauru\",\"description\":\"Pão francês, presunto, queijo e tomate\",\"price\":13.0}",
                     "food": null
                 }
-            ]
+            ],
+            "cart": [
+                "{\"item\":{\"produto\":{\"id\":10,\"categoryId\":\"Lanches\",\"name\":\"Americano\",\"description\":\"Pão francês, presunto, queijo, ovo, alface, tomate e maionese\",\"price\":15.0},\"alimento\":null,\"quantidade\":1,\"tamanho\":null,\"valorPorTamanho\":null}}",
+                "{\"item\":{\"produto\":{\"id\":13,\"categoryId\":\"Lanches\",\"name\":\"X-Salada\",\"description\":\"Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese\",\"price\":15.0},\"alimento\":null,\"quantidade\":1,\"tamanho\":null,\"valorPorTamanho\":null}}"
+            ],
+            "amountToPay": 30.0
         },
         {
             "id": 3,
@@ -2812,6 +2821,230 @@
                     "selectedPrice": null
                 }
             ]
+        },
+        {
+            "id": 82,
+            "produto": null,
+            "alimento": null,
+            "size": null,
+            "price": null,
+            "quantity": 2
+        },
+        {
+            "id": 83,
+            "userId": 1,
+            "address": "y",
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 10,
+                            "categoryId": "Lanches",
+                            "name": "Americano",
+                            "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                            "price": 15.0
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                },
+                {
+                    "item": {
+                        "produto": {
+                            "id": 13,
+                            "categoryId": "Lanches",
+                            "name": "X-Salada",
+                            "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
+                            "price": 15.0
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 30.0
+        },
+        {
+            "id": 84,
+            "userId": 1,
+            "address": "sla",
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 12,
+                            "categoryId": "Lanches",
+                            "name": "X-Burguer",
+                            "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
+                            "price": 14.0
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                },
+                {
+                    "item": {
+                        "produto": null,
+                        "alimento": {
+                            "id": 2,
+                            "name": "Bife a Parmegiana",
+                            "dayName": "Segunda-feira",
+                            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                            "pricePerSize": {
+                                "mini": 23.0,
+                                "media": 25.0
+                            }
+                        },
+                        "quantidade": 1,
+                        "tamanho": "mini",
+                        "valorPorTamanho": 23.0
+                    }
+                }
+            ],
+            "amountToPay": 37.0
+        },
+        {
+            "id": 85,
+            "userId": 1,
+            "address": "yy",
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 10,
+                            "categoryId": "Lanches",
+                            "name": "Americano",
+                            "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                            "price": 15.0
+                        },
+                        "alimento": null,
+                        "quantidade": 3,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 45.0
+        },
+        {
+            "id": 86,
+            "userId": 1,
+            "address": "ty",
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 12,
+                            "categoryId": "Lanches",
+                            "name": "X-Burguer",
+                            "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
+                            "price": 14.0
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                },
+                {
+                    "item": {
+                        "produto": {
+                            "id": 13,
+                            "categoryId": "Lanches",
+                            "name": "X-Salada",
+                            "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
+                            "price": 15.0
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                },
+                {
+                    "item": {
+                        "produto": null,
+                        "alimento": {
+                            "id": 2,
+                            "name": "Bife a Parmegiana",
+                            "dayName": "Segunda-feira",
+                            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                            "pricePerSize": {
+                                "mini": 23.0,
+                                "media": 25.0
+                            }
+                        },
+                        "quantidade": 1,
+                        "tamanho": "mini",
+                        "valorPorTamanho": 23.0
+                    }
+                }
+            ],
+            "amountToPay": 52.0
+        },
+        {
+            "id": 87,
+            "userId": 1,
+            "address": "test",
+            "cart": [
+                {
+                    "produto": {
+                        "id": 10,
+                        "categoryId": "Lanches",
+                        "name": "Americano",
+                        "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 2,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                },
+                {
+                    "produto": {
+                        "id": 12,
+                        "categoryId": "Lanches",
+                        "name": "X-Burguer",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
+                        "price": 14.0
+                    },
+                    "alimento": null,
+                    "quantidade": 2,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 58.0
+        },
+        {
+            "id": 88,
+            "userId": 1,
+            "address": "tt",
+            "cart": [
+                {
+                    "produto": null,
+                    "alimento": {
+                        "id": 2,
+                        "name": "Bife a Parmegiana",
+                        "dayName": "Segunda-feira",
+                        "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                        "pricePerSize": {
+                            "mini": 23.0,
+                            "media": 25.0
+                        }
+                    },
+                    "quantidade": 2,
+                    "tamanho": "mini",
+                    "valorPorTamanho": 23.0
+                }
+            ],
+            "amountToPay": 46.0
         }
     ]
 }

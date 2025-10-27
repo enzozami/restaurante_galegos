@@ -1,11 +1,12 @@
 import 'dart:convert';
 
-import 'package:restaurante_galegos/app/models/item_model.dart';
+import 'package:restaurante_galegos/app/models/item.dart';
 
 class ProductModel {
   int id;
   String category;
-  List<ItemModel> items;
+  List<Item> items;
+
   ProductModel({
     required this.id,
     required this.category,
@@ -24,7 +25,7 @@ class ProductModel {
     return ProductModel(
       id: map['id']?.toInt() ?? 0,
       category: map['category'] ?? '',
-      items: List<ItemModel>.from(map['items']?.map((x) => ItemModel.fromMap(x)) ?? const []),
+      items: List<Item>.from(map['items']?.map((x) => Item.fromMap(x)) ?? const []),
     );
   }
 

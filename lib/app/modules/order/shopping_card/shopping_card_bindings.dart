@@ -5,7 +5,7 @@ import 'package:restaurante_galegos/app/repositories/order/order_reposiroty.dart
 import 'package:restaurante_galegos/app/repositories/order/order_reposiroty_impl.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services_impl.dart';
-import 'package:restaurante_galegos/app/services/shopping/shopping_card_services.dart';
+import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 import 'shopping_card_controller.dart';
 
 class ShoppingCardBindings implements Bindings {
@@ -25,7 +25,7 @@ class ShoppingCardBindings implements Bindings {
       ShoppingCardController(
         authService: Get.find<AuthService>(),
         orderServices: Get.find<OrderServices>(),
-        cardServices: Get.find<ShoppingCardServices>(),
+        carrinhoServices: Get.find<CarrinhoServices>(),
       ),
     );
   }

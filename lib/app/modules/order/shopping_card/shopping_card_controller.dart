@@ -4,70 +4,70 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
-import 'package:restaurante_galegos/app/models/item_carrinho.dart';
-import 'package:restaurante_galegos/app/models/shopping_card_model.dart';
+import 'package:restaurante_galegos/app/models/carrinho_model.dart';
+import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/modules/home/home_controller.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
-import 'package:restaurante_galegos/app/services/shopping/shopping_card_services.dart';
+import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
 class ShoppingCardController extends GetxController with LoaderMixin, MessagesMixin {
   final OrderServices _orderServices;
   final AuthService _authService;
 
-  final ShoppingCardServices _cardServices;
+  final CarrinhoServices _carrinhoServices;
 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
 
   final quantityRx = Rxn<int>();
-  int get quantity => quantityRx.value!.toInt();
+  int get quantity => quantityRx.value ?? 0;
 
-  void clear() => _cardServices.clear();
+  void clear() => _carrinhoServices.clear();
 
   ShoppingCardController({
     required OrderServices orderServices,
     required AuthService authService,
-    required ShoppingCardServices cardServices,
+    required CarrinhoServices carrinhoServices,
   })  : _orderServices = orderServices,
         _authService = authService,
-        _cardServices = cardServices;
+        _carrinhoServices = carrinhoServices;
 
-  List<ShoppingCardModel> get products => _cardServices.productsSelected;
+  List<CarrinhoModel> get products => _carrinhoServices.itensCarrinho;
 
   @override
   void onInit() {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
-
-    ever(quantityRx, (quantity) {
-      quantity;
-    });
   }
 
-  void addQuantityProduct(ShoppingCardModel shoppingCardModel) {
-    _cardServices.addOrUpdateProduct(shoppingCardModel.product,
-        quantity: shoppingCardModel.quantity + 1);
-  }
-
-  void removeQuantityProduct(ShoppingCardModel shoppingCardModel) {
-    _cardServices.addOrUpdateProduct(shoppingCardModel.product,
-        quantity: shoppingCardModel.quantity - 1);
-  }
-
-  void addQuantityFood(ShoppingCardModel shoppingCardModel) {
-    _cardServices.addOrUpdateFood(
-      shoppingCardModel.food,
-      quantity: shoppingCardModel.quantity + 1,
-      selectedSize: shoppingCardModel.selectSize ?? '',
+  void addQuantityProduct(CarrinhoModel shoppingCardModel) {
+    _carrinhoServices.addOrUpdateProduct(
+      shoppingCardModel.item.produto!,
+      quantity: shoppingCardModel.item.quantidade + 1,
     );
   }
 
-  void removeQuantityFood(ShoppingCardModel shoppingCardModel) {
-    _cardServices.addOrUpdateFood(
-      shoppingCardModel.food,
-      quantity: shoppingCardModel.quantity - 1,
-      selectedSize: shoppingCardModel.selectSize ?? '',
+  void removeQuantityProduct(CarrinhoModel shoppingCardModel) {
+    _carrinhoServices.addOrUpdateProduct(
+      shoppingCardModel.item.produto!,
+      quantity: shoppingCardModel.item.quantidade - 1,
+    );
+  }
+
+  void addQuantityFood(CarrinhoModel shoppingCardModel) {
+    _carrinhoServices.addOrUpdateFood(
+      shoppingCardModel.item.alimento!,
+      quantity: shoppingCardModel.item.quantidade + 1,
+      selectedSize: shoppingCardModel.item.tamanho ?? '',
+    );
+  }
+
+  void removeQuantityFood(CarrinhoModel shoppingCardModel) {
+    _carrinhoServices.addOrUpdateFood(
+      shoppingCardModel.item.alimento!,
+      quantity: shoppingCardModel.item.quantidade - 1,
+      selectedSize: shoppingCardModel.item.tamanho ?? '',
     );
   }
 
@@ -114,11 +114,12 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       _loading(true);
       final user = _authService.getUserId();
       log('USUÁRIO: $user');
-      final order = ItemCarrinho(
+      final order = PedidoModel(
+        id: 100,
         userId: user!,
         address: address,
-        items: _cardServices.productsSelected,
-        quantity: quantity,
+        cart: _carrinhoServices.itensCarrinho,
+        amountToPay: totalPay()!,
       );
       await _orderServices.createOrder(order);
       clear();
@@ -145,6 +146,6 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   }
 
   double? totalPay() {
-    return _cardServices.amountToPay;
+    return _carrinhoServices.amountToPay;
   }
 }

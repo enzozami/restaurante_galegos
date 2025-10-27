@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
-import 'package:restaurante_galegos/app/models/alimento_model.dart';
+import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/models/menu_model.dart';
 
 import './lunchboxes_repository.dart';
@@ -12,7 +12,7 @@ class LunchboxesRepositoryImpl implements LunchboxesRepository {
   LunchboxesRepositoryImpl({required RestClient restClient}) : _restClient = restClient;
 
   @override
-  Future<List<AlimentoModel>> getFood() async {
+  Future<List<FoodModel>> getFood() async {
     final result = await _restClient.get('/alimentos');
 
     if (result.hasError) {
@@ -22,11 +22,7 @@ class LunchboxesRepositoryImpl implements LunchboxesRepository {
 
     final data = List<Map<String, dynamic>>.from(result.body);
 
-    log('Buscando alimentos: $data');
-
-    final alimentos = data.map((e) => AlimentoModel.fromMap(e)).toList();
-
-    log('ALIMENTOS: $alimentos');
+    final alimentos = data.map((e) => FoodModel.fromMap(e)).toList();
 
     return alimentos;
   }
@@ -34,8 +30,6 @@ class LunchboxesRepositoryImpl implements LunchboxesRepository {
   @override
   Future<List<MenuModel>> getMenu() async {
     final result = await _restClient.get('/menu');
-
-    log('MENU RESPONSE: ${result.body}');
 
     if (result.hasError) {
       log('Erro ao buscar menu', error: result.statusText);
@@ -45,8 +39,6 @@ class LunchboxesRepositoryImpl implements LunchboxesRepository {
     final List data = (result.body as List);
 
     final menuList = data.map((d) => MenuModel.fromMap(d)).toList();
-
-    log('REPOSITORIO MENU: $menuList');
 
     return menuList;
   }
