@@ -30,12 +30,13 @@ class ProductsBindings implements Bindings {
       ),
     );
 
-    Get.put(
-      ProductsController(
+    Get.lazyPut(
+      () => ProductsController(
         productsServices: Get.find<ProductsServices>(),
         itemsServices: Get.find<ItemsServices>(),
         shoppingCardServices: Get.find<ShoppingCardServices>(),
       ),
+      fenix: true,
     );
   }
 }

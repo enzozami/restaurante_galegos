@@ -59,18 +59,17 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
+    _totalPrice(selectedItem?.price);
 
     ever<ItemModel?>(itemSelect, (item) {
       if (item != null) {
-        // log('ITEM SELECIONADO: ${item.name}');
         final list = _shoppingCardServices.productsSelected
             .where((element) => element.product?.id == item.id);
-        // log('VER SE TEM NA LISTA: $list');
         if (list.isNotEmpty) {
           final itemList = list.map((e) => e.product?.id).toList();
 
           if (itemList.isNotEmpty && itemList.contains(item.id)) {
-            _quantity(list.first.quantity);
+            _quantity(list.single.quantity);
             _totalPrice(item.price * quantity);
           }
         } else {
@@ -79,10 +78,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         }
         update();
       }
-    });
-
-    ever<int>(_quantity, (quantity) {
-      log('QUANTIDADE EVER: $quantity');
     });
   }
 

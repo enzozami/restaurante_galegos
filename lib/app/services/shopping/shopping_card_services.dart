@@ -6,8 +6,8 @@ import 'package:restaurante_galegos/app/models/shopping_card_model.dart';
 class ShoppingCardServices extends GetxService {
   final RxMap<String, ShoppingCardModel> _shoppingCard = <String, ShoppingCardModel>{}.obs;
 
-  String _getProductKey(ItemModel item) => 'P_${item.id}';
-  String _getFoodKey(AlimentoModel alimento, String selectedSize) =>
+  String getProductKey(ItemModel item) => 'P_${item.id}';
+  String getFoodKey(AlimentoModel alimento, String selectedSize) =>
       'F_${alimento.id}_$selectedSize';
 
   List<ShoppingCardModel> get productsSelected => _shoppingCard.values.toList();
@@ -31,7 +31,7 @@ class ShoppingCardServices extends GetxService {
   }) {
     if (itemModel == null) return;
 
-    final key = _getProductKey(itemModel);
+    final key = getProductKey(itemModel);
 
     if (quantity == 0) {
       _shoppingCard.remove(key);
@@ -59,7 +59,7 @@ class ShoppingCardServices extends GetxService {
   }) {
     if (alimentoModel == null) return;
 
-    final key = _getFoodKey(alimentoModel, selectedSize);
+    final key = getFoodKey(alimentoModel, selectedSize);
 
     if (quantity == 0) {
       _shoppingCard.remove(key);

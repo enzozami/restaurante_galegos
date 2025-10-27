@@ -1,5 +1,5 @@
-import 'package:restaurante_galegos/app/models/item_model.dart';
+import 'package:restaurante_galegos/app/models/teste/item.dart';
 
 abstract interface class ItemsRepository {
-  Future<List<ItemModel>> getItems();
+  Future<List<Item>> getItems();
 }
