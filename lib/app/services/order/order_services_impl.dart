@@ -1,5 +1,5 @@
-import 'package:restaurante_galegos/app/models/card_model.dart';
-import 'package:restaurante_galegos/app/models/item_carrinho.dart';
+import 'package:restaurante_galegos/app/models/carrinho_model.dart';
+import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/repositories/order/order_reposiroty.dart';
 
 import './order_services.dart';
@@ -11,5 +11,5 @@ class OrderServicesImpl implements OrderServices {
       : _orderReposiroty = orderRepository;
 
   @override
-  Future<CardModel> createOrder(ItemCarrinho order) => _orderReposiroty.createOrder(order);
+  Future<CarrinhoModel> createOrder(PedidoModel order) => _orderReposiroty.createOrder(order);
 }

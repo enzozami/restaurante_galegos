@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:restaurante_galegos/app/models/teste/carrinho_model.dart';
+import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 
 class PedidoModel {
   int id;

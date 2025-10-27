@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/modules/order/finished/finished_page.dart';
 import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_bindings.dart';
 import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_page.dart';
 
@@ -12,9 +11,9 @@ class OrderRouters {
       binding: ShoppingCardBindings(),
       page: () => ShoppingCardPage(),
     ),
-    GetPage(
-      name: '/order/finished',
-      page: () => FinishedPage(),
-    )
+    // GetPage(
+    //   name: '/order/finished',
+    //   page: () => FinishedPage(),
+    // )
   ];
 }
