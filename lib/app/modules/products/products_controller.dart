@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/models/item_model.dart';
+import 'package:restaurante_galegos/app/models/item.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/services/items/items_services.dart';
 import 'package:restaurante_galegos/app/services/products/products_services.dart';
-import 'package:restaurante_galegos/app/services/shopping/shopping_card_services.dart';
+import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
 class ProductsController extends GetxController with LoaderMixin, MessagesMixin {
   // --- 2. SERVIÇOS (Dependências Injetadas) ---
   final ProductsServices _productsServices;
   final ItemsServices _itemsServices;
-  final ShoppingCardServices _shoppingCardServices;
+  final CarrinhoServices _carrinhoServices;
 
   final ScrollController scrollController = ScrollController();
 
@@ -24,15 +24,15 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   // Backups para filtragem
   final _productsOriginal = <ProductModel>[];
-  final _itemsOriginal = <ItemModel>[];
+  final _itemsOriginal = <Item>[];
 
   // --- DADOS/ESTADO PÚBLICO REATIVO ---
-  final items = <ItemModel>[].obs;
+  final items = <Item>[].obs;
   final products = <ProductModel>[].obs;
 
   // Estado de Seleção
   final categorySelected = Rxn<ProductModel>();
-  final itemSelect = Rxn<ItemModel>();
+  final itemSelect = Rxn<Item>();
 
   // Estado da Compra (para o modal)
   final _quantity = 1.obs;
@@ -40,7 +40,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final _totalPrice = 0.0.obs;
 
   // --- GETTERS ---
-  ItemModel? get selectedItem => itemSelect.value;
+  Item? get selectedItem => itemSelect.value;
   int get quantity => _quantity.value;
   bool get alreadyAdded => _alreadyAdded.value;
   double get totalPrice => _totalPrice.value;
@@ -49,35 +49,19 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   ProductsController({
     required ProductsServices productsServices,
     required ItemsServices itemsServices,
-    required ShoppingCardServices shoppingCardServices,
+    required CarrinhoServices carrinhoServices,
   })  : _productsServices = productsServices,
         _itemsServices = itemsServices,
-        _shoppingCardServices = shoppingCardServices;
+        _carrinhoServices = carrinhoServices;
 
   @override
   void onInit() {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
-    _totalPrice(selectedItem?.price);
 
-    ever<ItemModel?>(itemSelect, (item) {
-      if (item != null) {
-        final list = _shoppingCardServices.productsSelected
-            .where((element) => element.product?.id == item.id);
-        if (list.isNotEmpty) {
-          final itemList = list.map((e) => e.product?.id).toList();
-
-          if (itemList.isNotEmpty && itemList.contains(item.id)) {
-            _quantity(list.single.quantity);
-            _totalPrice(item.price * quantity);
-          }
-        } else {
-          _alreadyAdded(false);
-          _quantity(1);
-        }
-        update();
-      }
+    ever<int>(_quantity, (quantity) {
+      _totalPrice(selectedItem?.price);
     });
   }
 
@@ -153,8 +137,21 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   }
 
   void removeProductUnit() {
-    if (_quantity.value > 1) {
+    if (_quantity.value > 0) {
       _quantity.value--;
+    }
+  }
+
+  void setSelectedItem(Item item) {
+    itemSelect.value = item;
+
+    final carrinhoItem = _carrinhoServices.getById(item.id);
+    if (carrinhoItem != null) {
+      _quantity(carrinhoItem.item.quantidade);
+      _alreadyAdded(true);
+    } else {
+      _quantity(1);
+      _alreadyAdded(false);
     }
   }
 
@@ -165,9 +162,9 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       _alreadyAdded(false);
       return;
     }
-    _shoppingCardServices.addOrUpdateProduct(
+    _carrinhoServices.addOrUpdateProduct(
       selected,
-      quantity: quantity,
+      quantity: _quantity.value,
     );
     log('QUANTIDADE ENVIADA : $quantity');
     Get.back();

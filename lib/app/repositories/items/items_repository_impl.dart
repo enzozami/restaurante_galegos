@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
-import 'package:restaurante_galegos/app/models/teste/item.dart';
+import 'package:restaurante_galegos/app/models/item.dart';
 
 import './items_repository.dart';
 

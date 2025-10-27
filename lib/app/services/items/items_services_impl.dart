@@ -1,4 +1,4 @@
-import 'package:restaurante_galegos/app/models/teste/item.dart';
+import 'package:restaurante_galegos/app/models/item.dart';
 import 'package:restaurante_galegos/app/repositories/items/items_repository.dart';
 import 'package:restaurante_galegos/app/repositories/products/products_repository.dart';
 

@@ -15,16 +15,16 @@ class ListShoppingCard extends GetView<ShoppingCardController> {
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
           final p = controller.products[index];
-          var product = p.food ?? p.product;
-          final foodName = p.food?.name ?? '';
-          final itemName = p.product?.name ?? '';
-          final sizeSelected = p.selectSize;
+          var product = p.item.alimento ?? p.item.produto;
+          final foodName = p.item.alimento?.name ?? '';
+          final itemName = p.item.produto?.name ?? '';
+          final sizeSelected = p.item.tamanho ?? '';
 
-          final VoidCallback add = (product == p.food)
+          final VoidCallback add = (product == p.item.alimento)
               ? () => controller.addQuantityFood(p)
               : () => controller.addQuantityProduct(p);
 
-          final VoidCallback remove = (product == p.food)
+          final VoidCallback remove = (product == p.item.alimento)
               ? () => controller.removeQuantityFood(p)
               : () => controller.removeQuantityProduct(p);
 
@@ -35,7 +35,7 @@ class ListShoppingCard extends GetView<ShoppingCardController> {
             nameItem = foodName;
           }
 
-          final priceFood = p.selectedPrice ?? 0.0;
+          final priceFood = p.item.valorPorTamanho ?? 0.0;
 
           return Row(
             children: [
@@ -48,11 +48,11 @@ class ListShoppingCard extends GetView<ShoppingCardController> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  subtitle: Text((sizeSelected != null)
+                  subtitle: Text((sizeSelected != '')
                       ? sizeSelected[0].toUpperCase() + sizeSelected.substring(1)
-                      : sizeSelected ?? ''),
+                      : 'Produto'),
                   trailing: Text(
-                    FormatterHelper.formatCurrency(p.product?.price ?? priceFood),
+                    FormatterHelper.formatCurrency(p.item.produto?.price ?? priceFood),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
@@ -64,7 +64,7 @@ class ListShoppingCard extends GetView<ShoppingCardController> {
                 color: Colors.black,
                 addCallback: add,
                 removeCallback: remove,
-                quantityUnit: p.quantity,
+                quantityUnit: p.item.quantidade,
               ),
             ],
           );

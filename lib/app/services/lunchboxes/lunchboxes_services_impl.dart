@@ -1,4 +1,4 @@
-import 'package:restaurante_galegos/app/models/alimento_model.dart';
+import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/models/menu_model.dart';
 import 'package:restaurante_galegos/app/repositories/lunchboxes/lunchboxes_repository.dart';
 
@@ -11,7 +11,7 @@ class LunchboxesServicesImpl implements LunchboxesServices {
       : _lunchboxesRepository = lunchboxesRepository;
 
   @override
-  Future<List<AlimentoModel>> getFood() => _lunchboxesRepository.getFood();
+  Future<List<FoodModel>> getFood() => _lunchboxesRepository.getFood();
 
   @override
   Future<List<MenuModel>> getMenu() => _lunchboxesRepository.getMenu();
