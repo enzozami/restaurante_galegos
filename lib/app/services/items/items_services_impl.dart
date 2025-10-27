@@ -1,4 +1,4 @@
-import 'package:restaurante_galegos/app/models/item_model.dart';
+import 'package:restaurante_galegos/app/models/teste/item.dart';
 import 'package:restaurante_galegos/app/repositories/items/items_repository.dart';
 import 'package:restaurante_galegos/app/repositories/products/products_repository.dart';
 
@@ -12,5 +12,5 @@ class ItemsServicesImpl implements ItemsServices {
       : _itemsRepository = itemsRepository;
 
   @override
-  Future<List<ItemModel>> getItems() => _itemsRepository.getItems();
+  Future<List<Item>> getItems() => _itemsRepository.getItems();
 }

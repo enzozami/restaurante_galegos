@@ -6,6 +6,6 @@ class HomeBindings implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => ShoppingCardServices());
-    Get.put(HomeController());
+    Get.lazyPut(() => HomeController());
   }
 }

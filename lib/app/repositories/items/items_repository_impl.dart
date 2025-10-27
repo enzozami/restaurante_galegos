@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
-import 'package:restaurante_galegos/app/models/item_model.dart';
+import 'package:restaurante_galegos/app/models/teste/item.dart';
 
 import './items_repository.dart';
 
@@ -11,7 +11,7 @@ class ItemsRepositoryImpl implements ItemsRepository {
   ItemsRepositoryImpl({required RestClient restClient}) : _restClient = restClient;
 
   @override
-  Future<List<ItemModel>> getItems() async {
+  Future<List<Item>> getItems() async {
     final result = await _restClient.get('/products');
 
     if (result.hasError) {
@@ -32,6 +32,6 @@ class ItemsRepositoryImpl implements ItemsRepository {
     }
     // log('Lista de ITEMS: $list');
 
-    return list.expand((e) => e).map((e) => ItemModel.fromMap(e)).toList();
+    return list.expand((e) => e).map((e) => Item.fromMap(e)).toList();
   }
 }
