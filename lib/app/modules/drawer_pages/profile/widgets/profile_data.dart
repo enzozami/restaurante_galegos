@@ -35,6 +35,7 @@ class ProfileData extends StatelessWidget {
           SizedBox(
             width: context.widthTransformer(reducedBy: 10),
             child: GalegosTextFormField(
+              floatingLabelBehavior: FloatingLabelBehavior.never,
               label: (isSelected != null && isSelected == true) ? label : maskedLabel,
               controller: controller,
               enabled: isSelected ?? true,

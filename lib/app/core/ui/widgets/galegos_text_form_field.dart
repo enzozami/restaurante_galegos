@@ -8,7 +8,7 @@ class GalegosTextFormField extends StatelessWidget {
   final bool obscureText;
   final MaskTextInputFormatter? mask;
   final TextInputType inputType;
-
+  final FloatingLabelBehavior floatingLabelBehavior;
   final bool? enabled;
 
   const GalegosTextFormField({
@@ -20,6 +20,7 @@ class GalegosTextFormField extends StatelessWidget {
     this.mask,
     this.inputType = TextInputType.text,
     this.enabled,
+    required this.floatingLabelBehavior,
   });
 
   @override
@@ -36,7 +37,7 @@ class GalegosTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         // suffixIcon: icon
         labelText: label,
-        floatingLabelBehavior: FloatingLabelBehavior.never,
+        floatingLabelBehavior: floatingLabelBehavior,
         labelStyle: TextStyle(
           color: Colors.black,
         ),
