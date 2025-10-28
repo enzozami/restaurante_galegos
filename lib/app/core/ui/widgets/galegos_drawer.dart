@@ -69,7 +69,7 @@ class ButtonDrawer extends StatelessWidget {
       ),
       width: context.width,
       child: InkWell(
-        focusColor: Colors.amber,
+        splashColor: Colors.amber,
         onTap: onTap,
         child: Align(
           alignment: Alignment.centerLeft,
