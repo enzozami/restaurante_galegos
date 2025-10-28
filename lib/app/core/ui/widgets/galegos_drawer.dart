@@ -24,26 +24,22 @@ class GalegosDrawer extends StatelessWidget {
               Get.toNamed('/profile');
             },
           ),
-          Divider(),
           ButtonDrawer(
             title: 'Horário de funcionamento',
             onTap: () {
               Get.toNamed('/time');
             },
           ),
-          Divider(),
           ButtonDrawer(
             title: 'Sobre nós',
             onTap: () {
               Get.toNamed('/about_us');
             },
           ),
-          Divider(),
           ButtonDrawer(
             title: 'Sair',
             onTap: AuthService().logout,
           ),
-          Divider(),
         ],
       ),
     );
@@ -62,13 +58,19 @@ class ButtonDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        constraints: BoxConstraints(
-          minHeight: 100,
-        ),
-        width: context.width,
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      constraints: BoxConstraints(
+        minHeight: 100,
+      ),
+      width: context.width,
+      child: InkWell(
+        focusColor: Colors.amber,
+        onTap: onTap,
         child: Align(
           alignment: Alignment.centerLeft,
           child: Padding(
