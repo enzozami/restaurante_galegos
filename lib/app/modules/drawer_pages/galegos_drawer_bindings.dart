@@ -2,8 +2,12 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/modules/drawer_pages/galegos_drawer_controller.dart';
+import 'package:restaurante_galegos/app/repositories/about_us/about_us_repository.dart';
+import 'package:restaurante_galegos/app/repositories/about_us/about_us_repository_impl.dart';
 import 'package:restaurante_galegos/app/repositories/user/user_repository.dart';
 import 'package:restaurante_galegos/app/repositories/user/user_repository_impl.dart';
+import 'package:restaurante_galegos/app/services/about_us/about_us_services.dart';
+import 'package:restaurante_galegos/app/services/about_us/about_us_services_impl.dart';
 import 'package:restaurante_galegos/app/services/user/user_services.dart';
 import 'package:restaurante_galegos/app/services/user/user_services_impl.dart';
 
@@ -20,10 +24,22 @@ class GalegosDrawerBindings implements Bindings {
         userRepository: Get.find<UserRepository>(),
       ),
     );
+
+    Get.lazyPut<AboutUsRepository>(
+      () => AboutUsRepositoryImpl(
+        restClient: Get.find<RestClient>(),
+      ),
+    );
+    Get.lazyPut<AboutUsServices>(
+      () => AboutUsServicesImpl(
+        aboutUsRepository: Get.find<AboutUsRepository>(),
+      ),
+    );
     Get.put(
       GalegosDrawerController(
         userServices: Get.find<UserServices>(),
         authService: Get.find<AuthService>(),
+        aboutUsServices: Get.find<AboutUsServices>(),
       ),
     );
   }
