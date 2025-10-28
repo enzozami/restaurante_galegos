@@ -65,34 +65,32 @@ class ProductItems extends GetView<ProductsController> {
             ],
           ),
           actions: [
-            Obx(() {
-              return ElevatedButton(
-                style: ElevatedButton.styleFrom(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.amber,
+                minimumSize: Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+              onPressed: () {
+                controller.addItemsToCart();
+                Get.snackbar(
+                  'Item: ${item.name}',
+                  'Item adicionado ao carrinho',
+                  snackPosition: SnackPosition.TOP,
                   backgroundColor: Colors.amber,
-                  minimumSize: Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  colorText: Colors.black,
+                );
+                log('Item clicado: ${item.name} - ${item.price}');
+              },
+              child: Text(
+                'Adicionar',
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
                 ),
-                onPressed: () {
-                  controller.addItemsToCart();
-                  Get.snackbar(
-                    'Item: ${item.name}',
-                    'Item adicionado ao carrinho',
-                    snackPosition: SnackPosition.TOP,
-                    backgroundColor: Colors.amber,
-                    colorText: Colors.black,
-                  );
-                  log('Item clicado: ${item.name} - ${item.price}');
-                },
-                child: Text(
-                  'Adicionar (${FormatterHelper.formatCurrency(controller.totalPrice)})',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-              );
-            }),
+              ),
+            ),
           ],
         );
       },
