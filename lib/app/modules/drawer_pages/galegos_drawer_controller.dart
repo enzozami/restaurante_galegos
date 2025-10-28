@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
+import 'package:restaurante_galegos/app/services/about_us/about_us_services.dart';
 import 'package:restaurante_galegos/app/services/user/user_services.dart';
 
 class GalegosDrawerController extends GetxController with LoaderMixin, MessagesMixin {
   final UserServices _userServices;
   final AuthService _authService;
+  final AboutUsServices _aboutUsServices;
 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
@@ -25,11 +27,18 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   String get password => _password.value;
   final valueCpfOrCnpj = ''.obs;
 
+  final _titleAboutUs = ''.obs;
+  String get titleAboutUs => _titleAboutUs.value;
+  final _textAboutUs = ''.obs;
+  String get textAboutUs => _textAboutUs.value;
+
   GalegosDrawerController({
     required UserServices userServices,
     required AuthService authService,
+    required AboutUsServices aboutUsServices,
   })  : _userServices = userServices,
-        _authService = authService;
+        _authService = authService,
+        _aboutUsServices = aboutUsServices;
 
   @override
   void onInit() {
@@ -42,6 +51,7 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   void onReady() {
     super.onReady();
     getUser();
+    getAbout();
   }
 
   void isSelect() {
@@ -75,6 +85,29 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
       } else if (name != null && password != null && name == '' && password == '') {
         await _userServices.updateUser(_name.value, _password.value, id: userId);
       }
+    }
+  }
+
+  Future<void> getAbout() async {
+    _loading(true);
+    try {
+      final aboutUsData = await _aboutUsServices.getAboutUs();
+      _titleAboutUs.value = aboutUsData.title;
+      log('TITULO ABOUTTTTTT: ${_titleAboutUs.value}');
+      _textAboutUs.value = aboutUsData.text;
+      _loading(false);
+    } catch (e) {
+      _loading(false);
+      _message(
+        MessageModel(
+          title: 'Erro ao buscar dados',
+          message: 'Erro ao buscar o "sobre nós"',
+          type: MessageType.error,
+        ),
+      );
+      log(e.toString());
+    } finally {
+      _loading(false);
     }
   }
 }

@@ -32,7 +32,9 @@ class GalegosDrawer extends StatelessWidget {
           Divider(),
           ButtonDrawer(
             title: 'Sobre nós',
-            onTap: () {},
+            onTap: () {
+              Get.toNamed('/about_us');
+            },
           ),
           Divider(),
           ButtonDrawer(

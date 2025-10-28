@@ -4,7 +4,7 @@ import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/modules/drawer_pages/galegos_drawer_controller.dart';
-import 'package:restaurante_galegos/app/modules/drawer_pages/widgets/profile_data.dart';
+import 'package:restaurante_galegos/app/modules/drawer_pages/profile/widgets/profile_data.dart';
 import 'package:validatorless/validatorless.dart';
 
 class ProfilePage extends StatefulWidget {
