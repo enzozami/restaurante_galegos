@@ -100,22 +100,16 @@
     ],
     "horarios": [
         {
-            "inicio": {
-                "Segunda-feira": "09:00",
-                "Terça-feira": "09:00",
-                "Quarta-feira": "09:00",
-                "Quinta-feira": "09:00",
-                "Sexta-feira": "09:00",
-                "Sábado": "09:00"
-            },
-            "fim": {
-                "Segunda-feira": "14:50",
-                "Terça-feira": "14:50",
-                "Quarta-feira": "14:50",
-                "Quinta-feira": "14:50",
-                "Sexta-feira": "14:50",
-                "Sábado": "14:45"
-            }
+            "days": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira",
+                "Sábado"
+            ],
+            "inicio": "09:00",
+            "fim": "14:50"
         }
     ],
     "adm_users": [
