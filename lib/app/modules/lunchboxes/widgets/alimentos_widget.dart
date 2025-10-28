@@ -69,32 +69,30 @@ class AlimentosWidget extends GetView<LunchboxesController> {
             ],
           ),
           actions: [
-            Obx(() {
-              return ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.amber,
-                    minimumSize: Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                onPressed: () {
-                  controller.addFoodShoppingCard();
-                  Get.snackbar(
-                    'Item: ${alimento.name}',
-                    'Item adicionado ao carrinho',
-                    snackPosition: SnackPosition.TOP,
-                    backgroundColor: Colors.amber,
-                    colorText: Colors.black,
-                  );
-                },
-                child: Text(
-                  'Adicionar (${FormatterHelper.formatCurrency(controller.totalPrice)})',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.amber,
+                  minimumSize: Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+              onPressed: () {
+                controller.addFoodShoppingCard();
+                Get.snackbar(
+                  'Item: ${alimento.name}',
+                  'Item adicionado ao carrinho',
+                  snackPosition: SnackPosition.TOP,
+                  backgroundColor: Colors.amber,
+                  colorText: Colors.black,
+                );
+              },
+              child: Text(
+                'Adicionar',
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
                 ),
-              );
-            }),
+              ),
+            ),
           ],
         );
       },
