@@ -83,6 +83,7 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                             ),
                             Obx(() {
                               return GalegosTextFormField(
+                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 controller: _usuarioEC,
                                 inputType: TextInputType.number,
                                 mask: (controller.isCpf == true) ? MaskCpf() : MaskCnpj(),
@@ -99,13 +100,14 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                               height: 25,
                             ),
                             GalegosTextFormField(
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                               controller: _passwordEC,
                               obscureText: true,
                               validator: Validatorless.multiple([
                                 Validatorless.required('Senha obrigatória'),
                                 Validatorless.min(6, 'Senha deve ter 6 dígitos'),
                               ]),
-                              label: 'Senha',
+                              label: 'Senha (Mínimo 6 caracteres)',
                             ),
                             const SizedBox(
                               height: 25,

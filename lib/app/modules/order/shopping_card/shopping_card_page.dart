@@ -106,6 +106,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                         return Column(
                           children: [
                             GalegosTextFormField(
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                               label: 'Endereço',
                               controller: _addressEC,
                               validator: Validatorless.required('Endereço obrigatório'),

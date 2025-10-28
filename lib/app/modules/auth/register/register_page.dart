@@ -54,6 +54,7 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                         child: Column(
                           children: [
                             GalegosTextFormField(
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                               controller: _nameEC,
                               label: 'Nome completo',
                               validator: Validatorless.multiple([
@@ -72,6 +73,7 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                             ),
                             Obx(() {
                               return GalegosTextFormField(
+                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 controller: _usuarioEC,
                                 inputType: TextInputType.number,
                                 mask: (controller.isCpf == true) ? MaskCpf() : MaskCnpj(),
@@ -88,9 +90,10 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                               height: 25,
                             ),
                             GalegosTextFormField(
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                               controller: _passwordEC,
                               obscureText: true,
-                              label: 'Senha',
+                              label: 'Senha (Mínimo 6 caracteres)',
                               validator: Validatorless.multiple([
                                 Validatorless.required('Senha obrigatória'),
                                 Validatorless.min(6, 'Senha obrigatória'),
@@ -100,6 +103,7 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                               height: 25,
                             ),
                             GalegosTextFormField(
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                               obscureText: true,
                               label: 'Confirma senha',
                               validator: Validatorless.multiple([
