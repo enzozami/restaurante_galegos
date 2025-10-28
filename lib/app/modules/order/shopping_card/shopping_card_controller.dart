@@ -7,12 +7,14 @@ import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/modules/home/home_controller.dart';
+import 'package:restaurante_galegos/app/services/cep/cep_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
 class ShoppingCardController extends GetxController with LoaderMixin, MessagesMixin {
   final OrderServices _orderServices;
   final AuthService _authService;
+  final CepServices _cepServices;
 
   final CarrinhoServices _carrinhoServices;
 
@@ -24,13 +26,18 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
 
   void clear() => _carrinhoServices.clear();
 
+  // CEP
+  final cep = ''.obs;
+
   ShoppingCardController({
     required OrderServices orderServices,
     required AuthService authService,
     required CarrinhoServices carrinhoServices,
+    required CepServices cepServices,
   })  : _orderServices = orderServices,
         _authService = authService,
-        _carrinhoServices = carrinhoServices;
+        _carrinhoServices = carrinhoServices,
+        _cepServices = cepServices;
 
   List<CarrinhoModel> get products => _carrinhoServices.itensCarrinho;
 
@@ -143,6 +150,11 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     } finally {
       _loading(false);
     }
+  }
+
+  Future<void> getCep({required int address}) async {
+    final cepData = await _cepServices.getCep(address);
+    cep.value = cepData.entries.first.value;
   }
 
   double? totalPay() {

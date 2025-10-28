@@ -10,6 +10,7 @@ class GalegosTextFormField extends StatelessWidget {
   final TextInputType inputType;
   final FloatingLabelBehavior floatingLabelBehavior;
   final bool? enabled;
+  final IconButton? icon;
 
   const GalegosTextFormField({
     super.key,
@@ -21,6 +22,7 @@ class GalegosTextFormField extends StatelessWidget {
     this.inputType = TextInputType.text,
     this.enabled,
     required this.floatingLabelBehavior,
+    this.icon,
   });
 
   @override
@@ -37,6 +39,7 @@ class GalegosTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         // suffixIcon: icon
         labelText: label,
+        suffixIcon: icon,
         floatingLabelBehavior: floatingLabelBehavior,
         labelStyle: TextStyle(
           color: Colors.black,

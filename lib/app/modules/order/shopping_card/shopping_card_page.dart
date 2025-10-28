@@ -17,7 +17,7 @@ class ShoppingCardPage extends StatefulWidget {
 
 class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCardController> {
   final _formKey = GlobalKey<FormState>();
-  final _addressEC = TextEditingController();
+  final _cepEC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -106,10 +106,28 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                         return Column(
                           children: [
                             GalegosTextFormField(
+                              icon: IconButton(
+                                  onPressed: () {
+                                    controller.getCep(address: int.parse(_cepEC.text));
+                                  },
+                                  icon: Icon(Icons.search)),
+                              inputType: TextInputType.numberWithOptions(decimal: true),
                               floatingLabelBehavior: FloatingLabelBehavior.auto,
-                              label: 'Endereço',
-                              controller: _addressEC,
-                              validator: Validatorless.required('Endereço obrigatório'),
+                              label: 'CEP',
+                              controller: _cepEC,
+                              validator: Validatorless.required('CEP obrigatório'),
+                            ),
+                            Visibility(
+                              visible: (_cepEC.text.length == 8),
+                              child: Column(
+                                children: [
+                                  Text(controller.cep.value.tr.toUpperCase()),
+                                  Text('Bairro'),
+                                  Text('Cidade'),
+                                  Text('Número*'),
+                                  Text('Observação'),
+                                ],
+                              ),
                             ),
                             const SizedBox(
                               height: 30,
@@ -134,7 +152,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                                     if (formValid) {
                                       controller.quantityRx(quantityItems);
                                       final success =
-                                          await controller.createOrder(address: _addressEC.text);
+                                          await controller.createOrder(address: _cepEC.text);
                                       if (success) {
                                         Get.snackbar(
                                           'Pedido feito com sucesso',
