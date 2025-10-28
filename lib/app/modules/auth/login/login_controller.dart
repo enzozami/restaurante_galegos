@@ -39,29 +39,18 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
     required password,
   }) async {
     try {
-      _loading.toggle();
+      _loading(true);
       final userLogger = await _authServices.login(isCpf: isCpf, value: value, password: password);
       final storage = GetStorage();
       storage.write(Constants.USER_KEY, userLogger.id);
-      _loading.toggle();
     } on AuthException catch (e, s) {
+      _loading(false);
       log('Falha no login', error: e, stackTrace: s);
-      _message(
-        MessageModel(
-          title: 'Falha no login',
-          message:
-              'CPF/CNPJ ou senha incorreta', // pode ser "Senha incorreta" ou outro texto vindo do service
-          type: MessageType.error,
-        ),
-      );
-    } catch (e) {
-      _loading.toggle();
-      _message(
-        MessageModel(
-          title: 'Erro',
-          message: 'Erro ao realizar login',
-          type: MessageType.error,
-        ),
+      _message.value = MessageModel(
+        title: 'Falha no login',
+        message:
+            'CPF/CNPJ ou senha incorreta', // pode ser "Senha incorreta" ou outro texto vindo do service
+        type: MessageType.error,
       );
     } finally {
       _loading(false);
