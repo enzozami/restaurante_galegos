@@ -28,8 +28,14 @@ class AuthRepositoryImpl implements AuthRepository {
 
     // log('hkjlmkjmnlmnl$data');
 
-    final user = data.firstWhere((u) => u['value'] == value && u['password'] == password);
+    final user = data.firstWhere(
+      (u) => u['value'] == value && u['password'] == password,
+      orElse: () => {},
+    );
 
+    if (user.isEmpty) {
+      throw AuthException(message: 'CPF/CNPJ ou senha incorreta');
+    }
     // log('asdwasd w$user');
 
     return UserModel.fromMap(user);
@@ -60,5 +66,5 @@ class AuthRepositoryImpl implements AuthRepository {
 
 class AuthException implements Exception {
   final String message;
-  AuthException(this.message);
+  AuthException({required this.message});
 }
