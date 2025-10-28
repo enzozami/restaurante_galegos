@@ -92,6 +92,32 @@
             "password": "123456"
         }
     ],
+    "sobre_nos": [
+        {
+            "title": "Sobre nós",
+            "text": "Com mais de 22 anos de experiência, oferecemos a melhor comida caseira da área de Cajamar. Temos opções de comida à vontade, por quilo e marmitas."
+        }
+    ],
+    "horarios": [
+        {
+            "inicio": {
+                "Segunda-feira": "09:00",
+                "Terça-feira": "09:00",
+                "Quarta-feira": "09:00",
+                "Quinta-feira": "09:00",
+                "Sexta-feira": "09:00",
+                "Sábado": "09:00"
+            },
+            "fim": {
+                "Segunda-feira": "14:50",
+                "Terça-feira": "14:50",
+                "Quarta-feira": "14:50",
+                "Quinta-feira": "14:50",
+                "Sexta-feira": "14:50",
+                "Sábado": "14:45"
+            }
+        }
+    ],
     "adm_users": [
         {
             "id": 0,
@@ -3045,6 +3071,53 @@
                 }
             ],
             "amountToPay": 46.0
+        },
+        {
+            "id": 89,
+            "userId": 1,
+            "address": "p",
+            "cart": [
+                {
+                    "produto": {
+                        "id": 10,
+                        "categoryId": "Lanches",
+                        "name": "Americano",
+                        "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 3,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                },
+                {
+                    "produto": {
+                        "id": 12,
+                        "categoryId": "Lanches",
+                        "name": "X-Burguer",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
+                        "price": 14.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                },
+                {
+                    "produto": {
+                        "id": 14,
+                        "categoryId": "Lanches",
+                        "name": "X-Egg",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, ovo e maionese",
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 74.0
         }
     ]
 }
