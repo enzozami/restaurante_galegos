@@ -27,12 +27,16 @@ class GalegosDrawer extends StatelessWidget {
           Divider(),
           ButtonDrawer(
             title: 'Horário de funcionamento',
-            onTap: () {},
+            onTap: () {
+              Get.toNamed('/time');
+            },
           ),
           Divider(),
           ButtonDrawer(
             title: 'Sobre nós',
-            onTap: () {},
+            onTap: () {
+              Get.toNamed('/about_us');
+            },
           ),
           Divider(),
           ButtonDrawer(

@@ -4,11 +4,25 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
+import 'package:restaurante_galegos/app/services/about_us/about_us_services.dart';
+import 'package:restaurante_galegos/app/services/time/time_services.dart';
 import 'package:restaurante_galegos/app/services/user/user_services.dart';
 
 class GalegosDrawerController extends GetxController with LoaderMixin, MessagesMixin {
   final UserServices _userServices;
   final AuthService _authService;
+  final AboutUsServices _aboutUsServices;
+  final TimeServices _timeServices;
+
+  final dayNow = FormatterHelper.formatDate();
+  final _dateTime = <String>[].obs;
+  final _inicioTime = ''.obs;
+  final _fimTime = ''.obs;
+
+  List<String> get dateTime => _dateTime.value;
+  String get inicioTime => _inicioTime.value;
+  String get fimTime => _fimTime.value;
 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
@@ -25,11 +39,20 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   String get password => _password.value;
   final valueCpfOrCnpj = ''.obs;
 
+  final _titleAboutUs = ''.obs;
+  String get titleAboutUs => _titleAboutUs.value;
+  final _textAboutUs = ''.obs;
+  String get textAboutUs => _textAboutUs.value;
+
   GalegosDrawerController({
     required UserServices userServices,
     required AuthService authService,
+    required AboutUsServices aboutUsServices,
+    required TimeServices timeServices,
   })  : _userServices = userServices,
-        _authService = authService;
+        _authService = authService,
+        _aboutUsServices = aboutUsServices,
+        _timeServices = timeServices;
 
   @override
   void onInit() {
@@ -42,6 +65,8 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   void onReady() {
     super.onReady();
     getUser();
+    getAbout();
+    time();
   }
 
   void isSelect() {
@@ -76,5 +101,39 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
         await _userServices.updateUser(_name.value, _password.value, id: userId);
       }
     }
+  }
+
+  Future<void> getAbout() async {
+    _loading(true);
+    try {
+      final aboutUsData = await _aboutUsServices.getAboutUs();
+      _titleAboutUs.value = aboutUsData.title;
+      log('TITULO ABOUTTTTTT: ${_titleAboutUs.value}');
+      _textAboutUs.value = aboutUsData.text;
+      _loading(false);
+    } catch (e) {
+      _loading(false);
+      _message(
+        MessageModel(
+          title: 'Erro ao buscar dados',
+          message: 'Erro ao buscar o "sobre nós"',
+          type: MessageType.error,
+        ),
+      );
+      log(e.toString());
+    } finally {
+      _loading(false);
+    }
+  }
+
+  Future<void> time() async {
+    _loading(true);
+    final timeData = await _timeServices.getTime();
+
+    final data = timeData.where((e) => e.days.contains(dayNow));
+
+    _dateTime.assignAll(data.first.days);
+    _inicioTime.value = data.first.inicio;
+    _fimTime.value = data.first.fim;
   }
 }
