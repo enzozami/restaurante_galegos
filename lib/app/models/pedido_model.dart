@@ -5,13 +5,23 @@ import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 class PedidoModel {
   int id;
   int userId;
-  String address;
+  int cep;
+  String rua;
+  String bairro;
+  String cidade;
+  String estado;
+  int numeroResidencia; // numero da casa
   List<CarrinhoModel> cart;
   double amountToPay;
   PedidoModel({
     required this.id,
     required this.userId,
-    required this.address,
+    required this.cep,
+    required this.rua,
+    required this.bairro,
+    required this.cidade,
+    required this.estado,
+    required this.numeroResidencia,
     required this.cart,
     required this.amountToPay,
   });
@@ -20,7 +30,12 @@ class PedidoModel {
     return {
       'id': id,
       'userId': userId,
-      'address': address,
+      'cep': cep,
+      'rua': rua,
+      'bairro': bairro,
+      'cidade': cidade,
+      'estado': estado,
+      'numeroResidencia': numeroResidencia,
       'cart': cart.map((x) => x.toMap()).toList(),
       'amountToPay': amountToPay,
     };
@@ -30,7 +45,12 @@ class PedidoModel {
     return PedidoModel(
       id: map['id']?.toInt() ?? 0,
       userId: map['userId']?.toInt() ?? 0,
-      address: map['address'] ?? '',
+      cep: map['cep']?.toInt() ?? 0,
+      rua: map['rua'] ?? '',
+      bairro: map['bairro'] ?? '',
+      cidade: map['cidade'] ?? '',
+      estado: map['estado'] ?? '',
+      numeroResidencia: map['numeroResidencia']?.toInt() ?? 0,
       cart: List<CarrinhoModel>.from(map['cart']?.map((x) => CarrinhoModel.fromMap(x)) ?? const []),
       amountToPay: map['amountToPay']?.toDouble() ?? 0.0,
     );
