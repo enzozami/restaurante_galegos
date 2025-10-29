@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/core/masks/mask_cep.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
@@ -17,7 +18,17 @@ class ShoppingCardPage extends StatefulWidget {
 
 class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCardController> {
   final _formKey = GlobalKey<FormState>();
-  final _addressEC = TextEditingController();
+  final _cepEC = TextEditingController();
+  final _numeroEC = TextEditingController();
+
+  final _cepFormatter = MaskCep();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _cepEC.dispose();
+    _numeroEC.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,13 +114,89 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                           0,
                           (sum, e) => sum + e.item.quantidade,
                         );
+
                         return Column(
                           children: [
                             GalegosTextFormField(
+                              icon: IconButton(
+                                  onPressed: () {
+                                    controller.getCep(
+                                      address: int.parse(
+                                        _cepFormatter.getUnmaskedText(),
+                                      ),
+                                    );
+                                  },
+                                  icon: Icon(Icons.search)),
+                              inputType: TextInputType.numberWithOptions(decimal: true),
                               floatingLabelBehavior: FloatingLabelBehavior.auto,
-                              label: 'Endereço',
-                              controller: _addressEC,
-                              validator: Validatorless.required('Endereço obrigatório'),
+                              label: 'CEP',
+                              mask: _cepFormatter,
+                              controller: _cepEC,
+                              validator: Validatorless.required('CEP obrigatório'),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Visibility(
+                              visible: (_cepEC.text.length >= 8),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Wrap(
+                                  alignment: WrapAlignment.spaceBetween,
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  spacing: 10,
+                                  runSpacing: 10,
+                                  children: [
+                                    SizedBox(
+                                      width: context.widthTransformer(reducedBy: 10),
+                                      child: GalegosTextFormField(
+                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                        enabled: false,
+                                        label: controller.rua.value,
+                                        inputType: TextInputType.text,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 180,
+                                      child: GalegosTextFormField(
+                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                        enabled: false,
+                                        label: controller.bairro.value,
+                                        inputType: TextInputType.text,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 180,
+                                      child: GalegosTextFormField(
+                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                        enabled: false,
+                                        label: controller.cidade.value,
+                                        inputType: TextInputType.text,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 180,
+                                      child: GalegosTextFormField(
+                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                        enabled: false,
+                                        label: controller.estado.value,
+                                        inputType: TextInputType.text,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 180,
+                                      child: GalegosTextFormField(
+                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                        enabled: true,
+                                        label: 'Número*',
+                                        inputType: TextInputType.number,
+                                        controller: _numeroEC,
+                                        validator: Validatorless.required('Número obrigatório'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                             const SizedBox(
                               height: 30,
@@ -133,8 +220,9 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                                     final formValid = _formKey.currentState?.validate() ?? false;
                                     if (formValid) {
                                       controller.quantityRx(quantityItems);
-                                      final success =
-                                          await controller.createOrder(address: _addressEC.text);
+                                      final cepSemMask = _cepFormatter.getUnmaskedText();
+                                      final success = await controller.createOrder(
+                                          address: cepSemMask, numero: _numeroEC.text);
                                       if (success) {
                                         Get.snackbar(
                                           'Pedido feito com sucesso',
