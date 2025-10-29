@@ -1246,6 +1246,70 @@
                 }
             ],
             "amountToPay": 12.0
+        },
+        {
+            "id": 7,
+            "amountToPay": 43.0,
+            "productsSelected": [
+                {
+                    "id": "item-001",
+                    "quantity": 2,
+                    "selectSize": null,
+                    "product": {
+                        "id": 10,
+                        "name": "Bauru",
+                        "description": "Pão, queijo, presunto e tomate.",
+                        "price": 13.0,
+                        "type": "lanche"
+                    },
+                    "food": null,
+                    "selectedPrice": 13.0
+                },
+                {
+                    "id": "item-002",
+                    "quantity": 1,
+                    "selectSize": "media",
+                    "product": null,
+                    "food": {
+                        "id": 45,
+                        "dayName": "Quinta-feira",
+                        "name": "Filé de Frango à Milanesa",
+                        "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                        "pricePerSize": {
+                            "mini": 22.0,
+                            "media": 24.0
+                        }
+                    },
+                    "selectedPrice": 24.0
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "userId": 1,
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 1,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 112,
+                        "categoryId": "Lanches",
+                        "name": "X-Bacon",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, bacon e maionese",
+                        "price": 16.0
+                    },
+                    "alimento": null,
+                    "quantidade": 10,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 167.0
         }
     ],
     "cep": [
