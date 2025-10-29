@@ -20,6 +20,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
+  var id = 0;
 
   final quantityRx = Rxn<int>();
   int get quantity => quantityRx.value ?? 0;
@@ -28,6 +29,11 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
 
   // CEP
   final cep = ''.obs;
+  final rua = ''.obs;
+  final bairro = ''.obs;
+  final cidade = ''.obs;
+  final estado = ''.obs;
+  final numero = ''.obs;
 
   ShoppingCardController({
     required OrderServices orderServices,
@@ -116,15 +122,24 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   // }
   final homeController = Get.find<HomeController>();
 
-  Future<bool> createOrder({required String address}) async {
+  Future<bool> createOrder({required String address, required String numero}) async {
     try {
       _loading(true);
       final user = _authService.getUserId();
       log('USUÁRIO: $user');
+      log('CEP: $address');
+
+      final idSequencial = id++;
+
       final order = PedidoModel(
-        id: 100,
+        id: idSequencial,
         userId: user!,
-        address: address,
+        cep: int.parse(address),
+        rua: rua.value,
+        bairro: bairro.value,
+        cidade: cidade.value,
+        estado: estado.value,
+        numeroResidencia: int.parse(numero),
         cart: _carrinhoServices.itensCarrinho,
         amountToPay: totalPay()!,
       );
@@ -154,7 +169,11 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
 
   Future<void> getCep({required int address}) async {
     final cepData = await _cepServices.getCep(address);
-    cep.value = cepData.entries.first.value;
+    cep.value = cepData['cep'];
+    rua.value = cepData['logradouro'];
+    bairro.value = cepData['bairro'];
+    cidade.value = cepData['localidade'];
+    estado.value = cepData['uf'];
   }
 
   double? totalPay() {
