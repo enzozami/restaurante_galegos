@@ -16,7 +16,12 @@ class OrderReposirotyImpl implements OrderReposiroty {
     final result = await _restClient.post('/orders', {
       'id': order.id,
       'userId': order.userId,
-      'address': order.address,
+      'cep': order.cep,
+      'rua': order.rua,
+      'bairro': order.bairro,
+      'cidade': order.cidade,
+      'estado': order.estado,
+      'numeroResidencia': order.numeroResidencia,
       'cart': order.cart.map((e) => e.toMap()).toList(),
       'amountToPay': order.amountToPay,
     });

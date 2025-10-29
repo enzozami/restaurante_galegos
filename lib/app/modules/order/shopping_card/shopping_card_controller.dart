@@ -7,30 +7,43 @@ import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/modules/home/home_controller.dart';
+import 'package:restaurante_galegos/app/services/cep/cep_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
 class ShoppingCardController extends GetxController with LoaderMixin, MessagesMixin {
   final OrderServices _orderServices;
   final AuthService _authService;
+  final CepServices _cepServices;
 
   final CarrinhoServices _carrinhoServices;
 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
+  var id = 0;
 
   final quantityRx = Rxn<int>();
   int get quantity => quantityRx.value ?? 0;
 
   void clear() => _carrinhoServices.clear();
 
+  // CEP
+  final cep = ''.obs;
+  final rua = ''.obs;
+  final bairro = ''.obs;
+  final cidade = ''.obs;
+  final estado = ''.obs;
+  final numero = ''.obs;
+
   ShoppingCardController({
     required OrderServices orderServices,
     required AuthService authService,
     required CarrinhoServices carrinhoServices,
+    required CepServices cepServices,
   })  : _orderServices = orderServices,
         _authService = authService,
-        _carrinhoServices = carrinhoServices;
+        _carrinhoServices = carrinhoServices,
+        _cepServices = cepServices;
 
   List<CarrinhoModel> get products => _carrinhoServices.itensCarrinho;
 
@@ -109,15 +122,24 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   // }
   final homeController = Get.find<HomeController>();
 
-  Future<bool> createOrder({required String address}) async {
+  Future<bool> createOrder({required String address, required String numero}) async {
     try {
       _loading(true);
       final user = _authService.getUserId();
       log('USUÁRIO: $user');
+      log('CEP: $address');
+
+      final idSequencial = id++;
+
       final order = PedidoModel(
-        id: 100,
+        id: idSequencial,
         userId: user!,
-        address: address,
+        cep: int.parse(address),
+        rua: rua.value,
+        bairro: bairro.value,
+        cidade: cidade.value,
+        estado: estado.value,
+        numeroResidencia: int.parse(numero),
         cart: _carrinhoServices.itensCarrinho,
         amountToPay: totalPay()!,
       );
@@ -143,6 +165,15 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     } finally {
       _loading(false);
     }
+  }
+
+  Future<void> getCep({required int address}) async {
+    final cepData = await _cepServices.getCep(address);
+    cep.value = cepData['cep'];
+    rua.value = cepData['logradouro'];
+    bairro.value = cepData['bairro'];
+    cidade.value = cepData['localidade'];
+    estado.value = cepData['uf'];
   }
 
   double? totalPay() {
