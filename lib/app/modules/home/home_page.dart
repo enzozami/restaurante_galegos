@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_drawer.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/icon_badge.dart';
 import './home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -28,7 +29,12 @@ class HomePage extends GetView<HomeController> {
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.lunch_dining), label: 'Produto'),
             BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: 'Marmitas'),
-            BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined), label: 'Carrinho'),
+            BottomNavigationBarItem(
+                icon: IconBadge(
+                  icon: Icons.shopping_cart_outlined,
+                  number: controller.totalProducts,
+                ),
+                label: 'Carrinho'),
           ],
         );
       }),

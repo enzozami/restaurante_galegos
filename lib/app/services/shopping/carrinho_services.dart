@@ -24,6 +24,8 @@ class CarrinhoServices extends GetxService {
 
   CarrinhoModel? getById(int id) => carrinho[id];
 
+  int get totalProducts => carrinho.length;
+
   void addOrUpdateProduct(Item selected, {required int quantity}) {
     if (quantity == 0) {
       carrinho.remove(selected.id);
