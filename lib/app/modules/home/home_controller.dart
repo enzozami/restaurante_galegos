@@ -6,10 +6,16 @@ import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_car
 import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_page.dart';
 import 'package:restaurante_galegos/app/modules/products/products_bindings.dart';
 import 'package:restaurante_galegos/app/modules/products/products_page.dart';
+import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
 class HomeController extends GetxController {
   // ignore: non_constant_identifier_names
   static const NAVIGATOR_KEY = 1;
+
+  final CarrinhoServices _carrinhoServices;
+
+  HomeController({required CarrinhoServices carrinhoServices})
+      : _carrinhoServices = carrinhoServices;
 
   final _selectedIndex = 0.obs;
   final _tabs = [
@@ -54,4 +60,6 @@ class HomeController extends GetxController {
     }
     return null;
   }
+
+  int get totalProducts => _carrinhoServices.totalProducts;
 }
