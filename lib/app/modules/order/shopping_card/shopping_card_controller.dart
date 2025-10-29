@@ -168,12 +168,19 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   }
 
   Future<void> getCep({required int address}) async {
-    final cepData = await _cepServices.getCep(address);
-    cep.value = cepData['cep'];
-    rua.value = cepData['logradouro'];
-    bairro.value = cepData['bairro'];
-    cidade.value = cepData['localidade'];
-    estado.value = cepData['uf'];
+    _loading(true);
+    try {
+      final cepData = await _cepServices.getCep(address);
+      cep.value = cepData['cep'];
+      rua.value = cepData['logradouro'];
+      bairro.value = cepData['bairro'];
+      cidade.value = cepData['localidade'];
+      estado.value = cepData['uf'];
+    } catch (e) {
+      throw Exception('Erro ao buscar CEP');
+    } finally {
+      _loading(false);
+    }
   }
 
   double? totalPay() {
