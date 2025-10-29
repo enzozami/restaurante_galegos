@@ -108,7 +108,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Obx(() {
-                        var total = controller.totalPay();
+                        var total = controller.totalPay(controller.taxa.value);
                         var label = FormatterHelper.formatCurrency(total ?? 0);
                         var quantityItems = controller.products.fold<int>(
                           0,
@@ -121,9 +121,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                               icon: IconButton(
                                   onPressed: () {
                                     controller.getCep(
-                                      address: int.parse(
-                                        _cepFormatter.getUnmaskedText(),
-                                      ),
+                                      address: _cepFormatter.getUnmaskedText(),
                                     );
                                   },
                                   icon: Icon(Icons.search)),
@@ -259,7 +257,7 @@ class AmounToPay extends GetView<ShoppingCardController> {
 
   @override
   Widget build(BuildContext context) {
-    final total = controller.totalPay();
+    final total = controller.totalPay(controller.taxa.value);
     return Text(FormatterHelper.formatCurrency(total ?? 0));
   }
 }
