@@ -5,6 +5,7 @@ import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
+import 'package:restaurante_galegos/app/models/cep_model.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/modules/home/home_controller.dart';
 import 'package:restaurante_galegos/app/services/cep/cep_services.dart';
@@ -34,6 +35,11 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   final cidade = ''.obs;
   final estado = ''.obs;
   final numero = ''.obs;
+
+  // CEP mocado
+  final cepMok = <CepModel>[].obs;
+
+  final taxa = 0.0.obs;
 
   ShoppingCardController({
     required OrderServices orderServices,
@@ -126,25 +132,28 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     try {
       _loading(true);
       final user = _authService.getUserId();
-      log('USUÁRIO: $user');
-      log('CEP: $address');
 
-      final idSequencial = id++;
+      final idOrder = await _orderServices.getIdOrder();
+      final idSequencial = idOrder.id + 1;
+
+      log('ID PEDIDOS ${idOrder.id}');
+      log('ID SEQUENCIAL $idSequencial');
 
       final order = PedidoModel(
         id: idSequencial,
         userId: user!,
-        cep: int.parse(address),
+        cep: (address),
         rua: rua.value,
         bairro: bairro.value,
         cidade: cidade.value,
         estado: estado.value,
         numeroResidencia: int.parse(numero),
         cart: _carrinhoServices.itensCarrinho,
-        amountToPay: totalPay()!,
+        amountToPay: totalPay(taxa.value)!,
+        taxa: taxa.value,
       );
       await _orderServices.createOrder(order);
-      clear();
+      reset();
 
       _loading(false);
 
@@ -167,7 +176,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     }
   }
 
-  Future<void> getCep({required int address}) async {
+  Future<void> getCep({required String address}) async {
     _loading(true);
     try {
       final cepData = await _cepServices.getCep(address);
@@ -176,14 +185,39 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       bairro.value = cepData['bairro'];
       cidade.value = cepData['localidade'];
       estado.value = cepData['uf'];
-    } catch (e) {
-      throw Exception('Erro ao buscar CEP');
+
+      final cepMokData = await _cepServices.getCepModel();
+      cepMok.value = cepMokData;
+
+      final cepLimpo = cep.value.replaceAll('-', '').trim();
+
+      for (final cepModel in cepMok) {
+        if (cepModel.ceps.contains(cepLimpo)) {
+          taxa.value = cepModel.taxa;
+          break;
+        }
+      }
+    } catch (e, s) {
+      log('Erro ao buscar CEP: $e');
+      log('StackTrace: $s');
+      throw Exception('Erro ao buscar CEP aaaaaaaaaaaaaaaaaa');
     } finally {
       _loading(false);
     }
   }
 
-  double? totalPay() {
-    return _carrinhoServices.amountToPay;
+  double? totalPay(double? taxa) {
+    return (_carrinhoServices.amountToPay ?? 0) + (taxa ?? 0);
+  }
+
+  void reset() {
+    clear(); // limpa os itens do carrinho
+    taxa.value = 0.0;
+    cep.value = '';
+    rua.value = '';
+    bairro.value = '';
+    cidade.value = '';
+    estado.value = '';
+    numero.value = '';
   }
 }

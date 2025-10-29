@@ -1088,31 +1088,196 @@
         {
             "id": 1,
             "userId": 1,
-            "cep": 13506715,
+            "cep": "07787300",
+            "rua": "Avenida Buri",
+            "bairro": "Colina Maria Luíza (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 5,
+            "taxa": 5.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 13,
+                        "categoryId": "Lanches",
+                        "name": "X-Salada",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 4,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 65.0
+        },
+        {
+            "id": 2,
+            "userId": 1,
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 13,
+                        "categoryId": "Lanches",
+                        "name": "X-Salada",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 2,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 37.0
+        },
+        {
+            "id": 3,
+            "userId": 1,
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 5,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 10,
+                        "categoryId": "Lanches",
+                        "name": "Americano",
+                        "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 22.0
+        },
+        {
+            "id": 4,
+            "userId": 1,
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 10,
+                        "categoryId": "Lanches",
+                        "name": "Americano",
+                        "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 2,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 37.0
+        },
+        {
+            "id": 5,
+            "userId": 1,
+            "cep": "07787300",
+            "rua": "Avenida Buri",
+            "bairro": "Colina Maria Luíza (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 1,
+            "taxa": 5.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 14,
+                        "categoryId": "Lanches",
+                        "name": "X-Egg",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, ovo e maionese",
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 4,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 65.0
+        },
+        {
+            "id": 6,
+            "userId": 1,
+            "cep": "13506715",
             "rua": "Avenida 18 A",
             "bairro": "Vila Indaiá",
             "cidade": "Rio Claro",
             "estado": "SP",
-            "numeroResidencia": 55,
+            "numeroResidencia": 2,
+            "taxa": 0.0,
             "cart": [
                 {
-                    "produto": null,
-                    "alimento": {
-                        "id": 25,
-                        "name": "Bife à Milanesa",
-                        "dayName": "Quarta-feira",
-                        "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
-                        "pricePerSize": {
-                            "mini": 22.0,
-                            "media": 24.0
-                        }
+                    "produto": {
+                        "id": 20,
+                        "categoryId": "Bebidas",
+                        "name": "Coca-Cola Lata",
+                        "description": "Refrigerante Coca-Cola lata 350ml",
+                        "price": 6.0
                     },
-                    "quantidade": 1,
-                    "tamanho": "media",
-                    "valorPorTamanho": 24.0
+                    "alimento": null,
+                    "quantidade": 2,
+                    "tamanho": null,
+                    "valorPorTamanho": null
                 }
             ],
-            "amountToPay": 24.0
+            "amountToPay": 12.0
+        }
+    ],
+    "cep": [
+        {
+            "ceps": [
+                "07775240",
+                "07775200",
+                "07775500",
+                "07775860",
+                "07775865",
+                "07776000",
+                "07776005",
+                "07776035",
+                "07753040",
+                "07753080",
+                "07753700",
+                "07750020"
+            ],
+            "taxa": 7.0
+        },
+        {
+            "ceps": [
+                "07787300",
+                "07787380",
+                "07787455",
+                "07787485",
+                "07787500",
+                "07787530",
+                "07787540",
+                "07787545"
+            ],
+            "taxa": 5.0
         }
     ]
 }

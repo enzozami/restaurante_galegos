@@ -28,7 +28,10 @@ class ShoppingCardBindings implements Bindings {
     );
 
     Get.lazyPut<CepRepository>(
-      () => CepRepositoryImpl(viaCepService: Get.find<ViaCepService>()),
+      () => CepRepositoryImpl(
+        viaCepService: Get.find<ViaCepService>(),
+        restClient: Get.find<RestClient>(),
+      ),
     );
 
     Get.lazyPut<CepServices>(

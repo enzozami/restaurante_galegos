@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,6 +9,7 @@ class AuthService extends GetxService {
   final _getStorage = GetStorage();
 
   bool canUseApp() {
+    if (kDebugMode) return true;
     var timeNow = DateTime.now();
 
     final inicio = DateTime(timeNow.year, timeNow.month, timeNow.day, 9, 0);

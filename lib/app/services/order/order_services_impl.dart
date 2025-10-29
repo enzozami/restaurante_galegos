@@ -12,4 +12,7 @@ class OrderServicesImpl implements OrderServices {
 
   @override
   Future<CarrinhoModel> createOrder(PedidoModel order) => _orderReposiroty.createOrder(order);
+
+  @override
+  Future<PedidoModel> getIdOrder() => _orderReposiroty.getIdOrder();
 }

@@ -13,6 +13,7 @@ class OrderReposirotyImpl implements OrderReposiroty {
 
   @override
   Future<CarrinhoModel> createOrder(PedidoModel order) async {
+    log('PEDIDO: ${order.toString()}');
     final result = await _restClient.post('/orders', {
       'id': order.id,
       'userId': order.userId,
@@ -22,6 +23,7 @@ class OrderReposirotyImpl implements OrderReposiroty {
       'cidade': order.cidade,
       'estado': order.estado,
       'numeroResidencia': order.numeroResidencia,
+      'taxa': order.taxa,
       'cart': order.cart.map((e) => e.toMap()).toList(),
       'amountToPay': order.amountToPay,
     });
@@ -36,5 +38,18 @@ class OrderReposirotyImpl implements OrderReposiroty {
     }
 
     return CarrinhoModel.fromMap(result.body);
+  }
+
+  @override
+  Future<PedidoModel> getIdOrder() async {
+    final result = await _restClient.get('/orders');
+
+    if (result.hasError) {
+      log('Id não encontrado', error: result.statusText, stackTrace: StackTrace.current);
+      throw RestClientException(message: 'Id não encontrado;');
+    }
+
+    final data = result.body as List;
+    return PedidoModel.fromMap(data.last);
   }
 }
