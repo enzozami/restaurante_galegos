@@ -6,23 +6,24 @@ class ProfileData extends StatelessWidget {
   final String title;
   final String label;
   final TextEditingController? controller;
-  final bool? isSelected;
-  final bool? obscure;
+  final bool isSelected;
+  final bool obscure;
   final FormFieldValidator<String>? validator;
+  final IconButton? icon;
 
   const ProfileData({
     this.controller,
     super.key,
     required this.label,
-    this.isSelected,
+    required this.isSelected,
     required this.title,
-    this.obscure,
+    required this.obscure,
     this.validator,
+    this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
-    final maskedLabel = obscure == true ? '••••••••' : label;
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -36,11 +37,12 @@ class ProfileData extends StatelessWidget {
             width: context.widthTransformer(reducedBy: 10),
             child: GalegosTextFormField(
               floatingLabelBehavior: FloatingLabelBehavior.never,
-              label: (isSelected != null && isSelected == true) ? label : maskedLabel,
+              label: label,
               controller: controller,
-              enabled: isSelected ?? true,
-              obscureText: obscure ?? false,
+              enabled: isSelected,
+              obscureText: obscure,
               validator: validator,
+              icon: icon,
             ),
           ),
         ],

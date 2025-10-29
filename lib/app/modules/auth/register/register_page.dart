@@ -89,28 +89,48 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                             const SizedBox(
                               height: 25,
                             ),
-                            GalegosTextFormField(
-                              floatingLabelBehavior: FloatingLabelBehavior.auto,
-                              controller: _passwordEC,
-                              obscureText: true,
-                              label: 'Senha (Mínimo 6 caracteres)',
-                              validator: Validatorless.multiple([
-                                Validatorless.required('Senha obrigatória'),
-                                Validatorless.min(6, 'Senha obrigatória'),
-                              ]),
-                            ),
+                            Obx(() {
+                              return GalegosTextFormField(
+                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                controller: _passwordEC,
+                                obscureText: controller.isSelected.value,
+                                icon: IconButton(
+                                  onPressed: () {
+                                    controller.seePassword();
+                                  },
+                                  icon: controller.isSelected.value
+                                      ? Icon(Icons.visibility)
+                                      : Icon(Icons.visibility_off),
+                                ),
+                                label: 'Senha (Mínimo 6 caracteres)',
+                                validator: Validatorless.multiple([
+                                  Validatorless.required('Senha obrigatória'),
+                                  Validatorless.min(6, 'Senha obrigatória'),
+                                ]),
+                              );
+                            }),
                             const SizedBox(
                               height: 25,
                             ),
-                            GalegosTextFormField(
-                              floatingLabelBehavior: FloatingLabelBehavior.auto,
-                              obscureText: true,
-                              label: 'Confirma senha',
-                              validator: Validatorless.multiple([
-                                Validatorless.required('Confirma senha obrigatória'),
-                                Validatorless.compare(_passwordEC, 'Senhas diferentes'),
-                              ]),
-                            ),
+                            Obx(() {
+                              return GalegosTextFormField(
+                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                obscureText: controller.isSelectedConfirmaSenha.value,
+                                icon: IconButton(
+                                  onPressed: () {
+                                    controller.seeConfirmaPassword();
+                                  },
+                                  icon: controller.isSelectedConfirmaSenha.value
+                                      ? Icon(Icons.visibility)
+                                      : Icon(Icons.visibility_off),
+                                ),
+                                label: 'Confirma senha',
+                                validator: Validatorless.multiple([
+                                  Validatorless.required('Confirma senha obrigatória'),
+                                  Validatorless.compare(_passwordEC, 'Senhas diferentes'),
+                                ]),
+                              );
+                            }),
                             const SizedBox(
                               height: 25,
                             ),

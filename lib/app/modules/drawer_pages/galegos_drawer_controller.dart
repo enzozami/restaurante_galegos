@@ -15,6 +15,13 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   final AboutUsServices _aboutUsServices;
   final TimeServices _timeServices;
 
+  final isPasswordSee = true.obs;
+  final senha = false.obs;
+
+  void atualizarSenha() {
+    senha.value = !senha.value;
+  }
+
   final dayNow = FormatterHelper.formatDate();
   final _dateTime = <String>[].obs;
   final _inicioTime = ''.obs;
@@ -71,6 +78,10 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
 
   void isSelect() {
     _isSelected.toggle();
+  }
+
+  void seePassword() {
+    isPasswordSee.value = !isPasswordSee.value;
   }
 
   Future<void> getUser() async {
