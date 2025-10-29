@@ -1085,6 +1085,34 @@
         }
     ],
     "orders": [
-       
+        {
+            "id": 1,
+            "userId": 1,
+            "cep": 13506715,
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 55,
+            "cart": [
+                {
+                    "produto": null,
+                    "alimento": {
+                        "id": 25,
+                        "name": "Bife à Milanesa",
+                        "dayName": "Quarta-feira",
+                        "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                        "pricePerSize": {
+                            "mini": 22.0,
+                            "media": 24.0
+                        }
+                    },
+                    "quantidade": 1,
+                    "tamanho": "media",
+                    "valorPorTamanho": 24.0
+                }
+            ],
+            "amountToPay": 24.0
+        }
     ]
 }

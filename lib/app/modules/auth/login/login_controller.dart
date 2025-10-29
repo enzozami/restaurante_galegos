@@ -19,6 +19,8 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
   final typeMask = MaskCpf().obs;
   final _isCpf = true.obs;
 
+  final isSelected = true.obs;
+
   bool get isCpf => _isCpf.value;
 
   LoginController({required AuthServices authServices}) : _authServices = authServices;
@@ -32,6 +34,10 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
 
   void onSelected(bool value) {
     _isCpf.value = value;
+  }
+
+  void seePassword() {
+    isSelected.value = !isSelected.value;
   }
 
   Future<void> login({

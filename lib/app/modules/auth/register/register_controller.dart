@@ -20,6 +20,9 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
   bool get isCpf => _isCpf.value;
   bool get isChecked => _isChecked.value;
 
+  final isSelected = true.obs;
+  final isSelectedConfirmaSenha = true.obs;
+
   RegisterController({
     required AuthServices authServices,
   }) : _authServices = authServices;
@@ -34,6 +37,14 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
   void onSelected(bool value) {
     _isChecked.value = value;
     _isCpf.value = !value;
+  }
+
+  void seePassword() {
+    isSelected.value = !isSelected.value;
+  }
+
+  void seeConfirmaPassword() {
+    isSelectedConfirmaSenha.value = !isSelectedConfirmaSenha.value;
   }
 
   Future<void> register({

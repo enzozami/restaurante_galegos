@@ -71,6 +71,7 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                           children: [
                             ProfileData(
                               title: 'Nome:',
+                              obscure: false,
                               label: controller.name,
                               controller: _newNameEC,
                               isSelected: controller.isSelected,
@@ -79,14 +80,7 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                               title: 'CPF/CNPJ:',
                               label: controller.valueCpfOrCnpj.value,
                               isSelected: false,
-                            ),
-                            ProfileData(
-                              title: 'Senha:',
-                              label: controller.password,
-                              controller: _newPasswordEC,
-                              isSelected: controller.isSelected,
-                              obscure: true,
-                              validator: Validatorless.min(6, 'Mínimo 6 caracteres'),
+                              obscure: false,
                             ),
                             // ProfileData(
                             //   title: 'Confirmar Senha:',
@@ -102,29 +96,83 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                       ),
                       Visibility(
                         visible: controller.isSelected == true,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: GalegosButtonDefault(
-                              label: 'Atualizar',
-                              onPressed: () {
-                                final formValid = _formKey.currentState?.validate() ?? false;
-                                if (formValid) {
-                                  final name = _newNameEC.text;
-                                  final password = _newPasswordEC.text;
-                                  controller.updateUser(name, password);
-                                }
-                                controller.isSelected = false;
-                                Get.snackbar(
-                                  'Sucesso',
-                                  'Dados atualizados com sucesso',
-                                  duration: 3.seconds,
-                                  backgroundColor: Colors.amberAccent,
-                                );
-                              },
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Deseja atualizar senha?',
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                                TextButton(
+                                  onPressed: () => controller.atualizarSenha(),
+                                  child: Text(
+                                    'Clique aqui',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.amber,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
+                            Visibility(
+                              visible: controller.senha.value,
+                              child: Obx(() {
+                                return ProfileData(
+                                  title: 'Senha:',
+                                  label: '',
+                                  controller: _newPasswordEC,
+                                  isSelected: controller.isSelected,
+                                  obscure: controller.isPasswordSee.value,
+                                  validator: Validatorless.min(6, 'Mínimo 6 caracteres'),
+                                  icon: IconButton(
+                                    onPressed: () {
+                                      controller.seePassword();
+                                    },
+                                    icon: (controller.isPasswordSee.value)
+                                        ? Icon(Icons.visibility)
+                                        : Icon(Icons.visibility_off),
+                                  ),
+                                );
+                              }),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: GalegosButtonDefault(
+                                  label: 'Atualizar',
+                                  onPressed: () {
+                                    final formValid = _formKey.currentState?.validate() ?? false;
+                                    if (formValid) {
+                                      final name = _newNameEC.text;
+                                      final password = _newPasswordEC.text;
+                                      if (password.length >= 6) {
+                                        controller.updateUser(name, password);
+                                        controller.isSelected = false;
+                                        Get.snackbar(
+                                          'Sucesso',
+                                          'Dados atualizados com sucesso',
+                                          duration: 3.seconds,
+                                          backgroundColor: Colors.amberAccent,
+                                        );
+                                      } else {
+                                        Get.snackbar(
+                                          'Erro',
+                                          'Senha precisa ter no mínimo 6 caracteres',
+                                          duration: 3.seconds,
+                                          backgroundColor: Colors.amberAccent,
+                                        );
+                                      }
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       )
                     ],

@@ -99,16 +99,26 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                             const SizedBox(
                               height: 25,
                             ),
-                            GalegosTextFormField(
-                              floatingLabelBehavior: FloatingLabelBehavior.auto,
-                              controller: _passwordEC,
-                              obscureText: true,
-                              validator: Validatorless.multiple([
-                                Validatorless.required('Senha obrigatória'),
-                                Validatorless.min(6, 'Senha deve ter 6 dígitos'),
-                              ]),
-                              label: 'Senha (Mínimo 6 caracteres)',
-                            ),
+                            Obx(() {
+                              return GalegosTextFormField(
+                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                controller: _passwordEC,
+                                obscureText: controller.isSelected.value,
+                                icon: IconButton(
+                                  onPressed: () {
+                                    controller.seePassword();
+                                  },
+                                  icon: controller.isSelected.value
+                                      ? Icon(Icons.visibility)
+                                      : Icon(Icons.visibility_off),
+                                ),
+                                validator: Validatorless.multiple([
+                                  Validatorless.required('Senha obrigatória'),
+                                  Validatorless.min(6, 'Senha deve ter 6 dígitos'),
+                                ]),
+                                label: 'Senha (Mínimo 6 caracteres)',
+                              );
+                            }),
                             const SizedBox(
                               height: 25,
                             ),
