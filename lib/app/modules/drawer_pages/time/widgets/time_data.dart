@@ -7,48 +7,59 @@ class TimeData extends GetView<GalegosDrawerController> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      child: Column(
-        children: [
-          Text(
-            'HORÁRIOS DE FUNCIONAMENTO',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+    return Column(
+      children: [
+        Container(
+          width: context.width,
+          decoration: BoxDecoration(
+            color: Colors.amber,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'HORÁRIOS DE FUNCIONAMENTO',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-          Obx(() {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: controller.dateTime
-                    .map(
-                      (d) => ListTile(
-                        title: Text(
-                          d,
-                          style: TextStyle(
-                            fontSize: 17,
-                          ),
-                        ),
-                        trailing: Text(
-                          '${controller.inicioTime} - ${controller.fimTime}',
-                          style: TextStyle(
-                            fontSize: 15,
-                          ),
+        ),
+        Obx(() {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: controller.dateTime
+                  .map(
+                    (d) => ListTile(
+                      title: Text(
+                        d,
+                        style: TextStyle(
+                          fontSize: 17,
                         ),
                       ),
-                    )
-                    .toList(),
-              ),
-            );
-          }),
-          Text(
+                      trailing: Text(
+                        '${controller.inicioTime} - ${controller.fimTime}',
+                        style: TextStyle(
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          );
+        }),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Text(
             'Obs: Domingo e feriados não atendemos!',
             style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }
