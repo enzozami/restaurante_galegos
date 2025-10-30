@@ -90,6 +90,13 @@
             "name": "Nome certo",
             "value": "330.019.680-95",
             "password": "123456"
+        },
+        {
+            "id": 14,
+            "isCpf": true,
+            "name": "Rhayssam Sam Sam",
+            "value": "808.421.490-07",
+            "password": "Robson123"
         }
     ],
     "sobre_nos": [
@@ -1310,6 +1317,75 @@
                 }
             ],
             "amountToPay": 167.0
+        },
+        {
+            "id": 9,
+            "userId": 14,
+            "cep": "13500340",
+            "rua": "Avenida 13",
+            "bairro": "Saúde",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 818,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 12,
+                        "categoryId": "Lanches",
+                        "name": "X-Burguer",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
+                        "price": 14.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                },
+                {
+                    "produto": {
+                        "id": 20,
+                        "categoryId": "Bebidas",
+                        "name": "Coca-Cola Lata",
+                        "description": "Refrigerante Coca-Cola lata 350ml",
+                        "price": 6.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                },
+                {
+                    "produto": {
+                        "id": 40,
+                        "categoryId": "Saladas",
+                        "name": "Salada Mini",
+                        "description": null,
+                        "price": 12.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                },
+                {
+                    "produto": null,
+                    "alimento": {
+                        "id": 30,
+                        "name": "Filé de Frango à Parmegiana",
+                        "dayName": "Quarta-feira",
+                        "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                        "pricePerSize": {
+                            "mini": 23.0,
+                            "media": 25.0
+                        }
+                    },
+                    "quantidade": 1,
+                    "tamanho": "mini",
+                    "valorPorTamanho": 23.0
+                }
+            ],
+            "amountToPay": 55.0
         }
     ],
     "cep": [

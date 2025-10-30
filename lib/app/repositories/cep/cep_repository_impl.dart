@@ -22,7 +22,7 @@ class CepRepositoryImpl implements CepRepository {
     if (result.hasError) {
       log('Erro ao buscar CEP: ${result.statusText}',
           error: result.statusText, stackTrace: StackTrace.current);
-      throw Exception();
+      throw ViaCepException(message: 'Erro ao buscar CEP');
     }
 
     log('${result.body}');
@@ -35,7 +35,7 @@ class CepRepositoryImpl implements CepRepository {
     final result = await _restClient.get('/cep');
 
     if (result.hasError) {
-      log('Erro ao buscar CEP: ${result.statusText}',
+      log('Erro ao buscar CEP <Mok>: ${result.statusText}',
           error: result.statusText, stackTrace: StackTrace.current);
       throw RestClientException(message: 'Erro ao buscar CEP');
     }

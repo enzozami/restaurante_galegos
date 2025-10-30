@@ -18,3 +18,16 @@ class ViaCepService extends GetConnect {
     }
   }
 }
+
+class ViaCepException implements Exception {
+  final int? code;
+  final String message;
+
+  ViaCepException({
+    this.code,
+    required this.message,
+  });
+
+  @override
+  String toString() => 'RestClientException(code : $code, message: $message)';
+}

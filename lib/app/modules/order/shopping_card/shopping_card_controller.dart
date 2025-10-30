@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
@@ -16,6 +17,18 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   final OrderServices _orderServices;
   final AuthService _authService;
   final CepServices _cepServices;
+
+  final cepEC = TextEditingController();
+  final numeroEC = TextEditingController();
+
+  final isOpen = true.obs;
+
+  @override
+  void onClose() {
+    super.onClose();
+    cepEC.dispose();
+    numeroEC.dispose();
+  }
 
   final CarrinhoServices _carrinhoServices;
 
@@ -58,6 +71,12 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    resetCepTaxa();
   }
 
   void addQuantityProduct(CarrinhoModel shoppingCardModel) {
@@ -192,18 +211,25 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       final cepLimpo = cep.value.replaceAll('-', '').trim();
 
       for (final cepModel in cepMok) {
+        log('message: $cepModel');
         if (cepModel.ceps.contains(cepLimpo)) {
           taxa.value = cepModel.taxa;
           break;
         }
       }
     } catch (e, s) {
+      _loading(false);
       log('Erro ao buscar CEP: $e');
       log('StackTrace: $s');
-      throw Exception('Erro ao buscar CEP aaaaaaaaaaaaaaaaaa');
+      Get.snackbar('Erro', 'Digite algum CEP válido para finalizar compra!');
+      rethrow;
     } finally {
       _loading(false);
     }
+  }
+
+  void closeCard() {
+    isOpen.value = !isOpen.value;
   }
 
   double? totalPay(double? taxa) {
@@ -219,5 +245,19 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     cidade.value = '';
     estado.value = '';
     numero.value = '';
+    numeroEC.text = '';
+    cepEC.text = '';
+  }
+
+  void resetCepTaxa() {
+    cep.value = '';
+    rua.value = '';
+    bairro.value = '';
+    cidade.value = '';
+    estado.value = '';
+    numero.value = '';
+    numeroEC.text = '';
+    cepEC.text = '';
+    taxa.value = 0.0;
   }
 }

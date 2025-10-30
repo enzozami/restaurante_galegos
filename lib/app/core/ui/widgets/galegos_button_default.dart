@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 
 class GalegosButtonDefault extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
   final double? width;
   final double? heigth;
+  final Icon? icon;
 
   const GalegosButtonDefault({
     super.key,
@@ -13,6 +13,7 @@ class GalegosButtonDefault extends StatelessWidget {
     required this.onPressed,
     this.width = 200,
     this.heigth = 50,
+    this.icon,
   });
 
   @override
@@ -20,17 +21,10 @@ class GalegosButtonDefault extends StatelessWidget {
     return SizedBox(
       width: width,
       height: heigth,
-      child: ElevatedButton(
+      child: ElevatedButton.icon(
         onPressed: onPressed,
-        style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
-        // style: ElevatedButton.styleFrom(
-        //   backgroundColor: Colors.black,
-        // ),
-        child: Text(
-          label,
-          textAlign: TextAlign.center,
-          style: TextStyle(),
-        ),
+        label: Text(label),
+        icon: icon,
       ),
     );
   }
