@@ -27,6 +27,15 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
     return Scaffold(
       body: SingleChildScrollView(
         child: Obx(() {
+          final totalItems = FormatterHelper.formatCurrency(controller.totalPay(0) ?? 0);
+          final totalTaxa = FormatterHelper.formatCurrency(controller.taxa.value);
+
+          var total = controller.totalPay(controller.taxa.value);
+          var label = FormatterHelper.formatCurrency(total ?? 0);
+          var quantityItems = controller.products.fold<int>(
+            0,
+            (sum, e) => sum + e.item.quantidade,
+          );
           return Visibility(
             visible: controller.products.isNotEmpty,
             replacement: Padding(
@@ -99,250 +108,225 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Obx(() {
-                        var total = controller.totalPay(controller.taxa.value);
-                        var label = FormatterHelper.formatCurrency(total ?? 0);
-                        var quantityItems = controller.products.fold<int>(
-                          0,
-                          (sum, e) => sum + e.item.quantidade,
-                        );
-
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                              child: GalegosTextFormField(
-                                icon: IconButton(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: GalegosTextFormField(
+                              icon: IconButton(
+                                onPressed: () {
+                                  controller.resetCepTaxa();
+                                },
+                                icon: Icon(Icons.backspace_outlined),
+                              ),
+                              inputType: TextInputType.numberWithOptions(decimal: true),
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
+                              label: 'CEP',
+                              mask: _cepFormatter,
+                              controller: controller.cepEC,
+                              validator: Validatorless.required('CEP obrigatório'),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Visibility(
+                            visible:
+                                (controller.cepEC.text.isNotEmpty && controller.cepEC.text != ''),
+                            replacement: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                width: context.widthTransformer(reducedBy: 10),
+                                child: GalegosButtonDefault(
+                                  label: 'Consultar',
+                                  icon: Icon(
+                                    Icons.search,
+                                    color: Colors.amber,
+                                  ),
                                   onPressed: () {
-                                    controller.resetCepTaxa();
+                                    controller.getCep(
+                                      address: _cepFormatter.getUnmaskedText(),
+                                    );
+                                    controller.isOpen.value = true;
                                   },
-                                  icon: Icon(Icons.backspace_outlined),
                                 ),
-                                inputType: TextInputType.numberWithOptions(decimal: true),
-                                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                label: 'CEP',
-                                mask: _cepFormatter,
-                                controller: controller.cepEC,
-                                validator: Validatorless.required('CEP obrigatório'),
                               ),
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Obx(() {
-                              return Visibility(
-                                visible: (controller.cepEC.text.isNotEmpty &&
-                                    controller.cepEC.text != ''),
-                                replacement: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: SizedBox(
-                                    width: context.widthTransformer(reducedBy: 10),
-                                    child: GalegosButtonDefault(
-                                      label: 'Consultar',
-                                      icon: Icon(
-                                        Icons.search,
-                                        color: Colors.amber,
-                                      ),
-                                      onPressed: () {
-                                        controller.getCep(
-                                          address: _cepFormatter.getUnmaskedText(),
-                                        );
-                                        controller.isOpen.value = true;
-                                      },
-                                    ),
-                                  ),
+                            child: Visibility(
+                              visible: (controller.isOpen.value == true),
+                              replacement: IconButton(
+                                onPressed: () {
+                                  controller.closeCard();
+                                },
+                                icon: Align(
+                                  alignment: Alignment.center,
+                                  child: Icon(Icons.expand_more),
                                 ),
-                                child: Visibility(
-                                  visible: (controller.isOpen.value == true),
-                                  replacement: IconButton(
-                                    onPressed: () {
-                                      controller.closeCard();
-                                    },
-                                    icon: Align(
-                                      alignment: Alignment.center,
-                                      child: Icon(Icons.expand_more),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Stack(
-                                      children: [
-                                        Card(
-                                          elevation: 5,
-                                          color: GalegosUiDefaut.theme.primaryColor,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Wrap(
-                                              alignment: WrapAlignment.spaceBetween,
-                                              crossAxisAlignment: WrapCrossAlignment.center,
-                                              spacing: 10,
-                                              runSpacing: 10,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.only(top: 22.0),
-                                                  child: SizedBox(
-                                                    width: context.widthTransformer(reducedBy: 10),
-                                                    child: GalegosTextFormField(
-                                                      floatingLabelBehavior:
-                                                          FloatingLabelBehavior.never,
-                                                      enabled: false,
-                                                      label: controller.rua.value,
-                                                      inputType: TextInputType.text,
-                                                    ),
-                                                  ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Stack(
+                                  children: [
+                                    Card(
+                                      elevation: 5,
+                                      color: GalegosUiDefaut.theme.primaryColor,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Wrap(
+                                          alignment: WrapAlignment.spaceBetween,
+                                          crossAxisAlignment: WrapCrossAlignment.center,
+                                          spacing: 10,
+                                          runSpacing: 10,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 22.0),
+                                              child: SizedBox(
+                                                width: context.widthTransformer(reducedBy: 10),
+                                                child: GalegosTextFormField(
+                                                  floatingLabelBehavior:
+                                                      FloatingLabelBehavior.never,
+                                                  enabled: false,
+                                                  label: controller.rua.value,
+                                                  inputType: TextInputType.text,
                                                 ),
-                                                SizedBox(
-                                                  width: 170,
-                                                  child: GalegosTextFormField(
-                                                    floatingLabelBehavior:
-                                                        FloatingLabelBehavior.never,
-                                                    enabled: false,
-                                                    label: controller.bairro.value,
-                                                    inputType: TextInputType.text,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 170,
-                                                  child: GalegosTextFormField(
-                                                    floatingLabelBehavior:
-                                                        FloatingLabelBehavior.never,
-                                                    enabled: false,
-                                                    label: controller.cidade.value,
-                                                    inputType: TextInputType.text,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 170,
-                                                  child: GalegosTextFormField(
-                                                    floatingLabelBehavior:
-                                                        FloatingLabelBehavior.never,
-                                                    enabled: false,
-                                                    label: controller.estado.value,
-                                                    inputType: TextInputType.text,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 170,
-                                                  child: GalegosTextFormField(
-                                                    floatingLabelBehavior:
-                                                        FloatingLabelBehavior.auto,
-                                                    enabled: true,
-                                                    label: 'Número*',
-                                                    inputType: TextInputType.number,
-                                                    controller: controller.numeroEC,
-                                                    validator: Validatorless.required(
-                                                        'Número obrigatório'),
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
                                             ),
+                                            SizedBox(
+                                              width: 170,
+                                              child: GalegosTextFormField(
+                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                enabled: false,
+                                                label: controller.bairro.value,
+                                                inputType: TextInputType.text,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 170,
+                                              child: GalegosTextFormField(
+                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                enabled: false,
+                                                label: controller.cidade.value,
+                                                inputType: TextInputType.text,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 170,
+                                              child: GalegosTextFormField(
+                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                enabled: false,
+                                                label: controller.estado.value,
+                                                inputType: TextInputType.text,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 170,
+                                              child: GalegosTextFormField(
+                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                                enabled: true,
+                                                label: 'Número*',
+                                                inputType: TextInputType.number,
+                                                controller: controller.numeroEC,
+                                                validator:
+                                                    Validatorless.required('Número obrigatório'),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: -3,
+                                      top: -3,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          controller.closeCard();
+                                        },
+                                        icon: Icon(Icons.close),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Visibility(
+                            visible:
+                                (controller.cepEC.text.isNotEmpty && controller.cepEC.text != ''),
+                            replacement: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  FormatterHelper.formatCurrency(controller.totalPay(0) ?? 0),
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                ),
+                                Text(' / itens'),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Card(
+                                  elevation: 5,
+                                  color: GalegosUiDefaut.theme.primaryColor,
+                                  child: Container(
+                                    padding: EdgeInsets.all(10),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'Total dos itens: $totalItems',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
-                                        Positioned(
-                                          right: -3,
-                                          top: -3,
-                                          child: IconButton(
-                                            onPressed: () {
-                                              controller.closeCard();
-                                            },
-                                            icon: Icon(Icons.close),
+                                        Text(
+                                          'Taxa de entrega: $totalTaxa',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
                                           ),
+                                        ),
+                                        Text(
+                                          'Total a pagar: $label',
+                                          style:
+                                              TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                              );
-                            }),
-                            const SizedBox(
-                              height: 15,
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                GalegosButtonDefault(
+                                  label: 'FINALIZAR',
+                                  width: context.widthTransformer(reducedBy: 10),
+                                  onPressed: () async {
+                                    final formValid = _formKey.currentState?.validate() ?? false;
+                                    if (formValid) {
+                                      controller.quantityRx(quantityItems);
+                                      final cepSemMask = _cepFormatter.getUnmaskedText();
+                                      final success = await controller.createOrder(
+                                          address: cepSemMask, numero: controller.numeroEC.text);
+                                      if (success) {
+                                        Get.snackbar(
+                                          'Pedido feito com sucesso',
+                                          'Seu pedido foi enviado com sucesso, enviaremos para você o quanto antes!',
+                                          duration: 3.seconds,
+                                          backgroundColor: Colors.amberAccent,
+                                        );
+                                      }
+                                    }
+                                  },
+                                ),
+                              ],
                             ),
-                            Obx(() {
-                              return Visibility(
-                                visible: (controller.cepEC.text.isNotEmpty &&
-                                    controller.cepEC.text != ''),
-                                replacement: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      FormatterHelper.formatCurrency(controller.totalPay(0) ?? 0),
-                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                                    ),
-                                    Text(' / itens'),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Obx(() {
-                                      final totalItems = FormatterHelper.formatCurrency(
-                                          controller.totalPay(0) ?? 0);
-                                      final totalTaxa =
-                                          FormatterHelper.formatCurrency(controller.taxa.value);
-                                      return Card(
-                                        elevation: 5,
-                                        color: GalegosUiDefaut.theme.primaryColor,
-                                        child: Container(
-                                          padding: EdgeInsets.all(10),
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                'Total dos itens: $totalItems',
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Taxa de entrega: $totalTaxa',
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Total a pagar: $label',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold, fontSize: 20),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    }),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    GalegosButtonDefault(
-                                      label: 'FINALIZAR',
-                                      width: context.widthTransformer(reducedBy: 10),
-                                      onPressed: () async {
-                                        final formValid =
-                                            _formKey.currentState?.validate() ?? false;
-                                        if (formValid) {
-                                          controller.quantityRx(quantityItems);
-                                          final cepSemMask = _cepFormatter.getUnmaskedText();
-                                          final success = await controller.createOrder(
-                                              address: cepSemMask,
-                                              numero: controller.numeroEC.text);
-                                          if (success) {
-                                            Get.snackbar(
-                                              'Pedido feito com sucesso',
-                                              'Seu pedido foi enviado com sucesso, enviaremos para você o quanto antes!',
-                                              duration: 3.seconds,
-                                              backgroundColor: Colors.amberAccent,
-                                            );
-                                          }
-                                        }
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }),
-                          ],
-                        );
-                      }),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
