@@ -196,8 +196,8 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   }
 
   Future<void> getCep({required String address}) async {
-    _loading(true);
     try {
+      _loading(true);
       final cepData = await _cepServices.getCep(address);
       cep.value = cepData['cep'];
       rua.value = cepData['logradouro'];
