@@ -52,4 +52,18 @@ class OrderReposirotyImpl implements OrderReposiroty {
     final data = result.body as List;
     return PedidoModel.fromMap(data.last);
   }
+
+  @override
+  Future<List<PedidoModel>> getOrder() async {
+    final result = await _restClient.get('/orders');
+
+    if (result.hasError) {
+      log('Id não encontrado', error: result.statusText, stackTrace: StackTrace.current);
+      throw RestClientException(message: 'Id não encontrado;');
+    }
+    final data = result.body as List;
+    final list = data.map((e) => PedidoModel.fromMap(e)).toList();
+
+    return list;
+  }
 }
