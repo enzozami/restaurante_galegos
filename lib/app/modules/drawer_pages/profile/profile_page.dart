@@ -170,6 +170,9 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                                                     Icons.help_outline_outlined,
                                                     color: Colors.white,
                                                   ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
                                                   Text(
                                                     'Alerta',
                                                     overflow: TextOverflow.ellipsis,
@@ -180,7 +183,7 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                                                 ],
                                               ),
                                               content: Text(
-                                                'Tem certeza que deseja alterar a senha?',
+                                                'Tem certeza que deseja alterar os dados?',
                                                 style: const TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.bold),
