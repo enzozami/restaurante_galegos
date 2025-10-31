@@ -100,7 +100,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   void filterPrice(String selectedSize) {
     try {
-      _loading(true);
+      // _loading(true);
 
       if (sizeSelected.value == selectedSize) {
         sizeSelected.value = '';
@@ -116,7 +116,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
       availableSizes.assignAll(
           filtered.map((e) => e.pricePerSize.keys.toList()).expand((e) => e).toSet().toList());
-      _loading.toggle();
     } catch (e, s) {
       _loading(false);
       log('Erro ao filtar marmitas', error: e, stackTrace: s);
