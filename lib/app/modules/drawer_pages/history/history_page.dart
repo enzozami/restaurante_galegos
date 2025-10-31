@@ -155,78 +155,76 @@ class HistoryPage extends GetView<GalegosDrawerController> {
       appBar: GalegosAppBar(),
       body: SingleChildScrollView(
         controller: controller.scrollController,
-        child: Container(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30),
-                child: Container(
-                  width: context.widthTransformer(reducedBy: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        'Histórico de pedidos',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30),
+              child: Container(
+                width: context.widthTransformer(reducedBy: 10),
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      'Histórico de pedidos',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
               ),
-              Center(
-                child: SizedBox(
-                  width: context.widthTransformer(reducedBy: 10),
-                  child: Obx(() {
-                    return ListView(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      children: controller.history.value.map((e) {
-                        final carrinho = e.cart
-                            .map((item) {
-                              return item.item.alimento?.name ?? item.item.produto?.name ?? '';
-                            })
-                            .toList()
-                            .join(', ');
+            ),
+            Center(
+              child: SizedBox(
+                width: context.widthTransformer(reducedBy: 10),
+                child: Obx(() {
+                  return ListView(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    children: controller.history.value.map((e) {
+                      final carrinho = e.cart
+                          .map((item) {
+                            return item.item.alimento?.name ?? item.item.produto?.name ?? '';
+                          })
+                          .toList()
+                          .join(', ');
 
-                        final total = FormatterHelper.formatCurrency(e.amountToPay);
+                      final total = FormatterHelper.formatCurrency(e.amountToPay);
 
-                        return Card(
-                          elevation: 5,
-                          color: GalegosUiDefaut.theme.primaryColor,
-                          child: InkWell(
-                            onTap: () {
-                              _showDialog(context, e);
-                            },
-                            splashColor: Colors.amber,
-                            borderRadius: BorderRadius.circular(8),
-                            child: ListTile(
-                              title: Text(
-                                'Carrinho: $carrinho',
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              subtitle: Text('Itens no carrinho: ${e.cart.length}'),
-                              leading: Text('Pedido: ${e.id}'),
-                              trailing: Text('Total: $total'),
+                      return Card(
+                        elevation: 5,
+                        color: GalegosUiDefaut.theme.primaryColor,
+                        child: InkWell(
+                          onTap: () {
+                            _showDialog(context, e);
+                          },
+                          splashColor: Colors.amber,
+                          borderRadius: BorderRadius.circular(8),
+                          child: ListTile(
+                            title: Text(
+                              'Carrinho: $carrinho',
+                              overflow: TextOverflow.ellipsis,
                             ),
+                            subtitle: Text('Itens no carrinho: ${e.cart.length}'),
+                            leading: Text('Pedido: ${e.id}'),
+                            trailing: Text('Total: $total'),
                           ),
-                        );
-                      }).toList(),
-                    );
-                  }),
-                ),
+                        ),
+                      );
+                    }).toList(),
+                  );
+                }),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+          ],
         ),
       ),
     );
