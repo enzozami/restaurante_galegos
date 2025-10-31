@@ -72,9 +72,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - .env
-    - assets/splash_logo.png
-    - assets/splash/splash_dark.png 
-    - assets/splash/splash_light.png 
+    - assets/splash/splash_logo.png 
+    - assets/splash/splash.png 
 
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
