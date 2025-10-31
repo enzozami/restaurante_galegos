@@ -144,30 +144,116 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                               child: Align(
                                 alignment: Alignment.centerRight,
                                 child: GalegosButtonDefault(
-                                  label: 'Atualizar',
-                                  onPressed: () {
-                                    final formValid = _formKey.currentState?.validate() ?? false;
-                                    if (formValid) {
-                                      final name = _newNameEC.text;
-                                      final password = _newPasswordEC.text;
+                                    label: 'Atualizar',
+                                    onPressed: () {
+                                      final formValid = _formKey.currentState?.validate() ?? false;
+                                      if (formValid) {
+                                        final name = _newNameEC.text;
+                                        final password = _newPasswordEC.text;
 
-                                      if (password == '') {
-                                        controller.updateUser(name, password);
-                                        controller.isSelected = false;
-                                        Get.snackbar(
-                                          'Sucesso',
-                                          'Dados atualizados com sucesso',
-                                          duration: 3.seconds,
-                                          backgroundColor: Colors.amberAccent,
-                                        );
-                                      } else if (password.length >= 6) {
-                                        controller.updateUser(name, password);
-                                        controller.isSelected = false;
-                                        Get.snackbar(
-                                          'Sucesso',
-                                          'Dados atualizados com sucesso',
-                                          duration: 3.seconds,
-                                          backgroundColor: Colors.amberAccent,
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              backgroundColor: Colors.black,
+                                              titlePadding: const EdgeInsets.only(
+                                                  top: 20, left: 24, right: 24, bottom: 0),
+                                              contentPadding: const EdgeInsets.symmetric(
+                                                  horizontal: 24, vertical: 10),
+                                              actionsPadding: const EdgeInsets.all(20),
+                                              title: Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.help_outline_outlined,
+                                                    color: Colors.white,
+                                                  ),
+                                                  Text(
+                                                    'Alerta',
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight: FontWeight.bold),
+                                                  ),
+                                                ],
+                                              ),
+                                              content: Text(
+                                                'Tem certeza que deseja alterar a senha?',
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                              actions: [
+                                                SizedBox(
+                                                  width: 130,
+                                                  child: ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor: Colors.amber,
+                                                      minimumSize: Size(double.infinity, 50),
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(10)),
+                                                    ),
+                                                    onPressed: () {
+                                                      Get.back();
+                                                      controller.isSelected = false;
+                                                      _newPasswordEC.text = '';
+                                                    },
+                                                    child: Text(
+                                                      'Cancelar',
+                                                      style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 130,
+                                                  child: ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor: Colors.amber,
+                                                      minimumSize: Size(double.infinity, 50),
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(10)),
+                                                    ),
+                                                    onPressed: () {
+                                                      if (password == '') {
+                                                        controller.updateUser(name, password);
+                                                        controller.isSelected = false;
+                                                        Get.snackbar(
+                                                          'Sucesso',
+                                                          'Dados atualizados com sucesso',
+                                                          duration: 3.seconds,
+                                                          backgroundColor: Colors.amberAccent,
+                                                        );
+                                                      } else if (password.length >= 6) {
+                                                        controller.updateUser(name, password);
+                                                        controller.isSelected = false;
+                                                        Get.snackbar(
+                                                          'Sucesso',
+                                                          'Dados atualizados com sucesso',
+                                                          duration: 3.seconds,
+                                                          backgroundColor: Colors.amberAccent,
+                                                        );
+                                                      }
+                                                      Get.close(0);
+                                                    },
+                                                    child: Text(
+                                                      'Confirmar',
+                                                      style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            );
+                                          },
                                         );
                                       } else {
                                         Get.snackbar(
@@ -177,9 +263,7 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                                           backgroundColor: Colors.amberAccent,
                                         );
                                       }
-                                    }
-                                  },
-                                ),
+                                    }),
                               ),
                             ),
                           ],
