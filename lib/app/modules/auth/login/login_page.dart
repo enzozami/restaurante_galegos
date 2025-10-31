@@ -47,7 +47,6 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                     Image.network(
                       'https://restaurantegalegos.wabiz.delivery/stores/restaurantegalegos/img/homeLogo.png?vc=20250915111500&cvc=',
                       fit: BoxFit.cover,
-                      width: context.widthTransformer(reducedBy: 10),
                     ),
                     const SizedBox(
                       height: 75,

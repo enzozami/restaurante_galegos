@@ -1386,6 +1386,89 @@
                 }
             ],
             "amountToPay": 55.0
+        },
+        {
+            "id": 10,
+            "userId": 1,
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 5,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 10,
+                        "categoryId": "Lanches",
+                        "name": "Americano",
+                        "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                },
+                {
+                    "produto": {
+                        "id": 13,
+                        "categoryId": "Lanches",
+                        "name": "X-Salada",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                },
+                {
+                    "produto": null,
+                    "alimento": {
+                        "id": 56,
+                        "name": "Bife Grelhado",
+                        "dayName": "Sexta-feira",
+                        "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                        "pricePerSize": {
+                            "mini": 22.0,
+                            "media": 24.0
+                        }
+                    },
+                    "quantidade": 1,
+                    "tamanho": "mini",
+                    "valorPorTamanho": 22.0
+                }
+            ],
+            "amountToPay": 52.0
+        },
+        {
+            "id": 11,
+            "userId": 1,
+            "cep": "07787300",
+            "rua": "Avenida Buri",
+            "bairro": "Colina Maria Luíza (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 5.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 10,
+                        "categoryId": "Lanches",
+                        "name": "Americano",
+                        "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 20.0
         }
     ],
     "cep": [
