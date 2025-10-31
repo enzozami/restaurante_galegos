@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
@@ -19,6 +19,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   final CepServices _cepServices;
 
   final cepEC = TextEditingController();
+  final cepInput = ''.obs;
   final numeroEC = TextEditingController();
 
   final isOpen = true.obs;
@@ -199,7 +200,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     try {
       _loading(true);
       final cepData = await _cepServices.getCep(address);
-      cep.value = cepData['cep'];
+      cep.value = cepData['cep'] ?? '';
       rua.value = cepData['logradouro'];
       bairro.value = cepData['bairro'];
       cidade.value = cepData['localidade'];
@@ -221,7 +222,12 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       _loading(false);
       log('Erro ao buscar CEP: $e');
       log('StackTrace: $s');
-      Get.snackbar('Erro', 'Digite algum CEP válido para finalizar compra!');
+      Get.snackbar(
+        'Erro',
+        'Digite algum CEP válido para finalizar compra!',
+        duration: 3.seconds,
+        backgroundColor: Colors.amberAccent,
+      );
       rethrow;
     } finally {
       _loading(false);

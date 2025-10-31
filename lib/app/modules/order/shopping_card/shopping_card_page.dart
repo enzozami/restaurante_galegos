@@ -125,14 +125,18 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                               mask: _cepFormatter,
                               controller: controller.cepEC,
                               validator: Validatorless.required('CEP obrigatório'),
+                              onChanged: (value) => controller.cepInput.value = value,
                             ),
                           ),
                           const SizedBox(
                             height: 5,
                           ),
                           Visibility(
-                            visible:
-                                (controller.cepEC.text.isNotEmpty && controller.cepEC.text != ''),
+                            visible: (controller.cepEC.text.isNotEmpty &&
+                                controller.cepEC.text != '' &&
+                                controller.cep.value != '' &&
+                                controller.cepInput.value.length == 9 &&
+                                controller.cepInput.value == controller.cep.value),
                             replacement: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SizedBox(
@@ -143,17 +147,21 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                                     Icons.search,
                                     color: Colors.amber,
                                   ),
-                                  onPressed: () {
-                                    controller.getCep(
-                                      address: _cepFormatter.getUnmaskedText(),
-                                    );
-                                    controller.isOpen.value = true;
-                                  },
+                                  onPressed: controller.cepInput.value.length == 9
+                                      ? () {
+                                          controller.getCep(
+                                            address: _cepFormatter.getUnmaskedText(),
+                                          );
+                                          controller.isOpen.value = true;
+                                        }
+                                      : null,
                                 ),
                               ),
                             ),
                             child: Visibility(
-                              visible: (controller.isOpen.value == true),
+                              visible: (controller.isOpen.value == true &&
+                                  controller.cepInput.value.length == 9 &&
+                                  controller.cepInput.value == controller.cep.value),
                               replacement: IconButton(
                                 onPressed: () {
                                   controller.closeCard();
@@ -253,8 +261,11 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                             height: 15,
                           ),
                           Visibility(
-                            visible:
-                                (controller.cepEC.text.isNotEmpty && controller.cepEC.text != ''),
+                            visible: (controller.cepEC.text.isNotEmpty &&
+                                controller.cepEC.text != '' &&
+                                controller.cep.value != '' &&
+                                controller.cepEC.text.length == 9 &&
+                                controller.cepInput.value == controller.cep.value),
                             replacement: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

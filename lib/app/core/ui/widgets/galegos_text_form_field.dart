@@ -11,6 +11,7 @@ class GalegosTextFormField extends StatelessWidget {
   final FloatingLabelBehavior floatingLabelBehavior;
   final bool? enabled;
   final IconButton? icon;
+  final ValueChanged<String>? onChanged;
 
   const GalegosTextFormField({
     super.key,
@@ -23,6 +24,7 @@ class GalegosTextFormField extends StatelessWidget {
     this.enabled,
     required this.floatingLabelBehavior,
     this.icon,
+    this.onChanged,
   });
 
   @override
@@ -33,6 +35,7 @@ class GalegosTextFormField extends StatelessWidget {
       enabled: enabled,
       keyboardType: inputType,
       validator: validator,
+      onChanged: onChanged,
       inputFormatters: [
         if (mask != null) mask!,
       ],
