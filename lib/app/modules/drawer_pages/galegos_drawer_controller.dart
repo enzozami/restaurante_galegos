@@ -78,6 +78,9 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
 
   void isSelect() {
     _isSelected.toggle();
+    if (_isSelected.value == true) {
+      senha.value = false;
+    }
   }
 
   void seePassword() {
@@ -104,7 +107,7 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
       log(password ?? 'senha nao digitada');
       if (name != null && name != '' && password == '' && password != null) {
         await _userServices.updateUser(name, _password.value, id: userId);
-      } else if (name != null && password != null && password != '') {
+      } else if (name != null && name == '' && password != null && password != '') {
         await _userServices.updateUser(_name.value, password, id: userId);
       } else if (name != null && name != '' && password != null && password != '') {
         await _userServices.updateUser(name, password, id: userId);
