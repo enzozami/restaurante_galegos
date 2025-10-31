@@ -154,22 +154,18 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   }
 
   void addItemsToCart() {
-    try {
-      _loading(true);
-      final selected = selectedItem;
+    final selected = selectedItem;
 
-      if (selected == null) {
-        _alreadyAdded(false);
-        return;
-      }
-      _carrinhoServices.addOrUpdateProduct(
-        selected,
-        quantity: _quantity.value,
-      );
-      log('QUANTIDADE ENVIADA : $quantity');
-      Get.back();
-    } finally {
-      _loading(false);
+    if (selected == null) {
+      _alreadyAdded(false);
+      return;
     }
+
+    _carrinhoServices.addOrUpdateProduct(
+      selected,
+      quantity: _quantity.value,
+    );
+    log('QUANTIDADE ENVIADA : $quantity');
+    Get.close(0);
   }
 }

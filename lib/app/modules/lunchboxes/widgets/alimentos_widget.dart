@@ -80,8 +80,13 @@ class AlimentosWidget extends GetView<LunchboxesController> {
                   'Item: ${alimento.name}',
                   'Item adicionado ao carrinho',
                   snackPosition: SnackPosition.TOP,
+                  duration: Duration(milliseconds: 750),
                   backgroundColor: Colors.amber,
                   colorText: Colors.black,
+                  isDismissible: true,
+                  overlayBlur: 0,
+                  overlayColor: Colors.transparent,
+                  barBlur: 0,
                 );
               },
               child: Text(

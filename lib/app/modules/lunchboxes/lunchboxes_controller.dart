@@ -166,6 +166,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       quantity: _quantity.value,
       selectedSize: sizeSelected.value ?? '',
     );
-    Get.back();
+    Get.close(0);
   }
 }
