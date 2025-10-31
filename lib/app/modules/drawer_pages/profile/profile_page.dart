@@ -150,7 +150,17 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                                     if (formValid) {
                                       final name = _newNameEC.text;
                                       final password = _newPasswordEC.text;
-                                      if (password.length >= 6) {
+
+                                      if (password == '') {
+                                        controller.updateUser(name, password);
+                                        controller.isSelected = false;
+                                        Get.snackbar(
+                                          'Sucesso',
+                                          'Dados atualizados com sucesso',
+                                          duration: 3.seconds,
+                                          backgroundColor: Colors.amberAccent,
+                                        );
+                                      } else if (password.length >= 6) {
                                         controller.updateUser(name, password);
                                         controller.isSelected = false;
                                         Get.snackbar(

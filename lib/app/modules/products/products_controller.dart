@@ -68,7 +68,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   @override
   Future<void> onReady() async {
     super.onReady();
-
     await _fetchProductsAndItems();
   }
 
@@ -102,9 +101,8 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   }
 
   void searchItemsByFilter(ProductModel? productModel) {
-    // Removi 'async' desnecessário
-    _loading(true);
     try {
+      // _loading(true);
       if (productModel == null) return;
 
       final currentCategory = categorySelected.value;
@@ -156,17 +154,22 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   }
 
   void addItemsToCart() {
-    final selected = selectedItem;
+    try {
+      _loading(true);
+      final selected = selectedItem;
 
-    if (selected == null) {
-      _alreadyAdded(false);
-      return;
+      if (selected == null) {
+        _alreadyAdded(false);
+        return;
+      }
+      _carrinhoServices.addOrUpdateProduct(
+        selected,
+        quantity: _quantity.value,
+      );
+      log('QUANTIDADE ENVIADA : $quantity');
+      Get.back();
+    } finally {
+      _loading(false);
     }
-    _carrinhoServices.addOrUpdateProduct(
-      selected,
-      quantity: _quantity.value,
-    );
-    log('QUANTIDADE ENVIADA : $quantity');
-    Get.back();
   }
 }

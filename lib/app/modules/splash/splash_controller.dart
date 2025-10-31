@@ -9,7 +9,7 @@ class SplashController extends GetxController {
   }
 
   Future<void> checkLogged() async {
-    await 1.seconds.delay();
+    await 3.seconds.delay();
     Get.putAsync(
       () {
         return AuthService().init();

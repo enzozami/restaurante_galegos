@@ -65,7 +65,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   Future<void> getLunchboxes() async {
     try {
-      _loading.toggle();
+      _loading(true);
       final menuData = await _lunchboxesServices.getMenu();
       final alimentosData = await _lunchboxesServices.getFood();
 
@@ -84,7 +84,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
         ..addAll(filtered);
       _loading.toggle();
     } catch (e, s) {
-      _loading.toggle();
+      _loading(false);
       log('Erro ao carregar marmitas', error: e, stackTrace: s);
       _message(
         MessageModel(
@@ -100,7 +100,8 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   void filterPrice(String selectedSize) {
     try {
-      _loading.toggle();
+      _loading(true);
+
       if (sizeSelected.value == selectedSize) {
         sizeSelected.value = '';
         availableSizes.assignAll(_availableSizesOriginal);
@@ -117,7 +118,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
           filtered.map((e) => e.pricePerSize.keys.toList()).expand((e) => e).toSet().toList());
       _loading.toggle();
     } catch (e, s) {
-      _loading.toggle();
+      _loading(false);
       log('Erro ao filtar marmitas', error: e, stackTrace: s);
       _message(
         MessageModel(
