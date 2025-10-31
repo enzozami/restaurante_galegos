@@ -77,8 +77,13 @@ class ProductItems extends GetView<ProductsController> {
                   'Item: ${item.name}',
                   'Item adicionado ao carrinho',
                   snackPosition: SnackPosition.TOP,
+                  duration: Duration(milliseconds: 750),
                   backgroundColor: Colors.amber,
                   colorText: Colors.black,
+                  isDismissible: true,
+                  overlayBlur: 0,
+                  overlayColor: Colors.transparent,
+                  barBlur: 0,
                 );
                 log('Item clicado: ${item.name} - ${item.price}');
               },
