@@ -15,4 +15,7 @@ class OrderServicesImpl implements OrderServices {
 
   @override
   Future<PedidoModel> getIdOrder() => _orderReposiroty.getIdOrder();
+
+  @override
+  Future<List<PedidoModel>> getOrder() => _orderReposiroty.getOrder();
 }

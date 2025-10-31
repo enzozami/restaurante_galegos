@@ -1,19 +1,25 @@
 import 'dart:developer';
 
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
+import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/services/about_us/about_us_services.dart';
+import 'package:restaurante_galegos/app/services/order/order_services.dart';
 import 'package:restaurante_galegos/app/services/time/time_services.dart';
 import 'package:restaurante_galegos/app/services/user/user_services.dart';
 
 class GalegosDrawerController extends GetxController with LoaderMixin, MessagesMixin {
   final UserServices _userServices;
   final AuthService _authService;
+  final OrderServices _orderServices;
   final AboutUsServices _aboutUsServices;
   final TimeServices _timeServices;
+
+  final ScrollController scrollController = ScrollController();
 
   final isPasswordSee = true.obs;
   final senha = false.obs;
@@ -51,15 +57,20 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   final _textAboutUs = ''.obs;
   String get textAboutUs => _textAboutUs.value;
 
+// HISTÓRICO
+  final history = <PedidoModel>[].obs;
+
   GalegosDrawerController({
     required UserServices userServices,
     required AuthService authService,
     required AboutUsServices aboutUsServices,
     required TimeServices timeServices,
+    required OrderServices orderServices,
   })  : _userServices = userServices,
         _authService = authService,
         _aboutUsServices = aboutUsServices,
-        _timeServices = timeServices;
+        _timeServices = timeServices,
+        _orderServices = orderServices;
 
   @override
   void onInit() {
@@ -74,6 +85,7 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
     getUser();
     getAbout();
     time();
+    getHistory();
   }
 
   void isSelect() {
@@ -149,5 +161,22 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
     _dateTime.assignAll(data.first.days);
     _inicioTime.value = data.first.inicio;
     _fimTime.value = data.first.fim;
+  }
+
+  // HISTÓRICO
+  Future<void> getHistory() async {
+    _loading(true);
+    try {
+      final userId = _authService.getUserId();
+      if (userId != null) {
+        final historyData = await _orderServices.getOrder();
+        final items = historyData.where((e) => e.userId == userId);
+        history.assignAll(items);
+      }
+    } catch (e) {
+      log(e.toString());
+    } finally {
+      _loading(false);
+    }
   }
 }
