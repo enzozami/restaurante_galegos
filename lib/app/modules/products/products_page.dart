@@ -10,26 +10,28 @@ class ProductsPage extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        controller: controller.scrollController,
-        // physics: NeverScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            ProductHeader(),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Selecione algum item para adicionar ao carrinho*',
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-                fontSize: 11,
+      body: RefreshIndicator.noSpinner(
+        onRefresh: controller.refreshProducts,
+        child: SingleChildScrollView(
+          controller: controller.scrollController,
+          child: Column(
+            children: [
+              ProductHeader(),
+              const SizedBox(
+                height: 20,
               ),
-            ),
-            ProductsGroup(
-              scrollController: controller.scrollController,
-            ),
-          ],
+              Text(
+                'Selecione algum item para adicionar ao carrinho*',
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: 11,
+                ),
+              ),
+              ProductsGroup(
+                scrollController: controller.scrollController,
+              ),
+            ],
+          ),
         ),
       ),
     );

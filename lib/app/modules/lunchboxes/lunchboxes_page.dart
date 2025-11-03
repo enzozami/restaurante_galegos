@@ -12,47 +12,52 @@ class LunchboxesPage extends GetView<LunchboxesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomSheet: LunchboxesHeader(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 30.0, bottom: 15),
-              child: Text(
-                'MARMITAS DE HOJE: \n${controller.dayNow}',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
+      body: RefreshIndicator.noSpinner(
+        // backgroundColor: Colors.amber,
+        // color: Colors.black,
+        onRefresh: controller.refreshLunchboxes,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 30.0, bottom: 15),
+                child: Text(
+                  'MARMITAS DE HOJE: \n${controller.dayNow}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            Obx(() {
-              return Visibility(
-                visible:
-                    (controller.sizeSelected.value == null || controller.sizeSelected.value == ''),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: context.heightTransformer(reducedBy: 75),
-                    ),
-                    Center(
-                      child: Text(
-                        'Selecione um tamanho*',
-                        style: TextStyle(
-                          fontStyle: FontStyle.italic,
-                          fontSize: 12,
+              Obx(() {
+                return Visibility(
+                  visible: (controller.sizeSelected.value == null ||
+                      controller.sizeSelected.value == ''),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: context.heightTransformer(reducedBy: 75),
+                      ),
+                      Center(
+                        child: Text(
+                          'Selecione um tamanho*',
+                          style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }),
-            LunchboxesGroup(),
-            const SizedBox(
-              height: 65,
-            ),
-          ],
+                    ],
+                  ),
+                );
+              }),
+              LunchboxesGroup(),
+              const SizedBox(
+                height: 65,
+              ),
+            ],
+          ),
         ),
       ),
     );

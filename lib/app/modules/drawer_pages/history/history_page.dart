@@ -18,6 +18,9 @@ class HistoryPage extends GetView<GalegosDrawerController> {
         .toList()
         .join(', ');
 
+    final pedidoTipo =
+        pedido.cart.map((e) => e.item.produto != null ? 'Produto' : 'Marmita').toList().join(', ');
+
     final cep = MaskCep();
 
     final valor = FormatterHelper.formatCurrency(pedido.amountToPay - pedido.taxa);
@@ -37,7 +40,7 @@ class HistoryPage extends GetView<GalegosDrawerController> {
             children: [
               Expanded(
                 child: Text(
-                  'Pedido: ${pedido.id}',
+                  'Pedido: $pedidoTipo',
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
