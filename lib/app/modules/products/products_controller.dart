@@ -168,4 +168,19 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     log('QUANTIDADE ENVIADA : $quantity');
     Get.close(0);
   }
+
+  Future<void> refreshProducts() async {
+    try {
+      await _fetchProductsAndItems();
+    } catch (e, s) {
+      log('Erro ao atualizar produtos', error: e, stackTrace: s);
+      _message(
+        MessageModel(
+          title: 'Erro',
+          message: 'Erro ao atualizar produtos',
+          type: MessageType.error,
+        ),
+      );
+    }
+  }
 }

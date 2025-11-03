@@ -168,4 +168,19 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     );
     Get.close(0);
   }
+
+  Future<void> refreshLunchboxes() async {
+    try {
+      await getLunchboxes();
+    } catch (e, s) {
+      log('Erro ao atualizar marmitas', error: e, stackTrace: s);
+      _message(
+        MessageModel(
+          title: 'Erro',
+          message: 'Erro ao atualizar marmitas',
+          type: MessageType.error,
+        ),
+      );
+    }
+  }
 }
