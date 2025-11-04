@@ -7,10 +7,14 @@ class FormatterHelper {
   );
 
   static final _currentDate = DateFormat.EEEE('pt_BR');
+  static final _currentTime = DateFormat.Hm('pt_BR');
 
   FormatterHelper._();
 
   static String formatCurrency(double value) => _currentFormat.format(value);
 
   static String formatDate() => toBeginningOfSentenceCase(_currentDate.format(DateTime.now()))!;
+
+  static String formatDateAndTime() =>
+      toBeginningOfSentenceCase(_currentTime.format(DateTime.now()))!;
 }

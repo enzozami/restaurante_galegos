@@ -62,6 +62,9 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
       );
       final storage = GetStorage();
       storage.write(Constants.USER_KEY, userLogged.id);
+      storage.write(Constants.ADMIN_KEY, false);
+      storage.write(Constants.USER_NAME, userLogged.name);
+      storage.write(Constants.USER_CPFORCNPJ, userLogged.value);
       _loading.toggle();
     } catch (e, s) {
       _loading.toggle();

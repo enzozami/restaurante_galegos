@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 import 'package:restaurante_galegos/app/models/cep_model.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
@@ -23,6 +24,9 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   final numeroEC = TextEditingController();
 
   final isOpen = true.obs;
+
+  final date = FormatterHelper.formatDate();
+  final time = FormatterHelper.formatDateAndTime();
 
   @override
   void onClose() {
@@ -122,13 +126,10 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   //       items: _cardServices.productsSelected,
   //       quantity: quantity,
   //     );
-
   //     log('ORDER-json: ${order.items.map((e) => e.toJson())}');
-
   //     var finished = await _orderServices.createOrder(order);
   //     finished = finished.copyWith(amountToPay: totalPay());
   //     log('ORDER-FINALIZADO: ${finished.toJson()}');
-
   //     _loading.toggle();
   //     clear();
   //     await Get.offNamed('/order/finished', arguments: finished);
@@ -152,6 +153,8 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     try {
       _loading(true);
       final user = _authService.getUserId();
+      final name = _authService.getUserName();
+      final cpfOrCnpj = _authService.getUserCPFORCNPJ();
 
       final idOrder = await _orderServices.getIdOrder();
       final idSequencial = idOrder.id + 1;
@@ -171,6 +174,11 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
         cart: _carrinhoServices.itensCarrinho,
         amountToPay: totalPay(taxa.value)!,
         taxa: taxa.value,
+        status: 'pendente',
+        userName: name ?? '',
+        cpfOrCnpj: cpfOrCnpj ?? '',
+        date: date,
+        time: time,
       );
       await _orderServices.createOrder(order);
       reset();

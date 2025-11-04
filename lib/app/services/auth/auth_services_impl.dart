@@ -21,11 +21,12 @@ class AuthServicesImpl implements AuthServices {
       );
 
   @override
-  Future<UserModel> register(
-          {required bool isCpf,
-          required String name,
-          required String value,
-          required String password}) =>
+  Future<UserModel> register({
+    required bool isCpf,
+    required String name,
+    required String value,
+    required String password,
+  }) =>
       _authRepository.register(
         isCpf: isCpf,
         name: name,

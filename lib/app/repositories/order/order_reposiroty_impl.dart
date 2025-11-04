@@ -17,6 +17,8 @@ class OrderReposirotyImpl implements OrderReposiroty {
     final result = await _restClient.post('/orders', {
       'id': order.id,
       'userId': order.userId,
+      'userName': order.userName,
+      'cpfOrCnpj': order.cpfOrCnpj,
       'cep': order.cep,
       'rua': order.rua,
       'bairro': order.bairro,
@@ -26,6 +28,9 @@ class OrderReposirotyImpl implements OrderReposiroty {
       'taxa': order.taxa,
       'cart': order.cart.map((e) => e.toMap()).toList(),
       'amountToPay': order.amountToPay,
+      'status': order.status,
+      'time': order.time,
+      'date': order.date,
     });
 
     if (result.hasError) {
@@ -50,7 +55,12 @@ class OrderReposirotyImpl implements OrderReposiroty {
     }
 
     final data = result.body as List;
-    return PedidoModel.fromMap(data.last);
+
+    if (data.isEmpty) {
+      return PedidoModel.fromMap(data.isEmpty ? <String, dynamic>{'id': 0} : {});
+    } else {
+      return PedidoModel.fromMap(data.last);
+    }
   }
 
   @override
