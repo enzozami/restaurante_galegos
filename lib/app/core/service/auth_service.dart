@@ -6,6 +6,9 @@ import 'package:restaurante_galegos/app/core/constants/constants.dart';
 
 class AuthService extends GetxService {
   final _isLogged = RxnBool();
+  final _isAdmin = RxnBool();
+  final _name = RxnString();
+  final _cpfOrCnpj = RxnString();
   final _getStorage = GetStorage();
 
   bool canUseApp() {
@@ -22,6 +25,15 @@ class AuthService extends GetxService {
     if (canUseApp()) {
       _getStorage.listenKey(Constants.USER_KEY, (value) {
         _isLogged(value != null);
+      });
+      _getStorage.listenKey(Constants.ADMIN_KEY, (value) {
+        _isAdmin((value is bool) ? value : false);
+      });
+      _getStorage.listenKey(Constants.USER_NAME, (value) {
+        _name(value ?? '');
+      });
+      _getStorage.listenKey(Constants.USER_CPFORCNPJ, (value) {
+        _cpfOrCnpj(value ?? '');
       });
 
       ever(_isLogged, (isLogged) {
@@ -45,7 +57,15 @@ class AuthService extends GetxService {
     }
   }
 
-  void logout() => _getStorage.write(Constants.USER_KEY, null);
+  void logout() {
+    _getStorage.write(Constants.USER_KEY, null);
+    _getStorage.write(Constants.ADMIN_KEY, false);
+    _getStorage.write(Constants.USER_NAME, null);
+    _getStorage.write(Constants.USER_CPFORCNPJ, null);
+  }
 
   int? getUserId() => _getStorage.read(Constants.USER_KEY);
+  String? getUserName() => _getStorage.read(Constants.USER_NAME);
+  String? getUserCPFORCNPJ() => _getStorage.read(Constants.USER_CPFORCNPJ);
+  bool isAdmin() => _getStorage.read(Constants.ADMIN_KEY) ?? false;
 }

@@ -26,8 +26,6 @@ class AuthRepositoryImpl implements AuthRepository {
     }
     final data = List<Map<String, dynamic>>.from(result.body);
 
-    // log('hkjlmkjmnlmnl$data');
-
     final user = data.firstWhere(
       (u) => u['value'] == value && u['password'] == password,
       orElse: () => {},
@@ -36,7 +34,6 @@ class AuthRepositoryImpl implements AuthRepository {
     if (user.isEmpty) {
       throw AuthException(message: 'CPF/CNPJ ou senha incorreta');
     }
-    // log('asdwasd w$user');
 
     return UserModel.fromMap(user);
   }

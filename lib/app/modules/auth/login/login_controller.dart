@@ -15,7 +15,6 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
   final AuthServices _authServices;
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
-
   final typeMask = MaskCpf().obs;
   final _isCpf = true.obs;
 
@@ -46,9 +45,16 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
   }) async {
     try {
       _loading(true);
-      final userLogger = await _authServices.login(isCpf: isCpf, value: value, password: password);
+      final userLogger = await _authServices.login(
+        isCpf: isCpf,
+        value: value,
+        password: password,
+      );
       final storage = GetStorage();
+      storage.write(Constants.ADMIN_KEY, userLogger.isAdmin);
       storage.write(Constants.USER_KEY, userLogger.id);
+      storage.write(Constants.USER_NAME, userLogger.name);
+      storage.write(Constants.USER_CPFORCNPJ, userLogger.value);
     } on AuthException catch (e, s) {
       _loading(false);
       log('Falha no login', error: e, stackTrace: s);
