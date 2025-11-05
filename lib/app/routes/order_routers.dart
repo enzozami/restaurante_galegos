@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/modules/order/all_orders/all_orders_bindings.dart';
 import 'package:restaurante_galegos/app/modules/order/all_orders/all_orders_page.dart';
+import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_bindings.dart';
+import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_page.dart';
 import 'package:restaurante_galegos/app/modules/order/order_finished/order_finished_bindings.dart';
 import 'package:restaurante_galegos/app/modules/order/order_finished/order_finished_page.dart';
 import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_bindings.dart';
@@ -19,6 +21,11 @@ class OrderRouters {
       name: '/allOrders',
       binding: AllOrdersBindings(),
       page: () => AllOrdersPage(),
+    ),
+    GetPage(
+      name: '/forDelivery',
+      binding: ForDeliveryBindings(),
+      page: () => ForDeliveryPage(),
     ),
     GetPage(
       name: '/order/finished',

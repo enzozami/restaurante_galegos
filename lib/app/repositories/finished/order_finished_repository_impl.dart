@@ -52,9 +52,22 @@ class OrderFinishedRepositoryImpl implements OrderFinishedRepository {
   Future<void> changeStatus(PedidoModel pedido) async {
     final result = await _restClient.patch('/orders/${pedido.id}', {
       'status': 'finalizado',
-      'timeFinished': pedido.time,
     });
 
     if (result.hasError) {}
+  }
+
+  @override
+  Future<List<OrderFinishedModel>> getOrderFinished() async {
+    final result = await _restClient.get('/finished');
+
+    if (result.hasError) {
+      log('Id não encontrado', error: result.statusText, stackTrace: StackTrace.current);
+      throw RestClientException(message: 'Id não encontrado;');
+    }
+
+    final List data = (result.body as List);
+
+    return data.map((value) => OrderFinishedModel.fromMap(value)).toList();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_drawer.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/icon_badge.dart';
@@ -14,61 +15,85 @@ class HomePage extends GetView<HomeController> {
       appBar: GalegosAppBar(),
       drawer: GalegosDrawer(),
       bottomNavigationBar: Obx(() {
-        // log('${controller.onGeneratedRoute(const RouteSettings())}');
-        return Visibility(
-          visible: controller.isAdmin != true,
-          replacement: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white60,
-            selectedItemColor: Colors.amber,
-            unselectedItemColor: Colors.black,
-            // onTap: (index) => controller.selectedIndex = index,
-            onTap: (index) {
-              // log('Índice selecionado: $index');
-              controller.selectedIndex = index;
-            },
-            currentIndex: controller.selectedIndex,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined), label: 'Pedidos'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_bag_outlined),
-                label: 'Finalizados',
+        List<NavigationDestination> destinations;
+        if (controller.isAdmin) {
+          destinations = [
+            NavigationDestination(
+              icon: Icon(
+                Icons.shopping_cart_outlined,
+                color: controller.selectedIndex == 0 ? Color(0xFFE2933C) : Colors.black,
               ),
-              BottomNavigationBarItem(icon: Icon(Icons.lunch_dining), label: 'Produto'),
-              BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: 'Marmitas'),
-            ],
-          ),
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white60,
-            selectedItemColor: Colors.amber,
-            unselectedItemColor: Colors.black,
-            // onTap: (index) => controller.selectedIndex = index,
-            onTap: (index) {
-              // log('Índice selecionado: $index');
-              controller.selectedIndex = index;
-            },
-            currentIndex: controller.selectedIndex,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(icon: Icon(Icons.lunch_dining), label: 'Produto'),
-              BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: 'Marmitas'),
-              BottomNavigationBarItem(
+              label: 'Pedidos',
+            ),
+            NavigationDestination(
+              icon: Icon(
+                Icons.motorcycle,
+                color: controller.selectedIndex == 1 ? Color(0xFFE2933C) : Colors.black,
+              ),
+              label: 'Para entrega',
+            ),
+            NavigationDestination(
+              icon: Icon(
+                Icons.shopping_bag_outlined,
+                color: controller.selectedIndex == 2 ? Color(0xFFE2933C) : Colors.black,
+              ),
+              label: 'Finalizados',
+            ),
+            NavigationDestination(
+              icon: Icon(
+                Icons.lunch_dining,
+                color: controller.selectedIndex == 3 ? Color(0xFFE2933C) : Colors.black,
+              ),
+              label: 'Produto',
+            ),
+            NavigationDestination(
+              icon: Icon(
+                Icons.restaurant_menu,
+                color: controller.selectedIndex == 4 ? Color(0xFFE2933C) : Colors.black,
+              ),
+              label: 'Marmitas',
+            ),
+          ];
+        } else {
+          destinations = [
+            NavigationDestination(
+              icon: Icon(
+                Icons.lunch_dining,
+                color: Colors.black,
+              ),
+              label: 'Produto',
+            ),
+            NavigationDestination(
+              icon: Icon(
+                Icons.restaurant_menu,
+                color: Colors.black,
+              ),
+              label: 'Marmitas',
+            ),
+            NavigationDestination(
                 icon: IconBadge(
                   icon: Icons.shopping_cart_outlined,
+                  color: Colors.black,
                   number: controller.totalProducts,
                 ),
-                label: 'Carrinho',
-              ),
-            ],
-          ),
+                label: 'Carrinho'),
+          ];
+        }
+        return NavigationBar(
+          backgroundColor: GalegosUiDefaut.theme.navigationBarTheme.backgroundColor,
+          indicatorColor: GalegosUiDefaut.theme.navigationBarTheme.indicatorColor,
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          selectedIndex: controller.selectedIndex,
+          onDestinationSelected: (value) => controller.selectedIndex = value,
+          destinations: destinations,
         );
       }),
-      body:
-          // log('Navigator key: ${HomeController.NAVIGATOR_KEY}');
-          Navigator(
-        initialRoute: (controller.isAdmin) ? '/allOrders' : '/products',
-        key: Get.nestedKey(HomeController.NAVIGATOR_KEY),
-        onGenerateRoute: controller.onGeneratedRoute,
+      body: Obx(
+        () {
+          return Center(
+            child: controller.pages[controller.selectedIndex],
+          );
+        },
       ),
     );
   }

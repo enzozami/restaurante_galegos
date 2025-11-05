@@ -69,10 +69,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                     children: [
                       Text(
                         'Carrinho',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: GalegosUiDefaut.theme.textTheme.titleLarge,
                       ),
                       IconButton(
                         icon: Icon(

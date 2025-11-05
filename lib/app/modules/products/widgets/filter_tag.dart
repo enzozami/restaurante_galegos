@@ -30,14 +30,14 @@ class FilterTag extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border.all(),
               borderRadius: BorderRadius.circular(30),
-              color: isSelected ? Colors.amber : Colors.black,
+              color: isSelected ? Color(0xFFE2933C) : Colors.black,
             ),
             child: Align(
               alignment: Alignment.center,
               child: Text(
                 model.category,
                 style: TextStyle(
-                  color: isSelected ? Colors.black : Colors.amber,
+                  color: isSelected ? Colors.black : Color(0xFFE2933C),
                 ),
               ),
             ),

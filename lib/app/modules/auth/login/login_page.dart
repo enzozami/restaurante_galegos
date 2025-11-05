@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cnpj.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cpf.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:validatorless/validatorless.dart';
@@ -153,12 +154,12 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                           style: TextStyle(fontSize: 15),
                         ),
                         TextButton(
+                          style: GalegosUiDefaut.theme.textButtonTheme.style,
                           onPressed: () => Get.toNamed('/auth/register'),
                           child: Text(
                             'Clique aqui',
                             style: TextStyle(
                               fontSize: 15,
-                              color: Colors.amber,
                             ),
                           ),
                         ),
