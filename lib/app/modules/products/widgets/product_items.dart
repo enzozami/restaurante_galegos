@@ -114,10 +114,7 @@ class ProductItems extends GetView<ProductsController> {
             padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 16.0),
             child: Text(
               modelProduct.category,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
+              style: GalegosUiDefaut.theme.textTheme.titleLarge,
             ),
           ),
           Card(
@@ -133,7 +130,7 @@ class ProductItems extends GetView<ProductsController> {
                 children: [
                   ...items.map(
                     (e) => InkWell(
-                      splashColor: Colors.amber,
+                      splashColor: GalegosUiDefaut.theme.splashColor,
                       borderRadius: BorderRadius.circular(8),
                       onTap: () => _showItemDetailDialog(context, e),
                       child: Column(

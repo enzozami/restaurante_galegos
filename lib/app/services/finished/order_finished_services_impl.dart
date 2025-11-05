@@ -17,4 +17,8 @@ class OrderFinishedServicesImpl implements OrderFinishedServices {
 
   @override
   Future<void> changeStatus(PedidoModel pedido) => _orderFinishedRepository.changeStatus(pedido);
+
+  @override
+  Future<List<OrderFinishedModel>> getOrderFinished() =>
+      _orderFinishedRepository.getOrderFinished();
 }

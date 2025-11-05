@@ -94,6 +94,22 @@ class AllOrdersPage extends GetView<AllOrdersController> {
                     color: Colors.black,
                   ),
                   Text(
+                    'Detalhes:',
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    '${pedido.date} - ${pedido.time}h',
+                    style: const TextStyle(color: Colors.black),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Divider(
+                    color: Colors.black,
+                  ),
+                  Text(
                     'Endereço:',
                     style: const TextStyle(
                       color: Colors.black,

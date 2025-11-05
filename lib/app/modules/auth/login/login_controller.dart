@@ -40,8 +40,8 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
   }
 
   Future<void> login({
-    required value,
-    required password,
+    required String value,
+    required String password,
   }) async {
     try {
       _loading(true);

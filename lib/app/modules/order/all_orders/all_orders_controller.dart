@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/services/finished/order_finished_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
@@ -20,6 +21,8 @@ class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin
 
   final _ordersOriginal = <PedidoModel>[].obs;
   final listOrders = <PedidoModel>[].obs;
+
+  final newTime = FormatterHelper.formatDateAndTime();
 
   @override
   void onInit() {
@@ -60,7 +63,7 @@ class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin
     _loading(true);
     try {
       final listData = await _orderFinishedServices.orderFinished(
-        pedido.copyWith(status: 'finalizado'),
+        pedido.copyWith(status: 'finalizado', timeFinished: newTime),
       );
       await _orderFinishedServices.changeStatus(pedido);
       final newListOrders = _ordersOriginal

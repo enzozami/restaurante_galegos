@@ -130,7 +130,7 @@ class AlimentosWidget extends GetView<LunchboxesController> {
                   ),
                   width: context.width,
                   child: InkWell(
-                    splashColor: Colors.amber,
+                    splashColor: GalegosUiDefaut.theme.splashColor,
                     onTap: () => _showItemDetailDialog(context, alimentoModel),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

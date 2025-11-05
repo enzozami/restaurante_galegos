@@ -3,18 +3,23 @@ import 'package:flutter/material.dart';
 class IconBadge extends StatelessWidget {
   final int number;
   final IconData icon;
+  final Color color;
 
   const IconBadge({
     super.key,
     required this.number,
     required this.icon,
+    required this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Icon(icon),
+        Icon(
+          icon,
+          color: color,
+        ),
         Visibility(
           visible: number > 0,
           child: Positioned(
@@ -22,11 +27,12 @@ class IconBadge extends StatelessWidget {
             right: 0,
             child: CircleAvatar(
               maxRadius: 6,
-              backgroundColor: Colors.red,
+              backgroundColor: const Color.fromARGB(255, 177, 0, 0),
               child: Text(
                 number.toString(),
                 style: TextStyle(
                   color: Colors.white,
+                  fontWeight: FontWeight.bold,
                   fontSize: 9,
                 ),
               ),
