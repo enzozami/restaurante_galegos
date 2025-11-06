@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:restaurante_galegos/app/core/constants/constants.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 
 class AuthService extends GetxService {
   final _isLogged = RxnBool();
@@ -51,7 +51,7 @@ class AuthService extends GetxService {
         'Fora do horário de funcionamento',
         'Nós funcionamos das 09:00 às 14:50h!',
         duration: 3.seconds,
-        backgroundColor: Colors.amberAccent,
+        backgroundColor: GalegosUiDefaut.colorScheme.primary,
       );
       return this;
     }

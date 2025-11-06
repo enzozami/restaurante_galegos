@@ -324,7 +324,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                                           'Pedido feito com sucesso',
                                           'Seu pedido foi enviado com sucesso, enviaremos para você o quanto antes!',
                                           duration: 3.seconds,
-                                          backgroundColor: Colors.amberAccent,
+                                          backgroundColor: GalegosUiDefaut.colorScheme.primary,
                                         );
                                       }
                                     }

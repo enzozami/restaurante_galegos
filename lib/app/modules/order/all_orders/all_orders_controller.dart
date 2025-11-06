@@ -41,7 +41,7 @@ class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin
     try {
       _loading(true);
       final orderListOriginal = await _orderServices.getOrder();
-      final filtered = orderListOriginal.where((e) => e.status != 'finalizado').toList();
+      final filtered = orderListOriginal.where((e) => e.status == 'preparando').toList();
       listOrders.assignAll(filtered);
       _ordersOriginal
         ..clear()
@@ -63,9 +63,9 @@ class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin
     _loading(true);
     try {
       final listData = await _orderFinishedServices.orderFinished(
-        pedido.copyWith(status: 'finalizado', timeFinished: newTime),
+        pedido.copyWith(status: 'a caminho', timePath: newTime),
       );
-      await _orderFinishedServices.changeStatus(pedido);
+      await _orderFinishedServices.changeStatusOnTheWay(pedido);
       final newListOrders = _ordersOriginal
         ..clear()
         ..where((e) => e.status != listData.pedido.status).toList();

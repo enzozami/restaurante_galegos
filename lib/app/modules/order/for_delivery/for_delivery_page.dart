@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import './for_delivery_controller.dart';
+import 'package:restaurante_galegos/app/core/masks/mask_cep.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_adm_history.dart';
+import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_controller.dart';
 
 class ForDeliveryPage extends GetView<ForDeliveryController> {
   const ForDeliveryPage({super.key});
@@ -8,10 +12,123 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ForDeliveryPage'),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: GalegosUiDefaut.colorScheme.primary,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Center(
+                  child: Text(
+                    'PARA ENTREGA',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: SizedBox(
+                width: context.widthTransformer(reducedBy: 10),
+                child: Obx(() {
+                  return ListView(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    children: controller.listOrders.value.map((e) {
+                      final carrinho = e.cart
+                          .map((item) {
+                            return item.item.alimento?.name ?? item.item.produto?.name ?? '';
+                          })
+                          .toList()
+                          .join(', ');
+
+                      final total = FormatterHelper.formatCurrency(e.amountToPay);
+                      // final status = 'Status: ${e.status.toUpperCase()}';
+
+                      return Card(
+                        elevation: 5,
+                        color: GalegosUiDefaut.theme.primaryColor,
+                        child: InkWell(
+                          onTap: () {
+                            final carrinhoName = e.cart
+                                .map((item) {
+                                  return item.item.alimento?.name ?? item.item.produto?.name ?? '';
+                                })
+                                .toList()
+                                .join(', ');
+
+                            final pedidoTipo = e.cart
+                                .map((e) => e.item.produto != null ? 'Produto' : 'Marmita')
+                                .toList()
+                                .join(', ');
+
+                            final cep = MaskCep();
+
+                            final valor = FormatterHelper.formatCurrency(e.amountToPay - e.taxa);
+                            final taxa = FormatterHelper.formatCurrency(e.taxa);
+                            final total = FormatterHelper.formatCurrency(e.amountToPay);
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialogAdmHistory(
+                                    pedidoLabel: pedidoTipo,
+                                    carrinhoName: carrinhoName,
+                                    valor: valor,
+                                    taxa: taxa,
+                                    total: total,
+                                    nomeCliente: e.userName,
+                                    cpfOrCnpj: e.cpfOrCnpj,
+                                    rua: e.rua,
+                                    numeroResidencia: e.numeroResidencia.toString(),
+                                    bairro: e.bairro,
+                                    cidade: e.cidade,
+                                    estado: e.estado,
+                                    cep: cep.maskText(e.cep),
+                                    horarioInicio: e.time,
+                                    horarioSairEntrega: e.timePath ?? '',
+                                    horarioEntregue: e.timeFinished ?? '',
+                                    data: e.date,
+                                    onPressed: () {
+                                      controller.orderFinished(e);
+                                      Get.close(0);
+                                    },
+                                    statusPedido: 'Pedido Entregue',
+                                  );
+                                });
+                          },
+                          splashColor: GalegosUiDefaut.colorScheme.primary,
+                          borderRadius: BorderRadius.circular(8),
+                          child: ListTile(
+                            title: Text(
+                              'Carrinho: $carrinho',
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            trailing: Text(total),
+                            leading: Text('Pedido: ${e.id}'),
+                            subtitle: Text('Status: ${e.status.toUpperCase()}'),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  );
+                }),
+              ),
+            ),
+          ],
+        ),
       ),
-      body: Container(),
     );
   }
 }

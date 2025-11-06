@@ -49,7 +49,7 @@ class HistoryPage extends GetView<GalegosDrawerController> {
           ),
           content: Container(
             decoration: BoxDecoration(
-              color: Colors.amber,
+              color: GalegosUiDefaut.colorScheme.primary,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(

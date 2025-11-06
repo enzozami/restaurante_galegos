@@ -32,6 +32,7 @@ class OrderFinishedRepositoryImpl implements OrderFinishedRepository {
       'status': pedido.status,
       'time': pedido.time,
       'date': pedido.date,
+      'timePath': pedido.timePath,
       'timeFinished': pedido.timeFinished
     });
 
@@ -49,9 +50,18 @@ class OrderFinishedRepositoryImpl implements OrderFinishedRepository {
   }
 
   @override
-  Future<void> changeStatus(PedidoModel pedido) async {
+  Future<void> changeStatusOnTheWay(PedidoModel pedido) async {
     final result = await _restClient.patch('/orders/${pedido.id}', {
-      'status': 'finalizado',
+      'status': 'a caminho',
+    });
+
+    if (result.hasError) {}
+  }
+
+  @override
+  Future<void> changeStatusFinished(PedidoModel pedido) async {
+    final result = await _restClient.patch('/orders/${pedido.id}', {
+      'status': 'entregue',
     });
 
     if (result.hasError) {}

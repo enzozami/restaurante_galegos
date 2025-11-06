@@ -21,35 +21,35 @@ class HomePage extends GetView<HomeController> {
             NavigationDestination(
               icon: Icon(
                 Icons.shopping_cart_outlined,
-                color: controller.selectedIndex == 0 ? Color(0xFFE2933C) : Colors.black,
+                color: GalegosUiDefaut.colorScheme.onPrimary,
               ),
               label: 'Pedidos',
             ),
             NavigationDestination(
               icon: Icon(
                 Icons.motorcycle,
-                color: controller.selectedIndex == 1 ? Color(0xFFE2933C) : Colors.black,
+                color: GalegosUiDefaut.colorScheme.onPrimary,
               ),
               label: 'Para entrega',
             ),
             NavigationDestination(
               icon: Icon(
                 Icons.shopping_bag_outlined,
-                color: controller.selectedIndex == 2 ? Color(0xFFE2933C) : Colors.black,
+                color: GalegosUiDefaut.colorScheme.onPrimary,
               ),
               label: 'Finalizados',
             ),
             NavigationDestination(
               icon: Icon(
                 Icons.lunch_dining,
-                color: controller.selectedIndex == 3 ? Color(0xFFE2933C) : Colors.black,
+                color: GalegosUiDefaut.colorScheme.onPrimary,
               ),
               label: 'Produto',
             ),
             NavigationDestination(
               icon: Icon(
                 Icons.restaurant_menu,
-                color: controller.selectedIndex == 4 ? Color(0xFFE2933C) : Colors.black,
+                color: GalegosUiDefaut.colorScheme.onPrimary,
               ),
               label: 'Marmitas',
             ),
@@ -59,7 +59,7 @@ class HomePage extends GetView<HomeController> {
             NavigationDestination(
               icon: Icon(
                 Icons.lunch_dining,
-                color: Colors.black,
+                color: GalegosUiDefaut.colorScheme.onPrimary,
               ),
               label: 'Produto',
             ),
