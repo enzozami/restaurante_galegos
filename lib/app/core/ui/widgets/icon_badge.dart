@@ -27,7 +27,7 @@ class IconBadge extends StatelessWidget {
             right: 0,
             child: CircleAvatar(
               maxRadius: 6,
-              backgroundColor: const Color.fromARGB(255, 177, 0, 0),
+              backgroundColor: const Color.fromRGBO(177, 0, 0, 1),
               child: Text(
                 number.toString(),
                 style: TextStyle(

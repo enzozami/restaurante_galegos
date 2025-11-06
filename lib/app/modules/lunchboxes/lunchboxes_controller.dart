@@ -139,12 +139,17 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     if (_quantity.value > 0) _quantity.value--;
   }
 
+  void removeAllFoodsUnit() {
+    _quantity.value = 0;
+  }
+
   void setFoodSelected(FoodModel food) {
     foodSelect.value = food;
 
     final carrinhoItem = _carrinhoServices.getById(food.id);
     if (carrinhoItem != null) {
       _quantity(carrinhoItem.item.quantidade);
+      log('$_quantity');
       _alreadyAdded(true);
     } else {
       _quantity(1);
@@ -156,16 +161,16 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     final selected = selectedFood;
 
     if (selected == null) {
-      _alreadyAdded.value = false;
+      _alreadyAdded(false);
       return;
     }
 
-    log('ALIMENTO SELECIONADO: ${selected.name}');
     _carrinhoServices.addOrUpdateFood(
       selected,
       quantity: _quantity.value,
       selectedSize: sizeSelected.value ?? '',
     );
+    log('QUANTIDADE ENVIADA : $quantity');
     Get.close(0);
   }
 

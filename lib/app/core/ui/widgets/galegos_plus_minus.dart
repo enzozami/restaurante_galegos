@@ -27,7 +27,7 @@ class GalegosPlusMinus extends StatelessWidget {
         Text(
           '$quantityUnit',
           style: TextStyle(
-            color: Color(0xFFE2933C),
+            color: color ?? Color(0xFFE2933C),
           ),
         ),
         IconButton(

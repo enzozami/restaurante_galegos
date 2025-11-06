@@ -140,6 +140,10 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
   }
 
+  void removeAllProductsUnit() {
+    _quantity.value = 0;
+  }
+
   void setSelectedItem(Item item) {
     itemSelect.value = item;
 
