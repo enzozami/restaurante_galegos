@@ -3,11 +3,25 @@ import 'package:flutter/material.dart';
 class GalegosUiDefaut {
   GalegosUiDefaut._();
 
+  static final ColorScheme colorScheme = ColorScheme(
+    brightness: Brightness.light,
+    primary: Color(0xFFE2933C),
+    onPrimary: Colors.black,
+    secondary: Color(0xFFFFFAF5),
+    onSecondary: Colors.black,
+    tertiary: const Color(0xFFFFFFFF),
+    onTertiary: Colors.black,
+    error: Colors.red,
+    onError: Colors.white,
+    surface: Color(0xFFFFFAF5),
+    onSurface: Colors.black,
+  );
+
   static final ThemeData theme = ThemeData(
     primaryColor: Colors.white,
-    bottomAppBarTheme: BottomAppBarThemeData(
-      surfaceTintColor: Color(0xFFE2933C),
-      color: Color(0xFFE2933C),
+    colorScheme: colorScheme,
+    cardTheme: CardThemeData(
+      color: Color(0xFFFFFFFF),
     ),
     textTheme: TextTheme(
       titleLarge: TextStyle(
@@ -32,7 +46,9 @@ class GalegosUiDefaut {
       backgroundColor: Colors.white,
     ),
     appBarTheme: AppBarTheme(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFFFEBD6),
+      elevation: 0,
+      scrolledUnderElevation: 0,
     ),
     primaryColorDark: Colors.black,
     navigationBarTheme: NavigationBarThemeData(

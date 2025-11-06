@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:restaurante_galegos/app/core/bindings/galegos_bindings.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:restaurante_galegos/app/core/ui/app_theme.dart';
 import 'package:restaurante_galegos/app/routes/auth_routers.dart';
 import 'package:restaurante_galegos/app/routes/drawer_routers.dart';
 import 'package:restaurante_galegos/app/routes/lunchboxes_routers.dart';
@@ -19,7 +19,7 @@ class AppWidget extends StatelessWidget {
     return GetMaterialApp(
       title: 'Restaurante Galegos',
       initialRoute: '/',
-      theme: GalegosUiDefaut.theme,
+      theme: AppTheme.galegosUiDefault(),
       initialBinding: GalegosBindings(),
       getPages: [
         ...DrawerRouters.routers,

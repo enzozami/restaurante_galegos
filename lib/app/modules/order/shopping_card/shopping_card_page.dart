@@ -74,7 +74,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                       IconButton(
                         icon: Icon(
                           Icons.delete_outline,
-                          color: Colors.red,
+                          color: const Color.fromRGBO(177, 0, 0, 1),
                         ),
                         onPressed: () => controller.reset(),
                       )
