@@ -50,7 +50,6 @@ class AlimentosWidget extends GetView<LunchboxesController> {
                             visible: controller.quantity > 0 && controller.alreadyAdded == true,
                             alimento: alimentoModel,
                             onPressed: () {
-                              controller.setFoodSelected(alimentoModel);
                               controller.addFoodShoppingCard();
                               Get.snackbar(
                                 'Item: ${alimentoModel.name}',
