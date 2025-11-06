@@ -142,7 +142,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                                   label: 'Consultar',
                                   icon: Icon(
                                     Icons.search,
-                                    color: Colors.amber,
+                                    color: GalegosUiDefaut.colorScheme.primary,
                                   ),
                                   onPressed: controller.cepInput.value.length == 9
                                       ? () {
@@ -246,7 +246,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                                         onPressed: () {
                                           controller.closeCard();
                                         },
-                                        icon: Icon(Icons.close),
+                                        icon: Icon(Icons.expand_less_outlined),
                                       ),
                                     ),
                                   ],
