@@ -30,8 +30,8 @@ class OrderFinishedRepositoryImpl implements OrderFinishedRepository {
       'cart': pedido.cart.map((e) => e.toMap()).toList(),
       'amountToPay': pedido.amountToPay,
       'status': pedido.status,
-      'time': pedido.time,
       'date': pedido.date,
+      'time': pedido.time,
       'timePath': pedido.timePath,
       'timeFinished': pedido.timeFinished
     });
