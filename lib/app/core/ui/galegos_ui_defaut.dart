@@ -11,7 +11,7 @@ class GalegosUiDefaut {
     onSecondary: Colors.black,
     tertiary: const Color(0xFFFFFFFF),
     onTertiary: Colors.black,
-    error: Colors.red,
+    error: const Color.fromRGBO(177, 0, 0, 1),
     onError: Colors.white,
     surface: Color(0xFFFFFAF5),
     onSurface: Colors.black,

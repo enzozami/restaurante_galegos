@@ -165,8 +165,11 @@ class HistoryPage extends GetView<GalegosDrawerController> {
               child: Container(
                 width: context.widthTransformer(reducedBy: 10),
                 decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(20),
+                  color: GalegosUiDefaut.colorScheme.primary,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(5),
+                    topRight: Radius.circular(5),
+                  ),
                 ),
                 child: Center(
                   child: Padding(
@@ -206,7 +209,7 @@ class HistoryPage extends GetView<GalegosDrawerController> {
                           onTap: () {
                             _showDialog(context, e);
                           },
-                          splashColor: Colors.amber,
+                          splashColor: GalegosUiDefaut.theme.splashColor,
                           borderRadius: BorderRadius.circular(8),
                           child: ListTile(
                             title: Text(

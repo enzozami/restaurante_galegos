@@ -149,7 +149,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     final carrinhoItem = _carrinhoServices.getById(food.id);
     if (carrinhoItem != null) {
       _quantity(carrinhoItem.item.quantidade);
-      log('$_quantity');
       _alreadyAdded(true);
     } else {
       _quantity(1);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/modules/drawer_pages/galegos_drawer_controller.dart';
 
 class AboutUsData extends GetView<GalegosDrawerController> {
@@ -13,8 +14,11 @@ class AboutUsData extends GetView<GalegosDrawerController> {
           Container(
             width: context.width,
             decoration: BoxDecoration(
-              color: Colors.amber,
-              borderRadius: BorderRadius.circular(5),
+              color: GalegosUiDefaut.colorScheme.primary,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(5),
+                topRight: Radius.circular(5),
+              ),
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),

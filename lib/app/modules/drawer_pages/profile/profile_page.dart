@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/modules/drawer_pages/galegos_drawer_controller.dart';
@@ -82,15 +83,6 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                               isSelected: false,
                               obscure: false,
                             ),
-                            // ProfileData(
-                            //   title: 'Confirmar Senha:',
-                            //   label: controller.password,
-                            //   isSelected: controller.isSelected,
-                            //   obscure: controller.isObscure,
-                            //   validator: Validatorless.multiple([
-                            //     Validatorless.compare(_newPasswordEC, 'Senhas diferente'),
-                            //   ]),
-                            // ),
                           ],
                         ),
                       ),
@@ -112,7 +104,7 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                                     'Clique aqui',
                                     style: TextStyle(
                                       fontSize: 15,
-                                      color: Colors.amber,
+                                      color: GalegosUiDefaut.colorScheme.primary,
                                     ),
                                   ),
                                 ),
@@ -193,7 +185,8 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                                                   width: 130,
                                                   child: ElevatedButton(
                                                     style: ElevatedButton.styleFrom(
-                                                      backgroundColor: Colors.amber,
+                                                      backgroundColor:
+                                                          GalegosUiDefaut.colorScheme.primary,
                                                       minimumSize: Size(double.infinity, 50),
                                                       shape: RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(10)),
@@ -217,7 +210,8 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                                                   width: 130,
                                                   child: ElevatedButton(
                                                     style: ElevatedButton.styleFrom(
-                                                      backgroundColor: Colors.amber,
+                                                      backgroundColor:
+                                                          GalegosUiDefaut.colorScheme.primary,
                                                       minimumSize: Size(double.infinity, 50),
                                                       shape: RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(10)),
@@ -230,7 +224,8 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                                                           'Sucesso',
                                                           'Dados atualizados com sucesso',
                                                           duration: 3.seconds,
-                                                          backgroundColor: Colors.amberAccent,
+                                                          backgroundColor:
+                                                              GalegosUiDefaut.colorScheme.primary,
                                                         );
                                                       } else if (password.length >= 6) {
                                                         controller.updateUser(name, password);
@@ -239,7 +234,8 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                                                           'Sucesso',
                                                           'Dados atualizados com sucesso',
                                                           duration: 3.seconds,
-                                                          backgroundColor: Colors.amberAccent,
+                                                          backgroundColor:
+                                                              GalegosUiDefaut.colorScheme.primary,
                                                         );
                                                       }
                                                       Get.close(0);

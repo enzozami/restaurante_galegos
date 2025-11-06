@@ -77,15 +77,14 @@ class AlertDialogDefault extends StatelessWidget {
               visible: visible,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: GalegosUiDefaut.colorScheme.primary,
-                  // minimumSize: Size(double.infinity, 50),
+                  backgroundColor: GalegosUiDefaut.colorScheme.error,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 ),
                 onPressed: onPressedR,
                 child: Text(
                   'Remover',
                   style: TextStyle(
-                    color: GalegosUiDefaut.colorScheme.onPrimary,
+                    color: GalegosUiDefaut.colorScheme.onError,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
