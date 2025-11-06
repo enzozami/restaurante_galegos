@@ -33,10 +33,11 @@ class OrderFinishedController extends GetxController with LoaderMixin, MessagesM
   void _loadAllOrdersOnFinished() async {
     _loading(true);
     final orderListData = await _orderFinishedServices.getOrderFinished();
-    listOrder.assignAll(orderListData);
+    final filtered = orderListData.where((e) => e.pedido.status == 'entregue').toList();
+    listOrder.assignAll(filtered);
     _listOriginalOrder
       ..clear()
-      ..addAll(orderListData);
+      ..addAll(filtered);
 
     _loading(false);
   }

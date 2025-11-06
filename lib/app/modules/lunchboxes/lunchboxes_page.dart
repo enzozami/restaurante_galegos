@@ -13,8 +13,6 @@ class LunchboxesPage extends GetView<LunchboxesController> {
     return Scaffold(
       bottomSheet: LunchboxesHeader(),
       body: RefreshIndicator.noSpinner(
-        // backgroundColor: Colors.amber,
-        // color: Colors.black,
         onRefresh: controller.refreshLunchboxes,
         child: SingleChildScrollView(
           child: Column(

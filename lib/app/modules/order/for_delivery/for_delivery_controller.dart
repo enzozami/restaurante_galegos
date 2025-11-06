@@ -1,3 +1,78 @@
 import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
+import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
+import 'package:restaurante_galegos/app/models/pedido_model.dart';
+import 'package:restaurante_galegos/app/services/finished/order_finished_services.dart';
+import 'package:restaurante_galegos/app/services/order/order_services.dart';
 
-class ForDeliveryController extends GetxController {}
+class ForDeliveryController extends GetxController with LoaderMixin, MessagesMixin {
+  final OrderServices _orderServices;
+  final OrderFinishedServices _orderFinishedServices;
+
+  final _loading = false.obs;
+  final _message = Rxn<MessageModel>();
+
+  ForDeliveryController({
+    required OrderServices orderServices,
+    required OrderFinishedServices orderFinishedServices,
+  })  : _orderServices = orderServices,
+        _orderFinishedServices = orderFinishedServices;
+
+  final _ordersOriginal = <PedidoModel>[].obs;
+  final listOrders = <PedidoModel>[].obs;
+
+  final newTime = FormatterHelper.formatDateAndTime();
+
+  @override
+  void onInit() {
+    super.onInit();
+    loaderListener(_loading);
+    messageListener(_message);
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    _loadAllOrders();
+  }
+
+  void _loadAllOrders() async {
+    try {
+      _loading(true);
+      final orderListOriginal = await _orderServices.getOrder();
+      final filtered = orderListOriginal.where((e) => e.status == 'a caminho').toList();
+      listOrders.assignAll(filtered);
+      _ordersOriginal
+        ..clear()
+        ..addAll(filtered);
+    } catch (e) {
+      _message(
+        MessageModel(
+          title: 'Erro',
+          message: 'Erro ao carregar pedidos',
+          type: MessageType.error,
+        ),
+      );
+    } finally {
+      _loading.value = false;
+    }
+  }
+
+  void orderFinished(PedidoModel pedido) async {
+    _loading(true);
+    try {
+      final listData = await _orderFinishedServices.orderFinished(
+        pedido.copyWith(status: 'entregue', timeFinished: newTime),
+      );
+      await _orderFinishedServices.changeStatusOnTheWay(pedido);
+      final newListOrders = _ordersOriginal
+        ..clear()
+        ..where((e) => e.status != listData.pedido.status).toList();
+      listOrders.assignAll(newListOrders);
+    } finally {
+      _loading(false);
+      _loadAllOrders();
+    }
+  }
+}

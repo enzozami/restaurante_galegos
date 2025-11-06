@@ -259,7 +259,7 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                                           'Erro',
                                           'Senha precisa ter no mínimo 6 caracteres',
                                           duration: 3.seconds,
-                                          backgroundColor: Colors.amberAccent,
+                                          backgroundColor: GalegosUiDefaut.colorScheme.primary,
                                         );
                                       }
                                     }),

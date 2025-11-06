@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 
-class GalegosDrawer extends StatelessWidget {
+class GalegosDrawer extends GetView<AuthService> {
   const GalegosDrawer({super.key});
 
   @override
@@ -15,8 +15,18 @@ class GalegosDrawer extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 50,
+          UserAccountsDrawerHeader(
+            accountName: Text(
+              controller.getUserName()!,
+              style: TextStyle(
+                color: GalegosUiDefaut.colorScheme.onPrimary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            accountEmail: Visibility(
+              visible: controller.isAdmin(),
+              child: Text('Administrador'),
+            ),
           ),
           ButtonDrawer(
             title: 'Perfil',
@@ -64,19 +74,11 @@ class ButtonDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      constraints: BoxConstraints(
-        minHeight: 100,
-      ),
-      width: context.width,
-      child: InkWell(
-        splashColor: GalegosUiDefaut.theme.splashColor,
-        onTap: onTap,
+    return InkWell(
+      splashColor: GalegosUiDefaut.theme.splashColor,
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(10),
         child: Align(
           alignment: Alignment.centerLeft,
           child: Padding(

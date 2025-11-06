@@ -6,6 +6,7 @@ import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 import 'package:restaurante_galegos/app/models/cep_model.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
@@ -174,7 +175,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
         cart: _carrinhoServices.itensCarrinho,
         amountToPay: totalPay(taxa.value)!,
         taxa: taxa.value,
-        status: 'pendente',
+        status: 'preparando',
         userName: name ?? '',
         cpfOrCnpj: cpfOrCnpj ?? '',
         date: date,
@@ -234,7 +235,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
         'Erro',
         'Digite algum CEP válido para finalizar compra!',
         duration: 3.seconds,
-        backgroundColor: Colors.amberAccent,
+        backgroundColor: GalegosUiDefaut.colorScheme.primary,
       );
       rethrow;
     } finally {

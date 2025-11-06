@@ -107,7 +107,12 @@ class HomeBindings implements Bindings {
         orderFinishedServices: Get.find<OrderFinishedServices>(),
       ),
     );
-    Get.put(ForDeliveryController());
+    Get.put(
+      ForDeliveryController(
+        orderServices: Get.find<OrderServices>(),
+        orderFinishedServices: Get.find<OrderFinishedServices>(),
+      ),
+    );
 
     Get.lazyPut(
       () => ProductsController(

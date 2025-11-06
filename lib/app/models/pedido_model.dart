@@ -19,8 +19,8 @@ class PedidoModel {
   String status;
   String date;
   String time;
+  String? timePath;
   String? timeFinished;
-
   PedidoModel({
     required this.id,
     required this.userId,
@@ -38,6 +38,7 @@ class PedidoModel {
     required this.status,
     required this.date,
     required this.time,
+    this.timePath,
     this.timeFinished,
   });
 
@@ -59,6 +60,7 @@ class PedidoModel {
       'status': status,
       'date': date,
       'time': time,
+      'timePath': timePath,
       'timeFinished': timeFinished,
     };
   }
@@ -81,6 +83,7 @@ class PedidoModel {
       status: map['status'] ?? '',
       date: map['date'] ?? '',
       time: map['time'] ?? '',
+      timePath: map['timePath'] ?? '',
       timeFinished: map['timeFinished'] ?? '',
     );
   }
@@ -106,6 +109,7 @@ class PedidoModel {
     String? status,
     String? date,
     String? time,
+    String? timePath,
     String? timeFinished,
   }) {
     return PedidoModel(
@@ -125,6 +129,7 @@ class PedidoModel {
       status: status ?? this.status,
       date: date ?? this.date,
       time: time ?? this.time,
+      timePath: timePath ?? this.timePath,
       timeFinished: timeFinished ?? this.timeFinished,
     );
   }

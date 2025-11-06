@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 
 mixin MessagesMixin on GetxController {
   void messageListener(Rxn<MessageModel> message) {
@@ -40,7 +41,7 @@ extension MessageTypeColorExt on MessageType {
       case MessageType.error:
         return Colors.red[800]!;
       case MessageType.info:
-        return Colors.amber[200]!;
+        return GalegosUiDefaut.colorScheme.primary;
     }
   }
 
