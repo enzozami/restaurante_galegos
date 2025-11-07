@@ -99,9 +99,9 @@ class AllOrdersPage extends GetView<AllOrdersController> {
                                 horarioSairEntrega: e.timePath ?? '',
                                 horarioEntregue: e.timeFinished ?? '',
                                 data: e.date,
-                                onPressed: () {
+                                onPressed: () async {
                                   controller.orderFinished(e);
-                                  Get.close(0);
+                                  Get.back();
                                 },
                                 statusPedido: 'Sair para entrega',
                               ),

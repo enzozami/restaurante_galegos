@@ -27,7 +27,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                 padding: const EdgeInsets.all(10.0),
                 child: Center(
                   child: Text(
-                    'PARA ENTREGA',
+                    'SAIR PARA ENTREGA',
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -80,33 +80,34 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                             final taxa = FormatterHelper.formatCurrency(e.taxa);
                             final total = FormatterHelper.formatCurrency(e.amountToPay);
                             showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialogAdmHistory(
-                                    pedidoLabel: pedidoTipo,
-                                    carrinhoName: carrinhoName,
-                                    valor: valor,
-                                    taxa: taxa,
-                                    total: total,
-                                    nomeCliente: e.userName,
-                                    cpfOrCnpj: e.cpfOrCnpj,
-                                    rua: e.rua,
-                                    numeroResidencia: e.numeroResidencia.toString(),
-                                    bairro: e.bairro,
-                                    cidade: e.cidade,
-                                    estado: e.estado,
-                                    cep: cep.maskText(e.cep),
-                                    horarioInicio: e.time,
-                                    horarioSairEntrega: e.timePath ?? '',
-                                    horarioEntregue: e.timeFinished ?? '',
-                                    data: e.date,
-                                    onPressed: () {
-                                      controller.orderFinished(e);
-                                      Get.close(0);
-                                    },
-                                    statusPedido: 'Pedido Entregue',
-                                  );
-                                });
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialogAdmHistory(
+                                  pedidoLabel: pedidoTipo,
+                                  carrinhoName: carrinhoName,
+                                  valor: valor,
+                                  taxa: taxa,
+                                  total: total,
+                                  nomeCliente: e.userName,
+                                  cpfOrCnpj: e.cpfOrCnpj,
+                                  rua: e.rua,
+                                  numeroResidencia: e.numeroResidencia.toString(),
+                                  bairro: e.bairro,
+                                  cidade: e.cidade,
+                                  estado: e.estado,
+                                  cep: cep.maskText(e.cep),
+                                  horarioInicio: e.time,
+                                  horarioSairEntrega: e.timePath ?? '',
+                                  horarioEntregue: e.timeFinished ?? '',
+                                  data: e.date,
+                                  onPressed: () async {
+                                    controller.orderFinished(e);
+                                    Get.close(0);
+                                  },
+                                  statusPedido: 'Pedido Entregue',
+                                );
+                              },
+                            );
                           },
                           splashColor: GalegosUiDefaut.colorScheme.primary,
                           borderRadius: BorderRadius.circular(8),

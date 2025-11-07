@@ -43,39 +43,40 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
               child: SizedBox(
                 width: context.widthTransformer(reducedBy: 10),
                 child: Obx(() {
+                  controller.listOrder();
+
                   return ListView(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     children: controller.listOrder.map((e) {
-                      final carrinho = e.pedido.cart
+                      final carrinho = e.cart
                           .map((item) => item.item.alimento?.name ?? item.item.produto?.name ?? '')
                           .toList()
                           .join(', ');
 
-                      final total = FormatterHelper.formatCurrency(e.pedido.amountToPay);
+                      final total = FormatterHelper.formatCurrency(e.amountToPay);
                       return Card(
                         color: GalegosUiDefaut.theme.primaryColor,
                         elevation: 5,
                         child: InkWell(
                           onTap: () {
-                            final carrinhoName = e.pedido.cart
+                            final carrinhoName = e.cart
                                 .map((item) {
                                   return item.item.alimento?.name ?? item.item.produto?.name ?? '';
                                 })
                                 .toList()
                                 .join(', ');
 
-                            final pedidoTipo = e.pedido.cart
+                            final pedidoTipo = e.cart
                                 .map((e) => e.item.produto != null ? 'Produto' : 'Marmita')
                                 .toList()
                                 .join(', ');
 
                             final cep = MaskCep();
 
-                            final valor = FormatterHelper.formatCurrency(
-                                e.pedido.amountToPay - e.pedido.taxa);
-                            final taxa = FormatterHelper.formatCurrency(e.pedido.taxa);
-                            final total = FormatterHelper.formatCurrency(e.pedido.amountToPay);
+                            final valor = FormatterHelper.formatCurrency(e.amountToPay - e.taxa);
+                            final taxa = FormatterHelper.formatCurrency(e.taxa);
+                            final total = FormatterHelper.formatCurrency(e.amountToPay);
                             showDialog(
                                 context: context,
                                 builder: (context) {
@@ -85,18 +86,18 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                                     valor: valor,
                                     taxa: taxa,
                                     total: total,
-                                    nomeCliente: e.pedido.userName,
-                                    cpfOrCnpj: e.pedido.cpfOrCnpj,
-                                    rua: e.pedido.rua,
-                                    numeroResidencia: e.pedido.numeroResidencia.toString(),
-                                    bairro: e.pedido.bairro,
-                                    cidade: e.pedido.cidade,
-                                    estado: e.pedido.estado,
-                                    cep: cep.maskText(e.pedido.cep),
-                                    horarioInicio: e.pedido.time,
-                                    horarioSairEntrega: e.pedido.timePath ?? '',
-                                    horarioEntregue: e.pedido.timeFinished ?? '',
-                                    data: e.pedido.date,
+                                    nomeCliente: e.userName,
+                                    cpfOrCnpj: e.cpfOrCnpj,
+                                    rua: e.rua,
+                                    numeroResidencia: e.numeroResidencia.toString(),
+                                    bairro: e.bairro,
+                                    cidade: e.cidade,
+                                    estado: e.estado,
+                                    cep: cep.maskText(e.cep),
+                                    horarioInicio: e.time,
+                                    horarioSairEntrega: e.timePath ?? '',
+                                    horarioEntregue: e.timeFinished ?? '',
+                                    data: e.date,
                                     onPressed: () {
                                       Get.close(0);
                                     },
@@ -109,8 +110,8 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                           child: ListTile(
                             title: Text('Carrinho: $carrinho'),
                             trailing: Text(total),
-                            leading: Text('Pedido ${e.pedido.id}'),
-                            subtitle: Text(e.pedido.status.toUpperCase()),
+                            leading: Text('Pedido ${e.id}'),
+                            subtitle: Text(e.status.toUpperCase()),
                           ),
                         ),
                       );

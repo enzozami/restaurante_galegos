@@ -1,21 +1,18 @@
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/models/order_finished_model.dart';
-import 'package:restaurante_galegos/app/services/finished/order_finished_services.dart';
+import 'package:restaurante_galegos/app/core/service/orders_state.dart';
+import 'package:restaurante_galegos/app/models/pedido_model.dart';
 
 class OrderFinishedController extends GetxController with LoaderMixin, MessagesMixin {
-  final OrderFinishedServices _orderFinishedServices;
+  final OrdersState _ordersState;
 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
 
   OrderFinishedController({
-    required OrderFinishedServices orderFinishedServices,
-  }) : _orderFinishedServices = orderFinishedServices;
-
-  final _listOriginalOrder = <OrderFinishedModel>[].obs;
-  final listOrder = <OrderFinishedModel>[].obs;
+    required OrdersState ordersState,
+  }) : _ordersState = ordersState;
 
   @override
   void onInit() {
@@ -24,21 +21,6 @@ class OrderFinishedController extends GetxController with LoaderMixin, MessagesM
     messageListener(_message);
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-    _loadAllOrdersOnFinished();
-  }
-
-  void _loadAllOrdersOnFinished() async {
-    _loading(true);
-    final orderListData = await _orderFinishedServices.getOrderFinished();
-    final filtered = orderListData.where((e) => e.pedido.status == 'entregue').toList();
-    listOrder.assignAll(filtered);
-    _listOriginalOrder
-      ..clear()
-      ..addAll(filtered);
-
-    _loading(false);
-  }
+  RxList<PedidoModel> get listOrder =>
+      _ordersState.all.where((e) => e.status == 'entregue').toList().obs;
 }
