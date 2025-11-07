@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
+import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/models/item.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/services/items/items_services.dart';
@@ -12,6 +13,7 @@ import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart
 
 class ProductsController extends GetxController with LoaderMixin, MessagesMixin {
   // --- 2. SERVIÇOS (Dependências Injetadas) ---
+  final AuthService _authService;
   final ProductsServices _productsServices;
   final ItemsServices _itemsServices;
   final CarrinhoServices _carrinhoServices;
@@ -28,6 +30,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   // --- DADOS/ESTADO PÚBLICO REATIVO ---
   final items = <Item>[].obs;
+  final itensFiltrados = <Item>[].obs;
   final products = <ProductModel>[].obs;
 
   // Estado de Seleção
@@ -47,12 +50,17 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   // --- Construtor ---
   ProductsController({
+    required AuthService authService,
     required ProductsServices productsServices,
     required ItemsServices itemsServices,
     required CarrinhoServices carrinhoServices,
   })  : _productsServices = productsServices,
         _itemsServices = itemsServices,
-        _carrinhoServices = carrinhoServices;
+        _carrinhoServices = carrinhoServices,
+        _authService = authService;
+
+  final isAdmin = false.obs;
+  final temHoje = true.obs;
 
   @override
   void onInit() {
@@ -60,8 +68,19 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     loaderListener(_loading);
     messageListener(_message);
 
+    final admin = _authService.isAdmin();
+
+    if (admin) {
+      isAdmin.value = true;
+    }
+
     ever<int>(_quantity, (quantity) {
       _totalPrice(selectedItem?.price);
+    });
+
+    ever<bool>(temHoje, (_) {
+      final filtered = _itemsOriginal.where((e) => e.temHoje == temHoje.value).toList();
+      itensFiltrados.assignAll(filtered);
     });
   }
 
@@ -69,6 +88,10 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   Future<void> onReady() async {
     super.onReady();
     await _fetchProductsAndItems();
+  }
+
+  void teraHoje() {
+    temHoje.value = !temHoje.value;
   }
 
   // 9. Renomeado e tornado privado e mais robusto
@@ -86,6 +109,9 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       _itemsOriginal
         ..clear()
         ..addAll(itemData);
+
+      final filtered = _itemsOriginal.where((e) => e.temHoje == temHoje.value).toList();
+      itensFiltrados.assignAll(filtered);
     } catch (e, s) {
       log('Erro ao carregar dados', error: e, stackTrace: s);
       _message(

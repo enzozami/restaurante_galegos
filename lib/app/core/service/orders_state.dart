@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/models/item.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 
@@ -24,5 +25,11 @@ class OrdersState extends GetxService {
       all[index] = pedido.copyWith(status: newStatus);
       all.refresh();
     }
+  }
+
+//! TERMINAR DE ARRUMAR A LOGICA AQUI!
+// a intenção é: aqui busca pelo item selecionado e inverte o valor do temHoje para dessa forma saber se irá ser apresentado na tela ou nao!
+  void updateTemHoje(Item item) {
+    item.temHoje = !item.temHoje;
   }
 }
