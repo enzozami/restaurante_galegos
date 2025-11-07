@@ -30,7 +30,7 @@ class HomePage extends GetView<HomeController> {
                 Icons.motorcycle,
                 color: GalegosUiDefaut.colorScheme.onPrimary,
               ),
-              label: 'Para entrega',
+              label: 'Entrega',
             ),
             NavigationDestination(
               icon: Icon(

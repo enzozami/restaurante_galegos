@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
+import 'package:restaurante_galegos/app/core/service/orders_state.dart';
 import 'package:restaurante_galegos/app/repositories/finished/order_finished_repository.dart';
 import 'package:restaurante_galegos/app/repositories/finished/order_finished_repository_impl.dart';
 import 'package:restaurante_galegos/app/services/finished/order_finished_services.dart';
@@ -21,7 +22,7 @@ class OrderFinishedBindings implements Bindings {
     );
     Get.put(
       OrderFinishedController(
-        orderFinishedServices: Get.find<OrderFinishedServices>(),
+        ordersState: Get.find<OrdersState>(),
       ),
     );
   }

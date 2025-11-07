@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
 import 'package:restaurante_galegos/app/core/rest_client/via_cep_service.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
+import 'package:restaurante_galegos/app/core/service/orders_state.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
 import 'package:restaurante_galegos/app/modules/order/all_orders/all_orders_controller.dart';
 import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_controller.dart';
@@ -37,7 +38,7 @@ import './home_controller.dart';
 
 class HomeBindings implements Bindings {
   @override
-  void dependencies() {
+  Future<void> dependencies() async {
     Get.lazyPut<ItemsRepository>(() => ItemsRepositoryImpl(restClient: Get.find<RestClient>()));
     Get.lazyPut<ItemsServices>(
       () => ItemsServicesImpl(
@@ -96,21 +97,28 @@ class HomeBindings implements Bindings {
       ),
     );
 
-    Get.put(
-      AllOrdersController(
-        orderServices: Get.find<OrderServices>(),
+    Get.lazyPut(
+      () => AllOrdersController(
         orderFinishedServices: Get.find<OrderFinishedServices>(),
+        ordersState: Get.find<OrdersState>(),
       ),
     );
-    Get.put(
-      OrderFinishedController(
+    Get.lazyPut(
+      () => ForDeliveryController(
         orderFinishedServices: Get.find<OrderFinishedServices>(),
+        ordersState: Get.find<OrdersState>(),
       ),
     );
-    Get.put(
-      ForDeliveryController(
+
+    Get.lazyPut(
+      () => OrderFinishedController(
+        ordersState: Get.find<OrdersState>(),
+      ),
+    );
+
+    Get.lazyPut(
+      () => OrdersState(
         orderServices: Get.find<OrderServices>(),
-        orderFinishedServices: Get.find<OrderFinishedServices>(),
       ),
     );
 
@@ -122,13 +130,8 @@ class HomeBindings implements Bindings {
       ),
       fenix: true,
     );
-    // Get.put(ProductsController());
-    // Get.put(LunchboxesController());
-    // Get.put(ShoppingCardController());
-    // Get.put(AllOrdersController());
-    // Get.put(OrderFinishedController());
-    // Get.put(ForDeliveryController());
-    Get.lazyPut(
+
+    Get.lazyPut<HomeController>(
       () => HomeController(
         carrinhoServices: Get.find<CarrinhoServices>(),
         authService: Get.find<AuthService>(),
