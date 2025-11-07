@@ -5,12 +5,14 @@ class Item {
   String categoryId;
   String name;
   String? description;
+  bool temHoje;
   double price;
   Item({
     required this.id,
     required this.categoryId,
     required this.name,
     this.description,
+    required this.temHoje,
     required this.price,
   });
 
@@ -20,6 +22,7 @@ class Item {
       'categoryId': categoryId,
       'name': name,
       'description': description,
+      'temHoje': temHoje,
       'price': price,
     };
   }
@@ -30,6 +33,7 @@ class Item {
       categoryId: map['categoryId'] ?? '',
       name: map['name'] ?? '',
       description: map['description'],
+      temHoje: map['temHoje'] ?? false,
       price: map['price']?.toDouble() ?? 0.0,
     );
   }
