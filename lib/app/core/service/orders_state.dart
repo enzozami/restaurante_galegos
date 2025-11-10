@@ -1,13 +1,17 @@
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/models/item.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
+import 'package:restaurante_galegos/app/services/items/items_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 
 class OrdersState extends GetxService {
   final OrderServices _orderServices;
   final all = <PedidoModel>[].obs;
+  final ItemsServices _itemsServices;
 
-  OrdersState({required OrderServices orderServices}) : _orderServices = orderServices;
+  OrdersState({required OrderServices orderServices, required ItemsServices itemsServices})
+      : _orderServices = orderServices,
+        _itemsServices = itemsServices;
 
   Future<OrdersState> init() async {
     await refreshOrders();
@@ -27,9 +31,8 @@ class OrdersState extends GetxService {
     }
   }
 
-//! TERMINAR DE ARRUMAR A LOGICA AQUI!
-// a intenção é: aqui busca pelo item selecionado e inverte o valor do temHoje para dessa forma saber se irá ser apresentado na tela ou nao!
-  void updateTemHoje(Item item) {
-    item.temHoje = !item.temHoje;
+  Future<void> updateTemHoje(int id, Item item) async {
+    final novoValor = !item.temHoje;
+    await _itemsServices.updateTemHoje(id, item, novoValor);
   }
 }

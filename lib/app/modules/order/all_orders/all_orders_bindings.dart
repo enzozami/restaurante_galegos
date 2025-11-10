@@ -7,6 +7,7 @@ import 'package:restaurante_galegos/app/repositories/order/order_reposiroty.dart
 import 'package:restaurante_galegos/app/repositories/order/order_reposiroty_impl.dart';
 import 'package:restaurante_galegos/app/services/finished/order_finished_services.dart';
 import 'package:restaurante_galegos/app/services/finished/order_finished_services_impl.dart';
+import 'package:restaurante_galegos/app/services/items/items_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services_impl.dart';
 import './all_orders_controller.dart';
@@ -38,6 +39,7 @@ class AllOrdersBindings implements Bindings {
 
     await Get.putAsync(() async => OrdersState(
           orderServices: Get.find<OrderServices>(),
+          itemsServices: Get.find<ItemsServices>(),
         ).init());
 
     Get.put(

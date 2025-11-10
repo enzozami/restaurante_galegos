@@ -119,6 +119,7 @@ class HomeBindings implements Bindings {
     Get.lazyPut(
       () => OrdersState(
         orderServices: Get.find<OrderServices>(),
+        itemsServices: Get.find<ItemsServices>(),
       ),
     );
 
@@ -128,6 +129,7 @@ class HomeBindings implements Bindings {
         authService: Get.find<AuthService>(),
         itemsServices: Get.find<ItemsServices>(),
         carrinhoServices: Get.find<CarrinhoServices>(),
+        ordersState: Get.find<OrdersState>(),
       ),
       fenix: true,
     );

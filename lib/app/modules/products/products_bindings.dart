@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
+import 'package:restaurante_galegos/app/core/service/orders_state.dart';
 import 'package:restaurante_galegos/app/repositories/items/items_repository.dart';
 import 'package:restaurante_galegos/app/repositories/items/items_repository_impl.dart';
 import 'package:restaurante_galegos/app/repositories/products/products_repository.dart';
@@ -37,6 +38,7 @@ class ProductsBindings implements Bindings {
         authService: Get.find<AuthService>(),
         itemsServices: Get.find<ItemsServices>(),
         carrinhoServices: Get.find<CarrinhoServices>(),
+        ordersState: Get.find<OrdersState>(),
       ),
       fenix: true,
     );
