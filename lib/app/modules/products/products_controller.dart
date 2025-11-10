@@ -5,10 +5,9 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
-import 'package:restaurante_galegos/app/core/service/orders_state.dart';
+import 'package:restaurante_galegos/app/core/service/products_service.dart';
 import 'package:restaurante_galegos/app/models/item.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
-import 'package:restaurante_galegos/app/services/items/items_services.dart';
 import 'package:restaurante_galegos/app/services/products/products_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
@@ -16,11 +15,10 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   // --- 2. SERVIÇOS (Dependências Injetadas) ---
   final AuthService _authService;
   final ProductsServices _productsServices;
-  final ItemsServices _itemsServices;
   final CarrinhoServices _carrinhoServices;
-  final OrdersState _ordersState;
+  final ProductsService _productsService;
 
-  final ScrollController scrollController = ScrollController();
+  ScrollController scrollController = ScrollController();
 
   // --- ESTADO REATIVO PRIVADO   ---
   final _loading = false.obs;
@@ -31,7 +29,8 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final _itemsOriginal = <Item>[];
 
   // --- DADOS/ESTADO PÚBLICO REATIVO ---
-  final items = <Item>[].obs;
+  // final items = <Item>[].obs;
+  RxList<Item> get items => _productsService.items;
   final itensFiltrados = <Item>[].obs;
   final products = <ProductModel>[].obs;
 
@@ -51,20 +50,18 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   double get totalPrice => _totalPrice.value;
 
   // --- Construtor ---
-  ProductsController(
-      {required AuthService authService,
-      required ProductsServices productsServices,
-      required ItemsServices itemsServices,
-      required CarrinhoServices carrinhoServices,
-      required OrdersState ordersState})
-      : _productsServices = productsServices,
-        _itemsServices = itemsServices,
+  ProductsController({
+    required AuthService authService,
+    required ProductsServices productsServices,
+    required CarrinhoServices carrinhoServices,
+    required ProductsService productsService,
+  })  : _productsServices = productsServices,
         _carrinhoServices = carrinhoServices,
         _authService = authService,
-        _ordersState = ordersState;
+        _productsService = productsService;
 
   final isAdmin = false.obs;
-  final temHoje = true.obs;
+  void updateListItems(int id, Item item) => _productsService.updateTemHoje(id, item);
 
   @override
   void onInit() {
@@ -82,8 +79,8 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       _totalPrice(selectedItem?.price);
     });
 
-    ever<bool>(temHoje, (_) {
-      final filtered = _itemsOriginal.where((e) => e.temHoje == temHoje.value).toList();
+    ever<List<Item>>(items, (_) {
+      final filtered = _itemsOriginal.where((e) => e.temHoje).toList();
       itensFiltrados.assignAll(filtered);
     });
   }
@@ -104,13 +101,8 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         ..clear()
         ..addAll(productsData);
 
-      final itemData = await _itemsServices.getItems();
-      items.assignAll(itemData);
-      _itemsOriginal
-        ..clear()
-        ..addAll(itemData);
-
-      final filtered = _itemsOriginal.where((e) => e.temHoje == temHoje.value).toList();
+      _productsService.refreshItens();
+      final filtered = _itemsOriginal.where((e) => e.temHoje).toList();
       itensFiltrados.assignAll(filtered);
     } catch (e, s) {
       log('Erro ao carregar dados', error: e, stackTrace: s);
@@ -212,9 +204,5 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         ),
       );
     }
-  }
-
-  void updateListItems(int id, Item item) {
-    _ordersState.updateTemHoje(id, item);
   }
 }

@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 
 class AlertProductsLunchboxesAdm extends StatelessWidget {
   final VoidCallback onPressed;
-  const AlertProductsLunchboxesAdm({super.key, required this.onPressed});
+  final String title;
+  final String body;
+  const AlertProductsLunchboxesAdm({
+    super.key,
+    required this.onPressed,
+    required this.title,
+    required this.body,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,25 +21,29 @@ class AlertProductsLunchboxesAdm extends StatelessWidget {
       contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
       actionsPadding: const EdgeInsets.all(20),
       title: Text(
-        'Atenção',
+        title,
         style: TextStyle(
           color: GalegosUiDefaut.colorScheme.primary,
         ),
       ),
       content: Text(
-        'Você deseja desabilitar esse item?',
+        body,
         style: TextStyle(
           color: GalegosUiDefaut.colorScheme.primary,
         ),
       ),
       actions: [
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.back();
+          },
+          style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
           child: Text('Fechar'),
         ),
         ElevatedButton(
           onPressed: onPressed,
-          child: Text('Sim'),
+          style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+          child: Text('Confirmar'),
         ),
       ],
     );

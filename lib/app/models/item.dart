@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
+
 class Item {
   int id;
   String categoryId;
@@ -41,4 +43,22 @@ class Item {
   String toJson() => json.encode(toMap());
 
   factory Item.fromJson(String source) => Item.fromMap(json.decode(source));
+
+  Item copyWith({
+    int? id,
+    String? categoryId,
+    String? name,
+    ValueGetter<String?>? description,
+    bool? temHoje,
+    double? price,
+  }) {
+    return Item(
+      id: id ?? this.id,
+      categoryId: categoryId ?? this.categoryId,
+      name: name ?? this.name,
+      description: description != null ? description() : this.description,
+      temHoje: temHoje ?? this.temHoje,
+      price: price ?? this.price,
+    );
+  }
 }
