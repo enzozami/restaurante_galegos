@@ -18,11 +18,10 @@ class ProductItems extends GetView<ProductsController> {
 
   @override
   Widget build(BuildContext context) {
-    final items = modelProduct.items;
-    final itensFiltrados = controller.itensFiltrados;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
       child: Obx(() {
+        final items = controller.items;
         return Visibility(
           visible: controller.isAdmin.value != true,
           replacement: Column(
@@ -47,56 +46,54 @@ class ProductItems extends GetView<ProductsController> {
                   child: Column(
                     children: [
                       ...items.map(
-                        (e) => InkWell(
-                          splashColor: GalegosUiDefaut.theme.splashColor,
-                          borderRadius: BorderRadius.circular(8),
-                          // onTap: () => _showItemDetailDialog(context, e),
-                          onTap: () {
-                            controller.setSelectedItem(e);
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertProductsLunchboxesAdm(
-                                  onPressed: () {
-                                    controller.updateListItems(modelProduct.id, e);
-                                    log('${controller.temHoje.value}');
-                                    Get.back();
-                                  },
-                                );
-                              },
-                            );
-                          },
-                          child: Column(
-                            children: [
-                              ListTile(
-                                textColor: Colors.black87,
-                                title: Text(
-                                  e.name,
-                                  textAlign: TextAlign.start,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  e.description ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                trailing: Text(
-                                  FormatterHelper.formatCurrency(e.price),
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                        (e) => Card(
+                          elevation: 2,
+                          color: GalegosUiDefaut.theme.cardTheme.color,
+                          child: InkWell(
+                            splashColor: GalegosUiDefaut.theme.splashColor,
+                            borderRadius: BorderRadius.circular(8),
+                            onTap: () {
+                              controller.setSelectedItem(e);
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertProductsLunchboxesAdm(
+                                    title: 'ATENÇÃO',
+                                    body: e.temHoje
+                                        ? 'Deseja desabilitar esse produto?'
+                                        : 'Deseja habilitar esse produto?',
+                                    onPressed: () async {
+                                      controller.updateListItems(modelProduct.id, e);
+                                      Get.back();
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                            child: ListTile(
+                              textColor: Colors.black87,
+                              leading: e.temHoje ? Text('Ativo') : Text('Inativo'),
+                              title: Text(
+                                e.name,
+                                textAlign: TextAlign.start,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                                child:
-                                    const Divider(height: 0.5, thickness: 1, color: Colors.black26),
+                              subtitle: Text(
+                                e.description ?? '',
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                            ],
+                              trailing: Text(
+                                FormatterHelper.formatCurrency(e.price),
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -128,85 +125,88 @@ class ProductItems extends GetView<ProductsController> {
                   width: context.width,
                   child: Column(
                     children: [
-                      ...itensFiltrados.where((e) {
-                        log('${controller.temHoje.value}');
-                        return e.categoryId == modelProduct.category;
+                      ...items.where((e) {
+                        return e.temHoje && e.categoryId == modelProduct.category;
                       }).map(
-                        (e) => InkWell(
-                          splashColor: GalegosUiDefaut.theme.splashColor,
-                          borderRadius: BorderRadius.circular(8),
-                          // onTap: () => _showItemDetailDialog(context, e),
-                          onTap: () {
-                            controller.setSelectedItem(e);
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialogDefault(
-                                  visible:
-                                      controller.quantity > 0 && controller.alreadyAdded == true,
-                                  plusMinus: Obx(() {
-                                    return GalegosPlusMinus(
-                                      addCallback: controller.addProductUnit,
-                                      removeCallback: controller.removeProductUnit,
-                                      quantityUnit: controller.quantity,
-                                    );
-                                  }),
-                                  item: e,
-                                  onPressed: () {
-                                    controller.addItemsToCart();
-                                    Get.snackbar(
-                                      'Item: ${e.name}',
-                                      'Item adicionado ao carrinho',
-                                      snackPosition: SnackPosition.TOP,
-                                      duration: Duration(seconds: 1),
-                                      backgroundColor: Color(0xFFE2933C),
-                                      colorText: Colors.black,
-                                      isDismissible: true,
-                                      overlayBlur: 0,
-                                      overlayColor: Colors.transparent,
-                                      barBlur: 0,
-                                    );
-                                    log('Item clicado: ${e.name} - ${e.price}');
-                                  },
-                                  onPressedR: () {
-                                    controller.removeAllProductsUnit();
-                                    controller.addItemsToCart();
-                                  },
-                                );
-                              },
-                            );
-                          },
-                          child: Column(
-                            children: [
-                              ListTile(
-                                textColor: Colors.black87,
-                                title: Text(
-                                  e.name,
-                                  textAlign: TextAlign.start,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
+                        (e) => Card(
+                          elevation: 2,
+                          color: GalegosUiDefaut.theme.cardTheme.color,
+                          child: InkWell(
+                            splashColor: GalegosUiDefaut.theme.splashColor,
+                            borderRadius: BorderRadius.circular(8),
+                            // onTap: () => _showItemDetailDialog(context, e),
+                            onTap: () {
+                              controller.setSelectedItem(e);
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialogDefault(
+                                    visible:
+                                        controller.quantity > 0 && controller.alreadyAdded == true,
+                                    plusMinus: Obx(() {
+                                      return GalegosPlusMinus(
+                                        addCallback: controller.addProductUnit,
+                                        removeCallback: controller.removeProductUnit,
+                                        quantityUnit: controller.quantity,
+                                      );
+                                    }),
+                                    item: e,
+                                    onPressed: () {
+                                      controller.addItemsToCart();
+                                      Get.snackbar(
+                                        'Item: ${e.name}',
+                                        'Item adicionado ao carrinho',
+                                        snackPosition: SnackPosition.TOP,
+                                        duration: Duration(seconds: 1),
+                                        backgroundColor: Color(0xFFE2933C),
+                                        colorText: Colors.black,
+                                        isDismissible: true,
+                                        overlayBlur: 0,
+                                        overlayColor: Colors.transparent,
+                                        barBlur: 0,
+                                      );
+                                      log('Item clicado: ${e.name} - ${e.price}');
+                                    },
+                                    onPressedR: () {
+                                      controller.removeAllProductsUnit();
+                                      controller.addItemsToCart();
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  textColor: Colors.black87,
+                                  title: Text(
+                                    e.name,
+                                    textAlign: TextAlign.start,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    e.description ?? '',
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  trailing: Text(
+                                    FormatterHelper.formatCurrency(e.price),
+                                    style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                                subtitle: Text(
-                                  e.description ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                                  child: const Divider(
+                                      height: 0.5, thickness: 1, color: Colors.black26),
                                 ),
-                                trailing: Text(
-                                  FormatterHelper.formatCurrency(e.price),
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                                child:
-                                    const Divider(height: 0.5, thickness: 1, color: Colors.black26),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
