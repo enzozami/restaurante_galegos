@@ -142,7 +142,7 @@
                 {
                     "id": 10,
                     "categoryId": "Lanches",
-                    "temHoje": true,
+                    "temHoje": false,
                     "name": "Americano",
                     "price": 15.0,
                     "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",

@@ -58,7 +58,7 @@ class ProductItems extends GetView<ProductsController> {
                               builder: (context) {
                                 return AlertProductsLunchboxesAdm(
                                   onPressed: () {
-                                    controller.teraHoje();
+                                    controller.updateListItems(modelProduct.id, e);
                                     log('${controller.temHoje.value}');
                                     Get.back();
                                   },

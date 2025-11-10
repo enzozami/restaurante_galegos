@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
+import 'package:restaurante_galegos/app/core/service/orders_state.dart';
 import 'package:restaurante_galegos/app/models/item.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/services/items/items_services.dart';
@@ -17,6 +18,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final ProductsServices _productsServices;
   final ItemsServices _itemsServices;
   final CarrinhoServices _carrinhoServices;
+  final OrdersState _ordersState;
 
   final ScrollController scrollController = ScrollController();
 
@@ -49,15 +51,17 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   double get totalPrice => _totalPrice.value;
 
   // --- Construtor ---
-  ProductsController({
-    required AuthService authService,
-    required ProductsServices productsServices,
-    required ItemsServices itemsServices,
-    required CarrinhoServices carrinhoServices,
-  })  : _productsServices = productsServices,
+  ProductsController(
+      {required AuthService authService,
+      required ProductsServices productsServices,
+      required ItemsServices itemsServices,
+      required CarrinhoServices carrinhoServices,
+      required OrdersState ordersState})
+      : _productsServices = productsServices,
         _itemsServices = itemsServices,
         _carrinhoServices = carrinhoServices,
-        _authService = authService;
+        _authService = authService,
+        _ordersState = ordersState;
 
   final isAdmin = false.obs;
   final temHoje = true.obs;
@@ -88,10 +92,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   Future<void> onReady() async {
     super.onReady();
     await _fetchProductsAndItems();
-  }
-
-  void teraHoje() {
-    temHoje.value = !temHoje.value;
   }
 
   // 9. Renomeado e tornado privado e mais robusto
@@ -212,5 +212,9 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         ),
       );
     }
+  }
+
+  void updateListItems(int id, Item item) {
+    _ordersState.updateTemHoje(id, item);
   }
 }

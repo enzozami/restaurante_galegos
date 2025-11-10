@@ -13,4 +13,8 @@ class ItemsServicesImpl implements ItemsServices {
 
   @override
   Future<List<Item>> getItems() => _itemsRepository.getItems();
+
+  @override
+  Future<void> updateTemHoje(int id, Item item, bool novoValor) =>
+      _itemsRepository.updateTemHoje(id, item, novoValor);
 }

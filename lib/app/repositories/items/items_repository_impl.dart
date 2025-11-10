@@ -34,4 +34,22 @@ class ItemsRepositoryImpl implements ItemsRepository {
 
     return list.expand((e) => e).map((e) => Item.fromMap(e)).toList();
   }
+
+  @override
+  Future<void> updateTemHoje(int id, Item item, bool novoValor) async {
+    final result = await _restClient.get('/products/$id');
+    if (result.hasError) {}
+
+    final products = Map<String, dynamic>.from(result.body);
+
+    for (var items in products['items']) {
+      if (items['id'] == item.id) {
+        items['temHoje'] = novoValor;
+      }
+    }
+
+    final put = await _restClient.put('/products/$id', products);
+
+    if (put.hasError) {}
+  }
 }

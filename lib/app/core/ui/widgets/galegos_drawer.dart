@@ -17,7 +17,7 @@ class GalegosDrawer extends GetView<AuthService> {
         children: [
           UserAccountsDrawerHeader(
             accountName: Text(
-              controller.getUserName()!,
+              controller.getUserName() ?? '',
               style: TextStyle(
                 color: GalegosUiDefaut.colorScheme.onPrimary,
                 fontWeight: FontWeight.bold,
