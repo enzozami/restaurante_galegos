@@ -42,4 +42,12 @@ class LunchboxesRepositoryImpl implements LunchboxesRepository {
 
     return menuList;
   }
+
+  @override
+  Future<void> updateTemHoje(int id, FoodModel food, bool novoValor) async {
+    final result = await _restClient.put('/alimentos/$id', {
+      'temHoje': novoValor,
+    });
+    if (result.hasError) {}
+  }
 }

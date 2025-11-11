@@ -20,11 +20,11 @@ class LunchboxesGroup extends GetView<LunchboxesController> {
           shrinkWrap: true,
           itemCount: alimentos.length,
           itemBuilder: (context, index) {
-            final alimento = alimentos[index];
+            // final alimento = alimentos[index];
             return Column(
               children: [
                 AlimentosWidget(
-                  alimentoModel: alimento,
+                  alimentoModel: alimentos.value[index],
                 ),
               ],
             );

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
 import 'package:restaurante_galegos/app/core/rest_client/via_cep_service.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
+import 'package:restaurante_galegos/app/core/service/food_service.dart';
 import 'package:restaurante_galegos/app/core/service/orders_state.dart';
 import 'package:restaurante_galegos/app/core/service/products_service.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
@@ -62,6 +63,8 @@ class HomeBindings implements Bindings {
       () => LunchboxesController(
         lunchboxesServices: Get.find<LunchboxesServices>(),
         carrinhoServices: Get.find<CarrinhoServices>(),
+        foodService: Get.find<FoodService>(),
+        authService: Get.find<AuthService>(),
       ),
     );
 
@@ -125,6 +128,12 @@ class HomeBindings implements Bindings {
     Get.lazyPut(
       () => ProductsService(
         itemsServices: Get.find<ItemsServices>(),
+      ),
+    );
+
+    Get.lazyPut(
+      () => FoodService(
+        lunchboxesServices: Get.find<LunchboxesServices>(),
       ),
     );
 

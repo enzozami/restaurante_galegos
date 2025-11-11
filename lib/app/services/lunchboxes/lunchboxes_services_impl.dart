@@ -15,4 +15,8 @@ class LunchboxesServicesImpl implements LunchboxesServices {
 
   @override
   Future<List<MenuModel>> getMenu() => _lunchboxesRepository.getMenu();
+
+  @override
+  Future<void> updateTemHoje(int id, FoodModel food, bool novoValor) =>
+      _lunchboxesRepository.updateTemHoje(id, food, novoValor);
 }
