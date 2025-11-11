@@ -36,9 +36,11 @@ class AllOrdersBindings implements Bindings {
       ),
     );
 
-    await Get.putAsync(() async => OrdersState(
-          orderServices: Get.find<OrderServices>(),
-        ).init());
+    await Get.putAsync(
+      () async => OrdersState(
+        orderServices: Get.find<OrderServices>(),
+      ).init(),
+    );
 
     Get.put(
       AllOrdersController(

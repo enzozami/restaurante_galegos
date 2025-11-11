@@ -13,8 +13,6 @@ class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
 
-  final status = ''.obs;
-
   AllOrdersController({
     required OrderFinishedServices orderFinishedServices,
     required OrdersState ordersState,

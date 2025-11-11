@@ -47,12 +47,6 @@ class GalegosDrawer extends GetView<AuthService> {
             },
           ),
           ButtonDrawer(
-            title: 'Histórico',
-            onTap: () {
-              Get.toNamed('/history');
-            },
-          ),
-          ButtonDrawer(
             title: 'Sair',
             onTap: AuthService().logout,
           ),

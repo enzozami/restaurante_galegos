@@ -71,12 +71,20 @@ class HomePage extends GetView<HomeController> {
               label: 'Marmitas',
             ),
             NavigationDestination(
-                icon: IconBadge(
-                  icon: Icons.shopping_cart_outlined,
-                  color: Colors.black,
-                  number: controller.totalProducts,
-                ),
-                label: 'Carrinho'),
+              icon: IconBadge(
+                icon: Icons.shopping_cart_outlined,
+                color: Colors.black,
+                number: controller.totalProducts,
+              ),
+              label: 'Carrinho',
+            ),
+            NavigationDestination(
+              icon: Icon(
+                Icons.receipt_long,
+                color: Colors.black,
+              ),
+              label: 'Pedidos',
+            ),
           ];
         }
         return NavigationBar(
