@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
+import 'package:restaurante_galegos/app/modules/history/history_page.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_page.dart';
 import 'package:restaurante_galegos/app/modules/order/all_orders/all_orders_page.dart';
 import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_page.dart';
@@ -48,6 +49,7 @@ class HomeController extends GetxController {
         ProductsPage(),
         LunchboxesPage(),
         ShoppingCardPage(),
+        HistoryPage(),
       ];
     }
   }

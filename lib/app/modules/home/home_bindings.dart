@@ -5,6 +5,7 @@ import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/service/food_service.dart';
 import 'package:restaurante_galegos/app/core/service/orders_state.dart';
 import 'package:restaurante_galegos/app/core/service/products_service.dart';
+import 'package:restaurante_galegos/app/modules/history/history_controller.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
 import 'package:restaurante_galegos/app/modules/order/all_orders/all_orders_controller.dart';
 import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_controller.dart';
@@ -145,6 +146,13 @@ class HomeBindings implements Bindings {
         productsService: Get.find<ProductsService>(),
       ),
       fenix: true,
+    );
+
+    Get.lazyPut(
+      () => HistoryController(
+        authService: Get.find<AuthService>(),
+        ordersState: Get.find<OrdersState>(),
+      ),
     );
 
     Get.lazyPut<HomeController>(

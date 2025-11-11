@@ -47,11 +47,14 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                 width: context.widthTransformer(reducedBy: 10),
                 child: Obx(() {
                   controller.listOrder();
+                  final inverso = controller.listOrder.reversed.toList();
 
-                  return ListView(
+                  return ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    children: controller.listOrder.map((e) {
+                    itemCount: inverso.length,
+                    itemBuilder: (context, index) {
+                      final e = inverso[index];
                       final carrinho = e.cart
                           .map((item) => item.item.alimento?.name ?? item.item.produto?.name ?? '')
                           .toList()
@@ -118,7 +121,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                           ),
                         ),
                       );
-                    }).toList(),
+                    },
                   );
                 }),
               ),
