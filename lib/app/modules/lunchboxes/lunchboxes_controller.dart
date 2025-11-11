@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
+import 'package:restaurante_galegos/app/core/service/auth_service.dart';
+import 'package:restaurante_galegos/app/core/service/food_service.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
@@ -11,6 +13,8 @@ import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart
 class LunchboxesController extends GetxController with LoaderMixin, MessagesMixin {
   final LunchboxesServices _lunchboxesServices;
   final CarrinhoServices _carrinhoServices;
+  final FoodService _foodService;
+  final AuthService _authService;
 
   // --- ESTADO REATIVO CENTRALIZADO ---
   final _loading = false.obs;
@@ -21,8 +25,8 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   final availableSizes = <String>[].obs;
   final _availableSizesOriginal = <String>[];
 
-  final alimentos = <FoodModel>[].obs;
-  final _alimentosOriginal = <FoodModel>[];
+  RxList<FoodModel> get alimentos => _foodService.alimentos;
+  final alimentosFiltrados = <FoodModel>[].obs;
 
   // 3. O dia atual deve ser um Rx ou ser calculado na UI, mas manter como final para simplicidade.
   final dayNow = FormatterHelper.formatDate();
@@ -44,16 +48,28 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   LunchboxesController({
     required LunchboxesServices lunchboxesServices,
     required CarrinhoServices carrinhoServices,
+    required FoodService foodService,
+    required AuthService authService,
   })  : _lunchboxesServices = lunchboxesServices,
-        _carrinhoServices = carrinhoServices;
+        _carrinhoServices = carrinhoServices,
+        _foodService = foodService,
+        _authService = authService;
+
+  bool get admin => _authService.isAdmin();
+  void updateListFoods(int id, FoodModel food) => _foodService.updateTemHoje(id, food);
 
   @override
   void onInit() {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
+
     ever<int>(_quantity, (quantity) {
       _totalPrice(selectedFood?.pricePerSize[sizeSelected.value]);
+    });
+
+    ever<List<FoodModel>>(alimentos, (_) {
+      alimentos.where((e) => e.temHoje).toList();
     });
   }
 
@@ -67,8 +83,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     try {
       _loading(true);
       final menuData = await _lunchboxesServices.getMenu();
-      final alimentosData = await _lunchboxesServices.getFood();
-
       final List<String> sizesList = List<String>.from(menuData.first.pricePerSize);
 
       availableSizes.assignAll(sizesList);
@@ -76,13 +90,8 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
         ..clear()
         ..addAll(sizesList);
 
-      final filtered = alimentosData.where((e) => e.dayName == dayNow);
-
-      alimentos.assignAll(filtered);
-      _alimentosOriginal
-        ..clear()
-        ..addAll(filtered);
-      _loading.toggle();
+      _foodService.refreshFood();
+      _loading(false);
     } catch (e, s) {
       _loading(false);
       log('Erro ao carregar marmitas', error: e, stackTrace: s);
@@ -100,8 +109,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   void filterPrice(String selectedSize) {
     try {
-      // _loading(true);
-
       if (sizeSelected.value == selectedSize) {
         sizeSelected.value = '';
         availableSizes.assignAll(_availableSizesOriginal);
@@ -110,12 +117,21 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
       sizeSelected.value = selectedSize;
 
-      final filtered = _alimentosOriginal.where((alimento) {
+      final filtered = alimentos.where((alimento) {
         return alimento.pricePerSize.containsKey((selectedSize));
       }).toList();
 
       availableSizes.assignAll(
-          filtered.map((e) => e.pricePerSize.keys.toList()).expand((e) => e).toSet().toList());
+        filtered
+            .map(
+              (e) => e.pricePerSize.keys.toList(),
+            )
+            .expand(
+              (e) => e,
+            )
+            .toSet()
+            .toList(),
+      );
     } catch (e, s) {
       _loading(false);
       log('Erro ao filtar marmitas', error: e, stackTrace: s);
