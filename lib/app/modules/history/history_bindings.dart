@@ -8,7 +8,7 @@ class HistoryBindings implements Bindings {
   @override
   Future<void> dependencies() async {
     await Get.putAsync(
-      () async => OrdersState(
+      () async => await OrdersState(
         orderServices: Get.find<OrderServices>(),
       ).init(),
     );

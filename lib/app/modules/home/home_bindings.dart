@@ -88,6 +88,7 @@ class HomeBindings implements Bindings {
         carrinhoServices: Get.find<CarrinhoServices>(),
         authService: Get.find<AuthService>(),
         cepServices: Get.find<CepServices>(),
+        ordersState: Get.find<OrdersState>(),
       ),
     );
 

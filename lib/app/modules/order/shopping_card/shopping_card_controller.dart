@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
+import 'package:restaurante_galegos/app/core/service/orders_state.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
@@ -17,6 +18,7 @@ import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart
 
 class ShoppingCardController extends GetxController with LoaderMixin, MessagesMixin {
   final OrderServices _orderServices;
+  final OrdersState _ordersState;
   final AuthService _authService;
   final CepServices _cepServices;
 
@@ -62,13 +64,15 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
 
   ShoppingCardController({
     required OrderServices orderServices,
+    required OrdersState ordersState,
     required AuthService authService,
     required CarrinhoServices carrinhoServices,
     required CepServices cepServices,
   })  : _orderServices = orderServices,
         _authService = authService,
         _carrinhoServices = carrinhoServices,
-        _cepServices = cepServices;
+        _cepServices = cepServices,
+        _ordersState = ordersState;
 
   List<CarrinhoModel> get products => _carrinhoServices.itensCarrinho;
 
@@ -179,6 +183,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
         time: time,
       );
       await _orderServices.createOrder(order);
+      await _ordersState.refreshOrders();
       reset();
 
       _loading(false);
