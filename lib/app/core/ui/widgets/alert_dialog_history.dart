@@ -48,154 +48,154 @@ class AlertDialogHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = GalegosUiDefaut.colorScheme;
+
+    Widget sectionTitle(String text) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: colors.primary,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+
+    Widget infoLine(String label, String value, {bool bold = false}) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+          child: Text(
+            '$label$value',
+            style: TextStyle(
+              color: colors.secondary,
+              fontWeight: bold ? FontWeight.w600 : FontWeight.normal,
+            ),
+            overflow: TextOverflow.ellipsis,
+          ),
+        );
     return AlertDialog(
-      backgroundColor: Colors.black,
-      titlePadding: const EdgeInsets.only(top: 20, left: 24, right: 24, bottom: 0),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-      actionsPadding: const EdgeInsets.all(20),
+      backgroundColor: GalegosUiDefaut.colorScheme.onPrimary,
+      titlePadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
+      contentPadding: const EdgeInsets.only(top: 15, left: 10, right: 15, bottom: 10),
+      actionsPadding: const EdgeInsets.only(top: 20, left: 0, right: 20, bottom: 20),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: Text(
-              'Pedido: $pedidoLabel',
+              'Pedido $pedidoLabel',
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFFFFAF5),
+                fontSize: 18,
+                color: colors.primary,
               ),
             ),
           ),
+          Text(
+            statusPedido[0].toUpperCase() + statusPedido.substring(1),
+            style: TextStyle(
+              color: colors.primary,
+              fontSize: 13,
+            ),
+          )
         ],
       ),
-      content: Container(
-        decoration: BoxDecoration(
-          color: GalegosUiDefaut.colorScheme.primary,
-          borderRadius: BorderRadius.circular(20),
+      content: ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: context.width,
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Dados:',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10),
+                child: sectionTitle(
+                  'Dados',
                 ),
               ),
-              Text(
-                'Nome: $nomeCliente',
-                style: const TextStyle(color: Colors.black),
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
+              infoLine('Nome: ', nomeCliente),
+              infoLine(
+                '',
                 cpfOrCnpj,
-                style: const TextStyle(color: Colors.black),
-                overflow: TextOverflow.ellipsis,
               ),
               Divider(
-                color: Colors.black,
+                color: GalegosUiDefaut.colorScheme.secondary,
               ),
-              Text(
-                'Descrição:',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
+              sectionTitle(
+                'Descrição',
               ),
-              Text(
+              infoLine(
+                '',
                 carrinhoName,
-                style: const TextStyle(color: Colors.black),
               ),
               Divider(
-                color: Colors.black,
+                color: GalegosUiDefaut.colorScheme.secondary,
               ),
-              Text(
-                'Detalhes:',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
+              sectionTitle(
+                'Detalhes',
               ),
-              Text(
+              infoLine(
+                'Data: ',
                 data,
-                style: const TextStyle(color: Colors.black),
-                overflow: TextOverflow.ellipsis,
               ),
-              Text('Horário do pedido: $horarioInicio'),
-              Text('Horário entrega: $horarioSairEntrega'),
-              Text('Horário entregue: $horarioEntregue'),
+              infoLine(
+                'Horário do pedido: ',
+                horarioInicio,
+              ),
+              infoLine(
+                'Horário entregue: ',
+                horarioEntregue,
+              ),
               Divider(
-                color: Colors.black,
+                color: GalegosUiDefaut.colorScheme.secondary,
               ),
-              Text(
+              sectionTitle(
                 'Endereço:',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
               ),
-              Text(
-                'Rua: $rua',
-                style: const TextStyle(color: Colors.black),
-                overflow: TextOverflow.ellipsis,
+              infoLine(
+                'Rua: ',
+                rua,
               ),
-              Text(
-                'Número: $numeroResidencia',
-                style: const TextStyle(color: Colors.black),
-                overflow: TextOverflow.ellipsis,
+              infoLine(
+                'Número: ',
+                numeroResidencia,
               ),
-              Text(
-                'Bairro: $bairro',
-                style: const TextStyle(color: Colors.black),
-                overflow: TextOverflow.ellipsis,
+              infoLine(
+                'Bairro: ',
+                bairro,
               ),
-              Text(
-                'Cidade: $cidade',
-                style: const TextStyle(color: Colors.black),
-                overflow: TextOverflow.ellipsis,
+              infoLine(
+                'Cidade: ',
+                cidade,
               ),
-              Text(
-                'Estado: $estado',
-                style: const TextStyle(color: Colors.black),
-                overflow: TextOverflow.ellipsis,
+              infoLine(
+                'Estado: ',
+                estado,
               ),
-              Text(
-                'CEP: $cep',
-                style: const TextStyle(color: Colors.black),
-                overflow: TextOverflow.ellipsis,
+              infoLine(
+                'CEP: ',
+                cep,
               ),
               Divider(
-                color: Colors.black,
+                color: GalegosUiDefaut.colorScheme.secondary,
               ),
-              Text(
-                'Total dos itens: $valor',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
+              sectionTitle('Valores'),
+              infoLine(
+                'Total dos itens: ',
+                valor,
               ),
-              Text(
-                'Taxa de entrega: $taxa',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
+              infoLine(
+                'Taxa de entrega: ',
+                taxa,
               ),
-              Text(
-                'Valor final: $total',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
+              infoLine(
+                'Valor final: ',
+                total,
+                bold: true,
               ),
             ],
           ),

@@ -26,7 +26,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
 
   final isOpen = true.obs;
 
-  final date = FormatterHelper.formatDate();
+  final date = FormatterHelper.formatDateNumber();
   final time = FormatterHelper.formatDateAndTime();
 
   @override
@@ -159,9 +159,6 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
 
       final idOrder = await _orderServices.getIdOrder();
       final idSequencial = idOrder.id + 1;
-
-      log('ID PEDIDOS ${idOrder.id}');
-      log('ID SEQUENCIAL $idSequencial');
 
       final order = PedidoModel(
         id: idSequencial,

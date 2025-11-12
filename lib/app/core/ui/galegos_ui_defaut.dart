@@ -7,7 +7,7 @@ class GalegosUiDefaut {
     brightness: Brightness.light,
     primary: Color(0xFFE2933C),
     onPrimary: Colors.black,
-    secondary: Color(0xFFFFFAF5),
+    secondary: Color(0xFFFFEBD6),
     onSecondary: Colors.black,
     tertiary: const Color(0xFFFFFFFF),
     onTertiary: Colors.black,
