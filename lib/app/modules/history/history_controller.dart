@@ -39,10 +39,10 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
     super.onReady();
     _getHistory();
 
-    ever<List<PedidoModel>>(allOrders, (_) {
+    ever<List<PedidoModel>>(allOrders, (_) async {
       final id = _authService.getUserId();
       if (id != null) {
-        history.assignAll(allOrders.where((e) => e.userId == id));
+        history.assignAll(allOrders.where((e) => e.userId == id && e.status != 'entregue'));
       }
     });
   }
@@ -50,6 +50,7 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
   Future<void> _getHistory() async {
     try {
       await _ordersState.refreshOrders();
+
       final id = _authService.getUserId();
       if (id != null) {
         final historyData = allOrders.where((e) => e.userId == id);

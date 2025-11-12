@@ -37,7 +37,7 @@ class ForDeliveryController extends GetxController with LoaderMixin, MessagesMix
     await _orderFinishedServices.orderFinished(
       pedido.copyWith(status: 'entregue', timeFinished: newTime),
     );
-    _orderFinishedServices.changeStatusFinished(pedido);
+    _orderFinishedServices.changeStatusFinished(pedido.copyWith(timeFinished: newTime));
     _ordersState.update(pedido, 'entregue');
   }
 }

@@ -45,58 +45,70 @@ class ProductItems extends GetView<ProductsController> {
                   width: context.width,
                   child: Column(
                     children: [
-                      ...items.map(
-                        (e) => Card(
-                          elevation: 2,
-                          color: GalegosUiDefaut.theme.cardTheme.color,
-                          child: InkWell(
-                            splashColor: GalegosUiDefaut.theme.splashColor,
-                            borderRadius: BorderRadius.circular(8),
-                            onTap: () {
-                              controller.setSelectedItem(e);
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertProductsLunchboxesAdm(
-                                    title: 'ATENÇÃO',
-                                    body: e.temHoje
-                                        ? 'Deseja desabilitar esse produto?'
-                                        : 'Deseja habilitar esse produto?',
-                                    onPressed: () async {
-                                      controller.updateListItems(modelProduct.id, e);
-                                      Get.back();
+                      ...items.where((e) => e.categoryId == modelProduct.category).map(
+                            (e) => Card(
+                              elevation: 2,
+                              color: GalegosUiDefaut.theme.cardTheme.color,
+                              child: InkWell(
+                                splashColor: GalegosUiDefaut.theme.splashColor,
+                                borderRadius: BorderRadius.circular(8),
+                                onTap: () {
+                                  controller.setSelectedItem(e);
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertProductsLunchboxesAdm(
+                                        title: 'ATENÇÃO',
+                                        body: e.temHoje
+                                            ? 'Deseja desabilitar esse produto?'
+                                            : 'Deseja habilitar esse produto?',
+                                        onPressed: () async {
+                                          controller.updateListItems(modelProduct.id, e);
+                                          Get.back();
+                                        },
+                                      );
                                     },
                                   );
                                 },
-                              );
-                            },
-                            child: ListTile(
-                              textColor: Colors.black87,
-                              leading: e.temHoje ? Text('Ativo') : Text('Inativo'),
-                              title: Text(
-                                e.name,
-                                textAlign: TextAlign.start,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              subtitle: Text(
-                                e.description ?? '',
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              trailing: Text(
-                                FormatterHelper.formatCurrency(e.price),
-                                style: const TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
+                                child: ListTile(
+                                  textColor: Colors.black87,
+                                  leading: e.temHoje
+                                      ? Text(
+                                          'Ativo',
+                                          style: TextStyle(
+                                            color: Colors.green,
+                                          ),
+                                        )
+                                      : Text(
+                                          'Inativo',
+                                          style: TextStyle(
+                                            color: GalegosUiDefaut.colorScheme.error,
+                                          ),
+                                        ),
+                                  title: Text(
+                                    e.name,
+                                    textAlign: TextAlign.start,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    e.description ?? '',
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  trailing: Text(
+                                    FormatterHelper.formatCurrency(e.price),
+                                    style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
                       const SizedBox(height: 8),
                     ],
                   ),

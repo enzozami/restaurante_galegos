@@ -62,6 +62,7 @@ class OrderFinishedRepositoryImpl implements OrderFinishedRepository {
   Future<void> changeStatusFinished(PedidoModel pedido) async {
     final result = await _restClient.patch('/orders/${pedido.id}', {
       'status': 'entregue',
+      'timeFinished': pedido.timeFinished,
     });
 
     if (result.hasError) {}
