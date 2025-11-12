@@ -68,7 +68,19 @@ class AlimentosWidget extends GetView<LunchboxesController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               ListTile(
-                                leading: alimentoModel.temHoje ? Text('Ativo') : Text('Inativo'),
+                                leading: alimentoModel.temHoje
+                                    ? Text(
+                                        'Ativo',
+                                        style: TextStyle(
+                                          color: Colors.green,
+                                        ),
+                                      )
+                                    : Text(
+                                        'Inativo',
+                                        style: TextStyle(
+                                          color: GalegosUiDefaut.colorScheme.error,
+                                        ),
+                                      ),
                                 title: Text(
                                   alimentoModel.name,
                                   style: TextStyle(

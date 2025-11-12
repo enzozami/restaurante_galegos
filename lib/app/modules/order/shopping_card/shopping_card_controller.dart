@@ -181,6 +181,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
         cpfOrCnpj: cpfOrCnpj ?? '',
         date: date,
         time: time,
+        timeFinished: '',
       );
       await _orderServices.createOrder(order);
       await _ordersState.refreshOrders();

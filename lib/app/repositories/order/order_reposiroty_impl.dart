@@ -13,7 +13,6 @@ class OrderReposirotyImpl implements OrderReposiroty {
 
   @override
   Future<CarrinhoModel> createOrder(PedidoModel order) async {
-    log('PEDIDO: ${order.toString()}');
     final result = await _restClient.post('/orders', {
       'id': order.id,
       'userId': order.userId,
@@ -30,6 +29,7 @@ class OrderReposirotyImpl implements OrderReposiroty {
       'amountToPay': order.amountToPay,
       'status': order.status,
       'time': order.time,
+      'timeFinished': order.timeFinished,
       'date': order.date,
     });
 
