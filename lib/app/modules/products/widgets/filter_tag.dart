@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 
 class FilterTag extends StatelessWidget {
@@ -30,14 +31,14 @@ class FilterTag extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border.all(),
               borderRadius: BorderRadius.circular(30),
-              color: isSelected ? Color(0xFFE2933C) : Colors.black,
+              color: isSelected ? GalegosUiDefaut.colorScheme.primary : Colors.black,
             ),
             child: Align(
               alignment: Alignment.center,
               child: Text(
                 model.category,
                 style: TextStyle(
-                  color: isSelected ? Colors.black : Color(0xFFE2933C),
+                  color: isSelected ? Colors.black : GalegosUiDefaut.colorScheme.primary,
                 ),
               ),
             ),
