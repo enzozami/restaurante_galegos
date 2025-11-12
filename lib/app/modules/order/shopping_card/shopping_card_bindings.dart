@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
 import 'package:restaurante_galegos/app/core/rest_client/via_cep_service.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
+import 'package:restaurante_galegos/app/core/service/orders_state.dart';
 import 'package:restaurante_galegos/app/repositories/cep/cep_repository.dart';
 import 'package:restaurante_galegos/app/repositories/cep/cep_repository_impl.dart';
 import 'package:restaurante_galegos/app/repositories/order/order_reposiroty.dart';
@@ -44,6 +45,7 @@ class ShoppingCardBindings implements Bindings {
         orderServices: Get.find<OrderServices>(),
         carrinhoServices: Get.find<CarrinhoServices>(),
         cepServices: Get.find<CepServices>(),
+        ordersState: Get.find<OrdersState>(),
       ),
     );
   }

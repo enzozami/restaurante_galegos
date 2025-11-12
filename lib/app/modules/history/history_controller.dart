@@ -25,6 +25,8 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
 
   final history = <PedidoModel>[].obs;
 
+  RxList<PedidoModel> get allOrders => _ordersState.all;
+
   @override
   void onInit() {
     super.onInit();
@@ -35,23 +37,22 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
   @override
   void onReady() {
     super.onReady();
-    getHistory();
+    _getHistory();
 
-    ever<List<PedidoModel>>(_ordersState.all, (_) {
+    ever<List<PedidoModel>>(allOrders, (_) {
       final id = _authService.getUserId();
       if (id != null) {
-        final historyData = _ordersState.all.where((e) => e.userId == id);
-        history.assignAll(historyData);
+        history.assignAll(allOrders.where((e) => e.userId == id));
       }
     });
   }
 
-  Future<void> getHistory() async {
+  Future<void> _getHistory() async {
     try {
       await _ordersState.refreshOrders();
       final id = _authService.getUserId();
       if (id != null) {
-        final historyData = _ordersState.all.where((e) => e.userId == id);
+        final historyData = allOrders.where((e) => e.userId == id);
         history.assignAll(historyData);
       }
     } catch (e) {
