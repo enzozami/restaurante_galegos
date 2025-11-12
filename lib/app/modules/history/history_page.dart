@@ -118,7 +118,7 @@ class HistoryPage extends GetView<HistoryController> {
                             ),
                             // subtitle: Text('Itens no carrinho: ${e.cart.length}'),
                             subtitle: Text(e.status.toUpperCase()),
-                            leading: Text('Pedido: ${e.id}'),
+                            leading: Text(e.date),
                             trailing: Text('Total: $total'),
                           ),
                         ),
