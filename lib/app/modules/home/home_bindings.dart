@@ -16,38 +16,28 @@ import 'package:restaurante_galegos/app/repositories/cep/cep_repository.dart';
 import 'package:restaurante_galegos/app/repositories/cep/cep_repository_impl.dart';
 import 'package:restaurante_galegos/app/repositories/finished/order_finished_repository.dart';
 import 'package:restaurante_galegos/app/repositories/finished/order_finished_repository_impl.dart';
-import 'package:restaurante_galegos/app/repositories/items/items_repository.dart';
-import 'package:restaurante_galegos/app/repositories/items/items_repository_impl.dart';
+import 'package:restaurante_galegos/app/repositories/products/products_repository.dart';
+import 'package:restaurante_galegos/app/repositories/products/products_repository_impl.dart';
 import 'package:restaurante_galegos/app/repositories/lunchboxes/lunchboxes_repository.dart';
 import 'package:restaurante_galegos/app/repositories/lunchboxes/lunchboxes_repository_impl.dart';
 import 'package:restaurante_galegos/app/repositories/order/order_reposiroty.dart';
 import 'package:restaurante_galegos/app/repositories/order/order_reposiroty_impl.dart';
-import 'package:restaurante_galegos/app/repositories/products/products_repository.dart';
-import 'package:restaurante_galegos/app/repositories/products/products_repository_impl.dart';
 import 'package:restaurante_galegos/app/services/cep/cep_services.dart';
 import 'package:restaurante_galegos/app/services/cep/cep_services_impl.dart';
 import 'package:restaurante_galegos/app/services/finished/order_finished_services.dart';
 import 'package:restaurante_galegos/app/services/finished/order_finished_services_impl.dart';
-import 'package:restaurante_galegos/app/services/items/items_services.dart';
-import 'package:restaurante_galegos/app/services/items/items_services_impl.dart';
+import 'package:restaurante_galegos/app/services/products/products_services.dart';
+import 'package:restaurante_galegos/app/services/products/products_services_impl.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services_impl.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services_impl.dart';
-import 'package:restaurante_galegos/app/services/products/products_services.dart';
-import 'package:restaurante_galegos/app/services/products/products_services_impl.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 import './home_controller.dart';
 
 class HomeBindings implements Bindings {
   @override
   Future<void> dependencies() async {
-    Get.lazyPut<ItemsRepository>(() => ItemsRepositoryImpl(restClient: Get.find<RestClient>()));
-    Get.lazyPut<ItemsServices>(
-      () => ItemsServicesImpl(
-          itemsRepository: Get.find<ItemsRepository>(),
-          productsRepository: Get.find<ProductsRepository>()),
-    );
     Get.lazyPut<ProductsRepository>(
         () => ProductsRepositoryImpl(restClient: Get.find<RestClient>()));
     Get.lazyPut<ProductsServices>(
@@ -129,7 +119,7 @@ class HomeBindings implements Bindings {
     );
     Get.lazyPut(
       () => ProductsService(
-        itemsServices: Get.find<ItemsServices>(),
+        itemsServices: Get.find<ProductsServices>(),
       ),
     );
 

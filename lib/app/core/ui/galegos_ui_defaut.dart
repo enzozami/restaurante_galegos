@@ -51,6 +51,10 @@ class GalegosUiDefaut {
       scrolledUnderElevation: 0,
     ),
     primaryColorDark: Colors.black,
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: colorScheme.onPrimary,
+      foregroundColor: colorScheme.primary,
+    ),
     navigationBarTheme: NavigationBarThemeData(
       indicatorColor: const Color.fromARGB(30, 0, 0, 0),
       backgroundColor: const Color(0xFFE2933C),

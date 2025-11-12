@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
-import 'package:restaurante_galegos/app/models/item.dart';
+import 'package:restaurante_galegos/app/models/product_model.dart';
 
 class AlertDialogDefault extends StatelessWidget {
-  final Item? item;
+  final ProductModel? item;
   final FoodModel? alimento;
   final VoidCallback onPressed;
   final VoidCallback onPressedR;
