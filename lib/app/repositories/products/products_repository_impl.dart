@@ -14,28 +14,30 @@ class ProductsRepositoryImpl implements ProductsRepository {
     final result = await _restClient.get('/products');
 
     if (result.hasError) {
-      log('Erro ao carregar items', error: result.statusText, stackTrace: StackTrace.current);
+      log(
+        'Erro ao carregar items',
+        error: result.statusText,
+        stackTrace: StackTrace.current,
+      );
       RestClientException(message: 'Erro ao carregar itens');
     }
+    final data = (result.body as List);
 
-    return [];
+    return data.map((e) => ProductModel.fromMap(e)).toList();
   }
 
   @override
   Future<void> updateTemHoje(int id, ProductModel item, bool novoValor) async {
-    final result = await _restClient.get('/products/$id');
-    if (result.hasError) {}
-
-    final products = Map<String, dynamic>.from(result.body);
-
-    for (var items in products['items']) {
-      if (items['id'] == item.id) {
-        items['temHoje'] = novoValor;
-      }
+    final result = await _restClient.put('/products/$id', {
+      'temHoje': novoValor,
+    });
+    if (result.hasError) {
+      log(
+        'Erro ao atualizar (temHoje)',
+        error: result.statusText,
+        stackTrace: StackTrace.current,
+      );
+      RestClientException(message: 'Erro ao atualizar (temHoje)');
     }
-
-    final put = await _restClient.put('/products/$id', products);
-
-    if (put.hasError) {}
   }
 }
