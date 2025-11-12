@@ -1,6 +1,6 @@
 # Environment/Secrets
 .env
-backend/
+/backend/
 
 # Miscellaneous
 *.class
