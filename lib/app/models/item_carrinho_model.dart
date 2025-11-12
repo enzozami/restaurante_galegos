@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:restaurante_galegos/app/models/food_model.dart';
-import 'package:restaurante_galegos/app/models/item.dart';
+import 'package:restaurante_galegos/app/models/product_model.dart';
 
 class ItemCarrinhoModel {
-  Item? produto;
+  ProductModel? produto;
   FoodModel? alimento;
   int quantidade;
   String? tamanho;
@@ -30,7 +30,7 @@ class ItemCarrinhoModel {
 
   factory ItemCarrinhoModel.fromMap(Map<String, dynamic> map) {
     return ItemCarrinhoModel(
-      produto: map['produto'] != null ? Item.fromMap(map['produto']) : null,
+      produto: map['produto'] != null ? ProductModel.fromMap(map['produto']) : null,
       alimento: map['alimento'] != null ? FoodModel.fromMap(map['alimento']) : null,
       quantidade: map['quantidade']?.toInt() ?? 0,
       tamanho: map['tamanho'],
@@ -44,7 +44,7 @@ class ItemCarrinhoModel {
       ItemCarrinhoModel.fromMap(json.decode(source));
 
   ItemCarrinhoModel copyWith({
-    Item? produto,
+    ProductModel? produto,
     FoodModel? alimento,
     int? quantidade,
     String? tamanho,

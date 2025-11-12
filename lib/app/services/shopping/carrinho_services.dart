@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
-import 'package:restaurante_galegos/app/models/item.dart';
+import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/models/item_carrinho_model.dart';
 
 class CarrinhoServices extends GetxService {
@@ -26,7 +26,7 @@ class CarrinhoServices extends GetxService {
 
   int get totalProducts => carrinho.length;
 
-  void addOrUpdateProduct(Item selected, {required int quantity}) {
+  void addOrUpdateProduct(ProductModel selected, {required int quantity}) {
     if (quantity == 0) {
       carrinho.remove(selected.id);
       return;

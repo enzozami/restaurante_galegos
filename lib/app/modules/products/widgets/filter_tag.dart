@@ -36,7 +36,7 @@ class FilterTag extends StatelessWidget {
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                model.category,
+                model.categoryId,
                 style: TextStyle(
                   color: isSelected ? Colors.black : GalegosUiDefaut.colorScheme.primary,
                 ),

@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/models/item.dart';
-import 'package:restaurante_galegos/app/services/items/items_services.dart';
+import 'package:restaurante_galegos/app/models/product_model.dart';
+import 'package:restaurante_galegos/app/services/products/products_services.dart';
 
 class ProductsService extends GetxService {
-  final ItemsServices _itemsServices;
-  final items = <Item>[].obs;
+  final ProductsServices _itemsServices;
+  final items = <ProductModel>[].obs;
 
   Future<ProductsService> init() async {
     await refreshItens();
@@ -12,10 +12,10 @@ class ProductsService extends GetxService {
   }
 
   ProductsService({
-    required ItemsServices itemsServices,
+    required ProductsServices itemsServices,
   }) : _itemsServices = itemsServices;
 
-  Future<void> updateTemHoje(int id, Item item) async {
+  Future<void> updateTemHoje(int id, ProductModel item) async {
     final novoValor = !item.temHoje;
     await _itemsServices.updateTemHoje(id, item, novoValor);
 
@@ -27,7 +27,7 @@ class ProductsService extends GetxService {
   }
 
   Future<void> refreshItens() async {
-    final data = await _itemsServices.getItems();
+    final data = await _itemsServices.getProducts();
     items.assignAll(data);
   }
 }

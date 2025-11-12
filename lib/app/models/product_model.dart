@@ -1,35 +1,64 @@
 import 'dart:convert';
 
-import 'package:restaurante_galegos/app/models/item.dart';
+import 'package:flutter/widgets.dart';
 
 class ProductModel {
   int id;
-  String category;
-  List<Item> items;
-
+  String categoryId;
+  String name;
+  String? description;
+  bool temHoje;
+  double price;
   ProductModel({
     required this.id,
-    required this.category,
-    required this.items,
+    required this.categoryId,
+    required this.name,
+    this.description,
+    required this.temHoje,
+    required this.price,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'category': category,
-      'items': items.map((x) => x.toMap()).toList(),
+      'categoryId': categoryId,
+      'name': name,
+      'description': description,
+      'temHoje': temHoje,
+      'price': price,
     };
   }
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
       id: map['id']?.toInt() ?? 0,
-      category: map['category'] ?? '',
-      items: List<Item>.from(map['items']?.map((x) => Item.fromMap(x)) ?? const []),
+      categoryId: map['categoryId'] ?? '',
+      name: map['name'] ?? '',
+      description: map['description'],
+      temHoje: map['temHoje'] ?? false,
+      price: map['price']?.toDouble() ?? 0.0,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory ProductModel.fromJson(String source) => ProductModel.fromMap(json.decode(source));
+
+  ProductModel copyWith({
+    int? id,
+    String? categoryId,
+    String? name,
+    ValueGetter<String?>? description,
+    bool? temHoje,
+    double? price,
+  }) {
+    return ProductModel(
+      id: id ?? this.id,
+      categoryId: categoryId ?? this.categoryId,
+      name: name ?? this.name,
+      description: description != null ? description() : this.description,
+      temHoje: temHoje ?? this.temHoje,
+      price: price ?? this.price,
+    );
+  }
 }

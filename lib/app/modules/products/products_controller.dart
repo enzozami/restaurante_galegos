@@ -6,7 +6,6 @@ import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/service/products_service.dart';
-import 'package:restaurante_galegos/app/models/item.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/services/products/products_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
@@ -29,13 +28,14 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   // --- DADOS/ESTADO PÚBLICO REATIVO ---
   // final items = <Item>[].obs;
-  RxList<Item> get items => _productsService.items;
-  final itensFiltrados = <Item>[].obs;
+  RxList<ProductModel> get items => _productsService.items;
+
   final products = <ProductModel>[].obs;
+  final Rx<String?> botao = Rx(null);
 
   // Estado de Seleção
   final categorySelected = Rxn<ProductModel>();
-  final itemSelect = Rxn<Item>();
+  final itemSelect = Rxn<ProductModel>();
 
   // Estado da Compra (para o modal)
   final _quantity = 1.obs;
@@ -43,7 +43,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final _totalPrice = 0.0.obs;
 
   // --- GETTERS ---
-  Item? get selectedItem => itemSelect.value;
+  ProductModel? get selectedItem => itemSelect.value;
   int get quantity => _quantity.value;
   bool get alreadyAdded => _alreadyAdded.value;
   double get totalPrice => _totalPrice.value;
@@ -54,13 +54,13 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     required ProductsServices productsServices,
     required CarrinhoServices carrinhoServices,
     required ProductsService productsService,
-  })  : _productsServices = productsServices,
-        _carrinhoServices = carrinhoServices,
+  })  : _carrinhoServices = carrinhoServices,
         _authService = authService,
+        _productsServices = productsServices,
         _productsService = productsService;
 
   final isAdmin = false.obs;
-  void updateListItems(int id, Item item) => _productsService.updateTemHoje(id, item);
+  void updateListItems(int id, ProductModel item) => _productsService.updateTemHoje(id, item);
 
   @override
   void onInit() {
@@ -78,7 +78,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       _totalPrice(selectedItem?.price);
     });
 
-    ever<List<Item>>(items, (_) {
+    ever<List<ProductModel>>(items, (_) {
       items.where((e) => e.temHoje).toList();
     });
   }
@@ -120,7 +120,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
       final currentCategory = categorySelected.value;
 
-      if (productModel.category == currentCategory?.category) {
+      if (productModel.categoryId == currentCategory?.categoryId) {
         categorySelected.value = null;
         refreshProducts();
         return;
@@ -128,7 +128,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
       categorySelected.value = productModel;
 
-      items.where((e) => e.categoryId == (categorySelected.value?.category ?? '')).toList();
+      items.where((e) => e.categoryId == (categorySelected.value?.categoryId ?? '')).toList();
     } catch (e, s) {
       log('Erro ao filtrar', error: e, stackTrace: s);
     } finally {
@@ -150,7 +150,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     _quantity.value = 0;
   }
 
-  void setSelectedItem(Item item) {
+  void setSelectedItem(ProductModel item) {
     itemSelect.value = item;
 
     final carrinhoItem = _carrinhoServices.getById(item.id);

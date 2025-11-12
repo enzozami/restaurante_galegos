@@ -30,7 +30,7 @@ class ProductItems extends GetView<ProductsController> {
               Padding(
                 padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 16.0),
                 child: Text(
-                  modelProduct.category,
+                  modelProduct.categoryId,
                   style: GalegosUiDefaut.theme.textTheme.titleLarge,
                 ),
               ),
@@ -45,7 +45,7 @@ class ProductItems extends GetView<ProductsController> {
                   width: context.width,
                   child: Column(
                     children: [
-                      ...items.where((e) => e.categoryId == modelProduct.category).map(
+                      ...items.where((e) => e.categoryId == modelProduct.categoryId).map(
                             (e) => Card(
                               elevation: 2,
                               color: GalegosUiDefaut.theme.cardTheme.color,
@@ -122,7 +122,7 @@ class ProductItems extends GetView<ProductsController> {
               Padding(
                 padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 16.0),
                 child: Text(
-                  modelProduct.category,
+                  modelProduct.categoryId,
                   style: GalegosUiDefaut.theme.textTheme.titleLarge,
                 ),
               ),
@@ -138,7 +138,7 @@ class ProductItems extends GetView<ProductsController> {
                   child: Column(
                     children: [
                       ...items.where((e) {
-                        return e.temHoje && e.categoryId == modelProduct.category;
+                        return e.temHoje && e.categoryId == modelProduct.categoryId;
                       }).map(
                         (e) => Card(
                           elevation: 2,
