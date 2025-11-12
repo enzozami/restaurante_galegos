@@ -26,7 +26,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   // Backups para filtragem
   final _productsOriginal = <ProductModel>[];
-  final _itemsOriginal = <Item>[];
 
   // --- DADOS/ESTADO PÚBLICO REATIVO ---
   // final items = <Item>[].obs;
@@ -80,8 +79,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     });
 
     ever<List<Item>>(items, (_) {
-      final filtered = _itemsOriginal.where((e) => e.temHoje).toList();
-      itensFiltrados.assignAll(filtered);
+      items.where((e) => e.temHoje).toList();
     });
   }
 
@@ -102,8 +100,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         ..addAll(productsData);
 
       _productsService.refreshItens();
-      final filtered = _itemsOriginal.where((e) => e.temHoje).toList();
-      itensFiltrados.assignAll(filtered);
     } catch (e, s) {
       log('Erro ao carregar dados', error: e, stackTrace: s);
       _message(
@@ -120,27 +116,19 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   void searchItemsByFilter(ProductModel? productModel) {
     try {
-      // _loading(true);
       if (productModel == null) return;
 
       final currentCategory = categorySelected.value;
 
       if (productModel.category == currentCategory?.category) {
         categorySelected.value = null;
-        products.assignAll(_productsOriginal);
-        items.assignAll(_itemsOriginal);
+        refreshProducts();
         return;
       }
 
       categorySelected.value = productModel;
 
-      final newItems = _itemsOriginal
-          .where(
-            (e) => e.categoryId == (categorySelected.value?.category ?? ''),
-          )
-          .toList();
-
-      items.assignAll(newItems);
+      items.where((e) => e.categoryId == (categorySelected.value?.category ?? '')).toList();
     } catch (e, s) {
       log('Erro ao filtrar', error: e, stackTrace: s);
     } finally {
