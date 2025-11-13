@@ -23,7 +23,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final _message = Rxn<MessageModel>();
 
   // --- DADOS/ESTADO PÚBLICO REATIVO ---
-  final Rx<String?> botao = Rx(null);
+  final Rx<String?> categoryId = Rx(null);
   final itemsFiltrados = <ProductModel>[].obs;
 
   // Estado de Seleção
@@ -56,6 +56,23 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   bool get admin => _authService.isAdmin();
   void updateListItems(int id, ProductModel item) => _productsService.updateTemHoje(id, item);
 
+  void cadastrar(
+    String name,
+    double price,
+    String? description,
+  ) {
+    if (categoryId.value != null) {
+      final category = categoryId.value!;
+
+      _productsService.cadastrarProduto(
+        category,
+        name,
+        price,
+        description,
+      );
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -84,9 +101,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       _loading(true);
       _productsService.refreshCategories();
       _productsService.refreshItens();
-      log('ITEMS - CONTROLLER_PRODUCTS = ${items.value.map((e) => e.name)}');
       itemsFiltrados.assignAll(items);
-      log('ITEMSfiltrados - CONTROLLER_PRODUCTS = ${itemsFiltrados.value.map((e) => e.name)}');
     } catch (e, s) {
       log('Erro ao carregar dados', error: e, stackTrace: s);
       _message(
