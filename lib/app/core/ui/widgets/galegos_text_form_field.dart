@@ -12,6 +12,8 @@ class GalegosTextFormField extends StatelessWidget {
   final bool? enabled;
   final IconButton? icon;
   final ValueChanged<String>? onChanged;
+  final Color? colorText;
+  final Color? colorBorder;
 
   const GalegosTextFormField({
     super.key,
@@ -25,6 +27,8 @@ class GalegosTextFormField extends StatelessWidget {
     required this.floatingLabelBehavior,
     this.icon,
     this.onChanged,
+    this.colorText,
+    this.colorBorder,
   });
 
   @override
@@ -39,25 +43,40 @@ class GalegosTextFormField extends StatelessWidget {
       inputFormatters: [
         if (mask != null) mask!,
       ],
+      style: TextStyle(
+        color: colorText ?? Colors.black,
+      ),
       decoration: InputDecoration(
         // suffixIcon: icon
         labelText: label,
         suffixIcon: icon,
         floatingLabelBehavior: floatingLabelBehavior,
+        hintStyle: TextStyle(
+          color: colorText ?? Colors.black,
+        ),
         labelStyle: TextStyle(
-          color: Colors.black,
+          color: colorBorder ?? Colors.black,
+        ),
+        enabled: enabled ?? false,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide(
+            color: colorBorder ?? Colors.black,
+          ),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(
-            color: Colors.black,
+            color: colorBorder ?? Colors.black,
           ),
         ),
-
+        floatingLabelStyle: TextStyle(
+          color: colorText ?? Colors.black,
+        ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(
-            color: Colors.black,
+            color: colorBorder ?? Colors.black,
           ),
         ),
         errorBorder: OutlineInputBorder(
@@ -67,7 +86,7 @@ class GalegosTextFormField extends StatelessWidget {
           ),
         ),
       ),
-      cursorColor: Colors.black,
+      cursorColor: colorText ?? Colors.black,
     );
   }
 }
