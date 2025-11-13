@@ -19,4 +19,8 @@ class ProductsServicesImpl implements ProductsServices {
 
   @override
   Future<List<CategoryModel>> getCategories() => _productsRepository.getCategories();
+
+  @override
+  Future<ProductModel> cadastrarProdutos(ProductModel item) =>
+      _productsRepository.cadastrarProdutos(item);
 }

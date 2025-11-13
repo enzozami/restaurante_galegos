@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/models/category_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
@@ -38,7 +36,25 @@ class ProductsService extends GetxService {
 
   Future<void> refreshItens() async {
     final data = await _itemsServices.getProducts();
-    log('DATA = SERVICE = ${data.map((e) => e.name)} - DATA - QUANT = ${data.length}');
     items.assignAll(data);
+  }
+
+  Future<void> cadastrarProduto(
+    String category,
+    String name,
+    double price,
+    String? description,
+  ) async {
+    final produto = ProductModel(
+      id: (items.value.last.id + 1),
+      categoryId: category,
+      name: name,
+      temHoje: true,
+      price: price,
+      description: description,
+    );
+
+    _itemsServices.cadastrarProdutos(produto);
+    refreshItens();
   }
 }

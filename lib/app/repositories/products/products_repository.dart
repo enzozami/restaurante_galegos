@@ -5,4 +5,5 @@ abstract interface class ProductsRepository {
   Future<List<CategoryModel>> getCategories();
   Future<List<ProductModel>> getProducts();
   Future<void> updateTemHoje(int id, ProductModel item, bool novoValor);
+  Future<ProductModel> cadastrarProdutos(ProductModel item);
 }

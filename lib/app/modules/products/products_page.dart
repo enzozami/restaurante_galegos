@@ -20,7 +20,7 @@ class ProductsPage extends GetView<ProductsController> {
               onPressed: () {
                 final nomeProdutoEC = TextEditingController();
                 final descricaoEC = TextEditingController();
-                final precoEC = TextEditingController(text: 'R\$ 0,00');
+                final precoEC = TextEditingController();
                 final formKey = GlobalKey<FormState>();
 
                 showDialog(
@@ -55,21 +55,21 @@ class ProductsPage extends GetView<ProductsController> {
                                       ),
                                     ),
                                   ),
-                                  initialValue: controller.botao.value?.isEmpty ?? false
+                                  initialValue: controller.categoryId.value?.isEmpty ?? false
                                       ? null
-                                      : controller.botao.value,
-                                  items: controller.items
+                                      : controller.categoryId.value,
+                                  items: controller.category
                                       .map(
-                                        (e) => DropdownMenuItem<String>(
-                                          value: e.categoryId,
-                                          child: Text(e.categoryId),
+                                        (c) => DropdownMenuItem<String>(
+                                          value: c.name,
+                                          child: Text(c.name),
                                         ),
                                       )
                                       .toList(),
                                   hint: const Text('Selecione'),
                                   onChanged: (value) {
                                     if (value != null) {
-                                      controller.botao.value = value;
+                                      controller.categoryId.value = value;
                                     }
                                   },
                                   validator: Validatorless.required(
@@ -80,7 +80,7 @@ class ProductsPage extends GetView<ProductsController> {
                               GalegosTextFormField(
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 label: 'Nome do Produto',
-                                validator: Validatorless.required('m'),
+                                validator: Validatorless.required('Nome inválido'),
                                 controller: nomeProdutoEC,
                               ),
                               GalegosTextFormField(
@@ -105,7 +105,10 @@ class ProductsPage extends GetView<ProductsController> {
                             onPressed: () {
                               final formValid = formKey.currentState?.validate() ?? false;
                               if (formValid) {
-                                if (precoEC.text != 'R\$ 0,00') {}
+                                final name = nomeProdutoEC.text;
+                                final price = precoEC.text;
+                                final description = descricaoEC.text;
+                                controller.cadastrar(name, double.parse(price), description);
                               }
                             },
                             child: Text('Cadastrar'),

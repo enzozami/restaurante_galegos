@@ -53,4 +53,27 @@ class ProductsRepositoryImpl implements ProductsRepository {
 
     return data.map((e) => CategoryModel.fromMap(e)).toList();
   }
+
+  @override
+  Future<ProductModel> cadastrarProdutos(ProductModel item) async {
+    final result = await _restClient.post('/products', {
+      'id': item.id,
+      'categoryId': item.categoryId,
+      'name': item.name,
+      'description': item.description ?? '',
+      'temHoje': item.temHoje,
+      'price': item.price
+    });
+
+    if (result.hasError) {
+      log(
+        'Erro ao cadastrar novo produto',
+        error: result.statusText,
+        stackTrace: StackTrace.current,
+      );
+      RestClientException(message: 'Erro ao enviar novo pedido');
+    }
+
+    return ProductModel.fromMap(result.body);
+  }
 }
