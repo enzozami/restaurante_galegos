@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/models/product_model.dart';
+import 'package:restaurante_galegos/app/models/category_model.dart';
 
 class FilterTag extends StatelessWidget {
-  final ProductModel model;
+  final CategoryModel category;
   final bool isSelected;
   final VoidCallback onPressed;
 
   const FilterTag({
     super.key,
-    required this.model,
+    required this.category,
     this.isSelected = false,
     required this.onPressed,
   });
@@ -36,7 +36,7 @@ class FilterTag extends StatelessWidget {
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                model.categoryId,
+                category.name,
                 style: TextStyle(
                   color: isSelected ? Colors.black : GalegosUiDefaut.colorScheme.primary,
                 ),

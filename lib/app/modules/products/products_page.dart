@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:restaurante_galegos/app/modules/products/widgets/product_header.dart';
-import 'package:restaurante_galegos/app/modules/products/widgets/products_group.dart';
+import 'package:restaurante_galegos/app/modules/products/widgets/product_items.dart';
 import 'package:validatorless/validatorless.dart';
 import './products_controller.dart';
 
@@ -15,7 +15,7 @@ class ProductsPage extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: controller.isAdmin.value
+      floatingActionButton: controller.admin
           ? FloatingActionButton.extended(
               onPressed: () {
                 final nomeProdutoEC = TextEditingController();
@@ -58,7 +58,7 @@ class ProductsPage extends GetView<ProductsController> {
                                   initialValue: controller.botao.value?.isEmpty ?? false
                                       ? null
                                       : controller.botao.value,
-                                  items: controller.products
+                                  items: controller.items
                                       .map(
                                         (e) => DropdownMenuItem<String>(
                                           value: e.categoryId,
@@ -146,9 +146,12 @@ class ProductsPage extends GetView<ProductsController> {
                   fontSize: 11,
                 ),
               ),
-              ProductsGroup(
-                scrollController: controller.scrollController,
-              ),
+              Obx(() {
+                if (controller.items.isEmpty) {
+                  return SizedBox.shrink();
+                }
+                return ProductItems();
+              })
             ],
           ),
         ),

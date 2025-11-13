@@ -21,7 +21,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   final _message = Rxn<MessageModel>();
 
   // --- DADOS PRINCIPAIS E BACKUPS ---
-  // Renomear para 'availableSizes' para clareza
   final availableSizes = <String>[].obs;
   final _availableSizesOriginal = <String>[];
 

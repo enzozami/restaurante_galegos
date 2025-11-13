@@ -14,17 +14,16 @@ class ProductHeader extends GetView<ProductsController> {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Obx(() {
-          final products = controller.products;
+          final category = controller.category;
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              children: products
+              children: category
                   .map(
-                    (p) => FilterTag(
-                      model: p,
-                      onPressed: () => controller.searchItemsByFilter(p),
-                      isSelected: controller.categorySelected.value?.categoryId == p.categoryId,
-                    ),
+                    (c) => FilterTag(
+                        category: c,
+                        onPressed: () => controller.searchItemsByFilter(c),
+                        isSelected: controller.categorySelected.value?.name == c.name),
                   )
                   .toList(),
             ),

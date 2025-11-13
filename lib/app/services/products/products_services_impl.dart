@@ -1,3 +1,4 @@
+import 'package:restaurante_galegos/app/models/category_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/repositories/products/products_repository.dart';
 
@@ -15,4 +16,7 @@ class ProductsServicesImpl implements ProductsServices {
   @override
   Future<void> updateTemHoje(int id, ProductModel item, bool novoValor) =>
       _productsRepository.updateTemHoje(id, item, novoValor);
+
+  @override
+  Future<List<CategoryModel>> getCategories() => _productsRepository.getCategories();
 }

@@ -1,1 +1,2256 @@
-{"users":[{"id":0,"isCpf":false,"isAdmin":true,"name":"Enzo ADM","value":"15.038.221/0001-26","password":"galegos"},{"id":1,"isCpf":true,"name":"oi","value":"038.416.120-08","password":"123456"},{"id":2,"isCpf":true,"name":"Enzo 2","value":"770.754.610-52","password":"123123"},{"id":3,"isCpf":true,"name":"Robson gamer","value":"841.726.910-05","password":"eutenhodepressao2"},{"id":4,"isCpf":true,"name":"Oi","value":"298.653.450-30","password":"123123"},{"id":5,"isCpf":true,"name":"Oi2","value":"427.084.140-03","password":"123123"},{"id":6,"isCpf":true,"name":"Enzo","value":"038.416.120-08","password":"123123"},{"id":7,"isCpf":true,"name":"Teste","value":"089.180.470-61","password":"123123"},{"id":8,"isCpf":true,"name":"Teste","value":"089.180.470-61","password":"123123"},{"id":9,"isCpf":false,"name":"Empresa","value":"96.014.846/0001-50","password":"123123"},{"id":10,"isCpf":true,"name":"Julia","value":"438.810.400-05","password":"abc123"},{"id":11,"isCpf":true,"name":"Neytan","value":"631.313.200-95","password":"123456"},{"id":12,"isCpf":true,"name":"Julie","value":"373.949.308-90","password":"123444"},{"id":13,"isCpf":true,"name":"Nome certo","value":"330.019.680-95","password":"123456"},{"id":14,"isCpf":true,"name":"Rhayssam Sam Sam","value":"808.421.490-07","password":"Robson123"},{"id":15,"isCpf":false,"name":"teste","value":"84.768.466/0001-21","password":"teste1"}],"sobre_nos":[{"title":"Sobre nós","text":"Com mais de 22 anos de experiência, oferecemos a melhor comida caseira da área de Cajamar. Temos opções de comida à vontade, por quilo e marmitas."}],"horarios":[{"days":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"],"inicio":"09:00","fim":"14:50"}],"products":[{"id":1,"categoryId":"Lanches","temHoje":true,"name":"Americano","price":15.0,"description":"Pão francês, presunto, queijo, ovo, alface, tomate e maionese","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-sanduiche-americano.jpg"},{"id":2,"categoryId":"Lanches","name":"Bauru","temHoje":true,"price":13.0,"description":"Pão francês, presunto, queijo e tomate","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-sanduiche-bauru.jpg"},{"id":3,"categoryId":"Lanches","temHoje":true,"name":"X-Burguer","price":14.0,"description":"Pão de hambúrguer, hambúrguer, queijo e maionese","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-burguer.jpg"},{"id":4,"categoryId":"Lanches","temHoje":true,"name":"X-Salada","price":15.0,"description":"Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-salada.jpg"},{"id":5,"categoryId":"Lanches","temHoje":true,"name":"X-Egg","price":15.0,"description":"Pão de hambúrguer, hambúrguer, queijo, ovo e maionese","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-egg.jpg"},{"id":6,"categoryId":"Lanches","temHoje":true,"name":"X-Tudo","price":21.0,"description":"Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-tudo.jpg"},{"id":7,"categoryId":"Lanches","temHoje":true,"name":"Churrasco com Queijo","price":18.0,"description":"Pão francês ,contra filé e queijo","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-sanduiche-de-churrasco-com-queijo.jpg"},{"id":8,"categoryId":"Lanches","name":"Churrasco Completo","temHoje":true,"price":21.0,"description":"Pão francês, contra filé, presunto, queijo, bacon, alface, tomate, maionese e ovo","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-sanduiche-de-churrasco-completo.jpg"},{"id":9,"categoryId":"Lanches","temHoje":true,"name":"Misto Quente","price":12.0,"description":"Pão de forma, presunto e queijo","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-misto-quente.jpg"},{"id":10,"temHoje":true,"categoryId":"Lanches","name":"X-Calabresa","price":18.0,"description":"Pão de hambúrguer, calabresa, queijo, alface e tomate","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-calabresa.jpg"},{"id":11,"categoryId":"Lanches","name":"X-Frango","temHoje":true,"price":18.0,"description":"Pão francês, filé de frango, queijo, alface, tomate e maionese","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-frango.jpg"},{"id":12,"categoryId":"Lanches","temHoje":true,"name":"X-Frango Completo","price":21.0,"description":"Pão francês, filé de frango, queijo, presunto, ovo, alface e tomate","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-bacon.jpg"},{"id":13,"categoryId":"Lanches","temHoje":true,"name":"X-Bacon","price":16.0,"description":"Pão de hambúrguer, hambúrguer, queijo, bacon e maionese","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-bacon.jpg"},{"id":14,"categoryId":"Bebidas","name":"Coca-Cola Lata","temHoje":true,"price":6.0,"description":"Refrigerante Coca-Cola lata 350ml","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-coca-cola-lata.jpg"},{"id":15,"categoryId":"Bebidas","temHoje":true,"name":"Coca-Cola 600ml","price":8.0,"description":"Refrigerante Coca-Cola garrafa pet 600ml","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-coca-cola-600ml.jpg"},{"id":16,"categoryId":"Bebidas","name":"Coca-Cola 2L","price":12.0,"temHoje":true,"description":"Refrigerante Coca-Cola garrafa pet 2 litros","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-coca-cola-2l.jpg"},{"id":17,"categoryId":"Bebidas","name":"Guaraná Antártica Lata","price":6.0,"temHoje":true,"description":"Refrigerante Guaraná Antártica lata 350ml","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-guarana-antarctica-lata.jpg"},{"id":18,"categoryId":"Bebidas","name":"Guaraná Antártica 600ml","price":8.0,"temHoje":true,"description":"Refrigerante Guaraná Antártica garrafa pet 600ml","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-guarana-antarctica-600ml.jpg"},{"id":19,"categoryId":"Bebidas","temHoje":true,"name":"Guaraná Antártica 2L","price":12.0,"description":"Refrigerante Guaraná Antártica garrafa pet 2 litros","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-guarana-antarctica-2l.jpg"},{"id":20,"categoryId":"Porções","temHoje":true,"name":"1/2 Porção Calabresa","price":25.0},{"id":21,"categoryId":"Porções","name":"1/2 Porção Couve","temHoje":true,"price":15.0},{"id":22,"temHoje":true,"categoryId":"Porções","name":"1/2 Porção Picadinho","price":20.0},{"id":23,"categoryId":"Porções","temHoje":true,"name":"1/2 Porção Vinagrete","price":12.0},{"id":24,"temHoje":true,"categoryId":"Porções","name":"Acompanhamentos Feijoada","description":"Couve, torresmo, vinagrete e farofa (3 pessoas)","price":25.0},{"id":25,"temHoje":true,"categoryId":"Porções","name":"Arroz","price":15.0},{"id":26,"categoryId":"Porções","temHoje":true,"name":"Calabresa Inteira","price":40.0},{"id":27,"categoryId":"Porções","name":"COMBO DE FEIJOADA Serve Até 4 Pessoas","temHoje":true,"description":"1 Porção de arroz, 1 porção de feijoada, 1 porção com couve, torresmo e farofa e 1 mini porção de vinagrete","price":99.9},{"id":28,"temHoje":true,"categoryId":"Porções","name":"Feijão","price":15.0},{"id":29,"temHoje":true,"categoryId":"Porções","name":"Feijoada (Não Vendemos Feijoada Light)","price":28.0},{"id":30,"categoryId":"Porções","temHoje":true,"name":"Frango À Passarinho 1/2","price":20.0},{"id":31,"categoryId":"Porções","name":"Frango À Passarinho Inteira","temHoje":true,"price":40.0},{"id":32,"categoryId":"Porções","name":"Fritas 1/2","temHoje":true,"price":15.0},{"id":33,"categoryId":"Porções","name":"Fritas Inteira","temHoje":true,"price":30.0},{"id":34,"categoryId":"Porções","temHoje":true,"name":"Picadinho Inteira","price":40.0},{"id":35,"categoryId":"Porções","name":"Torresmo 1/2","temHoje":true,"price":20.0},{"id":36,"categoryId":"Porções","name":"Torresmo Inteira","temHoje":true,"price":40.0},{"id":37,"categoryId":"Saladas","temHoje":true,"name":"Salada Mini","price":12.0},{"id":38,"temHoje":true,"categoryId":"Saladas","name":"Mini salada de alface e tomate","price":9.0},{"id":39,"categoryId":"Saladas","temHoje":true,"name":"Mini Salada Mista","price":12.0},{"id":40,"categoryId":"Saladas","temHoje":true,"name":"Salada Mista Grande","price":16.0}],"menu":[{"day":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"pricePerSize":["mini","media"]}],"alimentos":[{"name":"Bife à Milanesa","id":1,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"temHoje":true,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0}},{"name":"Bife a Parmegiana","temHoje":true,"id":2,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0}},{"name":"Bife Grelhado","id":3,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"temHoje":true,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0}},{"name":"Filé de Frango à Milanesa","id":4,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","temHoje":true,"pricePerSize":{"mini":22.0,"media":24.0}},{"name":"Filé de Frango à Parmegiana","temHoje":true,"id":5,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0}},{"name":"Filé de Frango Grelhado","temHoje":true,"id":6,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0}},{"name":"Frango a Passarinho","id":7,"temHoje":true,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0}},{"name":"Linguiça Toscana","id":8,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"temHoje":true,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0}},{"name":"Omelete de presunto/queijo e tomate","id":9,"temHoje":true,"dayName":["Segunda-feira","Quarta-feira","Sexta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0}},{"name":"Vaca Atolada","id":10,"temHoje":true,"dayName":["Segunda-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0}},{"name":"Virado A Paulista","temHoje":true,"id":11,"dayName":["Segunda-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":26.0,"media":28.0}},{"name":"Cupim Assado ao Molho de Madeira","temHoje":true,"dayName":["Terça-feira"],"id":12,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0}},{"name":"Frango ao Molho","id":13,"temHoje":true,"dayName":["Terça-feira","Quinta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0}},{"name":"Hamburguer Parmegiana","id":14,"temHoje":true,"dayName":["Terça-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0}},{"name":"Omelete de presunto e queijo","id":15,"temHoje":true,"dayName":["Terça-feira","Quinta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0}},{"name":"Strogonoff de Frango","temHoje":true,"dayName":["Terça-feira"],"id":16,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":22.0}},{"name":"Feijoada","id":17,"dayName":["Quarta-feira"],"description":"Acompanha arroz, feijoada, couve, torresmo, vinagrete e farofa","temHoje":true,"pricePerSize":{"mini":26.0,"media":28.0}},{"name":"Filé Recheado de Queijo e Presunto","id":18,"temHoje":true,"dayName":["Quarta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0}},{"name":"Hamburguer com Queijo","id":19,"temHoje":true,"dayName":["Quarta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":25.0}},{"name":"Linguiça com Queijo","id":20,"temHoje":true,"dayName":["Quarta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0}},{"name":"Peixe","temHoje":true,"dayName":["Quarta-feira","Sexta-feira"],"id":21,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0}},{"name":"Picadinho","dayName":["Quarta-feira"],"temHoje":true,"id":22,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0}},{"name":"Carne Moída / Batata / Cenoura","dayName":["Quinta-feira"],"temHoje":true,"id":23,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0}},{"name":"Coxa Assada","dayName":["Quinta-feira"],"id":24,"temHoje":true,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0}},{"name":"Lasanha à Bolonhesa","dayName":["Quinta-feira"],"temHoje":true,"id":25,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0}},{"name":"Almôndegas","dayName":["Sexta-feira"],"temHoje":true,"id":26,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0}},{"name":"Rabada","dayName":["Sexta-feira"],"temHoje":true,"id":27,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos / Polenta / Farofa","pricePerSize":{"mini":26.0,"media":28.0}}],"orders":[{"id":1,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":7,"taxa":0.0,"cart":[{"produto":{"id":10,"categoryId":"Lanches","name":"Americano","description":"Pão francês, presunto, queijo, ovo, alface, tomate e maionese","temHoje":true,"price":15.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":15.0,"status":"entregue","time":"10:13","date":"12/11/2025"},{"id":2,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":3,"taxa":0.0,"cart":[{"produto":{"id":11,"categoryId":"Lanches","name":"Bauru","description":"Pão francês, presunto, queijo e tomate","temHoje":true,"price":13.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":13.0,"status":"entregue","time":"10:15","date":"12/11/2025","timeFinished":""},{"id":3,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":3,"taxa":0.0,"cart":[{"produto":{"id":12,"categoryId":"Lanches","name":"X-Burguer","description":"Pão de hambúrguer, hambúrguer, queijo e maionese","temHoje":true,"price":14.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":14.0,"status":"entregue","time":"10:19","date":"12/11/2025","timeFinished":""},{"id":4,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":7,"taxa":0.0,"cart":[{"produto":{"id":14,"categoryId":"Lanches","name":"X-Egg","description":"Pão de hambúrguer, hambúrguer, queijo, ovo e maionese","temHoje":true,"price":15.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":15.0,"status":"entregue","time":"10:22","date":"12/11/2025","timeFinished":""},{"id":5,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":7,"taxa":0.0,"cart":[{"produto":{"id":17,"categoryId":"Lanches","name":"Churrasco Completo","description":"Pão francês, contra filé, presunto, queijo, bacon, alface, tomate, maionese e ovo","temHoje":true,"price":21.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":21.0,"status":"entregue","time":"10:23","date":"12/11/2025","timeFinished":""},{"id":6,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":7,"taxa":0.0,"cart":[{"produto":{"id":20,"categoryId":"Bebidas","name":"Coca-Cola Lata","description":"Refrigerante Coca-Cola lata 350ml","temHoje":true,"price":6.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":6.0,"status":"entregue","time":"10:23","date":"12/11/2025","timeFinished":""},{"id":7,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":3,"taxa":7.0,"cart":[{"produto":{"id":11,"categoryId":"Lanches","name":"Bauru","description":"Pão francês, presunto, queijo e tomate","temHoje":true,"price":13.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":20.0,"status":"entregue","time":"10:26","date":"12/11/2025","timeFinished":""},{"id":8,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":3,"taxa":7.0,"cart":[{"produto":{"id":16,"categoryId":"Lanches","name":"Churrasco com Queijo","description":"Pão francês ,contra filé e queijo","temHoje":true,"price":18.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":25.0,"status":"entregue","time":"10:26","date":"12/11/2025","timeFinished":""},{"id":9,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":3,"taxa":0.0,"cart":[{"produto":{"id":25,"categoryId":"Bebidas","name":"Guaraná Antártica 2L","description":"Refrigerante Guaraná Antártica garrafa pet 2 litros","temHoje":true,"price":12.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":12.0,"status":"entregue","time":"10:29","date":"12/11/2025","timeFinished":""},{"id":10,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":7,"taxa":7.0,"cart":[{"produto":{"id":11,"categoryId":"Lanches","name":"Bauru","description":"Pão francês, presunto, queijo e tomate","temHoje":true,"price":13.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":20.0,"status":"entregue","time":"10:38","date":"12/11/2025","timeFinished":""},{"id":11,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":7,"taxa":0.0,"cart":[{"produto":{"id":12,"categoryId":"Lanches","name":"X-Burguer","description":"Pão de hambúrguer, hambúrguer, queijo e maionese","temHoje":true,"price":14.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":14.0,"status":"entregue","time":"10:42","date":"12/11/2025","timeFinished":""},{"id":12,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":7,"taxa":0.0,"cart":[{"produto":{"id":11,"categoryId":"Lanches","name":"Bauru","description":"Pão francês, presunto, queijo e tomate","temHoje":true,"price":13.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":13.0,"status":"entregue","time":"10:47","date":"12/11/2025","timeFinished":""},{"id":13,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":7,"taxa":7.0,"cart":[{"produto":{"id":11,"categoryId":"Lanches","name":"Bauru","description":"Pão francês, presunto, queijo e tomate","temHoje":true,"price":13.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":20.0,"status":"entregue","time":"10:50","date":"12/11/2025","timeFinished":""},{"id":14,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":6,"taxa":0.0,"cart":[{"produto":{"id":18,"categoryId":"Lanches","name":"Misto Quente","description":"Pão de forma, presunto e queijo","temHoje":true,"price":12.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":12.0,"status":"entregue","time":"10:57","date":"12/11/2025","timeFinished":""},{"id":15,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":6,"taxa":0.0,"cart":[{"produto":{"id":21,"categoryId":"Bebidas","name":"Coca-Cola 600ml","description":"Refrigerante Coca-Cola garrafa pet 600ml","temHoje":true,"price":8.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":8.0,"status":"entregue","time":"10:57","date":"12/11/2025"},{"id":16,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":7,"taxa":0.0,"cart":[{"produto":{"id":13,"categoryId":"Lanches","name":"X-Salada","description":"Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese","temHoje":true,"price":15.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":15.0,"status":"entregue","time":"11:25","timeFinished":"","date":"12/11/2025"},{"id":17,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":1,"taxa":0.0,"cart":[{"produto":{"id":43,"categoryId":"Saladas","name":"Salada Mista Grande","description":null,"temHoje":true,"price":16.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":16.0,"status":"entregue","time":"11:30","timeFinished":"","date":"12/11/2025"},{"id":18,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":2,"taxa":0.0,"cart":[{"produto":{"id":112,"categoryId":"Lanches","name":"X-Bacon","description":"Pão de hambúrguer, hambúrguer, queijo, bacon e maionese","temHoje":true,"price":16.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":16.0,"status":"entregue","time":"11:35","timeFinished":"11:36","date":"12/11/2025"},{"id":19,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":7,"taxa":0.0,"cart":[{"produto":{"id":1,"categoryId":"Lanches","name":"Americano","description":"Pão francês, presunto, queijo, ovo, alface, tomate e maionese","temHoje":true,"price":15.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":15.0,"status":"preparando","time":"19:08","timeFinished":"","date":"12/11/2025"}],"cep":[{"ceps":["07775240","07775200","07775500","07775860","07775865","07776000","07776005","07776035","07753040","07753080","07753700","07750020"],"taxa":7.0},{"ceps":["07787300","07787380","07787455","07787485","07787500","07787530","07787540","07787545"],"taxa":5.0}],"finished":[{"id":1,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":7,"taxa":0.0,"cart":[{"produto":{"id":10,"categoryId":"Lanches","name":"Americano","description":"Pão francês, presunto, queijo, ovo, alface, tomate e maionese","temHoje":true,"price":15.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":15.0,"status":"entregue","date":"12/11/2025","time":"10:13","timePath":"","timeFinished":"10:14"},{"id":2,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":3,"taxa":0.0,"cart":[{"produto":{"id":11,"categoryId":"Lanches","name":"Bauru","description":"Pão francês, presunto, queijo e tomate","temHoje":true,"price":13.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":13.0,"status":"entregue","date":"12/11/2025","time":"10:15","timePath":"","timeFinished":"11:30"},{"id":3,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":3,"taxa":0.0,"cart":[{"produto":{"id":12,"categoryId":"Lanches","name":"X-Burguer","description":"Pão de hambúrguer, hambúrguer, queijo e maionese","temHoje":true,"price":14.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":14.0,"status":"entregue","date":"12/11/2025","time":"10:19","timePath":"","timeFinished":"11:30"},{"id":4,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":7,"taxa":0.0,"cart":[{"produto":{"id":14,"categoryId":"Lanches","name":"X-Egg","description":"Pão de hambúrguer, hambúrguer, queijo, ovo e maionese","temHoje":true,"price":15.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":15.0,"status":"entregue","date":"12/11/2025","time":"10:22","timePath":"","timeFinished":"11:30"},{"id":5,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":7,"taxa":0.0,"cart":[{"produto":{"id":17,"categoryId":"Lanches","name":"Churrasco Completo","description":"Pão francês, contra filé, presunto, queijo, bacon, alface, tomate, maionese e ovo","temHoje":true,"price":21.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":21.0,"status":"entregue","date":"12/11/2025","time":"10:23","timePath":"","timeFinished":"11:30"},{"id":6,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":7,"taxa":0.0,"cart":[{"produto":{"id":20,"categoryId":"Bebidas","name":"Coca-Cola Lata","description":"Refrigerante Coca-Cola lata 350ml","temHoje":true,"price":6.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":6.0,"status":"entregue","date":"12/11/2025","time":"10:23","timePath":"","timeFinished":"11:30"},{"id":7,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":3,"taxa":7.0,"cart":[{"produto":{"id":11,"categoryId":"Lanches","name":"Bauru","description":"Pão francês, presunto, queijo e tomate","temHoje":true,"price":13.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":20.0,"status":"entregue","date":"12/11/2025","time":"10:26","timePath":"","timeFinished":"11:30"},{"id":8,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":3,"taxa":7.0,"cart":[{"produto":{"id":16,"categoryId":"Lanches","name":"Churrasco com Queijo","description":"Pão francês ,contra filé e queijo","temHoje":true,"price":18.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":25.0,"status":"entregue","date":"12/11/2025","time":"10:26","timePath":"","timeFinished":"11:30"},{"id":9,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":3,"taxa":0.0,"cart":[{"produto":{"id":25,"categoryId":"Bebidas","name":"Guaraná Antártica 2L","description":"Refrigerante Guaraná Antártica garrafa pet 2 litros","temHoje":true,"price":12.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":12.0,"status":"entregue","date":"12/11/2025","time":"10:29","timePath":"","timeFinished":"11:30"},{"id":10,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":7,"taxa":7.0,"cart":[{"produto":{"id":11,"categoryId":"Lanches","name":"Bauru","description":"Pão francês, presunto, queijo e tomate","temHoje":true,"price":13.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":20.0,"status":"entregue","date":"12/11/2025","time":"10:38","timePath":"","timeFinished":"11:30"},{"id":11,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":7,"taxa":0.0,"cart":[{"produto":{"id":12,"categoryId":"Lanches","name":"X-Burguer","description":"Pão de hambúrguer, hambúrguer, queijo e maionese","temHoje":true,"price":14.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":14.0,"status":"entregue","date":"12/11/2025","time":"10:42","timePath":"","timeFinished":"11:30"},{"id":12,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":7,"taxa":0.0,"cart":[{"produto":{"id":11,"categoryId":"Lanches","name":"Bauru","description":"Pão francês, presunto, queijo e tomate","temHoje":true,"price":13.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":13.0,"status":"entregue","date":"12/11/2025","time":"10:47","timePath":"","timeFinished":"11:30"},{"id":13,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":7,"taxa":7.0,"cart":[{"produto":{"id":11,"categoryId":"Lanches","name":"Bauru","description":"Pão francês, presunto, queijo e tomate","temHoje":true,"price":13.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":20.0,"status":"entregue","date":"12/11/2025","time":"10:50","timePath":"","timeFinished":"11:30"},{"id":14,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":6,"taxa":0.0,"cart":[{"produto":{"id":18,"categoryId":"Lanches","name":"Misto Quente","description":"Pão de forma, presunto e queijo","temHoje":true,"price":12.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":12.0,"status":"entregue","date":"12/11/2025","time":"10:57","timePath":"","timeFinished":"11:30"},{"id":15,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":1,"taxa":0.0,"cart":[{"produto":{"id":43,"categoryId":"Saladas","name":"Salada Mista Grande","description":null,"temHoje":true,"price":16.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":16.0,"status":"a caminho","date":"12/11/2025","time":"11:30","timePath":"11:31","timeFinished":""},{"id":16,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":1,"taxa":0.0,"cart":[{"produto":{"id":43,"categoryId":"Saladas","name":"Salada Mista Grande","description":null,"temHoje":true,"price":16.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":16.0,"status":"entregue","date":"12/11/2025","time":"11:30","timePath":"","timeFinished":"11:31"},{"id":17,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":2,"taxa":0.0,"cart":[{"produto":{"id":112,"categoryId":"Lanches","name":"X-Bacon","description":"Pão de hambúrguer, hambúrguer, queijo, bacon e maionese","temHoje":true,"price":16.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":16.0,"status":"a caminho","date":"12/11/2025","time":"11:35","timePath":"11:36","timeFinished":""},{"id":18,"userId":15,"userName":"teste","cpfOrCnpj":"84.768.466/0001-21","cep":"13506715","rua":"Avenida 18 A","bairro":"Vila Indaiá","cidade":"Rio Claro","estado":"SP","numeroResidencia":2,"taxa":0.0,"cart":[{"produto":{"id":112,"categoryId":"Lanches","name":"X-Bacon","description":"Pão de hambúrguer, hambúrguer, queijo, bacon e maionese","temHoje":true,"price":16.0},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}],"amountToPay":16.0,"status":"entregue","date":"12/11/2025","time":"11:35","timePath":"","timeFinished":"11:36"}]}
+{
+    "users": [
+        {
+            "id": 0,
+            "isCpf": false,
+            "isAdmin": true,
+            "name": "Enzo ADM",
+            "value": "15.038.221/0001-26",
+            "password": "galegos"
+        },
+        {
+            "id": 1,
+            "isCpf": true,
+            "name": "oi",
+            "value": "038.416.120-08",
+            "password": "123456"
+        },
+        {
+            "id": 2,
+            "isCpf": true,
+            "name": "Enzo 2",
+            "value": "770.754.610-52",
+            "password": "123123"
+        },
+        {
+            "id": 3,
+            "isCpf": true,
+            "name": "Robson gamer",
+            "value": "841.726.910-05",
+            "password": "eutenhodepressao2"
+        },
+        {
+            "id": 4,
+            "isCpf": true,
+            "name": "Oi",
+            "value": "298.653.450-30",
+            "password": "123123"
+        },
+        {
+            "id": 5,
+            "isCpf": true,
+            "name": "Oi2",
+            "value": "427.084.140-03",
+            "password": "123123"
+        },
+        {
+            "id": 6,
+            "isCpf": true,
+            "name": "Enzo",
+            "value": "038.416.120-08",
+            "password": "123123"
+        },
+        {
+            "id": 7,
+            "isCpf": true,
+            "name": "Teste",
+            "value": "089.180.470-61",
+            "password": "123123"
+        },
+        {
+            "id": 8,
+            "isCpf": true,
+            "name": "Teste",
+            "value": "089.180.470-61",
+            "password": "123123"
+        },
+        {
+            "id": 9,
+            "isCpf": false,
+            "name": "Empresa",
+            "value": "96.014.846/0001-50",
+            "password": "123123"
+        },
+        {
+            "id": 10,
+            "isCpf": true,
+            "name": "Julia",
+            "value": "438.810.400-05",
+            "password": "abc123"
+        },
+        {
+            "id": 11,
+            "isCpf": true,
+            "name": "Neytan",
+            "value": "631.313.200-95",
+            "password": "123456"
+        },
+        {
+            "id": 12,
+            "isCpf": true,
+            "name": "Julie",
+            "value": "373.949.308-90",
+            "password": "123444"
+        },
+        {
+            "id": 13,
+            "isCpf": true,
+            "name": "Nome certo",
+            "value": "330.019.680-95",
+            "password": "123456"
+        },
+        {
+            "id": 14,
+            "isCpf": true,
+            "name": "Rhayssam Sam Sam",
+            "value": "808.421.490-07",
+            "password": "Robson123"
+        },
+        {
+            "id": 15,
+            "isCpf": false,
+            "name": "teste",
+            "value": "84.768.466/0001-21",
+            "password": "teste1"
+        }
+    ],
+    "sobre_nos": [
+        {
+            "title": "Sobre nós",
+            "text": "Com mais de 22 anos de experiência, oferecemos a melhor comida caseira da área de Cajamar. Temos opções de comida à vontade, por quilo e marmitas."
+        }
+    ],
+    "horarios": [
+        {
+            "days": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira",
+                "Sábado"
+            ],
+            "inicio": "09:00",
+            "fim": "14:50"
+        }
+    ],
+    "categories": [
+        {
+            "name": "Lanches"
+        },
+        {
+            "name": "Bebidas"
+        },
+        {
+            "name": "Porções"
+        },
+        {
+            "name": "Saladas"
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "Americano",
+            "price": 15.0,
+            "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-sanduiche-americano.jpg"
+        },
+        {
+            "id": 2,
+            "categoryId": "Lanches",
+            "name": "Bauru",
+            "temHoje": true,
+            "price": 13.0,
+            "description": "Pão francês, presunto, queijo e tomate",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-sanduiche-bauru.jpg"
+        },
+        {
+            "id": 3,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "X-Burguer",
+            "price": 14.0,
+            "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-burguer.jpg"
+        },
+        {
+            "id": 4,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "X-Salada",
+            "price": 15.0,
+            "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-salada.jpg"
+        },
+        {
+            "id": 5,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "X-Egg",
+            "price": 15.0,
+            "description": "Pão de hambúrguer, hambúrguer, queijo, ovo e maionese",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-egg.jpg"
+        },
+        {
+            "id": 6,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "X-Tudo",
+            "price": 21.0,
+            "description": "Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-tudo.jpg"
+        },
+        {
+            "id": 7,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "Churrasco com Queijo",
+            "price": 18.0,
+            "description": "Pão francês ,contra filé e queijo",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-sanduiche-de-churrasco-com-queijo.jpg"
+        },
+        {
+            "id": 8,
+            "categoryId": "Lanches",
+            "name": "Churrasco Completo",
+            "temHoje": true,
+            "price": 21.0,
+            "description": "Pão francês, contra filé, presunto, queijo, bacon, alface, tomate, maionese e ovo",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-sanduiche-de-churrasco-completo.jpg"
+        },
+        {
+            "id": 9,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "Misto Quente",
+            "price": 12.0,
+            "description": "Pão de forma, presunto e queijo",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-misto-quente.jpg"
+        },
+        {
+            "id": 10,
+            "temHoje": true,
+            "categoryId": "Lanches",
+            "name": "X-Calabresa",
+            "price": 18.0,
+            "description": "Pão de hambúrguer, calabresa, queijo, alface e tomate",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-calabresa.jpg"
+        },
+        {
+            "id": 11,
+            "categoryId": "Lanches",
+            "name": "X-Frango",
+            "temHoje": true,
+            "price": 18.0,
+            "description": "Pão francês, filé de frango, queijo, alface, tomate e maionese",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-frango.jpg"
+        },
+        {
+            "id": 12,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "X-Frango Completo",
+            "price": 21.0,
+            "description": "Pão francês, filé de frango, queijo, presunto, ovo, alface e tomate",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-bacon.jpg"
+        },
+        {
+            "id": 13,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "X-Bacon",
+            "price": 16.0,
+            "description": "Pão de hambúrguer, hambúrguer, queijo, bacon e maionese",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-bacon.jpg"
+        },
+        {
+            "id": 14,
+            "categoryId": "Bebidas",
+            "name": "Coca-Cola Lata",
+            "temHoje": true,
+            "price": 6.0,
+            "description": "Refrigerante Coca-Cola lata 350ml",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-coca-cola-lata.jpg"
+        },
+        {
+            "id": 15,
+            "categoryId": "Bebidas",
+            "temHoje": true,
+            "name": "Coca-Cola 600ml",
+            "price": 8.0,
+            "description": "Refrigerante Coca-Cola garrafa pet 600ml",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-coca-cola-600ml.jpg"
+        },
+        {
+            "id": 16,
+            "categoryId": "Bebidas",
+            "name": "Coca-Cola 2L",
+            "price": 12.0,
+            "temHoje": true,
+            "description": "Refrigerante Coca-Cola garrafa pet 2 litros",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-coca-cola-2l.jpg"
+        },
+        {
+            "id": 17,
+            "categoryId": "Bebidas",
+            "name": "Guaraná Antártica Lata",
+            "price": 6.0,
+            "temHoje": true,
+            "description": "Refrigerante Guaraná Antártica lata 350ml",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-guarana-antarctica-lata.jpg"
+        },
+        {
+            "id": 18,
+            "categoryId": "Bebidas",
+            "name": "Guaraná Antártica 600ml",
+            "price": 8.0,
+            "temHoje": true,
+            "description": "Refrigerante Guaraná Antártica garrafa pet 600ml",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-guarana-antarctica-600ml.jpg"
+        },
+        {
+            "id": 19,
+            "categoryId": "Bebidas",
+            "temHoje": true,
+            "name": "Guaraná Antártica 2L",
+            "price": 12.0,
+            "description": "Refrigerante Guaraná Antártica garrafa pet 2 litros",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-guarana-antarctica-2l.jpg"
+        },
+        {
+            "id": 20,
+            "categoryId": "Porções",
+            "temHoje": true,
+            "name": "1/2 Porção Calabresa",
+            "price": 25.0
+        },
+        {
+            "id": 21,
+            "categoryId": "Porções",
+            "name": "1/2 Porção Couve",
+            "temHoje": true,
+            "price": 15.0
+        },
+        {
+            "id": 22,
+            "temHoje": true,
+            "categoryId": "Porções",
+            "name": "1/2 Porção Picadinho",
+            "price": 20.0
+        },
+        {
+            "id": 23,
+            "categoryId": "Porções",
+            "temHoje": true,
+            "name": "1/2 Porção Vinagrete",
+            "price": 12.0
+        },
+        {
+            "id": 24,
+            "temHoje": true,
+            "categoryId": "Porções",
+            "name": "Acompanhamentos Feijoada",
+            "description": "Couve, torresmo, vinagrete e farofa (3 pessoas)",
+            "price": 25.0
+        },
+        {
+            "id": 25,
+            "temHoje": true,
+            "categoryId": "Porções",
+            "name": "Arroz",
+            "price": 15.0
+        },
+        {
+            "id": 26,
+            "categoryId": "Porções",
+            "temHoje": true,
+            "name": "Calabresa Inteira",
+            "price": 40.0
+        },
+        {
+            "id": 27,
+            "categoryId": "Porções",
+            "name": "COMBO DE FEIJOADA Serve Até 4 Pessoas",
+            "temHoje": true,
+            "description": "1 Porção de arroz, 1 porção de feijoada, 1 porção com couve, torresmo e farofa e 1 mini porção de vinagrete",
+            "price": 99.9
+        },
+        {
+            "id": 28,
+            "temHoje": true,
+            "categoryId": "Porções",
+            "name": "Feijão",
+            "price": 15.0
+        },
+        {
+            "id": 29,
+            "temHoje": true,
+            "categoryId": "Porções",
+            "name": "Feijoada (Não Vendemos Feijoada Light)",
+            "price": 28.0
+        },
+        {
+            "id": 30,
+            "categoryId": "Porções",
+            "temHoje": true,
+            "name": "Frango À Passarinho 1/2",
+            "price": 20.0
+        },
+        {
+            "id": 31,
+            "categoryId": "Porções",
+            "name": "Frango À Passarinho Inteira",
+            "temHoje": true,
+            "price": 40.0
+        },
+        {
+            "id": 32,
+            "categoryId": "Porções",
+            "name": "Fritas 1/2",
+            "temHoje": true,
+            "price": 15.0
+        },
+        {
+            "id": 33,
+            "categoryId": "Porções",
+            "name": "Fritas Inteira",
+            "temHoje": true,
+            "price": 30.0
+        },
+        {
+            "id": 34,
+            "categoryId": "Porções",
+            "temHoje": true,
+            "name": "Picadinho Inteira",
+            "price": 40.0
+        },
+        {
+            "id": 35,
+            "categoryId": "Porções",
+            "name": "Torresmo 1/2",
+            "temHoje": true,
+            "price": 20.0
+        },
+        {
+            "id": 36,
+            "categoryId": "Porções",
+            "name": "Torresmo Inteira",
+            "temHoje": true,
+            "price": 40.0
+        },
+        {
+            "id": 37,
+            "categoryId": "Saladas",
+            "temHoje": true,
+            "name": "Salada Mini",
+            "price": 12.0
+        },
+        {
+            "id": 38,
+            "temHoje": true,
+            "categoryId": "Saladas",
+            "name": "Mini salada de alface e tomate",
+            "price": 9.0
+        },
+        {
+            "id": 39,
+            "categoryId": "Saladas",
+            "temHoje": true,
+            "name": "Mini Salada Mista",
+            "price": 12.0
+        },
+        {
+            "id": 40,
+            "categoryId": "Saladas",
+            "temHoje": true,
+            "name": "Salada Mista Grande",
+            "price": 16.0
+        }
+    ],
+    "menu": [
+        {
+            "day": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira"
+            ],
+            "pricePerSize": [
+                "mini",
+                "media"
+            ]
+        }
+    ],
+    "alimentos": [
+        {
+            "name": "Bife à Milanesa",
+            "id": 1,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira"
+            ],
+            "temHoje": true,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Bife a Parmegiana",
+            "temHoje": true,
+            "id": 2,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Bife Grelhado",
+            "id": 3,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira"
+            ],
+            "temHoje": true,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Filé de Frango à Milanesa",
+            "id": 4,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "temHoje": true,
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Filé de Frango à Parmegiana",
+            "temHoje": true,
+            "id": 5,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Filé de Frango Grelhado",
+            "temHoje": true,
+            "id": 6,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Frango a Passarinho",
+            "id": 7,
+            "temHoje": true,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Linguiça Toscana",
+            "id": 8,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira"
+            ],
+            "temHoje": true,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Omelete de presunto/queijo e tomate",
+            "id": 9,
+            "temHoje": true,
+            "dayName": [
+                "Segunda-feira",
+                "Quarta-feira",
+                "Sexta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Vaca Atolada",
+            "id": 10,
+            "temHoje": true,
+            "dayName": [
+                "Segunda-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Virado A Paulista",
+            "temHoje": true,
+            "id": 11,
+            "dayName": [
+                "Segunda-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 26.0,
+                "media": 28.0
+            }
+        },
+        {
+            "name": "Cupim Assado ao Molho de Madeira",
+            "temHoje": true,
+            "dayName": [
+                "Terça-feira"
+            ],
+            "id": 12,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Frango ao Molho",
+            "id": 13,
+            "temHoje": true,
+            "dayName": [
+                "Terça-feira",
+                "Quinta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Hamburguer Parmegiana",
+            "id": 14,
+            "temHoje": true,
+            "dayName": [
+                "Terça-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Omelete de presunto e queijo",
+            "id": 15,
+            "temHoje": true,
+            "dayName": [
+                "Terça-feira",
+                "Quinta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Strogonoff de Frango",
+            "temHoje": true,
+            "dayName": [
+                "Terça-feira"
+            ],
+            "id": 16,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 22.0
+            }
+        },
+        {
+            "name": "Feijoada",
+            "id": 17,
+            "dayName": [
+                "Quarta-feira"
+            ],
+            "description": "Acompanha arroz, feijoada, couve, torresmo, vinagrete e farofa",
+            "temHoje": true,
+            "pricePerSize": {
+                "mini": 26.0,
+                "media": 28.0
+            }
+        },
+        {
+            "name": "Filé Recheado de Queijo e Presunto",
+            "id": 18,
+            "temHoje": true,
+            "dayName": [
+                "Quarta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Hamburguer com Queijo",
+            "id": 19,
+            "temHoje": true,
+            "dayName": [
+                "Quarta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Linguiça com Queijo",
+            "id": 20,
+            "temHoje": true,
+            "dayName": [
+                "Quarta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Peixe",
+            "temHoje": true,
+            "dayName": [
+                "Quarta-feira",
+                "Sexta-feira"
+            ],
+            "id": 21,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Picadinho",
+            "dayName": [
+                "Quarta-feira"
+            ],
+            "temHoje": true,
+            "id": 22,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Carne Moída / Batata / Cenoura",
+            "dayName": [
+                "Quinta-feira"
+            ],
+            "temHoje": true,
+            "id": 23,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Coxa Assada",
+            "dayName": [
+                "Quinta-feira"
+            ],
+            "id": 24,
+            "temHoje": true,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Lasanha à Bolonhesa",
+            "dayName": [
+                "Quinta-feira"
+            ],
+            "temHoje": true,
+            "id": 25,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            }
+        },
+        {
+            "name": "Almôndegas",
+            "dayName": [
+                "Sexta-feira"
+            ],
+            "temHoje": true,
+            "id": 26,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            }
+        },
+        {
+            "name": "Rabada",
+            "dayName": [
+                "Sexta-feira"
+            ],
+            "temHoje": true,
+            "id": 27,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos / Polenta / Farofa",
+            "pricePerSize": {
+                "mini": 26.0,
+                "media": 28.0
+            }
+        }
+    ],
+    "orders": [
+        {
+            "id": 1,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 10,
+                        "categoryId": "Lanches",
+                        "name": "Americano",
+                        "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                        "temHoje": true,
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 15.0,
+            "status": "entregue",
+            "time": "10:13",
+            "date": "12/11/2025"
+        },
+        {
+            "id": 2,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 11,
+                        "categoryId": "Lanches",
+                        "name": "Bauru",
+                        "description": "Pão francês, presunto, queijo e tomate",
+                        "temHoje": true,
+                        "price": 13.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 13.0,
+            "status": "entregue",
+            "time": "10:15",
+            "date": "12/11/2025",
+            "timeFinished": ""
+        },
+        {
+            "id": 3,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 12,
+                        "categoryId": "Lanches",
+                        "name": "X-Burguer",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
+                        "temHoje": true,
+                        "price": 14.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 14.0,
+            "status": "entregue",
+            "time": "10:19",
+            "date": "12/11/2025",
+            "timeFinished": ""
+        },
+        {
+            "id": 4,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 14,
+                        "categoryId": "Lanches",
+                        "name": "X-Egg",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, ovo e maionese",
+                        "temHoje": true,
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 15.0,
+            "status": "entregue",
+            "time": "10:22",
+            "date": "12/11/2025",
+            "timeFinished": ""
+        },
+        {
+            "id": 5,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 17,
+                        "categoryId": "Lanches",
+                        "name": "Churrasco Completo",
+                        "description": "Pão francês, contra filé, presunto, queijo, bacon, alface, tomate, maionese e ovo",
+                        "temHoje": true,
+                        "price": 21.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 21.0,
+            "status": "entregue",
+            "time": "10:23",
+            "date": "12/11/2025",
+            "timeFinished": ""
+        },
+        {
+            "id": 6,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 20,
+                        "categoryId": "Bebidas",
+                        "name": "Coca-Cola Lata",
+                        "description": "Refrigerante Coca-Cola lata 350ml",
+                        "temHoje": true,
+                        "price": 6.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 6.0,
+            "status": "entregue",
+            "time": "10:23",
+            "date": "12/11/2025",
+            "timeFinished": ""
+        },
+        {
+            "id": 7,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 11,
+                        "categoryId": "Lanches",
+                        "name": "Bauru",
+                        "description": "Pão francês, presunto, queijo e tomate",
+                        "temHoje": true,
+                        "price": 13.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 20.0,
+            "status": "entregue",
+            "time": "10:26",
+            "date": "12/11/2025",
+            "timeFinished": ""
+        },
+        {
+            "id": 8,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 16,
+                        "categoryId": "Lanches",
+                        "name": "Churrasco com Queijo",
+                        "description": "Pão francês ,contra filé e queijo",
+                        "temHoje": true,
+                        "price": 18.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 25.0,
+            "status": "entregue",
+            "time": "10:26",
+            "date": "12/11/2025",
+            "timeFinished": ""
+        },
+        {
+            "id": 9,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 25,
+                        "categoryId": "Bebidas",
+                        "name": "Guaraná Antártica 2L",
+                        "description": "Refrigerante Guaraná Antártica garrafa pet 2 litros",
+                        "temHoje": true,
+                        "price": 12.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 12.0,
+            "status": "entregue",
+            "time": "10:29",
+            "date": "12/11/2025",
+            "timeFinished": ""
+        },
+        {
+            "id": 10,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 11,
+                        "categoryId": "Lanches",
+                        "name": "Bauru",
+                        "description": "Pão francês, presunto, queijo e tomate",
+                        "temHoje": true,
+                        "price": 13.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 20.0,
+            "status": "entregue",
+            "time": "10:38",
+            "date": "12/11/2025",
+            "timeFinished": ""
+        },
+        {
+            "id": 11,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 12,
+                        "categoryId": "Lanches",
+                        "name": "X-Burguer",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
+                        "temHoje": true,
+                        "price": 14.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 14.0,
+            "status": "entregue",
+            "time": "10:42",
+            "date": "12/11/2025",
+            "timeFinished": ""
+        },
+        {
+            "id": 12,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 11,
+                        "categoryId": "Lanches",
+                        "name": "Bauru",
+                        "description": "Pão francês, presunto, queijo e tomate",
+                        "temHoje": true,
+                        "price": 13.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 13.0,
+            "status": "entregue",
+            "time": "10:47",
+            "date": "12/11/2025",
+            "timeFinished": ""
+        },
+        {
+            "id": 13,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 11,
+                        "categoryId": "Lanches",
+                        "name": "Bauru",
+                        "description": "Pão francês, presunto, queijo e tomate",
+                        "temHoje": true,
+                        "price": 13.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 20.0,
+            "status": "entregue",
+            "time": "10:50",
+            "date": "12/11/2025",
+            "timeFinished": ""
+        },
+        {
+            "id": 14,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 6,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 18,
+                        "categoryId": "Lanches",
+                        "name": "Misto Quente",
+                        "description": "Pão de forma, presunto e queijo",
+                        "temHoje": true,
+                        "price": 12.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 12.0,
+            "status": "entregue",
+            "time": "10:57",
+            "date": "12/11/2025",
+            "timeFinished": ""
+        },
+        {
+            "id": 15,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 6,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 21,
+                        "categoryId": "Bebidas",
+                        "name": "Coca-Cola 600ml",
+                        "description": "Refrigerante Coca-Cola garrafa pet 600ml",
+                        "temHoje": true,
+                        "price": 8.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 8.0,
+            "status": "entregue",
+            "time": "10:57",
+            "date": "12/11/2025"
+        },
+        {
+            "id": 16,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 13,
+                        "categoryId": "Lanches",
+                        "name": "X-Salada",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
+                        "temHoje": true,
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 15.0,
+            "status": "entregue",
+            "time": "11:25",
+            "timeFinished": "",
+            "date": "12/11/2025"
+        },
+        {
+            "id": 17,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 1,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 43,
+                        "categoryId": "Saladas",
+                        "name": "Salada Mista Grande",
+                        "description": null,
+                        "temHoje": true,
+                        "price": 16.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 16.0,
+            "status": "entregue",
+            "time": "11:30",
+            "timeFinished": "",
+            "date": "12/11/2025"
+        },
+        {
+            "id": 18,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 2,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 112,
+                        "categoryId": "Lanches",
+                        "name": "X-Bacon",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, bacon e maionese",
+                        "temHoje": true,
+                        "price": 16.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 16.0,
+            "status": "entregue",
+            "time": "11:35",
+            "timeFinished": "11:36",
+            "date": "12/11/2025"
+        },
+        {
+            "id": 19,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 1,
+                        "categoryId": "Lanches",
+                        "name": "Americano",
+                        "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                        "temHoje": true,
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 15.0,
+            "status": "preparando",
+            "time": "19:08",
+            "timeFinished": "",
+            "date": "12/11/2025"
+        },
+        {
+            "id": 20,
+            "userId": 6,
+            "userName": "",
+            "cpfOrCnpj": "",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 1,
+                        "categoryId": "Lanches",
+                        "name": "Americano",
+                        "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                        "temHoje": true,
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 15.0,
+            "status": "preparando",
+            "time": "11:57",
+            "timeFinished": "",
+            "date": "13/11/2025"
+        },
+        {
+            "id": 21,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 3,
+                        "categoryId": "Lanches",
+                        "name": "X-Burguer",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
+                        "temHoje": true,
+                        "price": 14.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 21.0,
+            "status": "preparando",
+            "time": "11:58",
+            "timeFinished": "",
+            "date": "13/11/2025"
+        }
+    ],
+    "cep": [
+        {
+            "ceps": [
+                "07775240",
+                "07775200",
+                "07775500",
+                "07775860",
+                "07775865",
+                "07776000",
+                "07776005",
+                "07776035",
+                "07753040",
+                "07753080",
+                "07753700",
+                "07750020"
+            ],
+            "taxa": 7.0
+        },
+        {
+            "ceps": [
+                "07787300",
+                "07787380",
+                "07787455",
+                "07787485",
+                "07787500",
+                "07787530",
+                "07787540",
+                "07787545"
+            ],
+            "taxa": 5.0
+        }
+    ],
+    "finished": [
+        {
+            "id": 1,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 10,
+                        "categoryId": "Lanches",
+                        "name": "Americano",
+                        "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                        "temHoje": true,
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 15.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "10:13",
+            "timePath": "",
+            "timeFinished": "10:14"
+        },
+        {
+            "id": 2,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 11,
+                        "categoryId": "Lanches",
+                        "name": "Bauru",
+                        "description": "Pão francês, presunto, queijo e tomate",
+                        "temHoje": true,
+                        "price": 13.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 13.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "10:15",
+            "timePath": "",
+            "timeFinished": "11:30"
+        },
+        {
+            "id": 3,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 12,
+                        "categoryId": "Lanches",
+                        "name": "X-Burguer",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
+                        "temHoje": true,
+                        "price": 14.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 14.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "10:19",
+            "timePath": "",
+            "timeFinished": "11:30"
+        },
+        {
+            "id": 4,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 14,
+                        "categoryId": "Lanches",
+                        "name": "X-Egg",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, ovo e maionese",
+                        "temHoje": true,
+                        "price": 15.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 15.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "10:22",
+            "timePath": "",
+            "timeFinished": "11:30"
+        },
+        {
+            "id": 5,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 17,
+                        "categoryId": "Lanches",
+                        "name": "Churrasco Completo",
+                        "description": "Pão francês, contra filé, presunto, queijo, bacon, alface, tomate, maionese e ovo",
+                        "temHoje": true,
+                        "price": 21.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 21.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "10:23",
+            "timePath": "",
+            "timeFinished": "11:30"
+        },
+        {
+            "id": 6,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 20,
+                        "categoryId": "Bebidas",
+                        "name": "Coca-Cola Lata",
+                        "description": "Refrigerante Coca-Cola lata 350ml",
+                        "temHoje": true,
+                        "price": 6.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 6.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "10:23",
+            "timePath": "",
+            "timeFinished": "11:30"
+        },
+        {
+            "id": 7,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 11,
+                        "categoryId": "Lanches",
+                        "name": "Bauru",
+                        "description": "Pão francês, presunto, queijo e tomate",
+                        "temHoje": true,
+                        "price": 13.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 20.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "10:26",
+            "timePath": "",
+            "timeFinished": "11:30"
+        },
+        {
+            "id": 8,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 16,
+                        "categoryId": "Lanches",
+                        "name": "Churrasco com Queijo",
+                        "description": "Pão francês ,contra filé e queijo",
+                        "temHoje": true,
+                        "price": 18.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 25.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "10:26",
+            "timePath": "",
+            "timeFinished": "11:30"
+        },
+        {
+            "id": 9,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 25,
+                        "categoryId": "Bebidas",
+                        "name": "Guaraná Antártica 2L",
+                        "description": "Refrigerante Guaraná Antártica garrafa pet 2 litros",
+                        "temHoje": true,
+                        "price": 12.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 12.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "10:29",
+            "timePath": "",
+            "timeFinished": "11:30"
+        },
+        {
+            "id": 10,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 11,
+                        "categoryId": "Lanches",
+                        "name": "Bauru",
+                        "description": "Pão francês, presunto, queijo e tomate",
+                        "temHoje": true,
+                        "price": 13.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 20.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "10:38",
+            "timePath": "",
+            "timeFinished": "11:30"
+        },
+        {
+            "id": 11,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 12,
+                        "categoryId": "Lanches",
+                        "name": "X-Burguer",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
+                        "temHoje": true,
+                        "price": 14.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 14.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "10:42",
+            "timePath": "",
+            "timeFinished": "11:30"
+        },
+        {
+            "id": 12,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 11,
+                        "categoryId": "Lanches",
+                        "name": "Bauru",
+                        "description": "Pão francês, presunto, queijo e tomate",
+                        "temHoje": true,
+                        "price": 13.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 13.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "10:47",
+            "timePath": "",
+            "timeFinished": "11:30"
+        },
+        {
+            "id": 13,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 11,
+                        "categoryId": "Lanches",
+                        "name": "Bauru",
+                        "description": "Pão francês, presunto, queijo e tomate",
+                        "temHoje": true,
+                        "price": 13.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 20.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "10:50",
+            "timePath": "",
+            "timeFinished": "11:30"
+        },
+        {
+            "id": 14,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 6,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 18,
+                        "categoryId": "Lanches",
+                        "name": "Misto Quente",
+                        "description": "Pão de forma, presunto e queijo",
+                        "temHoje": true,
+                        "price": 12.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 12.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "10:57",
+            "timePath": "",
+            "timeFinished": "11:30"
+        },
+        {
+            "id": 15,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 1,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 43,
+                        "categoryId": "Saladas",
+                        "name": "Salada Mista Grande",
+                        "description": null,
+                        "temHoje": true,
+                        "price": 16.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 16.0,
+            "status": "a caminho",
+            "date": "12/11/2025",
+            "time": "11:30",
+            "timePath": "11:31",
+            "timeFinished": ""
+        },
+        {
+            "id": 16,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 1,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 43,
+                        "categoryId": "Saladas",
+                        "name": "Salada Mista Grande",
+                        "description": null,
+                        "temHoje": true,
+                        "price": 16.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 16.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "11:30",
+            "timePath": "",
+            "timeFinished": "11:31"
+        },
+        {
+            "id": 17,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 2,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 112,
+                        "categoryId": "Lanches",
+                        "name": "X-Bacon",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, bacon e maionese",
+                        "temHoje": true,
+                        "price": 16.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 16.0,
+            "status": "a caminho",
+            "date": "12/11/2025",
+            "time": "11:35",
+            "timePath": "11:36",
+            "timeFinished": ""
+        },
+        {
+            "id": 18,
+            "userId": 15,
+            "userName": "teste",
+            "cpfOrCnpj": "84.768.466/0001-21",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 2,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 112,
+                        "categoryId": "Lanches",
+                        "name": "X-Bacon",
+                        "description": "Pão de hambúrguer, hambúrguer, queijo, bacon e maionese",
+                        "temHoje": true,
+                        "price": 16.0
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 16.0,
+            "status": "entregue",
+            "date": "12/11/2025",
+            "time": "11:35",
+            "timePath": "",
+            "timeFinished": "11:36"
+        }
+    ]
+}
