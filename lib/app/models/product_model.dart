@@ -9,6 +9,7 @@ class ProductModel {
   String? description;
   bool temHoje;
   double price;
+
   ProductModel({
     required this.id,
     required this.categoryId,

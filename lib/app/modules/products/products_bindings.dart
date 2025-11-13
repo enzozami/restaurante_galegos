@@ -18,7 +18,6 @@ class ProductsBindings implements Bindings {
         authService: Get.find<AuthService>(),
         carrinhoServices: Get.find<CarrinhoServices>(),
         productsService: Get.find<ProductsService>(),
-        productsServices: Get.find<ProductsServices>(),
       ),
       fenix: true,
     );

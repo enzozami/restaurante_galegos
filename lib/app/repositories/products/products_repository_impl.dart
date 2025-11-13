@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
+import 'package:restaurante_galegos/app/models/category_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/repositories/products/products_repository.dart';
 
@@ -21,7 +22,8 @@ class ProductsRepositoryImpl implements ProductsRepository {
       );
       RestClientException(message: 'Erro ao carregar itens');
     }
-    final data = (result.body as List);
+
+    final List data = result.body;
 
     return data.map((e) => ProductModel.fromMap(e)).toList();
   }
@@ -39,5 +41,16 @@ class ProductsRepositoryImpl implements ProductsRepository {
       );
       RestClientException(message: 'Erro ao atualizar (temHoje)');
     }
+  }
+
+  @override
+  Future<List<CategoryModel>> getCategories() async {
+    final result = await _restClient.get('/categories');
+
+    if (result.hasError) {}
+
+    final List data = (result.body);
+
+    return data.map((e) => CategoryModel.fromMap(e)).toList();
   }
 }

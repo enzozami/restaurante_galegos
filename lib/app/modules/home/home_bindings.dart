@@ -131,7 +131,6 @@ class HomeBindings implements Bindings {
 
     Get.lazyPut(
       () => ProductsController(
-        productsServices: Get.find<ProductsServices>(),
         authService: Get.find<AuthService>(),
         carrinhoServices: Get.find<CarrinhoServices>(),
         productsService: Get.find<ProductsService>(),

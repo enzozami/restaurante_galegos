@@ -6,14 +6,13 @@ import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/service/products_service.dart';
+import 'package:restaurante_galegos/app/models/category_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
-import 'package:restaurante_galegos/app/services/products/products_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
 class ProductsController extends GetxController with LoaderMixin, MessagesMixin {
   // --- 2. SERVIÇOS (Dependências Injetadas) ---
   final AuthService _authService;
-  final ProductsServices _productsServices;
   final CarrinhoServices _carrinhoServices;
   final ProductsService _productsService;
 
@@ -23,18 +22,12 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
 
-  // Backups para filtragem
-  final _productsOriginal = <ProductModel>[];
-
   // --- DADOS/ESTADO PÚBLICO REATIVO ---
-  // final items = <Item>[].obs;
-  RxList<ProductModel> get items => _productsService.items;
-
-  final products = <ProductModel>[].obs;
   final Rx<String?> botao = Rx(null);
+  final itemsFiltrados = <ProductModel>[].obs;
 
   // Estado de Seleção
-  final categorySelected = Rxn<ProductModel>();
+  final categorySelected = Rxn<CategoryModel>();
   final itemSelect = Rxn<ProductModel>();
 
   // Estado da Compra (para o modal)
@@ -48,18 +41,19 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   bool get alreadyAdded => _alreadyAdded.value;
   double get totalPrice => _totalPrice.value;
 
+  RxList<ProductModel> get items => _productsService.items;
+  RxList<CategoryModel> get category => _productsService.categories;
+
   // --- Construtor ---
   ProductsController({
     required AuthService authService,
-    required ProductsServices productsServices,
     required CarrinhoServices carrinhoServices,
     required ProductsService productsService,
   })  : _carrinhoServices = carrinhoServices,
         _authService = authService,
-        _productsServices = productsServices,
         _productsService = productsService;
 
-  final isAdmin = false.obs;
+  bool get admin => _authService.isAdmin();
   void updateListItems(int id, ProductModel item) => _productsService.updateTemHoje(id, item);
 
   @override
@@ -68,18 +62,13 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     loaderListener(_loading);
     messageListener(_message);
 
-    final admin = _authService.isAdmin();
-
-    if (admin) {
-      isAdmin.value = true;
-    }
-
     ever<int>(_quantity, (quantity) {
       _totalPrice(selectedItem?.price);
     });
 
     ever<List<ProductModel>>(items, (_) {
       items.where((e) => e.temHoje).toList();
+      itemsFiltrados.assignAll(items);
     });
   }
 
@@ -91,15 +80,13 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   // 9. Renomeado e tornado privado e mais robusto
   Future<void> _fetchProductsAndItems() async {
-    _loading(true);
     try {
-      final productsData = await _productsServices.getProducts();
-      products.assignAll(productsData);
-      _productsOriginal
-        ..clear()
-        ..addAll(productsData);
-
+      _loading(true);
+      _productsService.refreshCategories();
       _productsService.refreshItens();
+      log('ITEMS - CONTROLLER_PRODUCTS = ${items.value.map((e) => e.name)}');
+      itemsFiltrados.assignAll(items);
+      log('ITEMSfiltrados - CONTROLLER_PRODUCTS = ${itemsFiltrados.value.map((e) => e.name)}');
     } catch (e, s) {
       log('Erro ao carregar dados', error: e, stackTrace: s);
       _message(
@@ -114,21 +101,23 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
   }
 
-  void searchItemsByFilter(ProductModel? productModel) {
+  void searchItemsByFilter(CategoryModel? categoryModel) {
     try {
-      if (productModel == null) return;
+      if (categoryModel == null) return;
 
       final currentCategory = categorySelected.value;
 
-      if (productModel.categoryId == currentCategory?.categoryId) {
+      if (categoryModel.name == currentCategory?.name) {
         categorySelected.value = null;
         refreshProducts();
         return;
       }
 
-      categorySelected.value = productModel;
+      categorySelected.value = categoryModel;
 
-      items.where((e) => e.categoryId == (categorySelected.value?.categoryId ?? '')).toList();
+      final filtered =
+          items.where((e) => e.categoryId == (categorySelected.value?.name ?? '')).toList();
+      itemsFiltrados.assignAll(filtered);
     } catch (e, s) {
       log('Erro ao filtrar', error: e, stackTrace: s);
     } finally {
