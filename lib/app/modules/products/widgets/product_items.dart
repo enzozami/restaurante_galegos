@@ -128,7 +128,7 @@ class ProductItems extends GetView<ProductsController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: category.map((c) {
               final produtosDaCategoria =
-                  items.where((p) => p.categoryId == c.name).toSet().toList();
+                  items.where((p) => p.categoryId == c.name && p.temHoje).toSet().toList();
 
               if (produtosDaCategoria.isEmpty) return SizedBox.shrink();
               return Column(
