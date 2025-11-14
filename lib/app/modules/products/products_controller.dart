@@ -202,7 +202,9 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     try {
       // itemsFiltrados.value = items;
       _fetchProductsAndItems();
-      categorySelected.value = null;
+      if (categorySelected.value != null) {
+        categorySelected.value = null;
+      }
     } catch (e, s) {
       log('Erro ao atualizar produtos', error: e, stackTrace: s);
       _message(
