@@ -209,13 +209,15 @@ class ProductsPage extends GetView<ProductsController> {
               const SizedBox(
                 height: 20,
               ),
-              Text(
-                'Selecione algum item para adicionar ao carrinho*',
-                style: TextStyle(
-                  fontStyle: FontStyle.italic,
-                  fontSize: 11,
-                ),
-              ),
+              controller.admin
+                  ? SizedBox.shrink()
+                  : Text(
+                      'Selecione algum item para adicionar ao carrinho*',
+                      style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontSize: 11,
+                      ),
+                    ),
               Obx(() {
                 if (controller.items.isEmpty) {
                   return SizedBox.shrink();
