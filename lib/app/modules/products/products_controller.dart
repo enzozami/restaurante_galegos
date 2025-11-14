@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'dart:nativewrappers/_internal/vm/lib/async_patch.dart' hide Timer;
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -92,6 +94,9 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       items.where((e) => e.temHoje).toList();
       // itemsFiltrados.refresh();
     });
+
+    // Atualiza a tela a cada 5 segundos
+    Timer.periodic(Duration(seconds: 5), (_) => _fetchProductsAndItems());
   }
 
   // 9. Renomeado e tornado privado e mais robusto
