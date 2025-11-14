@@ -88,7 +88,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
     ever<List<ProductModel>>(items, (_) {
       items.where((e) => e.temHoje).toList();
-      // itemsFiltrados.value = items;
+      itemsFiltrados.value = items;
     });
   }
 
