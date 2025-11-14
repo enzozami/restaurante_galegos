@@ -152,7 +152,7 @@
         {
             "id": 1,
             "categoryId": "Lanches",
-            "temHoje": true,
+            "temHoje": false,
             "name": "Americano",
             "price": 15.0,
             "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
@@ -162,7 +162,7 @@
             "id": 2,
             "categoryId": "Lanches",
             "name": "Bauru",
-            "temHoje": true,
+            "temHoje": false,
             "price": 13.0,
             "description": "Pão francês, presunto, queijo e tomate",
             "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-sanduiche-bauru.jpg"
@@ -170,7 +170,7 @@
         {
             "id": 3,
             "categoryId": "Lanches",
-            "temHoje": true,
+            "temHoje": false,
             "name": "X-Burguer",
             "price": 14.0,
             "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
@@ -468,6 +468,62 @@
             "temHoje": true,
             "name": "Salada Mista Grande",
             "price": 16.0
+        },
+        {
+            "id": 41,
+            "categoryId": "Porções",
+            "name": "patata",
+            "description": "batata com p",
+            "temHoje": true,
+            "price": 50.0
+        },
+        {
+            "id": 42,
+            "categoryId": "Porções",
+            "name": "patata",
+            "description": "batata com p",
+            "temHoje": true,
+            "price": 50.0
+        },
+        {
+            "id": 43,
+            "categoryId": "Porções",
+            "name": "patata",
+            "description": "batata com p",
+            "temHoje": true,
+            "price": 50.0
+        },
+        {
+            "id": 44,
+            "categoryId": "Porções",
+            "name": "patata",
+            "description": "batata com p",
+            "temHoje": true,
+            "price": 50.0
+        },
+        {
+            "id": 45,
+            "categoryId": "Porções",
+            "name": "patata",
+            "description": "batata com p",
+            "temHoje": true,
+            "price": 50.0
+        },
+        {
+            "id": 46,
+            "categoryId": "Porções",
+            "name": "patata",
+            "description": "batata com p",
+            "temHoje": true,
+            "price": 50.0
+        },
+        {
+            "id": 47,
+            "categoryId": "Lanches",
+            "name": "McLanche infeliz",
+            "description": "tristeza e lagrimas ",
+            "temHoje": true,
+            "price": 1500.0
         }
     ],
     "menu": [

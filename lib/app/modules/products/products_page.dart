@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
@@ -12,6 +14,7 @@ class ProductsPage extends GetView<ProductsController> {
 
   @override
   Widget build(BuildContext context) {
+    log('messagesfwgfswvg ${controller.items}');
     return Scaffold(
       floatingActionButton: controller.admin
           ? FloatingActionButton.extended(
@@ -73,6 +76,12 @@ class ProductsPage extends GetView<ProductsController> {
                                         color: GalegosUiDefaut.colorScheme.primary,
                                       ),
                                     ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      borderSide: BorderSide(
+                                        color: GalegosUiDefaut.colorScheme.primary,
+                                      ),
+                                    ),
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: GalegosUiDefaut.colorScheme.primary,
@@ -83,7 +92,7 @@ class ProductsPage extends GetView<ProductsController> {
                                     ),
                                   ),
                                   style: TextStyle(
-                                    color: GalegosUiDefaut.colorScheme.onSecondary,
+                                    color: GalegosUiDefaut.colorScheme.primary,
                                   ),
                                   selectedItemBuilder: (context) {
                                     return controller.category.map((c) {
@@ -155,6 +164,10 @@ class ProductsPage extends GetView<ProductsController> {
                         ),
                         actions: [
                           ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: GalegosUiDefaut.colorScheme.primary,
+                              foregroundColor: GalegosUiDefaut.colorScheme.onPrimary,
+                            ),
                             onPressed: () {
                               final formValid = formKey.currentState?.validate() ?? false;
                               if (formValid) {
@@ -163,6 +176,7 @@ class ProductsPage extends GetView<ProductsController> {
                                 final description = descricaoEC.text;
                                 controller.cadastrar(name, double.parse(price), description);
                               }
+                              Get.back();
                             },
                             child: Text('Cadastrar'),
                           ),
