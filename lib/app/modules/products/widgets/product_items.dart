@@ -26,10 +26,22 @@ class ProductItems extends GetView<ProductsController> {
           replacement: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: category.map((c) {
-              final produtosDaCategoria =
-                  items.where((p) => p.categoryId == c.name).toSet().toList();
+              final List<ProductModel> filtered;
+              final categoriaSelecionada = controller.categorySelected.value?.name;
 
-              if (produtosDaCategoria.isEmpty) return SizedBox.shrink();
+              if (categoriaSelecionada != null) {
+                filtered = items
+                    .where(
+                      (p) =>
+                          p.categoryId == c.name &&
+                          p.categoryId == (controller.categorySelected.value?.name),
+                    )
+                    .toList();
+              } else {
+                filtered = items.where((p) => p.categoryId == c.name).toList();
+              }
+
+              if (filtered.isEmpty) return SizedBox.shrink();
 
               return Column(
                 children: [
@@ -50,7 +62,7 @@ class ProductItems extends GetView<ProductsController> {
                       ),
                       width: context.width,
                       child: Column(
-                        children: produtosDaCategoria
+                        children: filtered
                             .where((e) => e.categoryId == c.name)
                             .map(
                               (e) => Card(
