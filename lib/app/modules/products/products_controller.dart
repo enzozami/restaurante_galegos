@@ -24,7 +24,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   // --- DADOS/ESTADO PÚBLICO REATIVO ---
   final Rx<String?> categoryId = Rx(null);
-  final RxList<ProductModel> itemsFiltrados = <ProductModel>[].obs;
+  // final RxList<ProductModel> itemsFiltrados = <ProductModel>[].obs;
   final isProcessing = RxBool(false);
 
   // Estado de Seleção
@@ -55,7 +55,9 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         _productsService = productsService;
 
   bool get admin => _authService.isAdmin();
-  void updateListItems(int id, ProductModel item) => _productsService.updateTemHoje(id, item);
+  void updateListItems(int id, ProductModel item) {
+    _productsService.updateTemHoje(id, item);
+  }
 
   void cadastrar(
     String name,
@@ -98,7 +100,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       // _loading(true);
       await _productsService.init();
 
-      itemsFiltrados.assignAll(items);
+      // itemsFiltrados.assignAll(items);
     } catch (e, s) {
       log('Erro ao carregar dados', error: e, stackTrace: s);
       _message(
@@ -130,15 +132,14 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         }
         categorySelected.value = categoryModel;
 
-        final filtered = items
+        // final filtered = items
+        items
             .where(
               (e) => e.categoryId == (categorySelected.value!.name),
             )
             .toList();
+
         // itemsFiltrados.value = filtered;
-        log('searchItemsByFilter $items');
-        itemsFiltrados.assignAll(filtered);
-        log('searchItemsByFilter itemsFiltrados $itemsFiltrados');
       }
     } catch (e, s) {
       log('Erro ao filtrar', error: e, stackTrace: s);
