@@ -24,7 +24,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   // --- DADOS/ESTADO PÚBLICO REATIVO ---
   final Rx<String?> categoryId = Rx(null);
-  final RxList itemsFiltrados = <ProductModel>[].obs;
+  final RxList<ProductModel> itemsFiltrados = <ProductModel>[].obs;
   final isProcessing = RxBool(false);
 
   // Estado de Seleção
@@ -86,16 +86,10 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       _totalPrice(selectedItem?.price);
     });
 
-    if (!admin) {
-      ever<List<ProductModel>>(items, (_) {
-        items.where((e) => e.temHoje).toList();
-      });
-    } else {
-      ever<List<ProductModel>>(items, (_) {
-        items.where((e) => e.temHoje).toList();
-        itemsFiltrados.value = items;
-      });
-    }
+    ever<List<ProductModel>>(items, (_) {
+      items.where((e) => e.temHoje).toList();
+      // itemsFiltrados.refresh();
+    });
   }
 
   // 9. Renomeado e tornado privado e mais robusto
@@ -103,7 +97,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     try {
       // _loading(true);
       await _productsService.init();
-      log('_fetchProductsAndItems');
 
       itemsFiltrados.assignAll(items);
     } catch (e, s) {
