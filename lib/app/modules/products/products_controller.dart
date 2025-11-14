@@ -95,7 +95,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   // 9. Renomeado e tornado privado e mais robusto
   Future<void> _fetchProductsAndItems() async {
     try {
-      _loading(true);
+      // _loading(true);
       await _productsService.init();
       log('_fetchProductsAndItems');
 
