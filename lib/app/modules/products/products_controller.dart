@@ -86,10 +86,16 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       _totalPrice(selectedItem?.price);
     });
 
-    ever<List<ProductModel>>(items, (_) {
-      items.where((e) => e.temHoje).toList();
-      itemsFiltrados.value = items;
-    });
+    if (admin) {
+      ever<List<ProductModel>>(items, (_) {
+        items.where((e) => e.temHoje).toList();
+      });
+    } else {
+      ever<List<ProductModel>>(items, (_) {
+        items.where((e) => e.temHoje).toList();
+        itemsFiltrados.value = items;
+      });
+    }
   }
 
   // 9. Renomeado e tornado privado e mais robusto
