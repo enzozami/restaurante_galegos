@@ -132,7 +132,7 @@ class ProductItems extends GetView<ProductsController> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 45),
                 ],
               );
             }).toList(),
