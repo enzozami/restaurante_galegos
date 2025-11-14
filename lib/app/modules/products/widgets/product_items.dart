@@ -6,6 +6,7 @@ import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/alert_products_lunchboxes_adm.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
+import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
 
 class ProductItems extends GetView<ProductsController> {
@@ -19,7 +20,7 @@ class ProductItems extends GetView<ProductsController> {
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
       child: Obx(() {
         final category = controller.category;
-        final items = controller.itemsFiltrados;
+        final items = controller.items;
         return Visibility(
           visible: controller.admin != true,
           replacement: Column(
@@ -127,10 +128,27 @@ class ProductItems extends GetView<ProductsController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: category.map((c) {
-              final produtosDaCategoria =
-                  items.where((p) => p.categoryId == c.name && p.temHoje).toSet().toList();
+              final List<ProductModel> filtered;
+              final categoriaSelecionada = controller.categorySelected.value?.name;
 
-              if (produtosDaCategoria.isEmpty) return SizedBox.shrink();
+              if (categoriaSelecionada != null) {
+                filtered = items
+                    .where(
+                      (p) =>
+                          p.categoryId == c.name &&
+                          p.categoryId == (controller.categorySelected.value?.name) &&
+                          p.temHoje,
+                    )
+                    .toList();
+              } else {
+                filtered = items
+                    .where(
+                      (p) => p.categoryId == c.name && p.temHoje,
+                    )
+                    .toList();
+              }
+
+              if (filtered.isEmpty) return SizedBox.shrink();
               return Column(
                 children: [
                   Padding(
@@ -150,7 +168,7 @@ class ProductItems extends GetView<ProductsController> {
                       ),
                       width: context.width,
                       child: Column(
-                        children: produtosDaCategoria
+                        children: filtered
                             .where((e) => e.categoryId == c.name)
                             .map(
                               (e) => Card(

@@ -62,4 +62,9 @@ class ProductModel {
       price: price ?? this.price,
     );
   }
+
+  @override
+  String toString() {
+    return 'ProductModel(id: $id, categoryId: $categoryId, name: $name, description: $description, temHoje: $temHoje, price: $price)';
+  }
 }
