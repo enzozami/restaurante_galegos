@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/models/category_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
@@ -26,7 +24,6 @@ class ProductsService extends GetxService {
 
     final index = items.indexWhere((e) => e.id == item.id);
     if (index != -1) {
-      log('message555');
       items.value[index] = items[index].copyWith(temHoje: novoValor);
       items.refresh();
       await refreshItens();

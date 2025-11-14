@@ -55,8 +55,8 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         _productsService = productsService;
 
   bool get admin => _authService.isAdmin();
-  void updateListItems(int id, ProductModel item) {
-    _productsService.updateTemHoje(id, item);
+  Future<void> updateListItems(int id, ProductModel item) async {
+    await _productsService.updateTemHoje(id, item);
   }
 
   void cadastrar(
