@@ -24,7 +24,8 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   // --- DADOS/ESTADO PÚBLICO REATIVO ---
   final Rx<String?> categoryId = Rx(null);
-  final itemsFiltrados = <ProductModel>[].obs;
+  final RxList itemsFiltrados = <ProductModel>[].obs;
+  final isProcessing = RxBool(false);
 
   // Estado de Seleção
   final categorySelected = Rxn<CategoryModel>();
@@ -74,10 +75,12 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
+
+    await _fetchProductsAndItems();
 
     ever<int>(_quantity, (quantity) {
       _totalPrice(selectedItem?.price);
@@ -85,22 +88,17 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
     ever<List<ProductModel>>(items, (_) {
       items.where((e) => e.temHoje).toList();
-      itemsFiltrados.assignAll(items);
+      // itemsFiltrados.value = items;
     });
-  }
-
-  @override
-  Future<void> onReady() async {
-    super.onReady();
-    await _fetchProductsAndItems();
   }
 
   // 9. Renomeado e tornado privado e mais robusto
   Future<void> _fetchProductsAndItems() async {
     try {
       _loading(true);
-      _productsService.refreshCategories();
-      _productsService.refreshItens();
+      await _productsService.init();
+      log('_fetchProductsAndItems');
+
       itemsFiltrados.assignAll(items);
     } catch (e, s) {
       log('Erro ao carregar dados', error: e, stackTrace: s);
@@ -118,25 +116,36 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   void searchItemsByFilter(CategoryModel? categoryModel) {
     try {
-      if (categoryModel == null) return;
+      if (isProcessing.value == false) {
+        isProcessing.value = true;
+        if (categoryModel == null) return;
 
-      final currentCategory = categorySelected.value;
+        final currentCategory = categorySelected.value;
 
-      if (categoryModel.name == currentCategory?.name) {
-        categorySelected.value = null;
-        refreshProducts();
-        return;
+        if (categoryModel.name == currentCategory?.name) {
+          log('messageh');
+          categorySelected.value = null;
+          _fetchProductsAndItems();
+          // itemsFiltrados.value = items;
+          return;
+        }
+        categorySelected.value = categoryModel;
+
+        final filtered = items
+            .where(
+              (e) => e.categoryId == (categorySelected.value!.name),
+            )
+            .toList();
+        // itemsFiltrados.value = filtered;
+        log('searchItemsByFilter $items');
+        itemsFiltrados.assignAll(filtered);
+        log('searchItemsByFilter itemsFiltrados $itemsFiltrados');
       }
-
-      categorySelected.value = categoryModel;
-
-      final filtered =
-          items.where((e) => e.categoryId == (categorySelected.value?.name ?? '')).toList();
-      itemsFiltrados.assignAll(filtered);
     } catch (e, s) {
       log('Erro ao filtrar', error: e, stackTrace: s);
     } finally {
       _loading(false);
+      isProcessing.value = false;
     }
   }
 
@@ -185,7 +194,9 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   Future<void> refreshProducts() async {
     try {
-      await _fetchProductsAndItems();
+      // itemsFiltrados.value = items;
+      _fetchProductsAndItems();
+      categorySelected.value = null;
     } catch (e, s) {
       log('Erro ao atualizar produtos', error: e, stackTrace: s);
       _message(

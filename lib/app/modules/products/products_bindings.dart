@@ -8,10 +8,10 @@ import './products_controller.dart';
 class ProductsBindings implements Bindings {
   @override
   void dependencies() {
-    Get.putAsync(
+    Get.put(
       () => ProductsService(
         itemsServices: Get.find<ProductsServices>(),
-      ).init(),
+      ),
     );
     Get.lazyPut(
       () => ProductsController(

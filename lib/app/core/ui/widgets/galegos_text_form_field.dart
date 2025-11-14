@@ -57,7 +57,7 @@ class GalegosTextFormField extends StatelessWidget {
         labelStyle: TextStyle(
           color: colorBorder ?? Colors.black,
         ),
-        enabled: enabled ?? false,
+        enabled: enabled ?? true,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(
