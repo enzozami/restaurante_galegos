@@ -14,6 +14,8 @@ class GalegosTextFormField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final Color? colorText;
   final Color? colorBorder;
+  final String? prefixText;
+  final String? suffixText;
 
   const GalegosTextFormField({
     super.key,
@@ -29,6 +31,8 @@ class GalegosTextFormField extends StatelessWidget {
     this.onChanged,
     this.colorText,
     this.colorBorder,
+    this.prefixText,
+    this.suffixText,
   });
 
   @override
@@ -50,6 +54,8 @@ class GalegosTextFormField extends StatelessWidget {
         // suffixIcon: icon
         labelText: label,
         suffixIcon: icon,
+        prefixText: prefixText,
+        suffixText: suffixText,
         floatingLabelBehavior: floatingLabelBehavior,
         hintStyle: TextStyle(
           color: colorText ?? Colors.black,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
@@ -14,7 +12,6 @@ class ProductsPage extends GetView<ProductsController> {
 
   @override
   Widget build(BuildContext context) {
-    log('messagesfwgfswvg ${controller.items}');
     return Scaffold(
       floatingActionButton: controller.admin
           ? FloatingActionButton.extended(
@@ -152,7 +149,8 @@ class ProductsPage extends GetView<ProductsController> {
                                 colorBorder: GalegosUiDefaut.colorScheme.secondary,
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 enabled: true,
-                                inputType: TextInputType.numberWithOptions(),
+                                inputType: TextInputType.number,
+                                prefixText: 'R\$ ',
                                 validator: Validatorless.multiple([
                                   Validatorless.required('Nome inválido'),
                                 ]),
