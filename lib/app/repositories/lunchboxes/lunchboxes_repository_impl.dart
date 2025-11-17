@@ -50,4 +50,27 @@ class LunchboxesRepositoryImpl implements LunchboxesRepository {
     });
     if (result.hasError) {}
   }
+
+  @override
+  Future<FoodModel> cadastrarMarmita(FoodModel food) async {
+    final result = await _restClient.post('/alimentos', {
+      'name': food.name,
+      'id': food.id,
+      'dayName': food.dayName,
+      'temHoje': food.temHoje,
+      'description': food.description,
+      'pricePerSize': food.pricePerSize,
+    });
+
+    if (result.hasError) {
+      log(
+        'Erro ao cadastrar novo produto',
+        error: result.statusText,
+        stackTrace: StackTrace.current,
+      );
+      RestClientException(message: 'Erro ao cadastrar nova marmita');
+    }
+
+    return FoodModel.fromMap(result.body);
+  }
 }

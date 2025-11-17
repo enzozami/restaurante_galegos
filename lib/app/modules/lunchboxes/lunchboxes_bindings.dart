@@ -7,6 +7,7 @@ import 'package:restaurante_galegos/app/repositories/lunchboxes/lunchboxes_repos
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services_impl.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
+import 'package:restaurante_galegos/app/services/time/time_services.dart';
 import './lunchboxes_controller.dart';
 
 class LunchboxesBindings implements Bindings {
@@ -26,6 +27,7 @@ class LunchboxesBindings implements Bindings {
     Get.putAsync(
       () => FoodService(
         lunchboxesServices: Get.find<LunchboxesServices>(),
+        timeServices: Get.find<TimeServices>(),
       ).init(),
     );
     Get.lazyPut(

@@ -59,4 +59,9 @@ class FoodModel {
       pricePerSize: pricePerSize ?? this.pricePerSize,
     );
   }
+
+  @override
+  String toString() {
+    return 'FoodModel(id: $id, name: $name, temHoje: $temHoje, dayName: $dayName, description: $description, pricePerSize: $pricePerSize)';
+  }
 }

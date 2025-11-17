@@ -7,6 +7,7 @@ import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/service/food_service.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
+import 'package:restaurante_galegos/app/models/time_model.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
@@ -19,12 +20,14 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   // --- ESTADO REATIVO CENTRALIZADO ---
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
+  final isProcessing = false.obs;
 
   // --- DADOS PRINCIPAIS E BACKUPS ---
   final availableSizes = <String>[].obs;
   final _availableSizesOriginal = <String>[];
 
   RxList<FoodModel> get alimentos => _foodService.alimentos;
+  RxList<TimeModel> get times => _foodService.times;
   final alimentosFiltrados = <FoodModel>[].obs;
 
   // 3. O dia atual deve ser um Rx ou ser calculado na UI, mas manter como final para simplicidade.
@@ -57,11 +60,41 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   bool get admin => _authService.isAdmin();
   void updateListFoods(int id, FoodModel food) => _foodService.updateTemHoje(id, food);
 
+  final RxList<String> daysSelected = <String>[].obs;
+
+  void cadastrar(
+    String name,
+    String? description,
+    double priceMini,
+    double priceMedia,
+  ) {
+    if (daysSelected.isEmpty) {
+      _message(MessageModel(
+        title: 'Atenção',
+        message: 'Selecione ao menos um dia para cadastrar.',
+        type: MessageType.error,
+      ));
+      return;
+    }
+    log("DEBUG: função de salvar foi chamada");
+    _foodService.cadastrarM(
+      name,
+      daysSelected,
+      description,
+      {
+        'mini': priceMini,
+        'media': priceMedia,
+      },
+    );
+    log(" função de salvar foi chamada");
+  }
+
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
+    await getLunchboxes();
 
     ever<int>(_quantity, (quantity) {
       _totalPrice(selectedFood?.pricePerSize[sizeSelected.value]);
@@ -72,15 +105,8 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     });
   }
 
-  @override
-  void onReady() async {
-    super.onReady();
-    await getLunchboxes();
-  }
-
   Future<void> getLunchboxes() async {
     try {
-      _loading(true);
       final menuData = await _lunchboxesServices.getMenu();
       final List<String> sizesList = List<String>.from(menuData.first.pricePerSize);
 
@@ -89,8 +115,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
         ..clear()
         ..addAll(sizesList);
 
-      _foodService.refreshFood();
-      _loading(false);
+      _foodService.init();
     } catch (e, s) {
       _loading(false);
       log('Erro ao carregar marmitas', error: e, stackTrace: s);
@@ -108,29 +133,33 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   void filterPrice(String selectedSize) {
     try {
-      if (sizeSelected.value == selectedSize) {
-        sizeSelected.value = '';
-        availableSizes.assignAll(_availableSizesOriginal);
-        return;
+      if (isProcessing.value == false) {
+        isProcessing.value = true;
+
+        if (sizeSelected.value == selectedSize) {
+          sizeSelected.value = '';
+          getLunchboxes();
+          return;
+        }
+
+        sizeSelected.value = selectedSize;
+
+        final filtered = alimentos.where((alimento) {
+          return alimento.pricePerSize.containsKey((selectedSize));
+        }).toList();
+
+        availableSizes.assignAll(
+          filtered
+              .map(
+                (e) => e.pricePerSize.keys.toList(),
+              )
+              .expand(
+                (e) => e,
+              )
+              .toSet()
+              .toList(),
+        );
       }
-
-      sizeSelected.value = selectedSize;
-
-      final filtered = alimentos.where((alimento) {
-        return alimento.pricePerSize.containsKey((selectedSize));
-      }).toList();
-
-      availableSizes.assignAll(
-        filtered
-            .map(
-              (e) => e.pricePerSize.keys.toList(),
-            )
-            .expand(
-              (e) => e,
-            )
-            .toSet()
-            .toList(),
-      );
     } catch (e, s) {
       _loading(false);
       log('Erro ao filtar marmitas', error: e, stackTrace: s);
@@ -143,6 +172,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       );
     } finally {
       _loading(false);
+      isProcessing.value = false;
     }
   }
 

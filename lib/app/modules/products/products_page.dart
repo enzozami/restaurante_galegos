@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:restaurante_galegos/app/modules/products/widgets/product_header.dart';
@@ -7,8 +8,26 @@ import 'package:restaurante_galegos/app/modules/products/widgets/product_items.d
 import 'package:validatorless/validatorless.dart';
 import './products_controller.dart';
 
-class ProductsPage extends GetView<ProductsController> {
+class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
+
+  @override
+  State<ProductsPage> createState() => _ProductsPageState();
+}
+
+class _ProductsPageState extends GalegosState<ProductsPage, ProductsController> {
+  final nomeProdutoEC = TextEditingController();
+  final descricaoEC = TextEditingController();
+  final precoEC = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    super.dispose();
+    nomeProdutoEC.dispose();
+    descricaoEC.dispose();
+    precoEC.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +35,6 @@ class ProductsPage extends GetView<ProductsController> {
       floatingActionButton: controller.admin
           ? FloatingActionButton.extended(
               onPressed: () {
-                final nomeProdutoEC = TextEditingController();
-                final descricaoEC = TextEditingController();
-                final precoEC = TextEditingController();
-                final formKey = GlobalKey<FormState>();
-
                 showDialog(
                   context: context,
                   builder: (context) {
@@ -209,11 +223,13 @@ class ProductsPage extends GetView<ProductsController> {
               ),
               controller.admin
                   ? SizedBox.shrink()
-                  : Text(
-                      'Selecione algum item para adicionar ao carrinho*',
-                      style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                        fontSize: 11,
+                  : Center(
+                      child: Text(
+                        'Selecione algum item para adicionar ao carrinho*',
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontSize: 11,
+                        ),
                       ),
                     ),
               Obx(() {

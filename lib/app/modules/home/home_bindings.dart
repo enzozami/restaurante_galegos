@@ -22,6 +22,8 @@ import 'package:restaurante_galegos/app/repositories/lunchboxes/lunchboxes_repos
 import 'package:restaurante_galegos/app/repositories/lunchboxes/lunchboxes_repository_impl.dart';
 import 'package:restaurante_galegos/app/repositories/order/order_reposiroty.dart';
 import 'package:restaurante_galegos/app/repositories/order/order_reposiroty_impl.dart';
+import 'package:restaurante_galegos/app/repositories/time/time_repository.dart';
+import 'package:restaurante_galegos/app/repositories/time/time_repository_impl.dart';
 import 'package:restaurante_galegos/app/services/cep/cep_services.dart';
 import 'package:restaurante_galegos/app/services/cep/cep_services_impl.dart';
 import 'package:restaurante_galegos/app/services/finished/order_finished_services.dart';
@@ -33,6 +35,8 @@ import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services_
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services_impl.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
+import 'package:restaurante_galegos/app/services/time/time_services.dart';
+import 'package:restaurante_galegos/app/services/time/time_services_impl.dart';
 import './home_controller.dart';
 
 class HomeBindings implements Bindings {
@@ -67,6 +71,13 @@ class HomeBindings implements Bindings {
     );
     Get.lazyPut<CepServices>(
       () => CepServicesImpl(cepRepository: Get.find<CepRepository>()),
+    );
+
+    Get.lazyPut<TimeRepository>(() => TimeRepositoryImpl(restClient: Get.find<RestClient>()));
+    Get.lazyPut<TimeServices>(
+      () => TimeServicesImpl(
+        timeRepository: Get.find<TimeRepository>(),
+      ),
     );
 
     Get.lazyPut<OrderReposiroty>(() => OrderReposirotyImpl(restClient: Get.find<RestClient>()));
@@ -126,6 +137,7 @@ class HomeBindings implements Bindings {
     Get.lazyPut(
       () => FoodService(
         lunchboxesServices: Get.find<LunchboxesServices>(),
+        timeServices: Get.find<TimeServices>(),
       ),
     );
 
