@@ -65,13 +65,13 @@ class GalegosTextFormField extends StatelessWidget {
         ),
         enabled: enabled ?? true,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(
             color: colorBorder ?? Colors.black,
           ),
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(
             color: colorBorder ?? Colors.black,
           ),
@@ -80,13 +80,13 @@ class GalegosTextFormField extends StatelessWidget {
           color: colorText ?? Colors.black,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(
             color: colorBorder ?? Colors.black,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(
             color: Colors.red,
           ),
