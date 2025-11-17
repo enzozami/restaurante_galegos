@@ -128,7 +128,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         final currentCategory = categorySelected.value;
 
         if (categoryModel.name == currentCategory?.name) {
-          log('messageh');
           categorySelected.value = null;
           _fetchProductsAndItems();
           // itemsFiltrados.value = items;

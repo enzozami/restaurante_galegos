@@ -5,4 +5,5 @@ abstract interface class LunchboxesRepository {
   Future<List<FoodModel>> getFood();
   Future<List<MenuModel>> getMenu();
   Future<void> updateTemHoje(int id, FoodModel food, bool novoValor);
+  Future<FoodModel> cadastrarMarmita(FoodModel food);
 }

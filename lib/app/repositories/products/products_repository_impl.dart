@@ -71,7 +71,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
         error: result.statusText,
         stackTrace: StackTrace.current,
       );
-      RestClientException(message: 'Erro ao enviar novo pedido');
+      RestClientException(message: 'Erro ao cadastrar novo produto');
     }
 
     return ProductModel.fromMap(result.body);
