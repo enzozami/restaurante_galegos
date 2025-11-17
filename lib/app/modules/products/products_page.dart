@@ -61,7 +61,7 @@ class ProductsPage extends GetView<ProductsController> {
                               Obx(() {
                                 return DropdownButtonFormField<String>(
                                   dropdownColor: GalegosUiDefaut.colorScheme.secondary,
-                                  borderRadius: BorderRadius.circular(30),
+                                  borderRadius: BorderRadius.circular(5),
                                   decoration: InputDecoration(
                                     labelText: 'Categoria',
                                     labelStyle: TextStyle(
@@ -74,7 +74,7 @@ class ProductsPage extends GetView<ProductsController> {
                                       ),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
+                                      borderRadius: BorderRadius.circular(5),
                                       borderSide: BorderSide(
                                         color: GalegosUiDefaut.colorScheme.primary,
                                       ),
@@ -84,7 +84,7 @@ class ProductsPage extends GetView<ProductsController> {
                                         color: GalegosUiDefaut.colorScheme.primary,
                                       ),
                                       borderRadius: BorderRadius.all(
-                                        Radius.circular(30),
+                                        Radius.circular(5),
                                       ),
                                     ),
                                   ),
