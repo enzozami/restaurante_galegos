@@ -200,14 +200,11 @@ class _ProductsPageState extends GalegosState<ProductsPage, ProductsController> 
               },
               icon: Icon(
                 Icons.add,
-                color: GalegosUiDefaut.colorScheme.primary,
               ),
               backgroundColor: GalegosUiDefaut.theme.floatingActionButtonTheme.backgroundColor,
+              foregroundColor: GalegosUiDefaut.theme.floatingActionButtonTheme.foregroundColor,
               label: Text(
                 'Adicionar',
-                style: TextStyle(
-                  color: GalegosUiDefaut.colorScheme.primary,
-                ),
               ),
             )
           : null,

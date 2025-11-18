@@ -17,136 +17,130 @@ class AlimentosWidget extends GetView<LunchboxesController> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Obx(() {
-        final alimentos = controller.alimentos;
-        final days = controller.times;
+        final alimentos = controller.alimentosFiltrados;
+
         final selectedSize = controller.sizeSelected.value;
+
         return Visibility(
           visible: controller.admin == false,
-          replacement: Column(
-            children: days
-                .expand(
-              (element) => element.days,
-            )
-                .map(
-              (day) {
-                return Visibility(
-                  visible: (selectedSize?.isNotEmpty ?? false),
-                  child: Material(
-                    color: GalegosUiDefaut.theme.primaryColor,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 16.0),
-                          child: Text(
-                            day,
-                            style: GalegosUiDefaut.theme.textTheme.titleLarge,
-                          ),
-                        ),
-                        Card(
-                          elevation: 5,
-                          color: GalegosUiDefaut.theme.cardTheme.color,
-                          margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Container(
+          replacement: Visibility(
+            visible: (selectedSize?.isNotEmpty ?? false),
+            child: Material(
+              color: GalegosUiDefaut.theme.primaryColor,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 16.0),
+                    child: Text(
+                      'MARMITAS',
+                      style: GalegosUiDefaut.theme.textTheme.titleLarge,
+                    ),
+                  ),
+                  Card(
+                    elevation: 5,
+                    color: GalegosUiDefaut.theme.cardTheme.color,
+                    margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Container(
+                      constraints: BoxConstraints(
+                        minHeight: 100,
+                      ),
+                      width: context.width,
+                      child: Column(
+                        children: alimentos.map((alimento) {
+                          final price =
+                              selectedSize != '' ? alimento.pricePerSize[selectedSize] : null;
+                          return Container(
                             constraints: BoxConstraints(
                               minHeight: 100,
                             ),
                             width: context.width,
                             child: Column(
-                              children:
-                                  alimentos.where((e) => e.dayName.contains(day)).map((alimento) {
-                                final price =
-                                    selectedSize != '' ? alimento.pricePerSize[selectedSize] : null;
-                                return Container(
-                                  constraints: BoxConstraints(
-                                    minHeight: 100,
-                                  ),
-                                  width: context.width,
-                                  child: Column(
-                                    children: [
-                                      Card(
-                                        elevation: 2,
-                                        color: GalegosUiDefaut.theme.cardTheme.color,
-                                        child: InkWell(
-                                          splashColor: GalegosUiDefaut.theme.splashColor,
-                                          onTap: () {
-                                            controller.setFoodSelected(alimento);
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return AlertProductsLunchboxesAdm(
-                                                  title: 'ATENÇÃO',
-                                                  body: alimento.temHoje
-                                                      ? 'Deseja desabilitar esse produto?'
-                                                      : 'Deseja habilitar esse produto?',
-                                                  onPressed: () async {
-                                                    controller.updateListFoods(
-                                                        alimento.id, alimento);
-                                                    Get.back();
-                                                  },
-                                                );
-                                              },
-                                            );
-                                          },
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              ListTile(
-                                                leading: alimento.temHoje
-                                                    ? Text(
-                                                        'Ativo',
-                                                        style: TextStyle(
-                                                          color: Colors.green,
-                                                        ),
-                                                      )
-                                                    : Text(
-                                                        'Inativo',
-                                                        style: TextStyle(
-                                                          color: GalegosUiDefaut.colorScheme.error,
-                                                        ),
-                                                      ),
-                                                title: Text(
-                                                  alimento.name,
+                              children: [
+                                Card(
+                                  elevation: 2,
+                                  color: GalegosUiDefaut.theme.cardTheme.color,
+                                  child: InkWell(
+                                    splashColor: GalegosUiDefaut.theme.splashColor,
+                                    onTap: () {
+                                      controller.setFoodSelected(alimento);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertProductsLunchboxesAdm(
+                                            title: 'ATENÇÃO',
+                                            body: alimento.temHoje
+                                                ? 'Deseja desabilitar esse produto?'
+                                                : 'Deseja habilitar esse produto?',
+                                            onPressed: () async {
+                                              controller.updateListFoods(alimento.id, alimento);
+                                              Get.back();
+                                            },
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        ListTile(
+                                          leading: alimento.temHoje
+                                              ? Text(
+                                                  'Ativo',
                                                   style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18,
+                                                    color: Colors.green,
+                                                  ),
+                                                )
+                                              : Text(
+                                                  'Inativo',
+                                                  style: TextStyle(
+                                                    color: GalegosUiDefaut.colorScheme.error,
                                                   ),
                                                 ),
-                                                subtitle: Text(alimento.description),
-                                                trailing: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    if (price != null)
-                                                      Text(
-                                                        FormatterHelper.formatCurrency(price),
-                                                        style: TextStyle(
-                                                          fontSize: 17,
-                                                          fontWeight: FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                  ],
+                                          title: Text(
+                                            alimento.name,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          subtitle: Text(alimento.description),
+                                          trailing: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              if (price != null)
+                                                Text(
+                                                  FormatterHelper.formatCurrency(price),
+                                                  style: TextStyle(
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
-                                              ),
                                             ],
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                );
-                              }).toList(),
+                                ),
+                              ],
                             ),
-                          ),
-                        ),
-                      ],
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
-                );
-              },
-            ).toList(),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                ],
+              ),
+            ),
           ),
           child: Column(
             children: alimentos
-                .where((e) => e.temHoje && e.dayName.contains(controller.dayNow))
+                .where(
+              (element) => element.dayName.contains(controller.dayNow),
+            )
                 .map((alimento) {
               final price = selectedSize != '' ? alimento.pricePerSize[selectedSize] : null;
               return Visibility(

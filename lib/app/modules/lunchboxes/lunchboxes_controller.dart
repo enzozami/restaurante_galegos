@@ -28,7 +28,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   RxList<FoodModel> get alimentos => _foodService.alimentos;
   RxList<TimeModel> get times => _foodService.times;
-  final alimentosFiltrados = <FoodModel>[].obs;
+  // final alimentosFiltrados = <FoodModel>[].obs;
 
   // 3. O dia atual deve ser um Rx ou ser calculado na UI, mas manter como final para simplicidade.
   final dayNow = FormatterHelper.formatDate();
@@ -60,7 +60,25 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   bool get admin => _authService.isAdmin();
   void updateListFoods(int id, FoodModel food) => _foodService.updateTemHoje(id, food);
 
-  final RxList<String> daysSelected = <String>[].obs;
+  final RxList<String> addDays = <String>[].obs;
+  final daysSelected = Rxn<String>();
+
+  List<FoodModel> get alimentosFiltrados {
+    final size = sizeSelected.value;
+    final day = daysSelected.value;
+
+    return alimentos
+        .where((food) {
+          final matchSize =
+              size == null || size.isEmpty ? true : food.pricePerSize.containsKey(size);
+
+          final matchDay = day == null || day.isEmpty ? true : food.dayName.contains(day);
+
+          return matchSize && matchDay;
+        })
+        .toSet()
+        .toList();
+  }
 
   void cadastrar(
     String name,
@@ -68,7 +86,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     double priceMini,
     double priceMedia,
   ) {
-    if (daysSelected.isEmpty) {
+    if (addDays.isEmpty) {
       _message(MessageModel(
         title: 'Atenção',
         message: 'Selecione ao menos um dia para cadastrar.',
@@ -79,7 +97,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     log("DEBUG: função de salvar foi chamada");
     _foodService.cadastrarM(
       name,
-      daysSelected,
+      addDays,
       description,
       {
         'mini': priceMini,
@@ -132,48 +150,19 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   }
 
   void filterPrice(String selectedSize) {
-    try {
-      if (isProcessing.value == false) {
-        isProcessing.value = true;
-
-        if (sizeSelected.value == selectedSize) {
-          sizeSelected.value = '';
-          getLunchboxes();
-          return;
-        }
-
-        sizeSelected.value = selectedSize;
-
-        final filtered = alimentos.where((alimento) {
-          return alimento.pricePerSize.containsKey((selectedSize));
-        }).toList();
-
-        availableSizes.assignAll(
-          filtered
-              .map(
-                (e) => e.pricePerSize.keys.toList(),
-              )
-              .expand(
-                (e) => e,
-              )
-              .toSet()
-              .toList(),
-        );
-      }
-    } catch (e, s) {
-      _loading(false);
-      log('Erro ao filtar marmitas', error: e, stackTrace: s);
-      _message(
-        MessageModel(
-          title: 'Erro',
-          message: 'Erro ao filtrar marmitas',
-          type: MessageType.error,
-        ),
-      );
-    } finally {
-      _loading(false);
-      isProcessing.value = false;
+    if (selectedSize == sizeSelected.value) {
+      sizeSelected.value = '';
+      return;
     }
+    sizeSelected.value = selectedSize;
+  }
+
+  void filterByDay(String? day) {
+    if (day == daysSelected.value) {
+      daysSelected.value = null;
+      return;
+    }
+    daysSelected.value = day;
   }
 
   void addFood() {

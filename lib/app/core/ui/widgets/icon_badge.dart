@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class IconBadge extends StatelessWidget {
   final int number;
   final IconData icon;
-  final Color color;
+  final Color? color;
 
   const IconBadge({
     super.key,
     required this.number,
     required this.icon,
-    required this.color,
+    this.color,
   });
 
   @override

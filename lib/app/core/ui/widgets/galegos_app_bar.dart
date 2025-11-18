@@ -7,6 +7,8 @@ class GalegosAppBar extends AppBar {
           elevation: GalegosUiDefaut.theme.appBarTheme.elevation,
           scrolledUnderElevation: GalegosUiDefaut.theme.appBarTheme.scrolledUnderElevation,
           backgroundColor: GalegosUiDefaut.theme.appBarTheme.backgroundColor,
+          foregroundColor: GalegosUiDefaut.theme.appBarTheme.foregroundColor,
+          iconTheme: GalegosUiDefaut.theme.appBarTheme.iconTheme,
           centerTitle: true,
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
