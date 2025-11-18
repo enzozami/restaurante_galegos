@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/filter_tag.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/widgets/alimentos_widget.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/widgets/lunchboxes_header.dart';
@@ -81,49 +82,17 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                               spacing: 20,
                               children: [
                                 MultiSelectContainer(
-                                  suffix: MultiSelectSuffix(
-                                    selectedSuffix: Padding(
-                                      padding: EdgeInsets.only(left: 10),
-                                      child: Icon(
-                                        Icons.check,
-                                        color: GalegosUiDefaut.colorScheme.onPrimary,
-                                        size: 14,
-                                      ),
-                                    ),
-                                    disabledSuffix: const Padding(
-                                      padding: EdgeInsets.only(left: 10),
-                                      child: Icon(
-                                        Icons.do_disturb_alt_sharp,
-                                        size: 14,
-                                      ),
-                                    ),
-                                  ),
                                   items: controller.times
                                       .expand((e) => e.days)
                                       .map(
                                         (day) => MultiSelectCard(
                                           value: day,
-                                          child: SizedBox(
-                                            width: context.widthTransformer(reducedBy: 40),
-                                            height: 40,
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    day,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
+                                          label: day[0],
                                         ),
                                       )
                                       .toList(),
                                   onChange: (allSelectedItems, selectedItem) {
-                                    controller.daysSelected.value =
+                                    controller.addDays.value =
                                         allSelectedItems.map((e) => e).toList();
                                   },
                                   itemsDecoration: MultiSelectDecorations(
@@ -200,8 +169,10 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                                   final description = descricaoEC.text;
 
                                   controller.cadastrar(name, description, priceMini, priceMedia);
+                                  Get.back();
+                                  Get.snackbar('Marmita - ${nomeMarmitaEC.text}',
+                                      'Marmita adicionada com sucesso');
                                 }
-                                Get.back();
                               },
                               child: Text('Cadastrar'),
                             ),
@@ -213,14 +184,11 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                 },
                 icon: Icon(
                   Icons.add,
-                  color: GalegosUiDefaut.colorScheme.primary,
                 ),
                 backgroundColor: GalegosUiDefaut.theme.floatingActionButtonTheme.backgroundColor,
+                foregroundColor: GalegosUiDefaut.theme.floatingActionButtonTheme.foregroundColor,
                 label: Text(
                   'Adicionar',
-                  style: TextStyle(
-                    color: GalegosUiDefaut.colorScheme.primary,
-                  ),
                 ),
               ),
             )
@@ -235,16 +203,25 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                 padding: const EdgeInsets.only(top: 30.0, bottom: 15),
                 child: Visibility(
                   visible: controller.admin != true,
-                  replacement: Center(
-                    child: Text(
-                      'MARMITAS',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
+                  replacement: Obx(() {
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: controller.times
+                            .expand((e) => e.days)
+                            .map(
+                              (d) => FilterTag(
+                                isSelected: controller.daysSelected.value == d,
+                                onPressed: () {
+                                  controller.filterByDay(d);
+                                },
+                                days: d,
+                              ),
+                            )
+                            .toList(),
                       ),
-                    ),
-                  ),
+                    );
+                  }),
                   child: Text(
                     'MARMITAS DE HOJE: \n${controller.dayNow}',
                     textAlign: TextAlign.center,

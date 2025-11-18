@@ -3,15 +3,17 @@ import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/models/category_model.dart';
 
 class FilterTag extends StatelessWidget {
-  final CategoryModel category;
+  final CategoryModel? category;
+  final String? days;
   final bool isSelected;
   final VoidCallback onPressed;
 
   const FilterTag({
     super.key,
-    required this.category,
+    this.category,
     this.isSelected = false,
     required this.onPressed,
+    this.days,
   });
 
   @override
@@ -31,14 +33,18 @@ class FilterTag extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border.all(),
               borderRadius: BorderRadius.circular(30),
-              color: isSelected ? GalegosUiDefaut.colorScheme.primary : Colors.black,
+              color: isSelected
+                  ? GalegosUiDefaut.colorScheme.secondary
+                  : GalegosUiDefaut.colorScheme.tertiary,
             ),
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                category.name,
+                category?.name ?? days ?? '',
                 style: TextStyle(
-                  color: isSelected ? Colors.black : GalegosUiDefaut.colorScheme.primary,
+                  color: isSelected
+                      ? GalegosUiDefaut.colorScheme.tertiary
+                      : GalegosUiDefaut.colors['fundo_branco'],
                 ),
               ),
             ),
