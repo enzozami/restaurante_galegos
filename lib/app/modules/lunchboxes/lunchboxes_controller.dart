@@ -52,10 +52,10 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     required CarrinhoServices carrinhoServices,
     required FoodService foodService,
     required AuthService authService,
-  })  : _lunchboxesServices = lunchboxesServices,
-        _carrinhoServices = carrinhoServices,
-        _foodService = foodService,
-        _authService = authService;
+  }) : _lunchboxesServices = lunchboxesServices,
+       _carrinhoServices = carrinhoServices,
+       _foodService = foodService,
+       _authService = authService;
 
   bool get admin => _authService.isAdmin();
   void updateListFoods(int id, FoodModel food) => _foodService.updateTemHoje(id, food);
@@ -69,8 +69,9 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
     return alimentos
         .where((food) {
-          final matchSize =
-              size == null || size.isEmpty ? true : food.pricePerSize.containsKey(size);
+          final matchSize = size == null || size.isEmpty
+              ? true
+              : food.pricePerSize.containsKey(size);
 
           final matchDay = day == null || day.isEmpty ? true : food.dayName.contains(day);
 
@@ -80,30 +81,19 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
         .toList();
   }
 
-  void cadastrar(
-    String name,
-    String? description,
-    double priceMini,
-    double priceMedia,
-  ) {
+  void cadastrar(String name, String? description, double priceMini, double priceMedia) {
     if (addDays.isEmpty) {
-      _message(MessageModel(
-        title: 'Atenção',
-        message: 'Selecione ao menos um dia para cadastrar.',
-        type: MessageType.error,
-      ));
+      _message(
+        MessageModel(
+          title: 'Atenção',
+          message: 'Selecione ao menos um dia para cadastrar.',
+          type: MessageType.error,
+        ),
+      );
       return;
     }
     log("DEBUG: função de salvar foi chamada");
-    _foodService.cadastrarM(
-      name,
-      addDays,
-      description,
-      {
-        'mini': priceMini,
-        'media': priceMedia,
-      },
-    );
+    _foodService.cadastrarM(name, addDays, description, {'mini': priceMini, 'media': priceMedia});
     log(" função de salvar foi chamada");
   }
 
@@ -138,11 +128,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       _loading(false);
       log('Erro ao carregar marmitas', error: e, stackTrace: s);
       _message(
-        MessageModel(
-          title: 'Erro',
-          message: 'Erro ao carregar marmitas',
-          type: MessageType.error,
-        ),
+        MessageModel(title: 'Erro', message: 'Erro ao carregar marmitas', type: MessageType.error),
       );
     } finally {
       _loading(false);
@@ -213,11 +199,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     } catch (e, s) {
       log('Erro ao atualizar marmitas', error: e, stackTrace: s);
       _message(
-        MessageModel(
-          title: 'Erro',
-          message: 'Erro ao atualizar marmitas',
-          type: MessageType.error,
-        ),
+        MessageModel(title: 'Erro', message: 'Erro ao atualizar marmitas', type: MessageType.error),
       );
     }
   }
