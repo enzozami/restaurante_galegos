@@ -165,6 +165,9 @@ class ProductItems extends GetView<ProductsController> {
                           .where((e) => e.categoryId == c.name)
                           .map(
                             (e) => CardItems(
+                              width: 190,
+                              height: 310,
+                              imageHeight: 130,
                               titulo: e.name,
                               preco: FormatterHelper.formatCurrency(e.price),
                               descricao: e.description,
@@ -243,6 +246,10 @@ class ProductItems extends GetView<ProductsController> {
                                   },
                                 );
                               },
+                              styleTitle: GalegosUiDefaut.theme.textTheme.titleMedium,
+                              styleDescricao: GalegosUiDefaut.theme.textTheme.bodyLarge,
+                              stylePreco: GalegosUiDefaut.textProduct.titleMedium,
+                              isProduct: true,
                             ),
                           )
                           .toList(),

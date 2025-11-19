@@ -957,17 +957,15 @@
         },
         {
             "id": 30,
-            "name": "hehehehehehe",
+            "name": "Enzo teste",
             "dayName": [
-                "Terça-feira",
-                "Quarta-feira",
-                "Quinta-feira"
+                "Quarta-feira"
             ],
             "temHoje": true,
-            "description": "enzinho",
+            "description": "",
             "pricePerSize": {
-                "mini": 30000.0,
-                "media": 50000.0
+                "mini": 100.0,
+                "media": 3000.0
             }
         }
     ],
@@ -1611,7 +1609,7 @@
                 }
             ],
             "amountToPay": 15.0,
-            "status": "preparando",
+            "status": "a caminho",
             "time": "19:08",
             "timeFinished": "",
             "date": "12/11/2025"
@@ -2347,6 +2345,42 @@
             "time": "11:35",
             "timePath": "",
             "timeFinished": "11:36"
+        },
+        {
+            "id": 19,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "produto": {
+                        "id": 1,
+                        "categoryId": "Lanches",
+                        "name": "Americano",
+                        "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                        "temHoje": true,
+                        "price": 15.0,
+                        "image": ""
+                    },
+                    "alimento": null,
+                    "quantidade": 1,
+                    "tamanho": null,
+                    "valorPorTamanho": null
+                }
+            ],
+            "amountToPay": 15.0,
+            "status": "a caminho",
+            "date": "12/11/2025",
+            "time": "19:08",
+            "timePath": "09:09",
+            "timeFinished": ""
         }
     ]
 }

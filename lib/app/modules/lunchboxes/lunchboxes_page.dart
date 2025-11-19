@@ -6,7 +6,6 @@ import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/filter_tag.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/widgets/alimentos_widget.dart';
-import 'package:restaurante_galegos/app/modules/lunchboxes/widgets/lunchboxes_header.dart';
 import 'package:validatorless/validatorless.dart';
 // import 'package:restaurante_galegos/app/modules/lunchboxes/widgets/lunchboxes_header.dart';
 import './lunchboxes_controller.dart';
@@ -50,11 +49,19 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                         key: formKey,
                         child: AlertDialog(
                           backgroundColor: GalegosUiDefaut.colorScheme.onPrimary,
-                          titlePadding:
-                              const EdgeInsets.only(top: 15, left: 24, right: 24, bottom: 0),
+                          titlePadding: const EdgeInsets.only(
+                            top: 15,
+                            left: 24,
+                            right: 24,
+                            bottom: 0,
+                          ),
                           contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                          actionsPadding:
-                              const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 15),
+                          actionsPadding: const EdgeInsets.only(
+                            top: 20,
+                            left: 20,
+                            right: 20,
+                            bottom: 15,
+                          ),
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,8 +78,10 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                                 ),
                               ),
                               IconButton(
-                                icon:
-                                    Icon(Icons.close, color: GalegosUiDefaut.colorScheme.secondary),
+                                icon: Icon(
+                                  Icons.close,
+                                  color: GalegosUiDefaut.colorScheme.secondary,
+                                ),
                                 onPressed: () => Get.back(),
                               ),
                             ],
@@ -84,16 +93,12 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                                 MultiSelectContainer(
                                   items: controller.times
                                       .expand((e) => e.days)
-                                      .map(
-                                        (day) => MultiSelectCard(
-                                          value: day,
-                                          label: day[0],
-                                        ),
-                                      )
+                                      .map((day) => MultiSelectCard(value: day, label: day[0]))
                                       .toList(),
                                   onChange: (allSelectedItems, selectedItem) {
-                                    controller.addDays.value =
-                                        allSelectedItems.map((e) => e).toList();
+                                    controller.addDays.value = allSelectedItems
+                                        .map((e) => e)
+                                        .toList();
                                   },
                                   itemsDecoration: MultiSelectDecorations(
                                     selectedDecoration: BoxDecoration(
@@ -170,8 +175,10 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
 
                                   controller.cadastrar(name, description, priceMini, priceMedia);
                                   Get.back();
-                                  Get.snackbar('Marmita - ${nomeMarmitaEC.text}',
-                                      'Marmita adicionada com sucesso');
+                                  Get.snackbar(
+                                    'Marmita - ${nomeMarmitaEC.text}',
+                                    'Marmita adicionada com sucesso',
+                                  );
                                 }
                               },
                               child: Text('Cadastrar'),
@@ -182,85 +189,63 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                     },
                   );
                 },
-                icon: Icon(
-                  Icons.add,
-                ),
+                icon: Icon(Icons.add),
                 backgroundColor: GalegosUiDefaut.theme.floatingActionButtonTheme.backgroundColor,
                 foregroundColor: GalegosUiDefaut.theme.floatingActionButtonTheme.foregroundColor,
-                label: Text(
-                  'Adicionar',
-                ),
+                label: Text('Adicionar'),
               ),
             )
           : null,
-      bottomSheet: LunchboxesHeader(),
+
       body: RefreshIndicator.noSpinner(
         onRefresh: controller.refreshLunchboxes,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 30.0, bottom: 15),
-                child: Visibility(
-                  visible: controller.admin != true,
-                  replacement: Obx(() {
-                    return SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: controller.times
-                            .expand((e) => e.days)
-                            .map(
-                              (d) => FilterTag(
-                                isSelected: controller.daysSelected.value == d,
-                                onPressed: () {
-                                  controller.filterByDay(d);
-                                },
-                                days: d,
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    );
-                  }),
-                  child: Text(
-                    'MARMITAS DE HOJE: \n${controller.dayNow}',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minWidth: constraints.maxWidth,
+                  minHeight: constraints.maxHeight,
                 ),
-              ),
-              Obx(() {
-                return Visibility(
-                  visible: (controller.sizeSelected.value == null ||
-                      controller.sizeSelected.value == ''),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: context.heightTransformer(reducedBy: 75),
-                      ),
-                      Center(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30.0, bottom: 15),
+                      child: Visibility(
+                        visible: controller.admin != true,
+                        replacement: Obx(() {
+                          return SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: controller.times
+                                  .expand((e) => e.days)
+                                  .map(
+                                    (d) => FilterTag(
+                                      isSelected: controller.daysSelected.value == d,
+                                      onPressed: () {
+                                        controller.filterByDay(d);
+                                      },
+                                      days: d,
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          );
+                        }),
                         child: Text(
-                          'Selecione um tamanho*',
-                          style: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            fontSize: 12,
-                          ),
+                          'MARMITAS DE HOJE: \n${controller.dayNow}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                         ),
                       ),
-                    ],
-                  ),
-                );
-              }),
-              // LunchboxesGroup(),
-              AlimentosWidget(),
-              const SizedBox(
-                height: 65,
+                    ),
+
+                    AlimentosWidget(),
+                  ],
+                ),
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
