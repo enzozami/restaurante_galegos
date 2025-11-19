@@ -41,14 +41,17 @@ class CardItems extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 8,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: context.width,
-                  height: 120,
-                  child: Image.network(image ?? '', fit: BoxFit.cover),
-                ),
-              ),
+              (image != null && image != '')
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                        width: context.width,
+                        height: 120,
+                        child: Image.network(image ?? '', fit: BoxFit.cover),
+                      ),
+                    )
+                  : SizedBox(height: 120),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Text(
