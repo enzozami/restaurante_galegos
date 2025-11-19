@@ -23,10 +23,7 @@ class GalegosDrawer extends GetView<AuthService> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            accountEmail: Visibility(
-              visible: controller.isAdmin(),
-              child: Text('Administrador'),
-            ),
+            accountEmail: Visibility(visible: controller.isAdmin(), child: Text('Administrador')),
           ),
           ButtonDrawer(
             title: 'Perfil',
@@ -46,10 +43,7 @@ class GalegosDrawer extends GetView<AuthService> {
               Get.toNamed('/about_us');
             },
           ),
-          ButtonDrawer(
-            title: 'Sair',
-            onTap: AuthService().logout,
-          ),
+          ButtonDrawer(title: 'Sair', onTap: AuthService().logout),
         ],
       ),
     );
@@ -60,11 +54,7 @@ class ButtonDrawer extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
 
-  const ButtonDrawer({
-    super.key,
-    required this.title,
-    required this.onTap,
-  });
+  const ButtonDrawer({super.key, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +70,7 @@ class ButtonDrawer extends StatelessWidget {
             child: Text(
               title,
               // textAlign: TextAlign.left,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
         ),

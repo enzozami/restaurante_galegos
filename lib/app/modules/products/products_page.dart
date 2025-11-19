@@ -42,11 +42,19 @@ class _ProductsPageState extends GalegosState<ProductsPage, ProductsController> 
                       key: formKey,
                       child: AlertDialog(
                         backgroundColor: GalegosUiDefaut.colorScheme.onPrimary,
-                        titlePadding:
-                            const EdgeInsets.only(top: 15, left: 24, right: 24, bottom: 0),
+                        titlePadding: const EdgeInsets.only(
+                          top: 15,
+                          left: 24,
+                          right: 24,
+                          bottom: 0,
+                        ),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                        actionsPadding:
-                            const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 15),
+                        actionsPadding: const EdgeInsets.only(
+                          top: 20,
+                          left: 20,
+                          right: 20,
+                          bottom: 15,
+                        ),
                         title: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,9 +91,7 @@ class _ProductsPageState extends GalegosState<ProductsPage, ProductsController> 
                                     ),
                                     hint: Text(
                                       'Selecione',
-                                      style: TextStyle(
-                                        color: GalegosUiDefaut.colorScheme.primary,
-                                      ),
+                                      style: TextStyle(color: GalegosUiDefaut.colorScheme.primary),
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5),
@@ -97,14 +103,10 @@ class _ProductsPageState extends GalegosState<ProductsPage, ProductsController> 
                                       borderSide: BorderSide(
                                         color: GalegosUiDefaut.colorScheme.primary,
                                       ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(5),
-                                      ),
+                                      borderRadius: BorderRadius.all(Radius.circular(5)),
                                     ),
                                   ),
-                                  style: TextStyle(
-                                    color: GalegosUiDefaut.colorScheme.primary,
-                                  ),
+                                  style: TextStyle(color: GalegosUiDefaut.colorScheme.primary),
                                   selectedItemBuilder: (context) {
                                     return controller.category.map((c) {
                                       return Text(
@@ -136,9 +138,7 @@ class _ProductsPageState extends GalegosState<ProductsPage, ProductsController> 
                                       controller.categoryId.value = value;
                                     }
                                   },
-                                  validator: Validatorless.required(
-                                    'Selecione uma categoria',
-                                  ),
+                                  validator: Validatorless.required('Selecione uma categoria'),
                                 );
                               }),
                               GalegosTextFormField(
@@ -198,14 +198,10 @@ class _ProductsPageState extends GalegosState<ProductsPage, ProductsController> 
                   },
                 );
               },
-              icon: Icon(
-                Icons.add,
-              ),
+              icon: Icon(Icons.add),
               backgroundColor: GalegosUiDefaut.theme.floatingActionButtonTheme.backgroundColor,
               foregroundColor: GalegosUiDefaut.theme.floatingActionButtonTheme.foregroundColor,
-              label: Text(
-                'Adicionar',
-              ),
+              label: Text('Adicionar'),
             )
           : null,
       body: RefreshIndicator.noSpinner(
@@ -215,18 +211,13 @@ class _ProductsPageState extends GalegosState<ProductsPage, ProductsController> 
           child: Column(
             children: [
               ProductHeader(),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               controller.admin
                   ? SizedBox.shrink()
                   : Center(
                       child: Text(
                         'Selecione algum item para adicionar ao carrinho*',
-                        style: TextStyle(
-                          fontStyle: FontStyle.italic,
-                          fontSize: 11,
-                        ),
+                        style: TextStyle(fontStyle: FontStyle.italic, fontSize: 11),
                       ),
                     ),
               Obx(() {
@@ -234,7 +225,7 @@ class _ProductsPageState extends GalegosState<ProductsPage, ProductsController> 
                   return SizedBox.shrink();
                 }
                 return ProductItems();
-              })
+              }),
             ],
           ),
         ),

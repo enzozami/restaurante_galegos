@@ -26,15 +26,12 @@ class FilterTag extends StatelessWidget {
           child: Container(
             margin: EdgeInsets.all(5),
             padding: EdgeInsets.all(15),
-            constraints: BoxConstraints(
-              minHeight: 40,
-              minWidth: 130,
-            ),
+            constraints: BoxConstraints(minHeight: 40, minWidth: 130),
             decoration: BoxDecoration(
               border: Border.all(),
               borderRadius: BorderRadius.circular(30),
               color: isSelected
-                  ? GalegosUiDefaut.colorScheme.secondary
+                  ? GalegosUiDefaut.colorScheme.primary
                   : GalegosUiDefaut.colorScheme.tertiary,
             ),
             child: Align(
@@ -44,7 +41,7 @@ class FilterTag extends StatelessWidget {
                 style: TextStyle(
                   color: isSelected
                       ? GalegosUiDefaut.colorScheme.tertiary
-                      : GalegosUiDefaut.colors['fundo_branco'],
+                      : GalegosUiDefaut.colors['fundo'],
                 ),
               ),
             ),

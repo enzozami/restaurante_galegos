@@ -14,9 +14,7 @@ class ProductsService extends GetxService {
     return this;
   }
 
-  ProductsService({
-    required ProductsServices itemsServices,
-  }) : _itemsServices = itemsServices;
+  ProductsService({required ProductsServices itemsServices}) : _itemsServices = itemsServices;
 
   Future<void> updateTemHoje(int id, ProductModel item) async {
     final novoValor = !item.temHoje;
@@ -53,6 +51,7 @@ class ProductsService extends GetxService {
       temHoje: true,
       price: price,
       description: description,
+      image: '',
     );
 
     _itemsServices.cadastrarProdutos(produto);
