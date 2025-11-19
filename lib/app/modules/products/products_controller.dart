@@ -42,6 +42,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   int get quantity => _quantity.value;
   bool get alreadyAdded => _alreadyAdded.value;
   double get totalPrice => _totalPrice.value;
+  CarrinhoServices get carrinhoServices => _carrinhoServices;
 
   RxList<ProductModel> get items => _productsService.items;
   RxList<CategoryModel> get category => _productsService.categories;
@@ -51,29 +52,20 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     required AuthService authService,
     required CarrinhoServices carrinhoServices,
     required ProductsService productsService,
-  })  : _carrinhoServices = carrinhoServices,
-        _authService = authService,
-        _productsService = productsService;
+  }) : _carrinhoServices = carrinhoServices,
+       _authService = authService,
+       _productsService = productsService;
 
   bool get admin => _authService.isAdmin();
   Future<void> updateListItems(int id, ProductModel item) async {
     await _productsService.updateTemHoje(id, item);
   }
 
-  void cadastrar(
-    String name,
-    double price,
-    String? description,
-  ) {
+  void cadastrar(String name, double price, String? description) {
     if (categoryId.value != null) {
       final category = categoryId.value!;
 
-      _productsService.cadastrarProduto(
-        category,
-        name,
-        price,
-        description,
-      );
+      _productsService.cadastrarProduto(category, name, price, description);
     }
   }
 
@@ -136,11 +128,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         categorySelected.value = categoryModel;
 
         // final filtered = items
-        items
-            .where(
-              (e) => e.categoryId == (categorySelected.value!.name),
-            )
-            .toList();
+        items.where((e) => e.categoryId == (categorySelected.value!.name)).toList();
 
         // itemsFiltrados.value = filtered;
       }
@@ -187,12 +175,8 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       return;
     }
 
-    _carrinhoServices.addOrUpdateProduct(
-      selected,
-      quantity: _quantity.value,
-    );
+    _carrinhoServices.addOrUpdateProduct(selected, quantity: _quantity.value);
     log('QUANTIDADE ENVIADA : $quantity');
-    Get.close(0);
   }
 
   Future<void> refreshProducts() async {
@@ -205,11 +189,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     } catch (e, s) {
       log('Erro ao atualizar produtos', error: e, stackTrace: s);
       _message(
-        MessageModel(
-          title: 'Erro',
-          message: 'Erro ao atualizar produtos',
-          type: MessageType.error,
-        ),
+        MessageModel(title: 'Erro', message: 'Erro ao atualizar produtos', type: MessageType.error),
       );
     }
   }
