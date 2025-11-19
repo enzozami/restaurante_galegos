@@ -67,7 +67,7 @@ class HomePage extends GetView<HomeController> {
           backgroundColor: GalegosUiDefaut.theme.navigationBarTheme.backgroundColor,
           indicatorColor: GalegosUiDefaut.theme.navigationBarTheme.indicatorColor,
           labelTextStyle: GalegosUiDefaut.theme.navigationBarTheme.labelTextStyle,
-          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
           selectedIndex: controller.selectedIndex,
           onDestinationSelected: (value) => controller.selectedIndex = value,
           destinations: destinations,

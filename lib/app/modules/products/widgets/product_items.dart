@@ -170,22 +170,27 @@ class ProductItems extends GetView<ProductsController> {
                               descricao: e.description,
                               image: (e.image.isNotEmpty) ? e.image : '',
                               onPressed: () {
-                                controller.setSelectedItem(
-                                  e,
-                                ); //! ESTÁ COM PROBLEMA AQUI - RESOLVER AMANHÃ
-                                controller.addItemsToCart();
-                                Get.snackbar(
-                                  'Item: ${e.name}',
-                                  'Item adicionado ao carrinho',
-                                  snackPosition: SnackPosition.TOP,
-                                  duration: Duration(seconds: 1),
-                                  backgroundColor: Color(0xFFE2933C),
-                                  colorText: Colors.black,
-                                  isDismissible: true,
-                                  overlayBlur: 0,
-                                  overlayColor: Colors.transparent,
-                                  barBlur: 0,
-                                );
+                                controller.setSelectedItem(e);
+                                final idItem = controller.carrinhoServices.getById(e.id);
+                                if (idItem == null) {
+                                  controller.addItemsToCart();
+                                  Get.snackbar(
+                                    'Item: ${e.name}',
+                                    'Item adicionado ao carrinho',
+                                    snackPosition: SnackPosition.TOP,
+                                    duration: Duration(seconds: 1),
+                                    backgroundColor: Color(0xFFE2933C),
+                                    colorText: Colors.black,
+                                    isDismissible: true,
+                                    overlayBlur: 0,
+                                    overlayColor: Colors.transparent,
+                                    barBlur: 0,
+                                  );
+                                } else {
+                                  controller.addProductUnit();
+                                  controller.addItemsToCart();
+                                }
+
                                 log('Item clicado: ${e.name} - ${e.price}');
                               },
                               onTap: () {
@@ -206,20 +211,29 @@ class ProductItems extends GetView<ProductsController> {
                                       }),
                                       item: e,
                                       onPressed: () {
-                                        controller.addItemsToCart();
-                                        Get.snackbar(
-                                          'Item: ${e.name}',
-                                          'Item adicionado ao carrinho',
-                                          snackPosition: SnackPosition.TOP,
-                                          duration: Duration(seconds: 1),
-                                          backgroundColor: Color(0xFFE2933C),
-                                          colorText: Colors.black,
-                                          isDismissible: true,
-                                          overlayBlur: 0,
-                                          overlayColor: Colors.transparent,
-                                          barBlur: 0,
-                                        );
-                                        log('Item clicado: ${e.name} - ${e.price}');
+                                        final idItem = controller.carrinhoServices.getById(e.id);
+
+                                        if (idItem == null) {
+                                          controller.addItemsToCart();
+                                          Get.snackbar(
+                                            'Item: ${e.name}',
+                                            'Item adicionado ao carrinho',
+                                            snackPosition: SnackPosition.TOP,
+                                            duration: Duration(seconds: 1),
+                                            backgroundColor: Color(0xFFE2933C),
+                                            colorText: Colors.black,
+                                            isDismissible: true,
+                                            overlayBlur: 0,
+                                            overlayColor: Colors.transparent,
+                                            barBlur: 0,
+                                          );
+                                          Get.close(0);
+                                          log('Item clicado: ${e.name} - ${e.price}');
+                                        } else {
+                                          controller.addItemsToCart();
+                                          Get.close(0);
+                                          log('Item clicado: ${e.name} - ${e.price}');
+                                        }
                                       },
                                       onPressedR: () {
                                         controller.removeAllProductsUnit();

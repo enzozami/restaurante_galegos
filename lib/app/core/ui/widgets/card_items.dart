@@ -80,7 +80,10 @@ class CardItems extends StatelessWidget {
                       color: GalegosUiDefaut.colorScheme.primary,
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    child: IconButton(onPressed: onPressed, icon: Icon(Icons.add)),
+                    child: IconButton(
+                      onPressed: onPressed,
+                      icon: Icon(Icons.add, color: GalegosUiDefaut.colors['fundo']),
+                    ),
                   ),
                 ],
               ),
