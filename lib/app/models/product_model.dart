@@ -9,7 +9,7 @@ class ProductModel {
   String? description;
   bool temHoje;
   double price;
-
+  String image;
   ProductModel({
     required this.id,
     required this.categoryId,
@@ -17,6 +17,7 @@ class ProductModel {
     this.description,
     required this.temHoje,
     required this.price,
+    required this.image,
   });
 
   Map<String, dynamic> toMap() {
@@ -27,6 +28,7 @@ class ProductModel {
       'description': description,
       'temHoje': temHoje,
       'price': price,
+      'image': image,
     };
   }
 
@@ -38,6 +40,7 @@ class ProductModel {
       description: map['description'],
       temHoje: map['temHoje'] ?? false,
       price: map['price']?.toDouble() ?? 0.0,
+      image: map['image'] ?? '',
     );
   }
 
@@ -52,6 +55,7 @@ class ProductModel {
     ValueGetter<String?>? description,
     bool? temHoje,
     double? price,
+    String? image,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -60,11 +64,12 @@ class ProductModel {
       description: description != null ? description() : this.description,
       temHoje: temHoje ?? this.temHoje,
       price: price ?? this.price,
+      image: image ?? this.image,
     );
   }
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, categoryId: $categoryId, name: $name, description: $description, temHoje: $temHoje, price: $price)';
+    return 'ProductModel(id: $id, categoryId: $categoryId, name: $name, description: $description, temHoje: $temHoje, price: $price, image: $image)';
   }
 }

@@ -25,7 +25,7 @@ class AlertDialogDefault extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: GalegosUiDefaut.colorScheme.onPrimary,
+      backgroundColor: GalegosUiDefaut.colorScheme.onSecondary,
       titlePadding: const EdgeInsets.only(top: 20, left: 24, right: 24, bottom: 0),
       contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
       actionsPadding: const EdgeInsets.all(20),
@@ -55,17 +55,12 @@ class AlertDialogDefault extends StatelessWidget {
         children: [
           Text(
             item?.description ?? alimento?.description ?? '',
-            style: TextStyle(
-              color: GalegosUiDefaut.colorScheme.secondary,
-              fontSize: 14,
-            ),
+            style: TextStyle(color: GalegosUiDefaut.colorScheme.secondary, fontSize: 14),
           ),
           const SizedBox(height: 15),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              plusMinus ?? SizedBox.shrink(),
-            ],
+            children: [plusMinus ?? SizedBox.shrink()],
           ),
         ],
       ),
@@ -111,7 +106,7 @@ class AlertDialogDefault extends StatelessWidget {
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }

@@ -18,21 +18,49 @@ class HomePage extends GetView<HomeController> {
         List<NavigationDestination> destinations;
         if (controller.isAdmin) {
           destinations = [
-            NavigationDestination(icon: Icon(Icons.shopping_cart_outlined), label: 'Pedidos'),
-            NavigationDestination(icon: Icon(Icons.motorcycle), label: 'Entrega'),
-            NavigationDestination(icon: Icon(Icons.shopping_bag_outlined), label: 'Finalizados'),
-            NavigationDestination(icon: Icon(Icons.lunch_dining), label: 'Produto'),
-            NavigationDestination(icon: Icon(Icons.restaurant_menu), label: 'Marmitas'),
+            NavigationDestination(
+              icon: Icon(Icons.shopping_cart_outlined, color: GalegosUiDefaut.colorScheme.primary),
+              label: 'Pedidos',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.motorcycle, color: GalegosUiDefaut.colorScheme.primary),
+              label: 'Entrega',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.shopping_bag_outlined, color: GalegosUiDefaut.colorScheme.primary),
+              label: 'Finalizados',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.lunch_dining, color: GalegosUiDefaut.colorScheme.primary),
+              label: 'Produto',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.restaurant_menu, color: GalegosUiDefaut.colorScheme.primary),
+              label: 'Marmitas',
+            ),
           ];
         } else {
           destinations = [
-            NavigationDestination(icon: Icon(Icons.lunch_dining), label: 'Produto'),
-            NavigationDestination(icon: Icon(Icons.restaurant_menu), label: 'Marmitas'),
             NavigationDestination(
-              icon: IconBadge(icon: Icons.shopping_cart_outlined, number: controller.totalProducts),
+              icon: Icon(Icons.lunch_dining, color: GalegosUiDefaut.colorScheme.primary),
+              label: 'Produto',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.restaurant_menu, color: GalegosUiDefaut.colorScheme.primary),
+              label: 'Marmitas',
+            ),
+            NavigationDestination(
+              icon: IconBadge(
+                icon: Icons.shopping_cart_outlined,
+                number: controller.totalProducts,
+                color: GalegosUiDefaut.colorScheme.primary,
+              ),
               label: 'Carrinho',
             ),
-            NavigationDestination(icon: Icon(Icons.receipt_long), label: 'Pedidos'),
+            NavigationDestination(
+              icon: Icon(Icons.receipt_long, color: GalegosUiDefaut.colorScheme.primary),
+              label: 'Pedidos',
+            ),
           ];
         }
         return NavigationBar(

@@ -52,17 +52,11 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                     // mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                          top: 50.0,
-                          bottom: 10,
-                        ),
+                        padding: const EdgeInsets.only(top: 50.0, bottom: 10),
                         child: Center(
                           child: Text(
                             'DADOS DO USUÁRIO',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -94,10 +88,7 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  'Deseja atualizar senha?',
-                                  style: TextStyle(fontSize: 15),
-                                ),
+                                Text('Deseja atualizar senha?', style: TextStyle(fontSize: 15)),
                                 TextButton(
                                   onPressed: () => controller.atualizarSenha(),
                                   child: Text(
@@ -136,138 +127,147 @@ class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerControlle
                               child: Align(
                                 alignment: Alignment.centerRight,
                                 child: GalegosButtonDefault(
-                                    label: 'Atualizar',
-                                    onPressed: () {
-                                      final formValid = _formKey.currentState?.validate() ?? false;
-                                      if (formValid) {
-                                        final name = _newNameEC.text;
-                                        final password = _newPasswordEC.text;
+                                  label: 'Atualizar',
+                                  onPressed: () {
+                                    final formValid = _formKey.currentState?.validate() ?? false;
+                                    if (formValid) {
+                                      final name = _newNameEC.text;
+                                      final password = _newPasswordEC.text;
 
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              backgroundColor: Colors.black,
-                                              titlePadding: const EdgeInsets.only(
-                                                  top: 20, left: 24, right: 24, bottom: 0),
-                                              contentPadding: const EdgeInsets.symmetric(
-                                                  horizontal: 24, vertical: 10),
-                                              actionsPadding: const EdgeInsets.all(20),
-                                              title: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    Icons.help_outline_outlined,
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            backgroundColor: Colors.black,
+                                            titlePadding: const EdgeInsets.only(
+                                              top: 20,
+                                              left: 24,
+                                              right: 24,
+                                              bottom: 0,
+                                            ),
+                                            contentPadding: const EdgeInsets.symmetric(
+                                              horizontal: 24,
+                                              vertical: 10,
+                                            ),
+                                            actionsPadding: const EdgeInsets.all(20),
+                                            title: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.help_outline_outlined,
+                                                  color: Colors.white,
+                                                ),
+                                                const SizedBox(width: 10),
+                                                Text(
+                                                  'Alerta',
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: const TextStyle(
                                                     color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Text(
-                                                    'Alerta',
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: const TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight: FontWeight.bold),
-                                                  ),
-                                                ],
+                                                ),
+                                              ],
+                                            ),
+                                            content: Text(
+                                              'Tem certeza que deseja alterar os dados?',
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
                                               ),
-                                              content: Text(
-                                                'Tem certeza que deseja alterar os dados?',
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold),
-                                              ),
-                                              actions: [
-                                                SizedBox(
-                                                  width: 130,
-                                                  child: ElevatedButton(
-                                                    style: ElevatedButton.styleFrom(
-                                                      backgroundColor:
-                                                          GalegosUiDefaut.colorScheme.primary,
-                                                      minimumSize: Size(double.infinity, 50),
-                                                      shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(10)),
+                                            ),
+                                            actions: [
+                                              SizedBox(
+                                                width: 130,
+                                                child: ElevatedButton(
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        GalegosUiDefaut.colorScheme.primary,
+                                                    minimumSize: Size(double.infinity, 50),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(10),
                                                     ),
-                                                    onPressed: () {
-                                                      Get.back();
-                                                      controller.isSelected = false;
-                                                      _newPasswordEC.text = '';
-                                                    },
-                                                    child: Text(
-                                                      'Cancelar',
-                                                      style: const TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 16,
-                                                      ),
+                                                  ),
+                                                  onPressed: () {
+                                                    Get.back();
+                                                    controller.isSelected = false;
+                                                    _newPasswordEC.text = '';
+                                                  },
+                                                  child: Text(
+                                                    'Cancelar',
+                                                    style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 16,
                                                     ),
                                                   ),
                                                 ),
-                                                SizedBox(
-                                                  width: 130,
-                                                  child: ElevatedButton(
-                                                    style: ElevatedButton.styleFrom(
-                                                      backgroundColor:
-                                                          GalegosUiDefaut.colorScheme.primary,
-                                                      minimumSize: Size(double.infinity, 50),
-                                                      shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(10)),
-                                                    ),
-                                                    onPressed: () {
-                                                      if (password == '') {
-                                                        controller.updateUser(name, password);
-                                                        controller.isSelected = false;
-                                                        Get.snackbar(
-                                                          'Sucesso',
-                                                          'Dados atualizados com sucesso',
-                                                          duration: 3.seconds,
-                                                          backgroundColor:
-                                                              GalegosUiDefaut.colorScheme.primary,
-                                                        );
-                                                      } else if (password.length >= 6) {
-                                                        controller.updateUser(name, password);
-                                                        controller.isSelected = false;
-                                                        Get.snackbar(
-                                                          'Sucesso',
-                                                          'Dados atualizados com sucesso',
-                                                          duration: 3.seconds,
-                                                          backgroundColor:
-                                                              GalegosUiDefaut.colorScheme.primary,
-                                                        );
-                                                      }
-                                                      Get.close(0);
-                                                    },
-                                                    child: Text(
-                                                      'Confirmar',
-                                                      style: const TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 16,
-                                                      ),
+                                              ),
+                                              SizedBox(
+                                                width: 130,
+                                                child: ElevatedButton(
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        GalegosUiDefaut.colorScheme.primary,
+                                                    minimumSize: Size(double.infinity, 50),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(10),
                                                     ),
                                                   ),
-                                                )
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      } else {
-                                        Get.snackbar(
-                                          'Erro',
-                                          'Senha precisa ter no mínimo 6 caracteres',
-                                          duration: 3.seconds,
-                                          backgroundColor: GalegosUiDefaut.colorScheme.primary,
-                                        );
-                                      }
-                                    }),
+                                                  onPressed: () {
+                                                    if (password == '') {
+                                                      controller.updateUser(name, password);
+                                                      controller.isSelected = false;
+                                                      Get.snackbar(
+                                                        'Sucesso',
+                                                        'Dados atualizados com sucesso',
+                                                        duration: 3.seconds,
+                                                        backgroundColor:
+                                                            GalegosUiDefaut.colorScheme.primary,
+                                                      );
+                                                    } else if (password.length >= 6) {
+                                                      controller.updateUser(name, password);
+                                                      controller.isSelected = false;
+                                                      Get.snackbar(
+                                                        'Sucesso',
+                                                        'Dados atualizados com sucesso',
+                                                        duration: 3.seconds,
+                                                        backgroundColor:
+                                                            GalegosUiDefaut.colorScheme.primary,
+                                                      );
+                                                    }
+                                                    Get.close(0);
+                                                  },
+                                                  child: Text(
+                                                    'Confirmar',
+                                                    style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      Get.snackbar(
+                                        'Erro',
+                                        'Senha precisa ter no mínimo 6 caracteres',
+                                        duration: 3.seconds,
+                                        backgroundColor: GalegosUiDefaut.colorScheme.primary,
+                                      );
+                                    }
+                                  },
+                                ),
                               ),
                             ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   );
                 }),
