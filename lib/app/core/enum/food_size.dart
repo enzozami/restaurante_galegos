@@ -1,0 +1,1 @@
+enum FoodSize { mini, media }

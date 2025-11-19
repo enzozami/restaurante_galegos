@@ -14,7 +14,7 @@ class GalegosUiDefaut {
   static final Map<String, Color> colors = <String, Color>{
     'primary': Color(0xFFE2943b), // botoes e textos especiais
     'secondary': Color(0xFFe8bb87), // ainda nao sei....
-    'tertiary': Color(0xFF734511), // texto principal - appBar - navigationBar
+    'tertiary': Color.fromARGB(255, 61, 39, 30), // texto principal - appBar - navigationBar
     'titulo': Color(0xFF734511), // texto principal - appBar - navigationBar
     'texto': Color(0xFFA25F13), // texto principal - appBar - navigationBar
     'fundo': Color(0xFFFFFAF5), // surface
@@ -59,6 +59,8 @@ class GalegosUiDefaut {
       titleLarge: TextStyle(color: colors['titulo'], fontSize: 30, fontWeight: FontWeight.bold),
       // Títulos Médios (Ex: Nome do Prato)
       titleMedium: TextStyle(color: colors['titulo'], fontSize: 22, fontWeight: FontWeight.bold),
+      // Titulo Pequeno (Ex: Nome da Marmita)
+      titleSmall: TextStyle(color: colors['titulo'], fontSize: 18, fontWeight: FontWeight.bold),
       // Texto de Descrição/Corpo (bodyLarge) - usa a cor de contraste
       bodyLarge: TextStyle(color: colors['texto'], fontSize: 16),
       // Texto Secundário/Pequeno (bodySmall) - usa o neutro
@@ -101,7 +103,6 @@ class GalegosUiDefaut {
       style: ElevatedButton.styleFrom(
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
-        // iconColor: Color(0xffE2933C),
         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
@@ -125,9 +126,18 @@ class GalegosUiDefaut {
       indicatorColor: colors['texto'],
       labelTextStyle: WidgetStateProperty.all(TextStyle(color: colorScheme.secondary)),
     ),
+
+    // SplashColor
+    splashColor: colorScheme.tertiary,
   );
 
-  static final TextTheme textPrice = TextTheme(
+  static final TextTheme textProduct = TextTheme(
     titleMedium: TextStyle(color: colors['primary'], fontSize: 20, fontWeight: FontWeight.bold),
+  );
+
+  static final TextTheme textLunchboxes = TextTheme(
+    titleLarge: TextStyle(color: colors['titulo'], fontSize: 20, fontWeight: FontWeight.bold),
+    titleMedium: TextStyle(color: colors['fundo'], fontSize: 20, fontWeight: FontWeight.bold),
+    titleSmall: TextStyle(color: colors['titulo'], fontSize: 16, fontWeight: FontWeight.bold),
   );
 }
