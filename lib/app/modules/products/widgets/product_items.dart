@@ -168,7 +168,7 @@ class ProductItems extends GetView<ProductsController> {
                               titulo: e.name,
                               preco: FormatterHelper.formatCurrency(e.price),
                               descricao: e.description,
-                              image: e.image,
+                              image: (e.image.isNotEmpty) ? e.image : '',
                               onPressed: () {
                                 controller.setSelectedItem(
                                   e,
