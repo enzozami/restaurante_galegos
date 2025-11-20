@@ -23,6 +23,19 @@ class CarrinhoServices extends GetxService {
   }
 
   CarrinhoModel? getById(int id) => carrinho[id];
+  ItemCarrinhoModel? getByIdAndSize(int id, String size) {
+    try {
+      return carrinho.values
+          .firstWhere((c) => c.item.alimento?.id == id && c.item.tamanho == size)
+          .item;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  int _generateKey(int id, String size) {
+    return id * 100 + size.hashCode;
+  }
 
   int get totalProducts => carrinho.length;
 
@@ -31,49 +44,47 @@ class CarrinhoServices extends GetxService {
       carrinho.remove(selected.id);
       return;
     } else {
-      carrinho.update(selected.id, (item) {
-        return CarrinhoModel(item: item.item.copyWith(quantidade: quantity));
-      }, ifAbsent: () {
-        return CarrinhoModel(
-          item: ItemCarrinhoModel(
-            quantidade: quantity,
-            produto: selected,
-          ),
-        );
-      });
+      carrinho.update(
+        selected.id,
+        (item) {
+          return CarrinhoModel(item: item.item.copyWith(quantidade: quantity));
+        },
+        ifAbsent: () {
+          return CarrinhoModel(
+            item: ItemCarrinhoModel(quantidade: quantity, produto: selected),
+          );
+        },
+      );
     }
   }
 
   void addOrUpdateFood(FoodModel selected, {required int quantity, required String selectedSize}) {
     if (quantity == 0) {
-      carrinho.remove(selected.id);
+      carrinho.remove(_generateKey(selected.id, selectedSize));
       return;
-    } else {
-      final selectedPrice = selected.pricePerSize[selectedSize];
-
-      carrinho.update(
-        selected.id,
-        (item) {
-          return CarrinhoModel(
-            item: item.item.copyWith(
-              quantidade: quantity,
-              tamanho: selectedSize,
-              valorPorTamanho: selectedPrice,
-            ),
-          );
-        },
-        ifAbsent: () {
-          return CarrinhoModel(
-            item: ItemCarrinhoModel(
-              quantidade: quantity,
-              alimento: selected,
-              tamanho: selectedSize,
-              valorPorTamanho: selectedPrice,
-            ),
-          );
-        },
-      );
     }
+
+    final key = _generateKey(selected.id, selectedSize);
+    final selectedPrice = selected.pricePerSize[selectedSize];
+
+    carrinho.update(
+      key,
+      (item) => CarrinhoModel(
+        item: item.item.copyWith(
+          quantidade: quantity,
+          tamanho: selectedSize,
+          valorPorTamanho: selectedPrice,
+        ),
+      ),
+      ifAbsent: () => CarrinhoModel(
+        item: ItemCarrinhoModel(
+          quantidade: quantity,
+          alimento: selected,
+          tamanho: selectedSize,
+          valorPorTamanho: selectedPrice,
+        ),
+      ),
+    );
   }
 
   void clear() => carrinho.clear();

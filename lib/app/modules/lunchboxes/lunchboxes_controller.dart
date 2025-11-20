@@ -136,10 +136,11 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   }
 
   void filterPrice(String selectedSize) {
-    if (selectedSize == sizeSelected.value) {
+    if (sizeSelected.value == selectedSize) {
       sizeSelected.value = '';
       return;
     }
+
     sizeSelected.value = selectedSize;
   }
 
@@ -163,12 +164,12 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     _quantity.value = 0;
   }
 
-  void setFoodSelected(FoodModel food) {
+  void setFoodSelected(FoodModel food, String size) {
     foodSelect.value = food;
 
-    final carrinhoItem = _carrinhoServices.getById(food.id);
-    if (carrinhoItem != null) {
-      _quantity(carrinhoItem.item.quantidade);
+    final carrinhoItem = _carrinhoServices.getByIdAndSize(food.id, size);
+    if (carrinhoItem != null && carrinhoItem.tamanho == size) {
+      _quantity(carrinhoItem.quantidade);
       _alreadyAdded(true);
     } else {
       _quantity(1);
@@ -178,6 +179,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   void addFoodShoppingCard() {
     final selected = selectedFood;
+    log('TAMANHO SELECIONADO - ${sizeSelected.value}');
 
     if (selected == null) {
       _alreadyAdded(false);
@@ -190,6 +192,8 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       selectedSize: sizeSelected.value ?? '',
     );
     log('QUANTIDADE ENVIADA : $quantity');
+    sizeSelected.value = '';
+    log('TAMANHO SELECIONADO - ${sizeSelected.value}');
     Get.close(0);
   }
 

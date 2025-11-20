@@ -68,11 +68,11 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     required AuthService authService,
     required CarrinhoServices carrinhoServices,
     required CepServices cepServices,
-  })  : _orderServices = orderServices,
-        _authService = authService,
-        _carrinhoServices = carrinhoServices,
-        _cepServices = cepServices,
-        _ordersState = ordersState;
+  }) : _orderServices = orderServices,
+       _authService = authService,
+       _carrinhoServices = carrinhoServices,
+       _cepServices = cepServices,
+       _ordersState = ordersState;
 
   List<CarrinhoModel> get products => _carrinhoServices.itensCarrinho;
 
@@ -119,7 +119,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     );
   }
 
-// PARTE PARA ADMIN
+  // PARTE PARA ADMIN
   // Future<void> createOrder({required String address}) async {
   //   try {
   //     _loading.toggle();

@@ -9,9 +9,7 @@ class CardItems extends StatelessWidget {
   final String? precoMini;
   final String? precoMedia;
   final String? image;
-  final VoidCallback? onPressed;
-  final VoidCallback? onPressedMini;
-  final VoidCallback? onPressedMedia;
+  final VoidCallback onPressed;
   final VoidCallback onTap;
   final double? width;
   final double? height;
@@ -20,6 +18,7 @@ class CardItems extends StatelessWidget {
   final TextStyle? styleDescricao;
   final TextStyle? stylePreco;
   final bool isProduct;
+  final Widget? elevatedButton;
 
   const CardItems({
     super.key,
@@ -28,7 +27,7 @@ class CardItems extends StatelessWidget {
     this.preco,
     this.precoMini,
     this.precoMedia,
-    this.onPressed,
+    required this.onPressed,
     required this.onTap,
     this.image,
     required this.styleTitle,
@@ -38,8 +37,7 @@ class CardItems extends StatelessWidget {
     this.width,
     this.height,
     this.imageHeight,
-    this.onPressedMini,
-    this.onPressedMedia,
+    this.elevatedButton,
   });
 
   @override
@@ -184,30 +182,7 @@ class CardItems extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      ElevatedButton(
-                        style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
-                        onPressed: onPressedMini,
-                        child: Column(
-                          children: [
-                            Text('Mini', style: GalegosUiDefaut.textLunchboxes.titleSmall),
-                            Text(precoMini ?? ''),
-                          ],
-                        ),
-                      ),
-                      ElevatedButton(
-                        style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
-                        onPressed: onPressedMedia,
-                        child: Column(
-                          children: [
-                            Text('Média', style: GalegosUiDefaut.textLunchboxes.titleSmall),
-                            Text(precoMedia ?? ''),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  elevatedButton ?? SizedBox.shrink(),
                 ],
               ),
             ),

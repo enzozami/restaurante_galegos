@@ -32,10 +32,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
 
           var total = controller.totalPay(controller.taxa.value);
           var label = FormatterHelper.formatCurrency(total ?? 0);
-          var quantityItems = controller.products.fold<int>(
-            0,
-            (sum, e) => sum + e.item.quantidade,
-          );
+          var quantityItems = controller.products.fold<int>(0, (sum, e) => sum + e.item.quantidade);
           return Visibility(
             visible: controller.products.isNotEmpty,
             replacement: Padding(
@@ -44,16 +41,11 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: context.heightTransformer(reducedBy: 60),
-                  ),
+                  SizedBox(height: context.heightTransformer(reducedBy: 60)),
                   Center(
                     child: Text(
                       'Nenhum item no carrinho!',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -67,17 +59,11 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Carrinho',
-                        style: GalegosUiDefaut.theme.textTheme.titleLarge,
-                      ),
+                      Text('Carrinho', style: GalegosUiDefaut.theme.textTheme.titleLarge),
                       IconButton(
-                        icon: Icon(
-                          Icons.delete_outline,
-                          color: const Color.fromRGBO(177, 0, 0, 1),
-                        ),
+                        icon: Icon(Icons.delete_outline, color: const Color.fromRGBO(177, 0, 0, 1)),
                         onPressed: () => controller.reset(),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -87,17 +73,10 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                     border: Border.all(),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  constraints: BoxConstraints(
-                    maxHeight: context.heightTransformer(reducedBy: 50),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListShoppingCard(),
-                  ),
+                  constraints: BoxConstraints(maxHeight: context.heightTransformer(reducedBy: 50)),
+                  child: Padding(padding: const EdgeInsets.all(8.0), child: ListShoppingCard()),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 30),
                 // Spacer(),
                 Divider(),
                 Form(
@@ -125,11 +104,10 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                               onChanged: (value) => controller.cepInput.value = value,
                             ),
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Visibility(
-                            visible: (controller.cepEC.text.isNotEmpty &&
+                            visible:
+                                (controller.cepEC.text.isNotEmpty &&
                                 controller.cepEC.text != '' &&
                                 controller.cep.value != '' &&
                                 controller.cepInput.value.length == 9 &&
@@ -156,7 +134,8 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                               ),
                             ),
                             child: Visibility(
-                              visible: (controller.isOpen.value == true &&
+                              visible:
+                                  (controller.isOpen.value == true &&
                                   controller.cepInput.value.length == 9 &&
                                   controller.cepInput.value == controller.cep.value),
                               replacement: IconButton(
@@ -231,8 +210,9 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                                                 label: 'Número*',
                                                 inputType: TextInputType.number,
                                                 controller: controller.numeroEC,
-                                                validator:
-                                                    Validatorless.required('Número obrigatório'),
+                                                validator: Validatorless.required(
+                                                  'Número obrigatório',
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -254,11 +234,10 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 15,
-                          ),
+                          const SizedBox(height: 15),
                           Visibility(
-                            visible: (controller.cepEC.text.isNotEmpty &&
+                            visible:
+                                (controller.cepEC.text.isNotEmpty &&
                                 controller.cepEC.text != '' &&
                                 controller.cep.value != '' &&
                                 controller.cepEC.text.length == 9 &&
@@ -299,16 +278,16 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                                         ),
                                         Text(
                                           'Total a pagar: $label',
-                                          style:
-                                              TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
+                                const SizedBox(height: 10),
                                 GalegosButtonDefault(
                                   label: 'FINALIZAR',
                                   width: context.widthTransformer(reducedBy: 10),
@@ -318,7 +297,9 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                                       controller.quantityRx(quantityItems);
                                       final cepSemMask = _cepFormatter.getUnmaskedText();
                                       final success = await controller.createOrder(
-                                          address: cepSemMask, numero: controller.numeroEC.text);
+                                        address: cepSemMask,
+                                        numero: controller.numeroEC.text,
+                                      );
                                       if (success) {
                                         Get.snackbar(
                                           'Pedido feito com sucesso',
@@ -338,9 +319,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
               ],
             ),
           );
