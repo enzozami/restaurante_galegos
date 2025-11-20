@@ -32,10 +32,7 @@ class HistoryPage extends GetView<HistoryController> {
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
                       'Histórico de pedidos',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -80,8 +77,9 @@ class HistoryPage extends GetView<HistoryController> {
 
                                 final cep = MaskCep();
 
-                                final valor =
-                                    FormatterHelper.formatCurrency(e.amountToPay - e.taxa);
+                                final valor = FormatterHelper.formatCurrency(
+                                  e.amountToPay - e.taxa,
+                                );
                                 final taxa = FormatterHelper.formatCurrency(e.taxa);
                                 final total = FormatterHelper.formatCurrency(e.amountToPay);
 
@@ -112,10 +110,7 @@ class HistoryPage extends GetView<HistoryController> {
                           splashColor: GalegosUiDefaut.theme.splashColor,
                           borderRadius: BorderRadius.circular(8),
                           child: ListTile(
-                            title: Text(
-                              carrinho,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                            title: Text(carrinho, overflow: TextOverflow.ellipsis),
                             // subtitle: Text('Itens no carrinho: ${e.cart.length}'),
                             subtitle: Text(e.status.toUpperCase()),
                             leading: Text(e.date),
@@ -128,9 +123,7 @@ class HistoryPage extends GetView<HistoryController> {
                 }),
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
           ],
         ),
       ),

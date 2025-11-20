@@ -15,9 +15,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
@@ -30,18 +28,13 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                   child: Center(
                     child: Text(
                       'PEDIDOS ENTREGUES',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Center(
               child: SizedBox(
                 width: context.widthTransformer(reducedBy: 10),
@@ -84,32 +77,33 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                             final taxa = FormatterHelper.formatCurrency(e.taxa);
                             final total = FormatterHelper.formatCurrency(e.amountToPay);
                             showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialogAdmHistory(
-                                    pedidoLabel: pedidoTipo,
-                                    carrinhoName: carrinhoName,
-                                    valor: valor,
-                                    taxa: taxa,
-                                    total: total,
-                                    nomeCliente: e.userName,
-                                    cpfOrCnpj: e.cpfOrCnpj,
-                                    rua: e.rua,
-                                    numeroResidencia: e.numeroResidencia.toString(),
-                                    bairro: e.bairro,
-                                    cidade: e.cidade,
-                                    estado: e.estado,
-                                    cep: cep.maskText(e.cep),
-                                    horarioInicio: e.time,
-                                    horarioSairEntrega: e.timePath ?? '',
-                                    horarioEntregue: e.timeFinished ?? '',
-                                    data: e.date,
-                                    onPressed: () {
-                                      Get.close(0);
-                                    },
-                                    statusPedido: 'Fechar',
-                                  );
-                                });
+                              context: context,
+                              builder: (context) {
+                                return AlertDialogAdmHistory(
+                                  pedidoLabel: pedidoTipo,
+                                  carrinhoName: carrinhoName,
+                                  valor: valor,
+                                  taxa: taxa,
+                                  total: total,
+                                  nomeCliente: e.userName,
+                                  cpfOrCnpj: e.cpfOrCnpj,
+                                  rua: e.rua,
+                                  numeroResidencia: e.numeroResidencia.toString(),
+                                  bairro: e.bairro,
+                                  cidade: e.cidade,
+                                  estado: e.estado,
+                                  cep: cep.maskText(e.cep),
+                                  horarioInicio: e.time,
+                                  horarioSairEntrega: e.timePath ?? '',
+                                  horarioEntregue: e.timeFinished ?? '',
+                                  data: e.date,
+                                  onPressed: () {
+                                    Get.close(0);
+                                  },
+                                  statusPedido: 'Fechar',
+                                );
+                              },
+                            );
                           },
                           splashColor: GalegosUiDefaut.theme.splashColor,
                           borderRadius: BorderRadius.circular(8),

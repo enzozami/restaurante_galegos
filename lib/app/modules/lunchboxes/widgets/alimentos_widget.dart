@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
@@ -53,7 +55,7 @@ class AlimentosWidget extends GetView<LunchboxesController> {
                                 child: InkWell(
                                   splashColor: GalegosUiDefaut.theme.splashColor,
                                   onTap: () {
-                                    controller.setFoodSelected(alimento);
+                                    controller.setFoodSelected(alimento, selectedSize ?? '');
                                     showDialog(
                                       context: context,
                                       builder: (context) {
@@ -124,108 +126,80 @@ class AlimentosWidget extends GetView<LunchboxesController> {
             width: double.infinity,
             child: Wrap(
               alignment: WrapAlignment.spaceAround,
-              children: alimentos
-                  .where((element) => element.dayName.contains(controller.dayNow))
-                  .map((alimento) {
-                    // final price = selectedSize != '' ? alimento.pricePerSize[selectedSize] : null;
-                    return CardItems(
-                      width: context.widthTransformer(reducedBy: 10),
-                      height: 280,
-                      isProduct: false,
-                      imageHeight: alimento.description.isEmpty ? 150 : 130,
-                      titulo: alimento.name,
-                      descricao: alimento.description,
-                      onPressedMini: () {
-                        final size = controller.availableSizes[0];
-                        controller.filterPrice(size);
-                        controller.setFoodSelected(alimento);
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialogDefault(
-                              visible: controller.quantity > 0 && controller.alreadyAdded == true,
-                              alimento: alimento,
-                              onPressed: () {
-                                controller.addFoodShoppingCard();
-                                Get.snackbar(
-                                  'Item: ${alimento.name}',
-                                  'Item adicionado ao carrinho',
-                                  snackPosition: SnackPosition.TOP,
-                                  duration: Duration(seconds: 1),
-                                  backgroundColor: Color(0xFFE2933C),
-                                  colorText: Colors.black,
-                                  isDismissible: true,
-                                  overlayBlur: 0,
-                                  overlayColor: Colors.transparent,
-                                  barBlur: 0,
-                                );
-                              },
-                              onPressedR: () {
-                                controller.removeAllFoodsUnit();
-                                controller.addFoodShoppingCard();
-                              },
-                              plusMinus: Obx(() {
-                                return GalegosPlusMinus(
-                                  addCallback: controller.addFood,
-                                  removeCallback: controller.removeFood,
-                                  quantityUnit: controller.quantity,
-                                );
-                              }),
-                            );
-                          },
-                        );
-                      },
-                      onPressedMedia: () {
-                        final size = controller.availableSizes[1];
-                        controller.filterPrice(size);
-                        controller.setFoodSelected(alimento);
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialogDefault(
-                              visible: controller.quantity > 0 && controller.alreadyAdded == true,
-                              alimento: alimento,
-                              onPressed: () {
-                                controller.addFoodShoppingCard();
-                                Get.snackbar(
-                                  'Item: ${alimento.name}',
-                                  'Item adicionado ao carrinho',
-                                  snackPosition: SnackPosition.TOP,
-                                  duration: Duration(seconds: 1),
-                                  backgroundColor: Color(0xFFE2933C),
-                                  colorText: Colors.black,
-                                  isDismissible: true,
-                                  overlayBlur: 0,
-                                  overlayColor: Colors.transparent,
-                                  barBlur: 0,
-                                );
-                              },
-                              onPressedR: () {
-                                controller.removeAllFoodsUnit();
-                                controller.addFoodShoppingCard();
-                              },
-                              plusMinus: Obx(() {
-                                return GalegosPlusMinus(
-                                  addCallback: controller.addFood,
-                                  removeCallback: controller.removeFood,
-                                  quantityUnit: controller.quantity,
-                                );
-                              }),
-                            );
-                          },
-                        );
-                      },
-                      onTap: () {},
-                      styleTitle: GalegosUiDefaut.theme.textTheme.titleMedium,
-                      styleDescricao: GalegosUiDefaut.theme.textTheme.bodyLarge,
-                      stylePreco: GalegosUiDefaut.textLunchboxes.titleMedium,
-                      precoMini: FormatterHelper.formatCurrency(alimento.pricePerSize['mini'] ?? 0),
-                      precoMedia: FormatterHelper.formatCurrency(
-                        alimento.pricePerSize['media'] ?? 0,
-                      ),
-                    );
-                  })
-                  .toList(),
+              children: alimentos.where((element) => element.dayName.contains(controller.dayNow)).map((
+                alimento,
+              ) {
+                return CardItems(
+                  width: context.widthTransformer(reducedBy: 10),
+                  height: 280,
+                  isProduct: false,
+                  imageHeight: alimento.description.isEmpty ? 150 : 130,
+                  titulo: alimento.name,
+                  descricao: alimento.description,
+                  onPressed: () {},
+                  onTap: () {},
+                  styleTitle: GalegosUiDefaut.theme.textTheme.titleMedium,
+                  styleDescricao: GalegosUiDefaut.theme.textTheme.bodyLarge,
+                  stylePreco: GalegosUiDefaut.textLunchboxes.titleMedium,
+                  precoMini: FormatterHelper.formatCurrency(alimento.pricePerSize['mini'] ?? 0),
+                  precoMedia: FormatterHelper.formatCurrency(alimento.pricePerSize['media'] ?? 0),
+                  elevatedButton: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: controller.availableSizes
+                        .map(
+                          (s) => ElevatedButton(
+                            style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+                            onPressed: () {
+                              log('alimentosWidget - $s');
+                              controller.setFoodSelected(alimento, s);
+                              controller.filterPrice(s);
+                              controller.sizeSelected.value = s;
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialogDefault(
+                                    visible: controller.quantity > 0,
+                                    alimento: alimento,
+                                    onPressed: () {
+                                      controller.addFoodShoppingCard();
+                                      log(
+                                        'Item: ${alimento.name} - Valor: ${alimento.pricePerSize[s]}',
+                                      );
+                                      Get.snackbar(
+                                        'Item: ${alimento.name}',
+                                        'Item adicionado ao carrinho',
+                                        snackPosition: SnackPosition.TOP,
+                                        duration: Duration(seconds: 1),
+                                        backgroundColor: Color(0xFFE2933C),
+                                        colorText: Colors.black,
+                                        isDismissible: true,
+                                        overlayBlur: 0,
+                                        overlayColor: Colors.transparent,
+                                        barBlur: 0,
+                                      );
+                                    },
+                                    onPressedR: () {
+                                      controller.removeAllFoodsUnit();
+                                      controller.addFoodShoppingCard();
+                                    },
+                                    plusMinus: Obx(() {
+                                      return GalegosPlusMinus(
+                                        addCallback: controller.addFood,
+                                        removeCallback: controller.removeFood,
+                                        quantityUnit: controller.quantity,
+                                      );
+                                    }),
+                                  );
+                                },
+                              );
+                            },
+                            child: Text(s),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                );
+              }).toList(),
             ),
           ),
         );

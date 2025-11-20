@@ -15,9 +15,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
@@ -30,18 +28,13 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                   child: Center(
                     child: Text(
                       'SAIR PARA ENTREGA',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Center(
               child: SizedBox(
                 width: context.widthTransformer(reducedBy: 10),
@@ -115,10 +108,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                           splashColor: GalegosUiDefaut.colorScheme.primary,
                           borderRadius: BorderRadius.circular(8),
                           child: ListTile(
-                            title: Text(
-                              'Carrinho: $carrinho',
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                            title: Text('Carrinho: $carrinho', overflow: TextOverflow.ellipsis),
                             trailing: Text(total),
                             leading: Text('Pedido: ${e.id}'),
                             subtitle: Text('Status: ${e.status.toUpperCase()}'),

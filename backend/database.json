@@ -1681,6 +1681,110 @@
             "time": "11:58",
             "timeFinished": "",
             "date": "13/11/2025"
+        },
+        {
+            "id": 22,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 1,
+                            "categoryId": "Lanches",
+                            "name": "Americano",
+                            "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                            "temHoje": true,
+                            "price": 15.0,
+                            "image": "https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                },
+                {
+                    "item": {
+                        "produto": {
+                            "id": 2,
+                            "categoryId": "Lanches",
+                            "name": "Bauru",
+                            "description": "Pão francês, presunto, queijo e tomate",
+                            "temHoje": true,
+                            "price": 13.0,
+                            "image": "https://jornalcandeia.com.br/wp-content/uploads/2019/01/bauru.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 2,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                },
+                {
+                    "item": {
+                        "produto": null,
+                        "alimento": {
+                            "id": 1,
+                            "name": "Bife à Milanesa",
+                            "temHoje": true,
+                            "dayName": [
+                                "Segunda-feira",
+                                "Terça-feira",
+                                "Quarta-feira",
+                                "Quinta-feira",
+                                "Sexta-feira"
+                            ],
+                            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                            "pricePerSize": {
+                                "mini": 22.0,
+                                "media": 24.0
+                            }
+                        },
+                        "quantidade": 1,
+                        "tamanho": "media",
+                        "valorPorTamanho": 24.0
+                    }
+                },
+                {
+                    "item": {
+                        "produto": null,
+                        "alimento": {
+                            "id": 1,
+                            "name": "Bife à Milanesa",
+                            "temHoje": true,
+                            "dayName": [
+                                "Segunda-feira",
+                                "Terça-feira",
+                                "Quarta-feira",
+                                "Quinta-feira",
+                                "Sexta-feira"
+                            ],
+                            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                            "pricePerSize": {
+                                "mini": 22.0,
+                                "media": 24.0
+                            }
+                        },
+                        "quantidade": 1,
+                        "tamanho": "mini",
+                        "valorPorTamanho": 22.0
+                    }
+                }
+            ],
+            "amountToPay": 87.0,
+            "status": "preparando",
+            "time": "03:07",
+            "timeFinished": "",
+            "date": "20/11/2025"
         }
     ],
     "cep": [
