@@ -63,14 +63,20 @@ class HomePage extends GetView<HomeController> {
             ),
           ];
         }
-        return NavigationBar(
-          backgroundColor: GalegosUiDefaut.theme.navigationBarTheme.backgroundColor,
-          indicatorColor: GalegosUiDefaut.theme.navigationBarTheme.indicatorColor,
-          labelTextStyle: GalegosUiDefaut.theme.navigationBarTheme.labelTextStyle,
-          labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-          selectedIndex: controller.selectedIndex,
-          onDestinationSelected: (value) => controller.selectedIndex = value,
-          destinations: destinations,
+        return ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(35),
+            topRight: Radius.circular(35),
+          ),
+          child: NavigationBar(
+            backgroundColor: GalegosUiDefaut.theme.navigationBarTheme.backgroundColor,
+            indicatorColor: GalegosUiDefaut.theme.navigationBarTheme.indicatorColor,
+            labelTextStyle: GalegosUiDefaut.theme.navigationBarTheme.labelTextStyle,
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+            selectedIndex: controller.selectedIndex,
+            onDestinationSelected: (value) => controller.selectedIndex = value,
+            destinations: destinations,
+          ),
         );
       }),
       body: Obx(() {

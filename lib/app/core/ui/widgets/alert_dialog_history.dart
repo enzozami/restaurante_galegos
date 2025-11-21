@@ -48,29 +48,27 @@ class AlertDialogHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = GalegosUiDefaut.colorScheme;
-
     Widget sectionTitle(String text) => Padding(
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-      child: Text(
-        text,
-        style: TextStyle(color: colors.primary, fontSize: 16, fontWeight: FontWeight.bold),
-      ),
+      child: Text(text, style: GalegosUiDefaut.theme.textTheme.titleSmall),
     );
 
     Widget infoLine(String label, String value, {bool bold = false}) => Padding(
       padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
       child: Text(
         '$label$value',
-        style: TextStyle(
-          color: colors.secondary,
-          fontWeight: bold ? FontWeight.w600 : FontWeight.normal,
-        ),
+        style: bold
+            ? TextStyle(
+                color: GalegosUiDefaut.colors['texto'],
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              )
+            : GalegosUiDefaut.theme.textTheme.bodyLarge,
         overflow: TextOverflow.ellipsis,
       ),
     );
     return AlertDialog(
-      backgroundColor: GalegosUiDefaut.colorScheme.onPrimary,
+      backgroundColor: GalegosUiDefaut.colors['fundo'],
       titlePadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
       contentPadding: const EdgeInsets.only(top: 15, left: 10, right: 15, bottom: 10),
       actionsPadding: const EdgeInsets.only(top: 20, left: 0, right: 20, bottom: 20),
@@ -82,12 +80,12 @@ class AlertDialogHistory extends StatelessWidget {
             child: Text(
               'Pedido $pedidoLabel',
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: colors.primary),
+              style: GalegosUiDefaut.theme.textTheme.titleSmall,
             ),
           ),
           Text(
             statusPedido[0].toUpperCase() + statusPedido.substring(1),
-            style: TextStyle(color: colors.primary, fontSize: 13),
+            style: GalegosUiDefaut.theme.textTheme.bodySmall,
           ),
         ],
       ),
