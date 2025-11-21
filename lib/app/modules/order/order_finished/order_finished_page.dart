@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cep.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_adm_history.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_history.dart';
 import './order_finished_controller.dart';
 
 class OrderFinishedPage extends GetView<OrderFinishedController> {
@@ -20,7 +20,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
               padding: const EdgeInsets.all(10.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: GalegosUiDefaut.colorScheme.primary,
+                  color: GalegosUiDefaut.colorScheme.tertiary,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
@@ -28,7 +28,11 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                   child: Center(
                     child: Text(
                       'PEDIDOS ENTREGUES',
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: GalegosUiDefaut.colors['fundo'],
+                      ),
                     ),
                   ),
                 ),
@@ -55,7 +59,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
 
                       final total = FormatterHelper.formatCurrency(e.amountToPay);
                       return Card(
-                        color: GalegosUiDefaut.theme.primaryColor,
+                        color: GalegosUiDefaut.colorScheme.secondary,
                         elevation: 5,
                         child: InkWell(
                           onTap: () {
@@ -79,7 +83,10 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                             showDialog(
                               context: context,
                               builder: (context) {
-                                return AlertDialogAdmHistory(
+                                return AlertDialogHistory(
+                                  isAdmin: true,
+                                  idPedido: e.id,
+                                  titleButton: 'Fechar',
                                   pedidoLabel: pedidoTipo,
                                   carrinhoName: carrinhoName,
                                   valor: valor,

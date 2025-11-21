@@ -9,9 +9,7 @@ import './order_finished_repository.dart';
 class OrderFinishedRepositoryImpl implements OrderFinishedRepository {
   final RestClient _restClient;
 
-  OrderFinishedRepositoryImpl({
-    required RestClient restClient,
-  }) : _restClient = restClient;
+  OrderFinishedRepositoryImpl({required RestClient restClient}) : _restClient = restClient;
 
   @override
   Future<OrderFinishedModel> orderFinished(PedidoModel pedido) async {
@@ -33,15 +31,11 @@ class OrderFinishedRepositoryImpl implements OrderFinishedRepository {
       'date': pedido.date,
       'time': pedido.time,
       'timePath': pedido.timePath,
-      'timeFinished': pedido.timeFinished
+      'timeFinished': pedido.timeFinished,
     });
 
     if (result.hasError) {
-      log(
-        'Erro ao finalizar pedido',
-        error: result.statusText,
-        stackTrace: StackTrace.current,
-      );
+      log('Erro ao finalizar pedido', error: result.statusText, stackTrace: StackTrace.current);
       throw RestClientException(message: 'Erro ao finalizar pedido');
     }
 
@@ -53,6 +47,7 @@ class OrderFinishedRepositoryImpl implements OrderFinishedRepository {
   Future<void> changeStatusOnTheWay(PedidoModel pedido) async {
     final result = await _restClient.patch('/orders/${pedido.id}', {
       'status': 'a caminho',
+      'timePath': pedido.timePath,
     });
 
     if (result.hasError) {}

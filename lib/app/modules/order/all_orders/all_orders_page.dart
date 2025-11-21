@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cep.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_adm_history.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_history.dart';
 import './all_orders_controller.dart';
 
 class AllOrdersPage extends GetView<AllOrdersController> {
@@ -20,7 +20,7 @@ class AllOrdersPage extends GetView<AllOrdersController> {
               padding: const EdgeInsets.all(10.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: GalegosUiDefaut.colorScheme.primary,
+                  color: GalegosUiDefaut.colorScheme.tertiary,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
@@ -28,7 +28,11 @@ class AllOrdersPage extends GetView<AllOrdersController> {
                   child: Center(
                     child: Text(
                       'PEDIDOS REALIZADOS',
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: GalegosUiDefaut.colors['fundo'],
+                      ),
                     ),
                   ),
                 ),
@@ -51,11 +55,9 @@ class AllOrdersPage extends GetView<AllOrdersController> {
                           .join(', ');
 
                       final total = FormatterHelper.formatCurrency(e.amountToPay);
-                      // final status = 'Status: ${e.status.toUpperCase()}';
-
                       return Card(
                         elevation: 5,
-                        color: GalegosUiDefaut.theme.primaryColor,
+                        color: GalegosUiDefaut.colorScheme.secondary,
                         child: InkWell(
                           onTap: () {
                             final carrinhoName = e.cart
@@ -77,7 +79,10 @@ class AllOrdersPage extends GetView<AllOrdersController> {
                             final total = FormatterHelper.formatCurrency(e.amountToPay);
                             showDialog(
                               context: context,
-                              builder: (context) => AlertDialogAdmHistory(
+                              builder: (context) => AlertDialogHistory(
+                                idPedido: e.id,
+                                titleButton: 'Sair para entrega',
+                                isAdmin: true,
                                 pedidoLabel: pedidoTipo,
                                 carrinhoName: carrinhoName,
                                 valor: valor,
