@@ -51,28 +51,24 @@ class AlertDialogHistory extends StatelessWidget {
     final colors = GalegosUiDefaut.colorScheme;
 
     Widget sectionTitle(String text) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-          child: Text(
-            text,
-            style: TextStyle(
-              color: colors.primary,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        );
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+      child: Text(
+        text,
+        style: TextStyle(color: colors.primary, fontSize: 16, fontWeight: FontWeight.bold),
+      ),
+    );
 
     Widget infoLine(String label, String value, {bool bold = false}) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-          child: Text(
-            '$label$value',
-            style: TextStyle(
-              color: colors.secondary,
-              fontWeight: bold ? FontWeight.w600 : FontWeight.normal,
-            ),
-            overflow: TextOverflow.ellipsis,
-          ),
-        );
+      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+      child: Text(
+        '$label$value',
+        style: TextStyle(
+          color: colors.secondary,
+          fontWeight: bold ? FontWeight.w600 : FontWeight.normal,
+        ),
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
     return AlertDialog(
       backgroundColor: GalegosUiDefaut.colorScheme.onPrimary,
       titlePadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
@@ -86,26 +82,17 @@ class AlertDialogHistory extends StatelessWidget {
             child: Text(
               'Pedido $pedidoLabel',
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: colors.primary,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: colors.primary),
             ),
           ),
           Text(
             statusPedido[0].toUpperCase() + statusPedido.substring(1),
-            style: TextStyle(
-              color: colors.primary,
-              fontSize: 13,
-            ),
-          )
+            style: TextStyle(color: colors.primary, fontSize: 13),
+          ),
         ],
       ),
       content: ConstrainedBox(
-        constraints: BoxConstraints(
-          minWidth: context.width,
-        ),
+        constraints: BoxConstraints(minWidth: context.width),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -113,90 +100,31 @@ class AlertDialogHistory extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10),
-                child: sectionTitle(
-                  'Dados',
-                ),
+                child: sectionTitle('Dados'),
               ),
               infoLine('Nome: ', nomeCliente),
-              infoLine(
-                '',
-                cpfOrCnpj,
-              ),
-              Divider(
-                color: GalegosUiDefaut.colorScheme.secondary,
-              ),
-              sectionTitle(
-                'Descrição',
-              ),
-              infoLine(
-                '',
-                carrinhoName,
-              ),
-              Divider(
-                color: GalegosUiDefaut.colorScheme.secondary,
-              ),
-              sectionTitle(
-                'Detalhes',
-              ),
-              infoLine(
-                'Data: ',
-                data,
-              ),
-              infoLine(
-                'Horário do pedido: ',
-                horarioInicio,
-              ),
-              infoLine(
-                'Horário entregue: ',
-                horarioEntregue,
-              ),
-              Divider(
-                color: GalegosUiDefaut.colorScheme.secondary,
-              ),
-              sectionTitle(
-                'Endereço:',
-              ),
-              infoLine(
-                'Rua: ',
-                rua,
-              ),
-              infoLine(
-                'Número: ',
-                numeroResidencia,
-              ),
-              infoLine(
-                'Bairro: ',
-                bairro,
-              ),
-              infoLine(
-                'Cidade: ',
-                cidade,
-              ),
-              infoLine(
-                'Estado: ',
-                estado,
-              ),
-              infoLine(
-                'CEP: ',
-                cep,
-              ),
-              Divider(
-                color: GalegosUiDefaut.colorScheme.secondary,
-              ),
+              infoLine('', cpfOrCnpj),
+              Divider(color: GalegosUiDefaut.colorScheme.secondary),
+              sectionTitle('Descrição'),
+              infoLine('', carrinhoName),
+              Divider(color: GalegosUiDefaut.colorScheme.secondary),
+              sectionTitle('Detalhes'),
+              infoLine('Data: ', data),
+              infoLine('Horário do pedido: ', horarioInicio),
+              infoLine('Horário entregue: ', horarioEntregue),
+              Divider(color: GalegosUiDefaut.colorScheme.secondary),
+              sectionTitle('Endereço:'),
+              infoLine('Rua: ', rua),
+              infoLine('Número: ', numeroResidencia),
+              infoLine('Bairro: ', bairro),
+              infoLine('Cidade: ', cidade),
+              infoLine('Estado: ', estado),
+              infoLine('CEP: ', cep),
+              Divider(color: GalegosUiDefaut.colorScheme.secondary),
               sectionTitle('Valores'),
-              infoLine(
-                'Total dos itens: ',
-                valor,
-              ),
-              infoLine(
-                'Taxa de entrega: ',
-                taxa,
-              ),
-              infoLine(
-                'Valor final: ',
-                total,
-                bold: true,
-              ),
+              infoLine('Total dos itens: ', valor),
+              infoLine('Taxa de entrega: ', taxa),
+              infoLine('Valor final: ', total, bold: true),
             ],
           ),
         ),
@@ -206,18 +134,11 @@ class AlertDialogHistory extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: GalegosUiDefaut.colorScheme.primary,
-              ),
+              style: ElevatedButton.styleFrom(backgroundColor: GalegosUiDefaut.colorScheme.primary),
               onPressed: () {
                 Get.close(0);
               },
-              child: Text(
-                'FECHAR',
-                style: TextStyle(
-                  color: GalegosUiDefaut.colorScheme.onPrimary,
-                ),
-              ),
+              child: Text('FECHAR', style: TextStyle(color: GalegosUiDefaut.colorScheme.onPrimary)),
             ),
           ],
         ),
