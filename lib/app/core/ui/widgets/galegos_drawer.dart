@@ -16,10 +16,10 @@ class GalegosDrawer extends GetView<AuthService> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           UserAccountsDrawerHeader(
-            decoration: BoxDecoration(color: GalegosUiDefaut.colorScheme.secondary),
+            decoration: BoxDecoration(color: GalegosUiDefaut.colorScheme.tertiary),
             accountName: Text(
-              controller.getUserName() ?? '',
-              style: GalegosUiDefaut.theme.textTheme.titleSmall,
+              'Usuário: ${controller.getUserName()}',
+              style: GalegosUiDefaut.textLunchboxes.titleMedium,
             ),
             accountEmail: Visibility(visible: controller.isAdmin(), child: Text('Administrador')),
           ),
