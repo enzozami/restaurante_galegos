@@ -13,7 +13,7 @@ class TimeData extends GetView<GalegosDrawerController> {
         Container(
           width: context.width,
           decoration: BoxDecoration(
-            color: GalegosUiDefaut.colorScheme.primary,
+            color: GalegosUiDefaut.colorScheme.tertiary,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(5),
               topRight: Radius.circular(5),
@@ -25,7 +25,8 @@ class TimeData extends GetView<GalegosDrawerController> {
               'HORÁRIOS DE FUNCIONAMENTO',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 25,
+                fontSize: 30,
+                color: GalegosUiDefaut.colors['fundo'],
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -38,17 +39,10 @@ class TimeData extends GetView<GalegosDrawerController> {
               children: controller.dateTime
                   .map(
                     (d) => ListTile(
-                      title: Text(
-                        d,
-                        style: TextStyle(
-                          fontSize: 17,
-                        ),
-                      ),
+                      title: Text(d, style: GalegosUiDefaut.textProduct.bodyLarge),
                       trailing: Text(
                         '${controller.inicioTime} - ${controller.fimTime}',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
+                        style: GalegosUiDefaut.theme.textTheme.titleSmall,
                       ),
                     ),
                   )
@@ -63,9 +57,10 @@ class TimeData extends GetView<GalegosDrawerController> {
             style: TextStyle(
               fontSize: 12,
               fontStyle: FontStyle.italic,
+              color: GalegosUiDefaut.colors['titulo'],
             ),
           ),
-        )
+        ),
       ],
     );
   }

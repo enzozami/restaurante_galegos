@@ -14,7 +14,7 @@ class AboutUsData extends GetView<GalegosDrawerController> {
           Container(
             width: context.width,
             decoration: BoxDecoration(
-              color: GalegosUiDefaut.colorScheme.primary,
+              color: GalegosUiDefaut.colorScheme.tertiary,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(5),
                 topRight: Radius.circular(5),
@@ -27,6 +27,7 @@ class AboutUsData extends GetView<GalegosDrawerController> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 30,
+                  color: GalegosUiDefaut.colors['fundo'],
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -36,9 +37,7 @@ class AboutUsData extends GetView<GalegosDrawerController> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               controller.textAboutUs,
-              style: TextStyle(
-                fontSize: 15,
-              ),
+              style: GalegosUiDefaut.textProduct.bodyLarge,
               textAlign: TextAlign.justify,
             ),
           ),

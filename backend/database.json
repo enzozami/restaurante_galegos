@@ -1066,6 +1066,78 @@
             "time": "09:33",
             "timeFinished": "",
             "date": "21/11/2025"
+        },
+        {
+            "id": 2,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13506715",
+            "rua": "Avenida 18 A",
+            "bairro": "Vila Indaiá",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 7,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": null,
+                        "alimento": {
+                            "id": 1,
+                            "name": "Bife à Milanesa",
+                            "temHoje": true,
+                            "dayName": [
+                                "Segunda-feira",
+                                "Terça-feira",
+                                "Quarta-feira",
+                                "Quinta-feira",
+                                "Sexta-feira"
+                            ],
+                            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                            "pricePerSize": {
+                                "mini": 22.0,
+                                "media": 24.0
+                            },
+                            "image": "https://img.freepik.com/fotos-premium/bife-a-milanesa-servido-com-arroz-feijao-salada-e-farofa_538646-6544.jpg"
+                        },
+                        "quantidade": 1,
+                        "tamanho": "mini",
+                        "valorPorTamanho": 22.0
+                    }
+                },
+                {
+                    "item": {
+                        "produto": null,
+                        "alimento": {
+                            "id": 1,
+                            "name": "Bife à Milanesa",
+                            "temHoje": true,
+                            "dayName": [
+                                "Segunda-feira",
+                                "Terça-feira",
+                                "Quarta-feira",
+                                "Quinta-feira",
+                                "Sexta-feira"
+                            ],
+                            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+                            "pricePerSize": {
+                                "mini": 22.0,
+                                "media": 24.0
+                            },
+                            "image": "https://img.freepik.com/fotos-premium/bife-a-milanesa-servido-com-arroz-feijao-salada-e-farofa_538646-6544.jpg"
+                        },
+                        "quantidade": 1,
+                        "tamanho": "media",
+                        "valorPorTamanho": 24.0
+                    }
+                }
+            ],
+            "amountToPay": 46.0,
+            "status": "preparando",
+            "time": "09:33",
+            "timeFinished": "",
+            "date": "22/11/2025"
         }
     ],
     "cep": [

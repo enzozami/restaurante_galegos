@@ -19,11 +19,8 @@ class TimePage extends GetView<GalegosDrawerController> {
             Card(
               elevation: 5,
               borderOnForeground: true,
-              color: GalegosUiDefaut.theme.primaryColor,
-              child: SizedBox(
-                width: context.widthTransformer(reducedBy: 10),
-                child: TimeData(),
-              ),
+              color: GalegosUiDefaut.colorScheme.secondary,
+              child: SizedBox(width: context.widthTransformer(reducedBy: 10), child: TimeData()),
             ),
           ],
         ),

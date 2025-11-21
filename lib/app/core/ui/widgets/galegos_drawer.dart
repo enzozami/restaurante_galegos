@@ -16,12 +16,10 @@ class GalegosDrawer extends GetView<AuthService> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           UserAccountsDrawerHeader(
+            decoration: BoxDecoration(color: GalegosUiDefaut.colorScheme.secondary),
             accountName: Text(
               controller.getUserName() ?? '',
-              style: TextStyle(
-                color: GalegosUiDefaut.colorScheme.onPrimary,
-                fontWeight: FontWeight.bold,
-              ),
+              style: GalegosUiDefaut.theme.textTheme.titleSmall,
             ),
             accountEmail: Visibility(visible: controller.isAdmin(), child: Text('Administrador')),
           ),
@@ -70,7 +68,7 @@ class ButtonDrawer extends StatelessWidget {
             child: Text(
               title,
               // textAlign: TextAlign.left,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: GalegosUiDefaut.theme.textTheme.titleSmall,
             ),
           ),
         ),

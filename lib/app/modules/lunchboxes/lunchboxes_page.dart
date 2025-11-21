@@ -232,10 +232,26 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                             ),
                           );
                         }),
-                        child: Text(
-                          'MARMITAS DE HOJE: \n${controller.dayNow}',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Marmitas de Hoje',
+                                  textAlign: TextAlign.center,
+                                  style: GalegosUiDefaut.theme.textTheme.titleLarge,
+                                ),
+                                Text(
+                                  controller.dayNow,
+                                  style: GalegosUiDefaut.theme.textTheme.titleSmall,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
