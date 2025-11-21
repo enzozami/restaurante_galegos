@@ -19,7 +19,6 @@ class AlimentosWidget extends GetView<LunchboxesController> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Obx(() {
         final alimentos = controller.alimentosFiltrados;
-
         final selectedSize = controller.sizeSelected.value;
 
         return Visibility(
@@ -135,6 +134,7 @@ class AlimentosWidget extends GetView<LunchboxesController> {
                   isProduct: false,
                   imageHeight: alimento.description.isEmpty ? 150 : 130,
                   titulo: alimento.name,
+                  image: alimento.image,
                   descricao: alimento.description,
                   onPressed: () {},
                   onTap: () {},
@@ -193,7 +193,18 @@ class AlimentosWidget extends GetView<LunchboxesController> {
                                 },
                               );
                             },
-                            child: Text(s),
+                            child: Column(
+                              children: [
+                                Text(
+                                  s[0].toUpperCase() + s.substring(1),
+                                  style: GalegosUiDefaut.textLunchboxes.titleSmall,
+                                ),
+                                Text(
+                                  FormatterHelper.formatCurrency(alimento.pricePerSize[s] ?? 0),
+                                  style: GalegosUiDefaut.textLunchboxes.titleMedium,
+                                ),
+                              ],
+                            ),
                           ),
                         )
                         .toList(),

@@ -7,6 +7,7 @@ class FoodModel {
   List<String> dayName;
   String description;
   Map<String, double> pricePerSize;
+  String image;
   FoodModel({
     required this.id,
     required this.name,
@@ -14,6 +15,7 @@ class FoodModel {
     required this.dayName,
     required this.description,
     required this.pricePerSize,
+    required this.image,
   });
 
   Map<String, dynamic> toMap() {
@@ -24,6 +26,7 @@ class FoodModel {
       'dayName': dayName,
       'description': description,
       'pricePerSize': pricePerSize,
+      'image': image,
     };
   }
 
@@ -35,6 +38,7 @@ class FoodModel {
       dayName: List<String>.from(map['dayName'] ?? const []),
       description: map['description'] ?? '',
       pricePerSize: Map<String, double>.from(map['pricePerSize'] ?? const {}),
+      image: map['image'] ?? '',
     );
   }
 
@@ -49,6 +53,7 @@ class FoodModel {
     List<String>? dayName,
     String? description,
     Map<String, double>? pricePerSize,
+    String? image,
   }) {
     return FoodModel(
       id: id ?? this.id,
@@ -57,11 +62,12 @@ class FoodModel {
       dayName: dayName ?? this.dayName,
       description: description ?? this.description,
       pricePerSize: pricePerSize ?? this.pricePerSize,
+      image: image ?? this.image,
     );
   }
 
   @override
   String toString() {
-    return 'FoodModel(id: $id, name: $name, temHoje: $temHoje, dayName: $dayName, description: $description, pricePerSize: $pricePerSize)';
+    return 'FoodModel(id: $id, name: $name, temHoje: $temHoje, dayName: $dayName, description: $description, pricePerSize: $pricePerSize, image: $image)';
   }
 }

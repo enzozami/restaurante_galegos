@@ -150,7 +150,7 @@ class CardItems extends StatelessWidget {
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color: Colors.red,
+                                  color: GalegosUiDefaut.colorScheme.secondary,
                                 ),
                                 width: context.widthTransformer(reducedBy: 65),
                                 height: 130,
