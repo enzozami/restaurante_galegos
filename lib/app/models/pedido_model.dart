@@ -78,7 +78,10 @@ class PedidoModel {
       estado: map['estado'] ?? '',
       numeroResidencia: map['numeroResidencia']?.toInt() ?? 0,
       taxa: map['taxa']?.toDouble() ?? 0.0,
-      cart: List<CarrinhoModel>.from(map['cart']?.map((x) => CarrinhoModel.fromMap(x)) ?? const []),
+      cart: (map['cart'] as List? ?? [])
+          .where((e) => e != null && e is Map<String, dynamic>)
+          .map((e) => CarrinhoModel.fromMap(e))
+          .toList(),
       amountToPay: map['amountToPay']?.toDouble() ?? 0.0,
       status: map['status'] ?? '',
       date: map['date'] ?? '',
@@ -132,5 +135,10 @@ class PedidoModel {
       timePath: timePath ?? this.timePath,
       timeFinished: timeFinished ?? this.timeFinished,
     );
+  }
+
+  @override
+  String toString() {
+    return 'PedidoModel(id: $id, userId: $userId, userName: $userName, cpfOrCnpj: $cpfOrCnpj, cep: $cep, rua: $rua, bairro: $bairro, cidade: $cidade, estado: $estado, numeroResidencia: $numeroResidencia, taxa: $taxa, cart: $cart, amountToPay: $amountToPay, status: $status, date: $date, time: $time, timePath: $timePath, timeFinished: $timeFinished)';
   }
 }

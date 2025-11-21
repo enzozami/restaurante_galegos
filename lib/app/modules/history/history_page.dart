@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cep.dart';
@@ -58,6 +60,13 @@ class HistoryPage extends GetView<HistoryController> {
 
                       final total = FormatterHelper.formatCurrency(e.amountToPay);
 
+                      log('==== CART DO PEDIDO ${e.id} ====');
+                      for (var c in e.cart) {
+                        log('ITEM: ${c.item}');
+                        log('ALIMENTO: ${c.item.alimento}');
+                        log('PRODUTO: ${c.item.produto}');
+                      }
+
                       return Card(
                         elevation: 5,
                         color: GalegosUiDefaut.theme.primaryColor,
@@ -66,26 +75,17 @@ class HistoryPage extends GetView<HistoryController> {
                             showDialog(
                               context: context,
                               builder: (context) {
-                                final carrinhoName = e.cart
-                                    .map((item) {
-                                      return item.item.alimento?.name ??
-                                          item.item.produto?.name ??
-                                          '';
-                                    })
-                                    .toList()
-                                    .join(', ');
-
                                 final cep = MaskCep();
-
                                 final valor = FormatterHelper.formatCurrency(
                                   e.amountToPay - e.taxa,
                                 );
                                 final taxa = FormatterHelper.formatCurrency(e.taxa);
-                                final total = FormatterHelper.formatCurrency(e.amountToPay);
+
+                                log('PAGINA DE HISTORICO (carrinho) - $carrinho');
 
                                 return AlertDialogHistory(
                                   pedidoLabel: e.id.toString(),
-                                  carrinhoName: carrinhoName,
+                                  carrinhoName: carrinho,
                                   valor: valor,
                                   taxa: taxa,
                                   total: total,

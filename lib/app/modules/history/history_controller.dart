@@ -14,11 +14,9 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
 
   final ScrollController scrollController = ScrollController();
 
-  HistoryController({
-    required AuthService authService,
-    required OrdersState ordersState,
-  })  : _authService = authService,
-        _ordersState = ordersState;
+  HistoryController({required AuthService authService, required OrdersState ordersState})
+    : _authService = authService,
+      _ordersState = ordersState;
 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
@@ -56,8 +54,8 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
         final historyData = allOrders.where((e) => e.userId == id);
         history.assignAll(historyData);
       }
-    } catch (e) {
-      log('ERROOO', error: e);
+    } catch (e, s) {
+      log('ERROOO', error: e, stackTrace: s);
     }
   }
 

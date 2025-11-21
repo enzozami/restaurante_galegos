@@ -11,7 +11,13 @@ class CarrinhoModel {
   }
 
   factory CarrinhoModel.fromMap(Map<String, dynamic> map) {
-    return CarrinhoModel(item: ItemCarrinhoModel.fromMap(map));
+    final itemMap = map['item'];
+
+    return CarrinhoModel(
+      item: itemMap is Map<String, dynamic>
+          ? ItemCarrinhoModel.fromMap(itemMap)
+          : ItemCarrinhoModel(quantidade: 0),
+    );
   }
 
   String toJson() => json.encode(toMap());
