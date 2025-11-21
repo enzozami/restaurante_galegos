@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cep.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_adm_history.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_history.dart';
 import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_controller.dart';
 
 class ForDeliveryPage extends GetView<ForDeliveryController> {
@@ -20,7 +20,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
               padding: const EdgeInsets.all(10.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: GalegosUiDefaut.colorScheme.primary,
+                  color: GalegosUiDefaut.colorScheme.tertiary,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
@@ -28,7 +28,11 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                   child: Center(
                     child: Text(
                       'SAIR PARA ENTREGA',
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: GalegosUiDefaut.colors['fundo'],
+                      ),
                     ),
                   ),
                 ),
@@ -55,7 +59,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
 
                       return Card(
                         elevation: 5,
-                        color: GalegosUiDefaut.theme.primaryColor,
+                        color: GalegosUiDefaut.colorScheme.secondary,
                         child: InkWell(
                           onTap: () {
                             final carrinhoName = e.cart
@@ -78,7 +82,10 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return AlertDialogAdmHistory(
+                                return AlertDialogHistory(
+                                  idPedido: e.id,
+                                  isAdmin: true,
+                                  titleButton: 'Pedido Entregue',
                                   pedidoLabel: pedidoTipo,
                                   carrinhoName: carrinhoName,
                                   valor: valor,

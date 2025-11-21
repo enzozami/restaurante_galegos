@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -36,6 +37,7 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
   void onReady() {
     super.onReady();
     _getHistory();
+    Timer.periodic(Duration(seconds: 5), (_) => _getHistory());
 
     ever<List<PedidoModel>>(allOrders, (_) async {
       final id = _authService.getUserId();

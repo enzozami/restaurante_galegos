@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
@@ -16,10 +18,8 @@ class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin
   AllOrdersController({
     required OrderFinishedServices orderFinishedServices,
     required OrdersState ordersState,
-  })  : _orderFinishedServices = orderFinishedServices,
-        _ordersState = ordersState;
-
-  final newTime = FormatterHelper.formatDateAndTime();
+  }) : _orderFinishedServices = orderFinishedServices,
+       _ordersState = ordersState;
 
   @override
   void onInit() {
@@ -27,16 +27,18 @@ class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin
     loaderListener(_loading);
     messageListener(_message);
     _ordersState.init();
+    Timer.periodic(Duration(seconds: 5), (_) => _ordersState.init());
   }
 
   RxList<PedidoModel> get listOrders =>
       _ordersState.all.where((e) => e.status == 'preparando').toList().obs;
 
   void orderFinished(PedidoModel pedido) async {
+    final newTime = FormatterHelper.formatDateAndTime();
     await _orderFinishedServices.orderFinished(
       pedido.copyWith(status: 'a caminho', timePath: newTime),
     );
-    _orderFinishedServices.changeStatusOnTheWay(pedido);
+    _orderFinishedServices.changeStatusOnTheWay(pedido.copyWith(timePath: newTime));
     _ordersState.update(pedido, 'a caminho');
   }
 }

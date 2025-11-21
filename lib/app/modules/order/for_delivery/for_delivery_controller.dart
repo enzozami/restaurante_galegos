@@ -18,10 +18,8 @@ class ForDeliveryController extends GetxController with LoaderMixin, MessagesMix
   ForDeliveryController({
     required OrderFinishedServices orderFinishedServices,
     required OrdersState ordersState,
-  })  : _ordersState = ordersState,
-        _orderFinishedServices = orderFinishedServices;
-
-  final newTime = FormatterHelper.formatDateAndTime();
+  }) : _ordersState = ordersState,
+       _orderFinishedServices = orderFinishedServices;
 
   @override
   void onInit() {
@@ -34,6 +32,8 @@ class ForDeliveryController extends GetxController with LoaderMixin, MessagesMix
       _ordersState.all.where((e) => e.status == 'a caminho').toList().obs;
 
   void orderFinished(PedidoModel pedido) async {
+    final newTime = FormatterHelper.formatDateAndTime();
+
     await _orderFinishedServices.orderFinished(
       pedido.copyWith(status: 'entregue', timeFinished: newTime),
     );

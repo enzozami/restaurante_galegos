@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 
 class AlertDialogHistory extends StatelessWidget {
+  final int idPedido;
   final String pedidoLabel;
   final String carrinhoName;
   final String valor;
@@ -22,6 +23,8 @@ class AlertDialogHistory extends StatelessWidget {
   final String data;
   final VoidCallback onPressed;
   final String statusPedido;
+  final bool isAdmin;
+  final String? titleButton;
 
   const AlertDialogHistory({
     super.key,
@@ -44,6 +47,9 @@ class AlertDialogHistory extends StatelessWidget {
     required this.data,
     required this.onPressed,
     required this.statusPedido,
+    required this.isAdmin,
+    this.titleButton,
+    required this.idPedido,
   });
 
   @override
@@ -78,7 +84,7 @@ class AlertDialogHistory extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              'Pedido $pedidoLabel',
+              'Pedido $idPedido',
               overflow: TextOverflow.ellipsis,
               style: GalegosUiDefaut.theme.textTheme.titleSmall,
             ),
@@ -109,6 +115,10 @@ class AlertDialogHistory extends StatelessWidget {
               sectionTitle('Detalhes'),
               infoLine('Data: ', data),
               infoLine('Horário do pedido: ', horarioInicio),
+              Visibility(
+                visible: isAdmin,
+                child: infoLine('Horário entrega: ', horarioSairEntrega),
+              ),
               infoLine('Horário entregue: ', horarioEntregue),
               Divider(color: GalegosUiDefaut.colorScheme.secondary),
               sectionTitle('Endereço:'),
@@ -131,13 +141,29 @@ class AlertDialogHistory extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: GalegosUiDefaut.colorScheme.primary),
-              onPressed: () {
-                Get.close(0);
-              },
-              child: Text('FECHAR', style: TextStyle(color: GalegosUiDefaut.colorScheme.onPrimary)),
-            ),
+            isAdmin
+                ? ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: GalegosUiDefaut.colorScheme.primary,
+                    ),
+                    onPressed: onPressed,
+                    child: Text(
+                      titleButton ?? '',
+                      style: TextStyle(color: GalegosUiDefaut.colorScheme.onPrimary),
+                    ),
+                  )
+                : ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: GalegosUiDefaut.colorScheme.primary,
+                    ),
+                    onPressed: () {
+                      Get.close(0);
+                    },
+                    child: Text(
+                      'FECHAR',
+                      style: TextStyle(color: GalegosUiDefaut.colorScheme.onPrimary),
+                    ),
+                  ),
           ],
         ),
       ],

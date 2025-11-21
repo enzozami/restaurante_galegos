@@ -114,6 +114,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   }
 
   Future<void> getLunchboxes() async {
+    _loading(true);
     try {
       final menuData = await _lunchboxesServices.getMenu();
       final List<String> sizesList = List<String>.from(menuData.first.pricePerSize);
