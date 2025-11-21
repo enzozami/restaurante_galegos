@@ -12,11 +12,9 @@ class FoodService extends GetxService {
   final TimeServices _timeServices;
   final times = <TimeModel>[].obs;
 
-  FoodService({
-    required LunchboxesServices lunchboxesServices,
-    required TimeServices timeServices,
-  })  : _lunchboxesServices = lunchboxesServices,
-        _timeServices = timeServices;
+  FoodService({required LunchboxesServices lunchboxesServices, required TimeServices timeServices})
+    : _lunchboxesServices = lunchboxesServices,
+      _timeServices = timeServices;
 
   Future<FoodService> init() async {
     await horarios();
@@ -51,6 +49,7 @@ class FoodService extends GetxService {
       name: name,
       temHoje: true,
       dayName: days,
+      image: '',
       description: description ?? 'Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos',
       pricePerSize: prices,
     );

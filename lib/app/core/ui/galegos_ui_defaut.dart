@@ -138,6 +138,6 @@ class GalegosUiDefaut {
   static final TextTheme textLunchboxes = TextTheme(
     titleLarge: TextStyle(color: colors['titulo'], fontSize: 20, fontWeight: FontWeight.bold),
     titleMedium: TextStyle(color: colors['fundo'], fontSize: 20, fontWeight: FontWeight.bold),
-    titleSmall: TextStyle(color: colors['titulo'], fontSize: 16, fontWeight: FontWeight.bold),
+    titleSmall: TextStyle(color: colors['fundo'], fontSize: 16, fontWeight: FontWeight.bold),
   );
 }

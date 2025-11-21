@@ -557,7 +557,8 @@
             "pricePerSize": {
                 "mini": 22.0,
                 "media": 24.0
-            }
+            },
+            "image": "https://img.freepik.com/fotos-premium/bife-a-milanesa-servido-com-arroz-feijao-salada-e-farofa_538646-6544.jpg"
         },
         {
             "name": "Bife a Parmegiana",
@@ -574,7 +575,8 @@
             "pricePerSize": {
                 "mini": 23.0,
                 "media": 25.0
-            }
+            },
+            "image": "https://anamariareceitas.com.br/wp-content/uploads/2024/07/5520.jpg" 
         },
         {
             "name": "Bife Grelhado",
@@ -591,7 +593,8 @@
             "pricePerSize": {
                 "mini": 22.0,
                 "media": 24.0
-            }
+            },
+            "image": "https://media-cdn.tripadvisor.com/media/photo-s/1d/9e/37/72/prato-executivo-bife.jpg"
         },
         {
             "name": "Filé de Frango à Milanesa",
@@ -608,7 +611,8 @@
             "pricePerSize": {
                 "mini": 22.0,
                 "media": 24.0
-            }
+            },
+            "image": "https://media-cdn.tripadvisor.com/media/photo-s/0b/9d/21/89/r3-express-food.jpg"
         },
         {
             "name": "Filé de Frango à Parmegiana",
@@ -625,7 +629,8 @@
             "pricePerSize": {
                 "mini": 23.0,
                 "media": 25.0
-            }
+            },
+            "image": "https://www.seara.com.br/wp-content/uploads/2025/09/parmegiana-de-frango.jpg"
         },
         {
             "name": "Filé de Frango Grelhado",
@@ -642,7 +647,8 @@
             "pricePerSize": {
                 "mini": 22.0,
                 "media": 24.0
-            }
+            },
+            "image": "https://www.lamamma.com.br/wp-content/uploads/2015/09/file-grelhado-executivo.jpg"
         },
         {
             "name": "Frango a Passarinho",
@@ -659,7 +665,8 @@
             "pricePerSize": {
                 "mini": 22.0,
                 "media": 24.0
-            }
+            },
+            "image": "https://media-cdn.tripadvisor.com/media/photo-s/0f/40/18/fe/frango-a-passarinho-prato.jpg"
         },
         {
             "name": "Linguiça Toscana",
@@ -676,7 +683,8 @@
             "pricePerSize": {
                 "mini": 22.0,
                 "media": 24.0
-            }
+            },
+            "image": "https://as2.ftcdn.net/jpg/04/59/56/41/1000_F_459564182_17NkVbNsuq05h6Op7OUJHGFCkPsuFgj1.jpg"
         },
         {
             "name": "Omelete de presunto/queijo e tomate",
@@ -691,7 +699,8 @@
             "pricePerSize": {
                 "mini": 23.0,
                 "media": 25.0
-            }
+            },
+            "image": "https://saborfacil.com/wp-content/uploads/2024/01/omelete_queijo.png"
         },
         {
             "name": "Vaca Atolada",
@@ -704,7 +713,8 @@
             "pricePerSize": {
                 "mini": 23.0,
                 "media": 25.0
-            }
+            },
+            "image": "https://cdn.casaeculinaria.com/wp-content/uploads/2023/04/24102918/Vaca-atolada.webp"
         },
         {
             "name": "Virado A Paulista",
@@ -717,7 +727,8 @@
             "pricePerSize": {
                 "mini": 26.0,
                 "media": 28.0
-            }
+            },
+            "image": "https://t3.ftcdn.net/jpg/08/01/23/62/360_F_801236254_HrXvVZzI9GK5OPKwpcr6KQrglONWcpvy.jpg"
         },
         {
             "name": "teste",
@@ -756,7 +767,8 @@
             "pricePerSize": {
                 "mini": 23.0,
                 "media": 25.0
-            }
+            },
+            "image": "https://cdn.oceanserver.com.br/lojas/naturallis/uploads_produto/naturallis-em-baixa-7-656c26587426f.jpg"
         },
         {
             "name": "Omelete de presunto e queijo",
@@ -770,7 +782,8 @@
             "pricePerSize": {
                 "mini": 23.0,
                 "media": 25.0
-            }
+            },
+            "image": "https://www.sadia.com.br/assets/images/_/recipes/a87fa73eb1914a46be47aa6f3f1a08c7153f4a8f.webp"
         },
         {
             "name": "Strogonoff de Frango",
@@ -783,7 +796,8 @@
             "pricePerSize": {
                 "mini": 22.0,
                 "media": 22.0
-            }
+            },
+            "image": "https://www.unileverfoodsolutions.com.br/dam/global-ufs/mcos/SLA/calcmenu/recipes/BR-recipes/chicken-&-other-poultry-dishes/strogonoff-de-frango/main-header.jpg"
         },
         {
             "name": "Feijoada",
@@ -796,7 +810,8 @@
             "pricePerSize": {
                 "mini": 26.0,
                 "media": 28.0
-            }
+            },
+            "image": "https://sabores-new.s3.amazonaws.com/public/2024/11/feijoada_1-1024x494.jpg"
         },
         {
             "name": "Filé Recheado de Queijo e Presunto",
@@ -809,7 +824,8 @@
             "pricePerSize": {
                 "mini": 23.0,
                 "media": 25.0
-            }
+            },
+            "image": "https://i.ytimg.com/vi/xj1kR1IEDIM/sddefault.jpg"
         },
         {
             "name": "Hamburguer com Queijo",
@@ -822,7 +838,8 @@
             "pricePerSize": {
                 "mini": 22.0,
                 "media": 25.0
-            }
+            },
+            "image": "https://wickbold.com.br/wp-content/uploads/2021/07/FACE-5-MATERIA-min.png"
         },
         {
             "name": "Linguiça com Queijo",
@@ -835,7 +852,8 @@
             "pricePerSize": {
                 "mini": 23.0,
                 "media": 25.0
-            }
+            },
+            "image": "https://www.seara.com.br/wp-content/uploads/2025/09/manta-de-linguica-portal-minha-receita-1-1.jpg"
         },
         {
             "name": "Peixe",
@@ -849,7 +867,8 @@
             "pricePerSize": {
                 "mini": 23.0,
                 "media": 25.0
-            }
+            },
+            "image": "https://media-cdn.tripadvisor.com/media/photo-s/10/8e/20/c9/prato-a-la-carte-peixe.jpg"
         },
         {
             "name": "Picadinho",
@@ -862,7 +881,8 @@
             "pricePerSize": {
                 "mini": 22.0,
                 "media": 24.0
-            }
+            },
+            "image": "https://guiadacozinha.com.br/wp-content/uploads/2019/10/picadinho-de-carne-e-frango-48816.jpg"
         },
         {
             "name": "Carne Moída / Batata / Cenoura",
@@ -875,7 +895,8 @@
             "pricePerSize": {
                 "mini": 22.0,
                 "media": 24.0
-            }
+            },
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4ib-g65uwBcsstdKzvIKOx0V4WBpIDMEiqg&s"
         },
         {
             "name": "Coxa Assada",
@@ -888,7 +909,8 @@
             "pricePerSize": {
                 "mini": 22.0,
                 "media": 24.0
-            }
+            },
+            "image": "https://as1.ftcdn.net/jpg/04/47/67/80/1000_F_447678072_TS2IGBpw0JfnIGbRB6vxrXWemHVuQU7F.jpg"
         },
         {
             "name": "Lasanha à Bolonhesa",
@@ -901,7 +923,8 @@
             "pricePerSize": {
                 "mini": 23.0,
                 "media": 25.0
-            }
+            },
+            "image": "https://guiadacozinha.com.br/wp-content/uploads/2014/01/lasanha-bolonhesa-na-pressao.jpg"
         },
         {
             "name": "Almôndegas",
@@ -914,7 +937,8 @@
             "pricePerSize": {
                 "mini": 22.0,
                 "media": 24.0
-            }
+            },
+            "image": "https://anamariabrogui.com.br/assets/uploads/receitas/fotos/usuario-3270-e1693a532657280ae17426e6ab66b411.jpg"
         },
         {
             "name": "Rabada",
@@ -927,7 +951,8 @@
             "pricePerSize": {
                 "mini": 26.0,
                 "media": 28.0
-            }
+            },
+            "image": "https://assets.unileversolutions.com/recipes-v2/177433.jpg"
         },
         {
             "id": 28,
