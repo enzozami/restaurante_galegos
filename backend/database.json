@@ -524,15 +524,7 @@
             "description": "tristeza e lagrimas ",
             "temHoje": true,
             "price": 1500.0
-        },
-        {
-            "id": 48,
-            "categoryId": "Lanches",
-            "name": "Gabão",
-            "description": "oi gabão",
-            "temHoje": true,
-            "price": 15000.0
-        }
+        }   
     ],
     "menu": [
         {
