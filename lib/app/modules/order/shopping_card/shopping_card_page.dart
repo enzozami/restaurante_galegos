@@ -153,7 +153,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                                   children: [
                                     Card(
                                       elevation: 5,
-                                      color: GalegosUiDefaut.theme.primaryColor,
+                                      color: GalegosUiDefaut.colors['fundo'],
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Wrap(
@@ -257,7 +257,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                               children: [
                                 Card(
                                   elevation: 5,
-                                  color: GalegosUiDefaut.theme.primaryColor,
+                                  color: GalegosUiDefaut.colorScheme.secondary,
                                   child: Container(
                                     padding: EdgeInsets.all(10),
                                     child: Column(
