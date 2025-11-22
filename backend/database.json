@@ -1,1 +1,1676 @@
-{"users":[{"id":0,"isCpf":false,"isAdmin":true,"name":"Enzo ADM","value":"15.038.221/0001-26","password":"galegos"},{"id":1,"isCpf":true,"name":"oi","value":"038.416.120-08","password":"123456"},{"id":2,"isCpf":true,"name":"Enzo 2","value":"770.754.610-52","password":"123123"},{"id":3,"isCpf":true,"name":"Robson gamer","value":"841.726.910-05","password":"eutenhodepressao2"},{"id":4,"isCpf":true,"name":"Oi","value":"298.653.450-30","password":"123123"},{"id":5,"isCpf":true,"name":"Oi2","value":"427.084.140-03","password":"123123"},{"id":6,"isCpf":true,"name":"Enzo","value":"038.416.120-08","password":"123123"},{"id":7,"isCpf":true,"name":"Teste","value":"089.180.470-61","password":"123123"},{"id":8,"isCpf":true,"name":"Teste","value":"089.180.470-61","password":"123123"},{"id":9,"isCpf":false,"name":"Empresa","value":"96.014.846/0001-50","password":"123123"},{"id":10,"isCpf":true,"name":"Julia","value":"438.810.400-05","password":"abc123"},{"id":11,"isCpf":true,"name":"Neytan","value":"631.313.200-95","password":"123456"},{"id":12,"isCpf":true,"name":"Julie","value":"373.949.308-90","password":"123444"},{"id":13,"isCpf":true,"name":"Nome certo","value":"330.019.680-95","password":"123456"},{"id":14,"isCpf":true,"name":"Rhayssam Sam Sam","value":"808.421.490-07","password":"Robson123"},{"id":15,"isCpf":false,"name":"teste","value":"84.768.466/0001-21","password":"teste1"}],"sobre_nos":[{"title":"Sobre nós","text":"Com mais de 22 anos de experiência, oferecemos a melhor comida caseira da área de Cajamar. Temos opções de comida à vontade, por quilo e marmitas."}],"horarios":[{"days":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"],"inicio":"09:00","fim":"14:50"}],"categories":[{"name":"Lanches"},{"name":"Bebidas"},{"name":"Porções"},{"name":"Saladas"}],"products":[{"id":1,"categoryId":"Lanches","temHoje":true,"name":"Americano","price":15.0,"description":"Pão francês, presunto, queijo, ovo, alface, tomate e maionese","image":"https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"},{"id":2,"categoryId":"Lanches","name":"Bauru","temHoje":true,"price":13.0,"description":"Pão francês, presunto, queijo e tomate","image":"https://jornalcandeia.com.br/wp-content/uploads/2019/01/bauru.jpg"},{"id":3,"categoryId":"Lanches","temHoje":true,"name":"X-Burguer","price":14.0,"description":"Pão de hambúrguer, hambúrguer, queijo e maionese","image":"https://sachefmio.blob.core.windows.net/fotos/x-burguer-73517.jpg"},{"id":4,"categoryId":"Lanches","temHoje":true,"name":"X-Salada","price":15.0,"description":"Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese","image":"https://static.wixstatic.com/media/426382_b4e2e7aa9a284d3ebb7489df5fee4d55~mv2.jpg/v1/fill/w_2500,h_2500,al_c/426382_b4e2e7aa9a284d3ebb7489df5fee4d55~mv2.jpg"},{"id":5,"categoryId":"Lanches","temHoje":true,"name":"X-Egg","price":15.0,"description":"Pão de hambúrguer, hambúrguer, queijo, ovo e maionese","image":"https://assets.unileversolutions.com/recipes-v2/106685.jpg"},{"id":6,"categoryId":"Lanches","temHoje":true,"name":"X-Tudo","price":21.0,"description":"Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-tudo.jpg"},{"id":7,"categoryId":"Lanches","temHoje":true,"name":"Churrasco com Queijo","price":18.0,"description":"Pão francês ,contra filé e queijo","image":"https://media-cdn.tripadvisor.com/media/photo-s/08/6a/98/2e/vaca-preta-lanches-ii.jpg"},{"id":8,"categoryId":"Lanches","name":"Churrasco Completo","temHoje":true,"price":21.0,"description":"Pão francês, contra filé, presunto, queijo, bacon, alface, tomate, maionese e ovo","image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDuc9ddgle8IxavTPhHsA2HbGZ9FUTG34gPA&s"},{"id":9,"categoryId":"Lanches","temHoje":true,"name":"Misto Quente","price":12.0,"description":"Pão de forma, presunto e queijo","image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-misto-quente.jpg"},{"id":10,"temHoje":true,"categoryId":"Lanches","name":"X-Calabresa","price":18.0,"description":"Pão de hambúrguer, calabresa, queijo, alface e tomate","image":"https://padariasantacruz.loji.com.br/storage/uploads/6oMiL6ZYwzHSHwFbOLRFN3eFo0tu7wceWELWhtPP.jpeg"},{"id":11,"categoryId":"Lanches","name":"X-Frango","temHoje":true,"price":18.0,"description":"Pão francês, filé de frango, queijo, alface, tomate e maionese","image":"https://assets.unileversolutions.com/recipes-v2/99439.jpg"},{"id":12,"categoryId":"Lanches","temHoje":true,"name":"X-Frango Completo","price":21.0,"description":"Pão francês, filé de frango, queijo, presunto, ovo, alface e tomate","image":"https://le.flashmenu.online/_core/_uploads//2023/06/1140290623dfi364fhc3.png"},{"id":13,"categoryId":"Lanches","temHoje":true,"name":"X-Bacon","price":16.0,"description":"Pão de hambúrguer, hambúrguer, queijo, bacon e maionese","image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2iq1NJAbIYJHdnOj10joXxG1hGOQlo4_M5g&s"},{"id":14,"categoryId":"Bebidas","name":"Coca-Cola Lata","temHoje":true,"price":6.0,"description":"Refrigerante Coca-Cola lata 350ml","image":"https://img.cdndsgni.com/preview/13015292-m.jpg"},{"id":15,"categoryId":"Bebidas","temHoje":true,"name":"Coca-Cola 600ml","price":8.0,"description":"Refrigerante Coca-Cola garrafa pet 600ml","image":"https://paraisodoacai.premiodelivery.com.br/_core/_uploads/151/2023/08/2003280823cfk0e24kii.jpeg"},{"id":16,"categoryId":"Bebidas","name":"Coca-Cola 2L","price":12.0,"temHoje":true,"description":"Refrigerante Coca-Cola garrafa pet 2 litros","image":"https://pizzabrasil.comprageral.com/_core/_uploads/69/2021/03/0054260321ichgjhejkb.jpg"},{"id":17,"categoryId":"Bebidas","name":"Guaraná Antarctica Lata","price":6.0,"temHoje":true,"description":"Refrigerante Guaraná Antártica lata 350ml","image":"https://hiperideal.vtexassets.com/arquivos/ids/224330-800-450?v=638599276382230000&width=800&height=450&aspect=true"},{"id":18,"categoryId":"Bebidas","name":"Guaraná Antarctica 600ml","price":8.0,"temHoje":true,"description":"Refrigerante Guaraná Antártica garrafa pet 600ml","image":"https://zaffari.vtexassets.com/arquivos/ids/264241-800-450?v=638688178067800000&width=800&height=450&aspect=true"},{"id":19,"categoryId":"Bebidas","temHoje":true,"name":"Guaraná Antarctica 2L","price":12.0,"description":"Refrigerante Guaraná Antártica garrafa pet 2 litros","image":"https://d21wiczbqxib04.cloudfront.net/Oci_1XgLTJvn5VBmK7jQ3-jVbY4=/fit-in/600x0/filters:fill(FFFFFF):background_color(white)/https://produtos-osuper.s3.sa-east-1.amazonaws.com/5240.jpg"},{"id":20,"categoryId":"Porções","temHoje":true,"name":"1/2 Porção Calabresa","price":25.0},{"id":21,"categoryId":"Porções","name":"1/2 Porção Couve","temHoje":true,"price":15.0},{"id":22,"temHoje":true,"categoryId":"Porções","name":"1/2 Porção Picadinho","price":20.0},{"id":23,"categoryId":"Porções","temHoje":true,"name":"1/2 Porção Vinagrete","price":12.0},{"id":24,"temHoje":true,"categoryId":"Porções","name":"Acompanhamentos Feijoada","description":"Couve, torresmo, vinagrete e farofa (3 pessoas)","price":25.0},{"id":25,"temHoje":true,"categoryId":"Porções","name":"Arroz","price":15.0},{"id":26,"categoryId":"Porções","temHoje":true,"name":"Calabresa Inteira","price":40.0},{"id":27,"categoryId":"Porções","name":"COMBO DE FEIJOADA Serve Até 4 Pessoas","temHoje":true,"description":"1 Porção de arroz, 1 porção de feijoada, 1 porção com couve, torresmo e farofa e 1 mini porção de vinagrete","price":99.9},{"id":28,"temHoje":true,"categoryId":"Porções","name":"Feijão","price":15.0},{"id":29,"temHoje":true,"categoryId":"Porções","name":"Feijoada (Não Vendemos Feijoada Light)","price":28.0},{"id":30,"categoryId":"Porções","temHoje":true,"name":"Frango À Passarinho 1/2","price":20.0},{"id":31,"categoryId":"Porções","name":"Frango À Passarinho Inteira","temHoje":true,"price":40.0},{"id":32,"categoryId":"Porções","name":"Fritas 1/2","temHoje":true,"price":15.0},{"id":33,"categoryId":"Porções","name":"Fritas Inteira","temHoje":true,"price":30.0},{"id":34,"categoryId":"Porções","temHoje":true,"name":"Picadinho Inteira","price":40.0},{"id":35,"categoryId":"Porções","name":"Torresmo 1/2","temHoje":true,"price":20.0},{"id":36,"categoryId":"Porções","name":"Torresmo Inteira","temHoje":true,"price":40.0},{"id":37,"categoryId":"Saladas","temHoje":true,"name":"Salada Mini","price":12.0},{"id":38,"temHoje":true,"categoryId":"Saladas","name":"Mini salada de alface e tomate","price":9.0},{"id":39,"categoryId":"Saladas","temHoje":true,"name":"Mini Salada Mista","price":12.0},{"id":40,"categoryId":"Saladas","temHoje":true,"name":"Salada Mista Grande","price":16.0},{"id":41,"categoryId":"Porções","name":"patata","description":"batata com p","temHoje":true,"price":50.0},{"id":42,"categoryId":"Porções","name":"patata","description":"batata com p","temHoje":true,"price":50.0},{"id":43,"categoryId":"Porções","name":"patata","description":"batata com p","temHoje":true,"price":50.0},{"id":44,"categoryId":"Porções","name":"patata","description":"batata com p","temHoje":true,"price":50.0},{"id":45,"categoryId":"Porções","name":"patata","description":"batata com p","temHoje":true,"price":50.0},{"id":46,"categoryId":"Porções","name":"patata","description":"batata com p","temHoje":true,"price":50.0},{"id":47,"categoryId":"Lanches","name":"McLanche infeliz","description":"tristeza e lagrimas ","temHoje":true,"price":1500.0},{"id":48,"categoryId":"Lanches","name":"Gabão","description":"oi gabão","temHoje":true,"price":15000.0}],"menu":[{"day":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"pricePerSize":["mini","media"]}],"alimentos":[{"name":"Bife à Milanesa","id":1,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"temHoje":true,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0},"image":"https://img.freepik.com/fotos-premium/bife-a-milanesa-servido-com-arroz-feijao-salada-e-farofa_538646-6544.jpg"},{"name":"Bife a Parmegiana","temHoje":true,"id":2,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0},"image":"https://anamariareceitas.com.br/wp-content/uploads/2024/07/5520.jpg"},{"name":"Bife Grelhado","id":3,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"temHoje":true,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0},"image":"https://media-cdn.tripadvisor.com/media/photo-s/1d/9e/37/72/prato-executivo-bife.jpg"},{"name":"Filé de Frango à Milanesa","id":4,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","temHoje":true,"pricePerSize":{"mini":22.0,"media":24.0},"image":"https://media-cdn.tripadvisor.com/media/photo-s/0b/9d/21/89/r3-express-food.jpg"},{"name":"Filé de Frango à Parmegiana","temHoje":true,"id":5,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0},"image":"https://www.seara.com.br/wp-content/uploads/2025/09/parmegiana-de-frango.jpg"},{"name":"Filé de Frango Grelhado","temHoje":true,"id":6,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0},"image":"https://www.lamamma.com.br/wp-content/uploads/2015/09/file-grelhado-executivo.jpg"},{"name":"Frango a Passarinho","id":7,"temHoje":true,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0},"image":"https://media-cdn.tripadvisor.com/media/photo-s/0f/40/18/fe/frango-a-passarinho-prato.jpg"},{"name":"Linguiça Toscana","id":8,"dayName":["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],"temHoje":true,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0},"image":"https://as2.ftcdn.net/jpg/04/59/56/41/1000_F_459564182_17NkVbNsuq05h6Op7OUJHGFCkPsuFgj1.jpg"},{"name":"Omelete de presunto/queijo e tomate","id":9,"temHoje":true,"dayName":["Segunda-feira","Quarta-feira","Sexta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0},"image":"https://saborfacil.com/wp-content/uploads/2024/01/omelete_queijo.png"},{"name":"Vaca Atolada","id":10,"temHoje":true,"dayName":["Segunda-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0},"image":"https://cdn.casaeculinaria.com/wp-content/uploads/2023/04/24102918/Vaca-atolada.webp"},{"name":"Virado A Paulista","temHoje":true,"id":11,"dayName":["Segunda-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":26.0,"media":28.0},"image":"https://t3.ftcdn.net/jpg/08/01/23/62/360_F_801236254_HrXvVZzI9GK5OPKwpcr6KQrglONWcpvy.jpg"},{"name":"teste","temHoje":true,"dayName":["Segunda-feira"],"id":12,"description":"","pricePerSize":{"mini":10.0,"media":12.0}},{"name":"teste","id":13,"temHoje":true,"dayName":["Terça-feira"],"description":"","pricePerSize":{"mini":10.0,"media":12.0}},{"name":"Hamburguer Parmegiana","id":14,"temHoje":true,"dayName":["Terça-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0},"image":"https://cdn.oceanserver.com.br/lojas/naturallis/uploads_produto/naturallis-em-baixa-7-656c26587426f.jpg"},{"name":"Omelete de presunto e queijo","id":15,"temHoje":true,"dayName":["Terça-feira","Quinta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0},"image":"https://www.sadia.com.br/assets/images/_/recipes/a87fa73eb1914a46be47aa6f3f1a08c7153f4a8f.webp"},{"name":"Strogonoff de Frango","temHoje":true,"dayName":["Terça-feira"],"id":16,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":22.0},"image":"https://www.unileverfoodsolutions.com.br/dam/global-ufs/mcos/SLA/calcmenu/recipes/BR-recipes/chicken-&-other-poultry-dishes/strogonoff-de-frango/main-header.jpg"},{"name":"Feijoada","id":17,"dayName":["Quarta-feira"],"description":"Acompanha arroz, feijoada, couve, torresmo, vinagrete e farofa","temHoje":true,"pricePerSize":{"mini":26.0,"media":28.0},"image":"https://sabores-new.s3.amazonaws.com/public/2024/11/feijoada_1-1024x494.jpg"},{"name":"Filé Recheado de Queijo e Presunto","id":18,"temHoje":true,"dayName":["Quarta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0},"image":"https://i.ytimg.com/vi/xj1kR1IEDIM/sddefault.jpg"},{"name":"Hamburguer com Queijo","id":19,"temHoje":true,"dayName":["Quarta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":25.0},"image":"https://wickbold.com.br/wp-content/uploads/2021/07/FACE-5-MATERIA-min.png"},{"name":"Linguiça com Queijo","id":20,"temHoje":true,"dayName":["Quarta-feira"],"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0},"image":"https://www.seara.com.br/wp-content/uploads/2025/09/manta-de-linguica-portal-minha-receita-1-1.jpg"},{"name":"Peixe","temHoje":true,"dayName":["Quarta-feira","Sexta-feira"],"id":21,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0},"image":"https://media-cdn.tripadvisor.com/media/photo-s/10/8e/20/c9/prato-a-la-carte-peixe.jpg"},{"name":"Picadinho","dayName":["Quarta-feira"],"temHoje":true,"id":22,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0},"image":"https://guiadacozinha.com.br/wp-content/uploads/2019/10/picadinho-de-carne-e-frango-48816.jpg"},{"name":"Carne Moída / Batata / Cenoura","dayName":["Quinta-feira"],"temHoje":true,"id":23,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0},"image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4ib-g65uwBcsstdKzvIKOx0V4WBpIDMEiqg&s"},{"name":"Coxa Assada","dayName":["Quinta-feira"],"id":24,"temHoje":true,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0},"image":"https://as1.ftcdn.net/jpg/04/47/67/80/1000_F_447678072_TS2IGBpw0JfnIGbRB6vxrXWemHVuQU7F.jpg"},{"name":"Lasanha à Bolonhesa","dayName":["Quinta-feira"],"temHoje":true,"id":25,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":23.0,"media":25.0},"image":"https://guiadacozinha.com.br/wp-content/uploads/2014/01/lasanha-bolonhesa-na-pressao.jpg"},{"name":"Almôndegas","dayName":["Sexta-feira"],"temHoje":true,"id":26,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos","pricePerSize":{"mini":22.0,"media":24.0},"image":"https://anamariabrogui.com.br/assets/uploads/receitas/fotos/usuario-3270-e1693a532657280ae17426e6ab66b411.jpg"},{"name":"Rabada","dayName":["Sexta-feira"],"temHoje":true,"id":27,"description":"Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos / Polenta / Farofa","pricePerSize":{"mini":26.0,"media":28.0},"image":"https://assets.unileversolutions.com/recipes-v2/177433.jpg"},{"id":28,"name":"robson","dayName":["Sexta-feira"],"temHoje":true,"description":"","pricePerSize":{"mini":200.0,"media":100.0}},{"id":29,"name":"Enzin","dayName":["Terça-feira"],"temHoje":true,"description":"enzinho","pricePerSize":{"mini":30000.0,"media":50000.0}},{"id":30,"name":"Enzo teste","dayName":["Quarta-feira"],"temHoje":true,"description":"","pricePerSize":{"mini":100.0,"media":3000.0}}],"orders":[{"id":1,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":5,"taxa":7.0,"cart":[{"item":{"produto":{"id":1,"categoryId":"Lanches","name":"Americano","description":"Pão francês, presunto, queijo, ovo, alface, tomate e maionese","temHoje":true,"price":15.0,"image":"https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":22.0,"status":"entregue","time":"13:55","timeFinished":"14:07","date":"21/11/2025","timePath":"14:06"},{"id":2,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":1,"taxa":7.0,"cart":[{"item":{"produto":{"id":6,"categoryId":"Lanches","name":"X-Tudo","description":"Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese","temHoje":true,"price":21.0,"image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-tudo.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":28.0,"status":"entregue","time":"13:55","timeFinished":"14:38","date":"21/11/2025","timePath":"14:17"},{"id":3,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":3,"taxa":7.0,"cart":[{"item":{"produto":{"id":7,"categoryId":"Lanches","name":"Churrasco com Queijo","description":"Pão francês ,contra filé e queijo","temHoje":true,"price":18.0,"image":"https://media-cdn.tripadvisor.com/media/photo-s/08/6a/98/2e/vaca-preta-lanches-ii.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":25.0,"status":"entregue","time":"14:11","timeFinished":"14:15","date":"21/11/2025","timePath":"14:19"},{"id":4,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":5,"taxa":7.0,"cart":[{"item":{"produto":{"id":1,"categoryId":"Lanches","name":"Americano","description":"Pão francês, presunto, queijo, ovo, alface, tomate e maionese","temHoje":true,"price":15.0,"image":"https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":22.0,"status":"entregue","time":"14:23","timeFinished":"14:38","date":"21/11/2025","timePath":"14:38"},{"id":5,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":6,"taxa":7.0,"cart":[{"item":{"produto":{"id":4,"categoryId":"Lanches","name":"X-Salada","description":"Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese","temHoje":true,"price":15.0,"image":"https://static.wixstatic.com/media/426382_b4e2e7aa9a284d3ebb7489df5fee4d55~mv2.jpg/v1/fill/w_2500,h_2500,al_c/426382_b4e2e7aa9a284d3ebb7489df5fee4d55~mv2.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":22.0,"status":"entregue","time":"14:38","timeFinished":"14:39","date":"21/11/2025","timePath":"14:39"},{"id":6,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":3,"taxa":7.0,"cart":[{"item":{"produto":{"id":2,"categoryId":"Lanches","name":"Bauru","description":"Pão francês, presunto, queijo e tomate","temHoje":true,"price":13.0,"image":"https://jornalcandeia.com.br/wp-content/uploads/2019/01/bauru.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":20.0,"status":"entregue","time":"14:38","timeFinished":"14:40","date":"21/11/2025","timePath":"14:40"},{"id":7,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13500340","rua":"Avenida 13","bairro":"Saúde","cidade":"Rio Claro","estado":"SP","numeroResidencia":777,"taxa":0.0,"cart":[{"item":{"produto":{"id":6,"categoryId":"Lanches","name":"X-Tudo","description":"Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese","temHoje":true,"price":21.0,"image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-tudo.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":21.0,"status":"entregue","time":"14:42","timeFinished":"14:43","date":"21/11/2025","timePath":"14:43"},{"id":8,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":5,"taxa":7.0,"cart":[{"item":{"produto":{"id":1,"categoryId":"Lanches","name":"Americano","description":"Pão francês, presunto, queijo, ovo, alface, tomate e maionese","temHoje":true,"price":15.0,"image":"https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":22.0,"status":"entregue","time":"15:11","timeFinished":"15:13","date":"21/11/2025","timePath":"15:12"}],"cep":[{"ceps":["07775240","07775200","07775500","07775860","07775865","07776000","07776005","07776035","07753040","07753080","07753700","07750020"],"taxa":7.0},{"ceps":["07787300","07787380","07787455","07787485","07787500","07787530","07787540","07787545"],"taxa":5.0}],"finished":[{"id":1,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":5,"taxa":7.0,"cart":[{"item":{"produto":{"id":1,"categoryId":"Lanches","name":"Americano","description":"Pão francês, presunto, queijo, ovo, alface, tomate e maionese","temHoje":true,"price":15.0,"image":"https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":22.0,"status":"entregue","date":"21/11/2025","time":"13:55","timePath":"14:06","timeFinished":"14:07"},{"id":2,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":1,"taxa":7.0,"cart":[{"item":{"produto":{"id":6,"categoryId":"Lanches","name":"X-Tudo","description":"Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese","temHoje":true,"price":21.0,"image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-tudo.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":28.0,"status":"entregue","date":"21/11/2025","time":"13:55","timePath":"14:17","timeFinished":"14:38"},{"id":3,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":3,"taxa":7.0,"cart":[{"item":{"produto":{"id":7,"categoryId":"Lanches","name":"Churrasco com Queijo","description":"Pão francês ,contra filé e queijo","temHoje":true,"price":18.0,"image":"https://media-cdn.tripadvisor.com/media/photo-s/08/6a/98/2e/vaca-preta-lanches-ii.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":25.0,"status":"entregue","date":"21/11/2025","time":"14:11","timePath":"14:19","timeFinished":"14:15"},{"id":4,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":5,"taxa":7.0,"cart":[{"item":{"produto":{"id":1,"categoryId":"Lanches","name":"Americano","description":"Pão francês, presunto, queijo, ovo, alface, tomate e maionese","temHoje":true,"price":15.0,"image":"https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":22.0,"status":"entregue","date":"21/11/2025","time":"14:23","timePath":"14:38","timeFinished":"14:38"},{"id":5,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":6,"taxa":7.0,"cart":[{"item":{"produto":{"id":4,"categoryId":"Lanches","name":"X-Salada","description":"Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese","temHoje":true,"price":15.0,"image":"https://static.wixstatic.com/media/426382_b4e2e7aa9a284d3ebb7489df5fee4d55~mv2.jpg/v1/fill/w_2500,h_2500,al_c/426382_b4e2e7aa9a284d3ebb7489df5fee4d55~mv2.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":22.0,"status":"entregue","date":"21/11/2025","time":"14:38","timePath":"14:39","timeFinished":"14:39"},{"id":6,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":3,"taxa":7.0,"cart":[{"item":{"produto":{"id":2,"categoryId":"Lanches","name":"Bauru","description":"Pão francês, presunto, queijo e tomate","temHoje":true,"price":13.0,"image":"https://jornalcandeia.com.br/wp-content/uploads/2019/01/bauru.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":20.0,"status":"entregue","date":"21/11/2025","time":"14:38","timePath":"14:40","timeFinished":"14:40"},{"id":7,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"13500340","rua":"Avenida 13","bairro":"Saúde","cidade":"Rio Claro","estado":"SP","numeroResidencia":777,"taxa":0.0,"cart":[{"item":{"produto":{"id":6,"categoryId":"Lanches","name":"X-Tudo","description":"Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese","temHoje":true,"price":21.0,"image":"https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-tudo.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":21.0,"status":"entregue","date":"21/11/2025","time":"14:42","timePath":"14:43","timeFinished":"14:43"},{"id":8,"userId":6,"userName":"Enzo","cpfOrCnpj":"038.416.120-08","cep":"07775240","rua":"Avenida Ribeirão dos Cristais","bairro":"Empresarial Paineira (Jordanésia)","cidade":"Cajamar","estado":"SP","numeroResidencia":5,"taxa":7.0,"cart":[{"item":{"produto":{"id":1,"categoryId":"Lanches","name":"Americano","description":"Pão francês, presunto, queijo, ovo, alface, tomate e maionese","temHoje":true,"price":15.0,"image":"https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"},"alimento":null,"quantidade":1,"tamanho":null,"valorPorTamanho":null}}],"amountToPay":22.0,"status":"entregue","date":"21/11/2025","time":"15:11","timePath":"15:12","timeFinished":"15:13"}]}
+{
+    "users": [
+        {
+            "id": 0,
+            "isCpf": false,
+            "isAdmin": true,
+            "name": "Enzo ADM",
+            "value": "15.038.221/0001-26",
+            "password": "galegos"
+        },
+        {
+            "id": 1,
+            "isCpf": true,
+            "name": "oi",
+            "value": "038.416.120-08",
+            "password": "123456"
+        },
+        {
+            "id": 2,
+            "isCpf": true,
+            "name": "Enzo 2",
+            "value": "770.754.610-52",
+            "password": "123123"
+        },
+        {
+            "id": 3,
+            "isCpf": true,
+            "name": "Robson gamer",
+            "value": "841.726.910-05",
+            "password": "eutenhodepressao2"
+        },
+        {
+            "id": 4,
+            "isCpf": true,
+            "name": "Oi",
+            "value": "298.653.450-30",
+            "password": "123123"
+        },
+        {
+            "id": 5,
+            "isCpf": true,
+            "name": "Oi2",
+            "value": "427.084.140-03",
+            "password": "123123"
+        },
+        {
+            "id": 6,
+            "isCpf": true,
+            "name": "Enzo",
+            "value": "038.416.120-08",
+            "password": "123123"
+        },
+        {
+            "id": 7,
+            "isCpf": true,
+            "name": "Teste",
+            "value": "089.180.470-61",
+            "password": "123123"
+        },
+        {
+            "id": 8,
+            "isCpf": true,
+            "name": "Teste",
+            "value": "089.180.470-61",
+            "password": "123123"
+        },
+        {
+            "id": 9,
+            "isCpf": false,
+            "name": "Empresa",
+            "value": "96.014.846/0001-50",
+            "password": "123123"
+        },
+        {
+            "id": 10,
+            "isCpf": true,
+            "name": "Julia",
+            "value": "438.810.400-05",
+            "password": "abc123"
+        },
+        {
+            "id": 11,
+            "isCpf": true,
+            "name": "Neytan",
+            "value": "631.313.200-95",
+            "password": "123456"
+        },
+        {
+            "id": 12,
+            "isCpf": true,
+            "name": "Julie",
+            "value": "373.949.308-90",
+            "password": "123444"
+        },
+        {
+            "id": 13,
+            "isCpf": true,
+            "name": "Nome certo",
+            "value": "330.019.680-95",
+            "password": "123456"
+        },
+        {
+            "id": 14,
+            "isCpf": true,
+            "name": "Rhayssam Sam Sam",
+            "value": "808.421.490-07",
+            "password": "Robson123"
+        },
+        {
+            "id": 15,
+            "isCpf": false,
+            "name": "teste",
+            "value": "84.768.466/0001-21",
+            "password": "teste1"
+        }
+    ],
+    "sobre_nos": [
+        {
+            "title": "Sobre nós",
+            "text": "Com mais de 22 anos de experiência, oferecemos a melhor comida caseira da área de Cajamar. Temos opções de comida à vontade, por quilo e marmitas."
+        }
+    ],
+    "horarios": [
+        {
+            "days": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira",
+                "Sábado"
+            ],
+            "inicio": "09:00",
+            "fim": "14:50"
+        }
+    ],
+    "categories": [
+        {
+            "name": "Lanches"
+        },
+        {
+            "name": "Bebidas"
+        },
+        {
+            "name": "Porções"
+        },
+        {
+            "name": "Saladas"
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "Americano",
+            "price": 15.0,
+            "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+            "image": "https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"
+        },
+        {
+            "id": 2,
+            "categoryId": "Lanches",
+            "name": "Bauru",
+            "temHoje": true,
+            "price": 13.0,
+            "description": "Pão francês, presunto, queijo e tomate",
+            "image": "https://jornalcandeia.com.br/wp-content/uploads/2019/01/bauru.jpg"
+        },
+        {
+            "id": 3,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "X-Burguer",
+            "price": 14.0,
+            "description": "Pão de hambúrguer, hambúrguer, queijo e maionese",
+            "image": "https://sachefmio.blob.core.windows.net/fotos/x-burguer-73517.jpg"
+        },
+        {
+            "id": 4,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "X-Salada",
+            "price": 15.0,
+            "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
+            "image": "https://static.wixstatic.com/media/426382_b4e2e7aa9a284d3ebb7489df5fee4d55~mv2.jpg/v1/fill/w_2500,h_2500,al_c/426382_b4e2e7aa9a284d3ebb7489df5fee4d55~mv2.jpg"
+        },
+        {
+            "id": 5,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "X-Egg",
+            "price": 15.0,
+            "description": "Pão de hambúrguer, hambúrguer, queijo, ovo e maionese",
+            "image": "https://assets.unileversolutions.com/recipes-v2/106685.jpg"
+        },
+        {
+            "id": 6,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "X-Tudo",
+            "price": 21.0,
+            "description": "Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-tudo.jpg"
+        },
+        {
+            "id": 7,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "Churrasco com Queijo",
+            "price": 18.0,
+            "description": "Pão francês ,contra filé e queijo",
+            "image": "https://media-cdn.tripadvisor.com/media/photo-s/08/6a/98/2e/vaca-preta-lanches-ii.jpg"
+        },
+        {
+            "id": 8,
+            "categoryId": "Lanches",
+            "name": "Churrasco Completo",
+            "temHoje": true,
+            "price": 21.0,
+            "description": "Pão francês, contra filé, presunto, queijo, bacon, alface, tomate, maionese e ovo",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDuc9ddgle8IxavTPhHsA2HbGZ9FUTG34gPA&s"
+        },
+        {
+            "id": 9,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "Misto Quente",
+            "price": 12.0,
+            "description": "Pão de forma, presunto e queijo",
+            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-misto-quente.jpg"
+        },
+        {
+            "id": 10,
+            "temHoje": true,
+            "categoryId": "Lanches",
+            "name": "X-Calabresa",
+            "price": 18.0,
+            "description": "Pão de hambúrguer, calabresa, queijo, alface e tomate",
+            "image": "https://padariasantacruz.loji.com.br/storage/uploads/6oMiL6ZYwzHSHwFbOLRFN3eFo0tu7wceWELWhtPP.jpeg"
+        },
+        {
+            "id": 11,
+            "categoryId": "Lanches",
+            "name": "X-Frango",
+            "temHoje": true,
+            "price": 18.0,
+            "description": "Pão francês, filé de frango, queijo, alface, tomate e maionese",
+            "image": "https://assets.unileversolutions.com/recipes-v2/99439.jpg"
+        },
+        {
+            "id": 12,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "X-Frango Completo",
+            "price": 21.0,
+            "description": "Pão francês, filé de frango, queijo, presunto, ovo, alface e tomate",
+            "image": "https://le.flashmenu.online/_core/_uploads//2023/06/1140290623dfi364fhc3.png"
+        },
+        {
+            "id": 13,
+            "categoryId": "Lanches",
+            "temHoje": true,
+            "name": "X-Bacon",
+            "price": 16.0,
+            "description": "Pão de hambúrguer, hambúrguer, queijo, bacon e maionese",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2iq1NJAbIYJHdnOj10joXxG1hGOQlo4_M5g&s"
+        },
+        {
+            "id": 14,
+            "categoryId": "Bebidas",
+            "name": "Coca-Cola Lata",
+            "temHoje": true,
+            "price": 6.0,
+            "description": "Refrigerante Coca-Cola lata 350ml",
+            "image": "https://img.cdndsgni.com/preview/13015292-m.jpg"
+        },
+        {
+            "id": 15,
+            "categoryId": "Bebidas",
+            "temHoje": true,
+            "name": "Coca-Cola 600ml",
+            "price": 8.0,
+            "description": "Refrigerante Coca-Cola garrafa pet 600ml",
+            "image": "https://paraisodoacai.premiodelivery.com.br/_core/_uploads/151/2023/08/2003280823cfk0e24kii.jpeg"
+        },
+        {
+            "id": 16,
+            "categoryId": "Bebidas",
+            "name": "Coca-Cola 2L",
+            "price": 12.0,
+            "temHoje": true,
+            "description": "Refrigerante Coca-Cola garrafa pet 2 litros",
+            "image": "https://pizzabrasil.comprageral.com/_core/_uploads/69/2021/03/0054260321ichgjhejkb.jpg"
+        },
+        {
+            "id": 17,
+            "categoryId": "Bebidas",
+            "name": "Guaraná Antarctica Lata",
+            "price": 6.0,
+            "temHoje": true,
+            "description": "Refrigerante Guaraná Antártica lata 350ml",
+            "image": "https://hiperideal.vtexassets.com/arquivos/ids/224330-800-450?v=638599276382230000&width=800&height=450&aspect=true"
+        },
+        {
+            "id": 18,
+            "categoryId": "Bebidas",
+            "name": "Guaraná Antarctica 600ml",
+            "price": 8.0,
+            "temHoje": true,
+            "description": "Refrigerante Guaraná Antártica garrafa pet 600ml",
+            "image": "https://zaffari.vtexassets.com/arquivos/ids/264241-800-450?v=638688178067800000&width=800&height=450&aspect=true"
+        },
+        {
+            "id": 19,
+            "categoryId": "Bebidas",
+            "temHoje": true,
+            "name": "Guaraná Antarctica 2L",
+            "price": 12.0,
+            "description": "Refrigerante Guaraná Antártica garrafa pet 2 litros",
+            "image": "https://d21wiczbqxib04.cloudfront.net/Oci_1XgLTJvn5VBmK7jQ3-jVbY4=/fit-in/600x0/filters:fill(FFFFFF):background_color(white)/https://produtos-osuper.s3.sa-east-1.amazonaws.com/5240.jpg"
+        },
+        {
+            "id": 20,
+            "categoryId": "Porções",
+            "temHoje": true,
+            "name": "1/2 Porção Calabresa",
+            "price": 25.0
+        },
+        {
+            "id": 21,
+            "categoryId": "Porções",
+            "name": "1/2 Porção Couve",
+            "temHoje": true,
+            "price": 15.0
+        },
+        {
+            "id": 22,
+            "temHoje": true,
+            "categoryId": "Porções",
+            "name": "1/2 Porção Picadinho",
+            "price": 20.0
+        },
+        {
+            "id": 23,
+            "categoryId": "Porções",
+            "temHoje": true,
+            "name": "1/2 Porção Vinagrete",
+            "price": 12.0
+        },
+        {
+            "id": 24,
+            "temHoje": true,
+            "categoryId": "Porções",
+            "name": "Acompanhamentos Feijoada",
+            "description": "Couve, torresmo, vinagrete e farofa (3 pessoas)",
+            "price": 25.0
+        },
+        {
+            "id": 25,
+            "temHoje": true,
+            "categoryId": "Porções",
+            "name": "Arroz",
+            "price": 15.0
+        },
+        {
+            "id": 26,
+            "categoryId": "Porções",
+            "temHoje": true,
+            "name": "Calabresa Inteira",
+            "price": 40.0
+        },
+        {
+            "id": 27,
+            "categoryId": "Porções",
+            "name": "COMBO DE FEIJOADA Serve Até 4 Pessoas",
+            "temHoje": true,
+            "description": "1 Porção de arroz, 1 porção de feijoada, 1 porção com couve, torresmo e farofa e 1 mini porção de vinagrete",
+            "price": 99.9
+        },
+        {
+            "id": 28,
+            "temHoje": true,
+            "categoryId": "Porções",
+            "name": "Feijão",
+            "price": 15.0
+        },
+        {
+            "id": 29,
+            "temHoje": true,
+            "categoryId": "Porções",
+            "name": "Feijoada (Não Vendemos Feijoada Light)",
+            "price": 28.0
+        },
+        {
+            "id": 30,
+            "categoryId": "Porções",
+            "temHoje": true,
+            "name": "Frango À Passarinho 1/2",
+            "price": 20.0
+        },
+        {
+            "id": 31,
+            "categoryId": "Porções",
+            "name": "Frango À Passarinho Inteira",
+            "temHoje": true,
+            "price": 40.0
+        },
+        {
+            "id": 32,
+            "categoryId": "Porções",
+            "name": "Fritas 1/2",
+            "temHoje": true,
+            "price": 15.0
+        },
+        {
+            "id": 33,
+            "categoryId": "Porções",
+            "name": "Fritas Inteira",
+            "temHoje": true,
+            "price": 30.0
+        },
+        {
+            "id": 34,
+            "categoryId": "Porções",
+            "temHoje": true,
+            "name": "Picadinho Inteira",
+            "price": 40.0
+        },
+        {
+            "id": 35,
+            "categoryId": "Porções",
+            "name": "Torresmo 1/2",
+            "temHoje": true,
+            "price": 20.0
+        },
+        {
+            "id": 36,
+            "categoryId": "Porções",
+            "name": "Torresmo Inteira",
+            "temHoje": true,
+            "price": 40.0
+        },
+        {
+            "id": 37,
+            "categoryId": "Saladas",
+            "temHoje": true,
+            "name": "Salada Mini",
+            "price": 12.0
+        },
+        {
+            "id": 38,
+            "temHoje": true,
+            "categoryId": "Saladas",
+            "name": "Mini salada de alface e tomate",
+            "price": 9.0
+        },
+        {
+            "id": 39,
+            "categoryId": "Saladas",
+            "temHoje": true,
+            "name": "Mini Salada Mista",
+            "price": 12.0
+        },
+        {
+            "id": 40,
+            "categoryId": "Saladas",
+            "temHoje": true,
+            "name": "Salada Mista Grande",
+            "price": 16.0
+        },
+        {
+            "id": 41,
+            "categoryId": "Porções",
+            "name": "patata",
+            "description": "batata com p",
+            "temHoje": true,
+            "price": 50.0
+        },
+        {
+            "id": 42,
+            "categoryId": "Porções",
+            "name": "patata",
+            "description": "batata com p",
+            "temHoje": true,
+            "price": 50.0
+        },
+        {
+            "id": 43,
+            "categoryId": "Porções",
+            "name": "patata",
+            "description": "batata com p",
+            "temHoje": true,
+            "price": 50.0
+        },
+        {
+            "id": 44,
+            "categoryId": "Porções",
+            "name": "patata",
+            "description": "batata com p",
+            "temHoje": true,
+            "price": 50.0
+        },
+        {
+            "id": 45,
+            "categoryId": "Porções",
+            "name": "patata",
+            "description": "batata com p",
+            "temHoje": true,
+            "price": 50.0
+        },
+        {
+            "id": 46,
+            "categoryId": "Porções",
+            "name": "patata",
+            "description": "batata com p",
+            "temHoje": true,
+            "price": 50.0
+        },
+        {
+            "id": 47,
+            "categoryId": "Lanches",
+            "name": "McLanche infeliz",
+            "description": "tristeza e lagrimas ",
+            "temHoje": true,
+            "price": 1500.0
+        },
+        {
+            "id": 48,
+            "categoryId": "Lanches",
+            "name": "Gabão",
+            "description": "oi gabão",
+            "temHoje": true,
+            "price": 15000.0
+        }
+    ],
+    "menu": [
+        {
+            "day": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira",
+                "Sábado"
+            ],
+            "pricePerSize": [
+                "mini",
+                "media"
+            ]
+        }
+    ],
+    "alimentos": [
+        {
+            "name": "Bife à Milanesa",
+            "id": 1,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira",
+                "Sábado"
+            ],
+            "temHoje": true,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            },
+            "image": "https://img.freepik.com/fotos-premium/bife-a-milanesa-servido-com-arroz-feijao-salada-e-farofa_538646-6544.jpg"
+        },
+        {
+            "name": "Bife a Parmegiana",
+            "temHoje": true,
+            "id": 2,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira",
+                "Sábado"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            },
+            "image": "https://anamariareceitas.com.br/wp-content/uploads/2024/07/5520.jpg"
+        },
+        {
+            "name": "Bife Grelhado",
+            "id": 3,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira",
+                "Sábado"
+            ],
+            "temHoje": true,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            },
+            "image": "https://media-cdn.tripadvisor.com/media/photo-s/1d/9e/37/72/prato-executivo-bife.jpg"
+        },
+        {
+            "name": "Filé de Frango à Milanesa",
+            "id": 4,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira", 
+                "Sábado"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "temHoje": true,
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            },
+            "image": "https://media-cdn.tripadvisor.com/media/photo-s/0b/9d/21/89/r3-express-food.jpg"
+        },
+        {
+            "name": "Filé de Frango à Parmegiana",
+            "temHoje": true,
+            "id": 5,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira",
+                "Sábado"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            },
+            "image": "https://www.seara.com.br/wp-content/uploads/2025/09/parmegiana-de-frango.jpg"
+        },
+        {
+            "name": "Filé de Frango Grelhado",
+            "temHoje": true,
+            "id": 6,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira",
+                "Sábado"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            },
+            "image": "https://www.lamamma.com.br/wp-content/uploads/2015/09/file-grelhado-executivo.jpg"
+        },
+        {
+            "name": "Frango a Passarinho",
+            "id": 7,
+            "temHoje": true,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira",
+                "Sábado"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            },
+            "image": "https://media-cdn.tripadvisor.com/media/photo-s/0f/40/18/fe/frango-a-passarinho-prato.jpg"
+        },
+        {
+            "name": "Linguiça Toscana",
+            "id": 8,
+            "dayName": [
+                "Segunda-feira",
+                "Terça-feira",
+                "Quarta-feira",
+                "Quinta-feira",
+                "Sexta-feira",
+                "Sábado"
+            ],
+            "temHoje": true,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            },
+            "image": "https://as2.ftcdn.net/jpg/04/59/56/41/1000_F_459564182_17NkVbNsuq05h6Op7OUJHGFCkPsuFgj1.jpg"
+        },
+        {
+            "name": "Omelete de presunto/queijo e tomate",
+            "id": 9,
+            "temHoje": true,
+            "dayName": [
+                "Segunda-feira",
+                "Quarta-feira",
+                "Sexta-feira",
+                "Sábado"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            },
+            "image": "https://saborfacil.com/wp-content/uploads/2024/01/omelete_queijo.png"
+        },
+        {
+            "name": "Vaca Atolada",
+            "id": 10,
+            "temHoje": true,
+            "dayName": [
+                "Segunda-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            },
+            "image": "https://cdn.casaeculinaria.com/wp-content/uploads/2023/04/24102918/Vaca-atolada.webp"
+        },
+        {
+            "name": "Virado A Paulista",
+            "temHoje": true,
+            "id": 11,
+            "dayName": [
+                "Segunda-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 26.0,
+                "media": 28.0
+            },
+            "image": "https://t3.ftcdn.net/jpg/08/01/23/62/360_F_801236254_HrXvVZzI9GK5OPKwpcr6KQrglONWcpvy.jpg"
+        },
+        {
+            "name": "teste",
+            "temHoje": true,
+            "dayName": [
+                "Segunda-feira"
+            ],
+            "id": 12,
+            "description": "",
+            "pricePerSize": {
+                "mini": 10.0,
+                "media": 12.0
+            }
+        },
+        {
+            "name": "teste",
+            "id": 13,
+            "temHoje": true,
+            "dayName": [
+                "Terça-feira"
+            ],
+            "description": "",
+            "pricePerSize": {
+                "mini": 10.0,
+                "media": 12.0
+            }
+        },
+        {
+            "name": "Hamburguer Parmegiana",
+            "id": 14,
+            "temHoje": true,
+            "dayName": [
+                "Terça-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            },
+            "image": "https://cdn.oceanserver.com.br/lojas/naturallis/uploads_produto/naturallis-em-baixa-7-656c26587426f.jpg"
+        },
+        {
+            "name": "Omelete de presunto e queijo",
+            "id": 15,
+            "temHoje": true,
+            "dayName": [
+                "Terça-feira",
+                "Quinta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            },
+            "image": "https://www.sadia.com.br/assets/images/_/recipes/a87fa73eb1914a46be47aa6f3f1a08c7153f4a8f.webp"
+        },
+        {
+            "name": "Strogonoff de Frango",
+            "temHoje": true,
+            "dayName": [
+                "Terça-feira"
+            ],
+            "id": 16,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 22.0
+            },
+            "image": "https://www.unileverfoodsolutions.com.br/dam/global-ufs/mcos/SLA/calcmenu/recipes/BR-recipes/chicken-&-other-poultry-dishes/strogonoff-de-frango/main-header.jpg"
+        },
+        {
+            "name": "Feijoada",
+            "id": 17,
+            "dayName": [
+                "Quarta-feira",
+                "Sábado"
+            ],
+            "description": "Acompanha arroz, feijoada, couve, torresmo, vinagrete e farofa",
+            "temHoje": true,
+            "pricePerSize": {
+                "mini": 26.0,
+                "media": 28.0
+            },
+            "image": "https://sabores-new.s3.amazonaws.com/public/2024/11/feijoada_1-1024x494.jpg"
+        },
+        {
+            "name": "Filé Recheado de Queijo e Presunto",
+            "id": 18,
+            "temHoje": true,
+            "dayName": [
+                "Quarta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            },
+            "image": "https://i.ytimg.com/vi/xj1kR1IEDIM/sddefault.jpg"
+        },
+        {
+            "name": "Hamburguer com Queijo",
+            "id": 19,
+            "temHoje": true,
+            "dayName": [
+                "Quarta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 25.0
+            },
+            "image": "https://wickbold.com.br/wp-content/uploads/2021/07/FACE-5-MATERIA-min.png"
+        },
+        {
+            "name": "Linguiça com Queijo",
+            "id": 20,
+            "temHoje": true,
+            "dayName": [
+                "Quarta-feira"
+            ],
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            },
+            "image": "https://www.seara.com.br/wp-content/uploads/2025/09/manta-de-linguica-portal-minha-receita-1-1.jpg"
+        },
+        {
+            "name": "Peixe",
+            "temHoje": true,
+            "dayName": [
+                "Quarta-feira",
+                "Sexta-feira"
+            ],
+            "id": 21,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            },
+            "image": "https://media-cdn.tripadvisor.com/media/photo-s/10/8e/20/c9/prato-a-la-carte-peixe.jpg"
+        },
+        {
+            "name": "Picadinho",
+            "dayName": [
+                "Quarta-feira",
+                "Sábado"
+            ],
+            "temHoje": true,
+            "id": 22,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            },
+            "image": "https://guiadacozinha.com.br/wp-content/uploads/2019/10/picadinho-de-carne-e-frango-48816.jpg"
+        },
+        {
+            "name": "Carne Moída / Batata / Cenoura",
+            "dayName": [
+                "Quinta-feira"
+            ],
+            "temHoje": true,
+            "id": 23,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            },
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4ib-g65uwBcsstdKzvIKOx0V4WBpIDMEiqg&s"
+        },
+        {
+            "name": "Coxa Assada",
+            "dayName": [
+                "Quinta-feira"
+            ],
+            "id": 24,
+            "temHoje": true,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            },
+            "image": "https://as1.ftcdn.net/jpg/04/47/67/80/1000_F_447678072_TS2IGBpw0JfnIGbRB6vxrXWemHVuQU7F.jpg"
+        },
+        {
+            "name": "Lasanha à Bolonhesa",
+            "dayName": [
+                "Quinta-feira",
+                "Sábado"
+            ],
+            "temHoje": true,
+            "id": 25,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 23.0,
+                "media": 25.0
+            },
+            "image": "https://guiadacozinha.com.br/wp-content/uploads/2014/01/lasanha-bolonhesa-na-pressao.jpg"
+        },
+        {
+            "name": "Almôndegas",
+            "dayName": [
+                "Sexta-feira"
+            ],
+            "temHoje": true,
+            "id": 26,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            },
+            "image": "https://anamariabrogui.com.br/assets/uploads/receitas/fotos/usuario-3270-e1693a532657280ae17426e6ab66b411.jpg"
+        },
+        {
+            "name": "Rabada",
+            "dayName": [
+                "Sexta-feira"
+            ],
+            "temHoje": true,
+            "id": 27,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos / Polenta / Farofa",
+            "pricePerSize": {
+                "mini": 26.0,
+                "media": 28.0
+            },
+            "image": "https://assets.unileversolutions.com/recipes-v2/177433.jpg"
+        },
+        {
+            "id": 28,
+            "name": "robson",
+            "dayName": [
+                "Sexta-feira"
+            ],
+            "temHoje": true,
+            "description": "",
+            "pricePerSize": {
+                "mini": 200.0,
+                "media": 100.0
+            }
+        },
+        {
+            "id": 29,
+            "name": "Enzin",
+            "dayName": [
+                "Terça-feira"
+            ],
+            "temHoje": true,
+            "description": "enzinho",
+            "pricePerSize": {
+                "mini": 30000.0,
+                "media": 50000.0
+            }
+        },
+        {
+            "id": 30,
+            "name": "Enzo teste",
+            "dayName": [
+                "Quarta-feira"
+            ],
+            "temHoje": true,
+            "description": "",
+            "pricePerSize": {
+                "mini": 100.0,
+                "media": 3000.0
+            }
+        },
+        {
+            "id": 31,
+            "name": "Fiesta",
+            "dayName": [
+                "Sábado"
+            ],
+            "temHoje": true,
+            "description": "Acompanha arroz, feijão, 1 mistura e 2 acompanhamentos",
+            "pricePerSize": {
+                "mini": 22.0,
+                "media": 24.0
+            },
+            "image": "https://www.seara.com.br/wp-content/uploads/2025/09/fiesta-seara-com-batata-e-ameixa-portal-minha-receita.webp"
+        }
+    ],
+    "orders": [
+        {
+            "id": 1,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 5,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 1,
+                            "categoryId": "Lanches",
+                            "name": "Americano",
+                            "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                            "temHoje": true,
+                            "price": 15.0,
+                            "image": "https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 22.0,
+            "status": "entregue",
+            "time": "13:55",
+            "timeFinished": "14:07",
+            "date": "21/11/2025",
+            "timePath": "14:06"
+        },
+        {
+            "id": 2,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 1,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 6,
+                            "categoryId": "Lanches",
+                            "name": "X-Tudo",
+                            "description": "Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese",
+                            "temHoje": true,
+                            "price": 21.0,
+                            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-tudo.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 28.0,
+            "status": "entregue",
+            "time": "13:55",
+            "timeFinished": "14:38",
+            "date": "21/11/2025",
+            "timePath": "14:17"
+        },
+        {
+            "id": 3,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 7,
+                            "categoryId": "Lanches",
+                            "name": "Churrasco com Queijo",
+                            "description": "Pão francês ,contra filé e queijo",
+                            "temHoje": true,
+                            "price": 18.0,
+                            "image": "https://media-cdn.tripadvisor.com/media/photo-s/08/6a/98/2e/vaca-preta-lanches-ii.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 25.0,
+            "status": "entregue",
+            "time": "14:11",
+            "timeFinished": "14:15",
+            "date": "21/11/2025",
+            "timePath": "14:19"
+        },
+        {
+            "id": 4,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 5,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 1,
+                            "categoryId": "Lanches",
+                            "name": "Americano",
+                            "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                            "temHoje": true,
+                            "price": 15.0,
+                            "image": "https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 22.0,
+            "status": "entregue",
+            "time": "14:23",
+            "timeFinished": "14:38",
+            "date": "21/11/2025",
+            "timePath": "14:38"
+        },
+        {
+            "id": 5,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 6,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 4,
+                            "categoryId": "Lanches",
+                            "name": "X-Salada",
+                            "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
+                            "temHoje": true,
+                            "price": 15.0,
+                            "image": "https://static.wixstatic.com/media/426382_b4e2e7aa9a284d3ebb7489df5fee4d55~mv2.jpg/v1/fill/w_2500,h_2500,al_c/426382_b4e2e7aa9a284d3ebb7489df5fee4d55~mv2.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 22.0,
+            "status": "entregue",
+            "time": "14:38",
+            "timeFinished": "14:39",
+            "date": "21/11/2025",
+            "timePath": "14:39"
+        },
+        {
+            "id": 6,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 2,
+                            "categoryId": "Lanches",
+                            "name": "Bauru",
+                            "description": "Pão francês, presunto, queijo e tomate",
+                            "temHoje": true,
+                            "price": 13.0,
+                            "image": "https://jornalcandeia.com.br/wp-content/uploads/2019/01/bauru.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 20.0,
+            "status": "entregue",
+            "time": "14:38",
+            "timeFinished": "14:40",
+            "date": "21/11/2025",
+            "timePath": "14:40"
+        },
+        {
+            "id": 7,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13500340",
+            "rua": "Avenida 13",
+            "bairro": "Saúde",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 777,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 6,
+                            "categoryId": "Lanches",
+                            "name": "X-Tudo",
+                            "description": "Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese",
+                            "temHoje": true,
+                            "price": 21.0,
+                            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-tudo.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 21.0,
+            "status": "entregue",
+            "time": "14:42",
+            "timeFinished": "14:43",
+            "date": "21/11/2025",
+            "timePath": "14:43"
+        },
+        {
+            "id": 8,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 5,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 1,
+                            "categoryId": "Lanches",
+                            "name": "Americano",
+                            "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                            "temHoje": true,
+                            "price": 15.0,
+                            "image": "https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 22.0,
+            "status": "entregue",
+            "time": "15:11",
+            "timeFinished": "15:13",
+            "date": "21/11/2025",
+            "timePath": "15:12"
+        }
+    ],
+    "cep": [
+        {
+            "ceps": [
+                "07775240",
+                "07775200",
+                "07775500",
+                "07775860",
+                "07775865",
+                "07776000",
+                "07776005",
+                "07776035",
+                "07753040",
+                "07753080",
+                "07753700",
+                "07750020"
+            ],
+            "taxa": 7.0
+        },
+        {
+            "ceps": [
+                "07787300",
+                "07787380",
+                "07787455",
+                "07787485",
+                "07787500",
+                "07787530",
+                "07787540",
+                "07787545"
+            ],
+            "taxa": 5.0
+        }
+    ],
+    "finished": [
+        {
+            "id": 1,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 5,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 1,
+                            "categoryId": "Lanches",
+                            "name": "Americano",
+                            "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                            "temHoje": true,
+                            "price": 15.0,
+                            "image": "https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 22.0,
+            "status": "entregue",
+            "date": "21/11/2025",
+            "time": "13:55",
+            "timePath": "14:06",
+            "timeFinished": "14:07"
+        },
+        {
+            "id": 2,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 1,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 6,
+                            "categoryId": "Lanches",
+                            "name": "X-Tudo",
+                            "description": "Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese",
+                            "temHoje": true,
+                            "price": 21.0,
+                            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-tudo.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 28.0,
+            "status": "entregue",
+            "date": "21/11/2025",
+            "time": "13:55",
+            "timePath": "14:17",
+            "timeFinished": "14:38"
+        },
+        {
+            "id": 3,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 7,
+                            "categoryId": "Lanches",
+                            "name": "Churrasco com Queijo",
+                            "description": "Pão francês ,contra filé e queijo",
+                            "temHoje": true,
+                            "price": 18.0,
+                            "image": "https://media-cdn.tripadvisor.com/media/photo-s/08/6a/98/2e/vaca-preta-lanches-ii.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 25.0,
+            "status": "entregue",
+            "date": "21/11/2025",
+            "time": "14:11",
+            "timePath": "14:19",
+            "timeFinished": "14:15"
+        },
+        {
+            "id": 4,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 5,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 1,
+                            "categoryId": "Lanches",
+                            "name": "Americano",
+                            "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                            "temHoje": true,
+                            "price": 15.0,
+                            "image": "https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 22.0,
+            "status": "entregue",
+            "date": "21/11/2025",
+            "time": "14:23",
+            "timePath": "14:38",
+            "timeFinished": "14:38"
+        },
+        {
+            "id": 5,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 6,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 4,
+                            "categoryId": "Lanches",
+                            "name": "X-Salada",
+                            "description": "Pão de hambúrguer, hambúrguer, queijo, alface, tomate e maionese",
+                            "temHoje": true,
+                            "price": 15.0,
+                            "image": "https://static.wixstatic.com/media/426382_b4e2e7aa9a284d3ebb7489df5fee4d55~mv2.jpg/v1/fill/w_2500,h_2500,al_c/426382_b4e2e7aa9a284d3ebb7489df5fee4d55~mv2.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 22.0,
+            "status": "entregue",
+            "date": "21/11/2025",
+            "time": "14:38",
+            "timePath": "14:39",
+            "timeFinished": "14:39"
+        },
+        {
+            "id": 6,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 3,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 2,
+                            "categoryId": "Lanches",
+                            "name": "Bauru",
+                            "description": "Pão francês, presunto, queijo e tomate",
+                            "temHoje": true,
+                            "price": 13.0,
+                            "image": "https://jornalcandeia.com.br/wp-content/uploads/2019/01/bauru.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 20.0,
+            "status": "entregue",
+            "date": "21/11/2025",
+            "time": "14:38",
+            "timePath": "14:40",
+            "timeFinished": "14:40"
+        },
+        {
+            "id": 7,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "13500340",
+            "rua": "Avenida 13",
+            "bairro": "Saúde",
+            "cidade": "Rio Claro",
+            "estado": "SP",
+            "numeroResidencia": 777,
+            "taxa": 0.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 6,
+                            "categoryId": "Lanches",
+                            "name": "X-Tudo",
+                            "description": "Pão de hambúrguer, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate e maionese",
+                            "temHoje": true,
+                            "price": 21.0,
+                            "image": "https://www.receiteria.com.br/wp-content/uploads/receitas-de-x-tudo.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 21.0,
+            "status": "entregue",
+            "date": "21/11/2025",
+            "time": "14:42",
+            "timePath": "14:43",
+            "timeFinished": "14:43"
+        },
+        {
+            "id": 8,
+            "userId": 6,
+            "userName": "Enzo",
+            "cpfOrCnpj": "038.416.120-08",
+            "cep": "07775240",
+            "rua": "Avenida Ribeirão dos Cristais",
+            "bairro": "Empresarial Paineira (Jordanésia)",
+            "cidade": "Cajamar",
+            "estado": "SP",
+            "numeroResidencia": 5,
+            "taxa": 7.0,
+            "cart": [
+                {
+                    "item": {
+                        "produto": {
+                            "id": 1,
+                            "categoryId": "Lanches",
+                            "name": "Americano",
+                            "description": "Pão francês, presunto, queijo, ovo, alface, tomate e maionese",
+                            "temHoje": true,
+                            "price": 15.0,
+                            "image": "https://lanchedapraca2.sleeck.com.br/_core/_uploads//2024/09/0857240924a2iake9gbe.jpg"
+                        },
+                        "alimento": null,
+                        "quantidade": 1,
+                        "tamanho": null,
+                        "valorPorTamanho": null
+                    }
+                }
+            ],
+            "amountToPay": 22.0,
+            "status": "entregue",
+            "date": "21/11/2025",
+            "time": "15:11",
+            "timePath": "15:12",
+            "timeFinished": "15:13"
+        }
+    ]
+}
