@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "631226660296",
+    "project_id": "restaurante-galegos",
+    "storage_bucket": "restaurante-galegos.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631226660296:android:5635d0b34a26fcc2733cfd",
+        "android_client_info": {
+          "package_name": "enzo.crmsolucoes.restaurante_galegos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq3T6GDjDCSQHYJCzK3d7uGIwKzIrfvV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

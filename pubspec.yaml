@@ -46,6 +46,8 @@ dependencies:
   flutter_dotenv: ^6.0.0
   flutter_native_splash: ^2.4.0
   flutter_multi_select_items: ^0.4.3
+  firebase_core: ^4.2.1
+  firebase_auth: ^6.1.2
   
 
 dev_dependencies:
