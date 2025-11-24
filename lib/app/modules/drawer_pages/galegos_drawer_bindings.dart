@@ -22,43 +22,22 @@ import 'package:restaurante_galegos/app/services/user/user_services_impl.dart';
 class GalegosDrawerBindings implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<UserRepository>(
-      () => UserRepositoryImpl(
-        restClient: Get.find<RestClient>(),
-      ),
-    );
-    Get.lazyPut<UserServices>(
-      () => UserServicesImpl(
-        userRepository: Get.find<UserRepository>(),
-      ),
-    );
+    Get.lazyPut<UserRepository>(() => UserRepositoryImpl(restClient: Get.find<RestClient>()));
+    Get.lazyPut<UserServices>(() => UserServicesImpl(userRepository: Get.find<UserRepository>()));
 
-    Get.lazyPut<AboutUsRepository>(
-      () => AboutUsRepositoryImpl(
-        restClient: Get.find<RestClient>(),
-      ),
-    );
+    Get.lazyPut<AboutUsRepository>(() => AboutUsRepositoryImpl());
     Get.lazyPut<AboutUsServices>(
-      () => AboutUsServicesImpl(
-        aboutUsRepository: Get.find<AboutUsRepository>(),
-      ),
+      () => AboutUsServicesImpl(aboutUsRepository: Get.find<AboutUsRepository>()),
     );
 
-    Get.lazyPut<TimeRepository>(
-      () => TimeRepositoryImpl(
-        restClient: Get.find<RestClient>(),
-      ),
-    );
+    Get.lazyPut<TimeRepository>(() => TimeRepositoryImpl());
 
-    Get.lazyPut<TimeServices>(
-      () => TimeServicesImpl(
-        timeRepository: Get.find<TimeRepository>(),
-      ),
-    );
+    Get.lazyPut<TimeServices>(() => TimeServicesImpl(timeRepository: Get.find<TimeRepository>()));
 
-    Get.lazyPut<OrderReposiroty>(() => OrderReposirotyImpl(restClient: Get.find<RestClient>()));
+    Get.lazyPut<OrderReposiroty>(() => OrderReposirotyImpl());
     Get.lazyPut<OrderServices>(
-        () => OrderServicesImpl(orderRepository: Get.find<OrderReposiroty>()));
+      () => OrderServicesImpl(orderRepository: Get.find<OrderReposiroty>()),
+    );
 
     Get.put(
       GalegosDrawerController(

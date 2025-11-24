@@ -80,7 +80,6 @@ class AllOrdersPage extends GetView<AllOrdersController> {
                             showDialog(
                               context: context,
                               builder: (context) => AlertDialogHistory(
-                                idPedido: e.id,
                                 titleButton: 'Sair para entrega',
                                 isAdmin: true,
                                 pedidoLabel: pedidoTipo,
@@ -101,7 +100,7 @@ class AllOrdersPage extends GetView<AllOrdersController> {
                                 horarioEntregue: e.timeFinished ?? '',
                                 data: e.date,
                                 onPressed: () async {
-                                  controller.orderFinished(e);
+                                  // controller.orderFinished(e);
                                   Get.back();
                                 },
                                 statusPedido: 'Sair para entrega',

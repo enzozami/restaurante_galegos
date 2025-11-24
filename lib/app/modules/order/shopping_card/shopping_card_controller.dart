@@ -161,11 +161,10 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       final name = _authService.getUserName();
       final cpfOrCnpj = _authService.getUserCPFORCNPJ();
 
-      final idOrder = await _orderServices.getIdOrder();
-      final idSequencial = idOrder.id + 1;
+      final id = await _orderServices.generateSequentialOrderId();
 
       final order = PedidoModel(
-        id: idSequencial,
+        id: id,
         userId: user!,
         cep: (address),
         rua: rua.value,

@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
+
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 
 class PedidoModel {
-  int id;
+  String id;
   int userId;
   String userName;
   String cpfOrCnpj;
@@ -67,7 +69,7 @@ class PedidoModel {
 
   factory PedidoModel.fromMap(Map<String, dynamic> map) {
     return PedidoModel(
-      id: map['id']?.toInt() ?? 0,
+      id: map['id'] ?? '',
       userId: map['userId']?.toInt() ?? 0,
       userName: map['userName'] ?? '',
       cpfOrCnpj: map['cpfOrCnpj'] ?? '',
@@ -78,16 +80,13 @@ class PedidoModel {
       estado: map['estado'] ?? '',
       numeroResidencia: map['numeroResidencia']?.toInt() ?? 0,
       taxa: map['taxa']?.toDouble() ?? 0.0,
-      cart: (map['cart'] as List? ?? [])
-          .where((e) => e != null && e is Map<String, dynamic>)
-          .map((e) => CarrinhoModel.fromMap(e))
-          .toList(),
+      cart: List<CarrinhoModel>.from(map['cart']?.map((x) => CarrinhoModel.fromMap(x)) ?? const []),
       amountToPay: map['amountToPay']?.toDouble() ?? 0.0,
       status: map['status'] ?? '',
       date: map['date'] ?? '',
       time: map['time'] ?? '',
-      timePath: map['timePath'] ?? '',
-      timeFinished: map['timeFinished'] ?? '',
+      timePath: map['timePath'],
+      timeFinished: map['timeFinished'],
     );
   }
 
@@ -96,7 +95,7 @@ class PedidoModel {
   factory PedidoModel.fromJson(String source) => PedidoModel.fromMap(json.decode(source));
 
   PedidoModel copyWith({
-    int? id,
+    String? id,
     int? userId,
     String? userName,
     String? cpfOrCnpj,
@@ -112,8 +111,8 @@ class PedidoModel {
     String? status,
     String? date,
     String? time,
-    String? timePath,
-    String? timeFinished,
+    ValueGetter<String?>? timePath,
+    ValueGetter<String?>? timeFinished,
   }) {
     return PedidoModel(
       id: id ?? this.id,
@@ -132,13 +131,8 @@ class PedidoModel {
       status: status ?? this.status,
       date: date ?? this.date,
       time: time ?? this.time,
-      timePath: timePath ?? this.timePath,
-      timeFinished: timeFinished ?? this.timeFinished,
+      timePath: timePath != null ? timePath() : this.timePath,
+      timeFinished: timeFinished != null ? timeFinished() : this.timeFinished,
     );
-  }
-
-  @override
-  String toString() {
-    return 'PedidoModel(id: $id, userId: $userId, userName: $userName, cpfOrCnpj: $cpfOrCnpj, cep: $cep, rua: $rua, bairro: $bairro, cidade: $cidade, estado: $estado, numeroResidencia: $numeroResidencia, taxa: $taxa, cart: $cart, amountToPay: $amountToPay, status: $status, date: $date, time: $time, timePath: $timePath, timeFinished: $timeFinished)';
   }
 }

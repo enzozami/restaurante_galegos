@@ -31,13 +31,13 @@ class ForDeliveryController extends GetxController with LoaderMixin, MessagesMix
   RxList<PedidoModel> get listOrders =>
       _ordersState.all.where((e) => e.status == 'a caminho').toList().obs;
 
-  void orderFinished(PedidoModel pedido) async {
-    final newTime = FormatterHelper.formatDateAndTime();
+  // void orderFinished(PedidoModel pedido) async {
+  //   final newTime = FormatterHelper.formatDateAndTime();
 
-    await _orderFinishedServices.orderFinished(
-      pedido.copyWith(status: 'entregue', timeFinished: newTime),
-    );
-    _orderFinishedServices.changeStatusFinished(pedido.copyWith(timeFinished: newTime));
-    _ordersState.update(pedido, 'entregue');
-  }
+  //   await _orderFinishedServices.orderFinished(
+  //     pedido.copyWith(status: 'entregue', timeFinished: newTime),
+  //   );
+  //   _orderFinishedServices.changeStatusFinished(pedido.copyWith(timeFinished: newTime));
+  //   _ordersState.update(pedido, 'entregue');
+  // }
 }

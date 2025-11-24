@@ -21,6 +21,16 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
   final _nameEC = TextEditingController();
   final _usuarioEC = TextEditingController();
   final _passwordEC = TextEditingController();
+  final _emailEC = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _nameEC.dispose();
+    _usuarioEC.dispose();
+    _passwordEC.dispose();
+    _emailEC.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,24 +38,18 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
       body: LayoutBuilder(
         builder: (context, constraints) {
           return ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: constraints.maxHeight,
-            ),
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
             child: IntrinsicHeight(
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const SizedBox(
-                      height: 75,
-                    ),
+                    const SizedBox(height: 75),
                     Image.network(
                       'https://restaurantegalegos.wabiz.delivery/stores/restaurantegalegos/img/homeLogo.png?vc=20250915111500&cvc=',
                       fit: BoxFit.cover,
                     ),
-                    const SizedBox(
-                      height: 75,
-                    ),
+                    const SizedBox(height: 75),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Form(
@@ -61,9 +65,7 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                                   Validatorless.required('Campo obrigatório'),
                                 ]),
                               ),
-                              const SizedBox(
-                                height: 15,
-                              ),
+                              const SizedBox(height: 15),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -87,9 +89,17 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                                       : Validatorless.cnpj('CNPJ inválido'),
                                 ]),
                               ),
-                              const SizedBox(
-                                height: 25,
+                              const SizedBox(height: 25),
+                              GalegosTextFormField(
+                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                controller: _emailEC,
+                                label: 'E-mail',
+                                validator: Validatorless.multiple([
+                                  Validatorless.required('Senha obrigatória'),
+                                  Validatorless.email('E-mail inválido'),
+                                ]),
                               ),
+                              const SizedBox(height: 25),
                               GalegosTextFormField(
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 controller: _passwordEC,
@@ -108,9 +118,7 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                                   Validatorless.min(6, 'Senha obrigatória'),
                                 ]),
                               ),
-                              const SizedBox(
-                                height: 25,
-                              ),
+                              const SizedBox(height: 25),
                               GalegosTextFormField(
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 obscureText: controller.isSelectedConfirmaSenha.value,
@@ -128,9 +136,7 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                                   Validatorless.compare(_passwordEC, 'Senhas diferentes'),
                                 ]),
                               ),
-                              const SizedBox(
-                                height: 25,
-                              ),
+                              const SizedBox(height: 25),
                               GalegosButtonDefault(
                                 label: 'Cadastrar',
                                 onPressed: () {
@@ -138,15 +144,14 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                                   if (formValid) {
                                     controller.register(
                                       name: _nameEC.text,
-                                      value: _usuarioEC.text,
                                       password: _passwordEC.text,
+                                      email: _emailEC.text,
+                                      cpfOrCnpj: _usuarioEC.text,
                                     );
                                   }
                                 },
                               ),
-                              const SizedBox(
-                                height: 15,
-                              ),
+                              const SizedBox(height: 15),
                             ],
                           );
                         }),

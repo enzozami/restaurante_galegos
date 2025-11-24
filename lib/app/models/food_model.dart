@@ -32,12 +32,16 @@ class FoodModel {
 
   factory FoodModel.fromMap(Map<String, dynamic> map) {
     return FoodModel(
-      id: map['id']?.toInt() ?? 0,
+      id: map['id'] is String ? int.parse(map['id']) : map['id'],
       name: map['name'] ?? '',
       temHoje: map['temHoje'] ?? false,
       dayName: List<String>.from(map['dayName'] ?? const []),
       description: map['description'] ?? '',
-      pricePerSize: Map<String, double>.from(map['pricePerSize'] ?? const {}),
+      pricePerSize:
+          (map['pricePerSize'] as Map<String, dynamic>?)?.map(
+            (key, value) => MapEntry(key, (value as num).toDouble()),
+          ) ??
+          {},
       image: map['image'] ?? '',
     );
   }

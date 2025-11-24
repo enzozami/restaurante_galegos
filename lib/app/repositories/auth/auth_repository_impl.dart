@@ -1,63 +1,66 @@
-import 'dart:developer';
-
-import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:restaurante_galegos/app/models/user_model.dart';
 
 import './auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final RestClient _restClient;
-
-  AuthRepositoryImpl({
-    required RestClient restClient,
-  }) : _restClient = restClient;
+  final _firebase = FirebaseAuth.instance;
 
   @override
-  Future<UserModel> login({
-    required bool isCpf,
-    required String value,
-    required String password,
-  }) async {
-    final result = await _restClient.get('/users');
+  Future<UserModel> login({required String email, required String password}) async {
+    try {
+      final result = await _firebase.signInWithEmailAndPassword(email: email, password: password);
 
-    if (result.hasError) {
-      log('Erro ao realizar login:', error: result.statusText, stackTrace: StackTrace.current);
-      throw RestClientException(message: 'Erro ao fazer login');
+      final firebaseUser = result.user;
+
+      if (firebaseUser == null) {
+        throw AuthException(message: 'Usuário inválido');
+      }
+
+      return UserModel(
+        id: firebaseUser.uid.hashCode,
+        name: firebaseUser.displayName ?? '',
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      throw AuthException(message: e.message ?? 'Erro ao fazer login');
     }
-    final data = List<Map<String, dynamic>>.from(result.body);
-
-    final user = data.firstWhere(
-      (u) => u['value'] == value && u['password'] == password,
-      orElse: () => {},
-    );
-
-    if (user.isEmpty) {
-      throw AuthException(message: 'CPF/CNPJ ou senha incorreta');
-    }
-
-    return UserModel.fromMap(user);
   }
 
   @override
   Future<UserModel> register({
     required bool isCpf,
     required String name,
-    required String value,
+    required String email,
+    required String cpfOrCnpj,
     required String password,
   }) async {
-    final result = await _restClient.post('/users', {
-      'isCpf': isCpf,
-      'name': name,
-      'value': value,
-      'password': password,
-    });
+    try {
+      final result = await _firebase.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-    if (result.hasError) {
-      log('Erro ao realizar cadastro:', error: result.statusText, stackTrace: StackTrace.current);
-      throw RestClientException(message: 'Erro ao fazer cadastro');
+      final firebaseUser = result.user;
+
+      if (firebaseUser == null) {
+        throw AuthException(message: 'Erro ao criar usuário');
+      }
+
+      await firebaseUser.updateDisplayName(name);
+
+      await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).set({
+        'nome': name,
+        'cpfOrCnpj': cpfOrCnpj,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+
+      return login(email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      throw AuthException(message: e.message ?? 'Erro ao fazer cadastro');
     }
-
-    return login(isCpf: isCpf, value: value, password: password);
   }
 }
 

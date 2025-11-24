@@ -106,7 +106,7 @@ class HistoryPage extends GetView<HistoryController> {
                                       return AlertDialogHistory(
                                         isAdmin: false,
                                         pedidoLabel: e.id.toString(),
-                                        idPedido: e.id,
+
                                         carrinhoName: carrinho,
                                         valor: valor,
                                         taxa: taxa,

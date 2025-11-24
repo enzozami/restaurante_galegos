@@ -8,7 +8,7 @@ class OrderServicesImpl implements OrderServices {
   final OrderReposiroty _orderReposiroty;
 
   OrderServicesImpl({required OrderReposiroty orderRepository})
-      : _orderReposiroty = orderRepository;
+    : _orderReposiroty = orderRepository;
 
   @override
   Future<CarrinhoModel> createOrder(PedidoModel order) => _orderReposiroty.createOrder(order);
@@ -18,4 +18,7 @@ class OrderServicesImpl implements OrderServices {
 
   @override
   Future<List<PedidoModel>> getOrder() => _orderReposiroty.getOrder();
+
+  @override
+  Future<String> generateSequentialOrderId() => _orderReposiroty.generateSequentialOrderId();
 }

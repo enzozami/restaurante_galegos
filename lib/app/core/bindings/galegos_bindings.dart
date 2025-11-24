@@ -11,10 +11,11 @@ class GalegosBindings implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => RestClient(), fenix: true);
-    Get.lazyPut<AuthRepository>(() => AuthRepositoryImpl(restClient: Get.find<RestClient>()),
-        fenix: true);
-    Get.lazyPut<AuthServices>(() => AuthServicesImpl(authRepository: Get.find<AuthRepository>()),
-        fenix: true);
+    Get.lazyPut<AuthRepository>(() => AuthRepositoryImpl(), fenix: true);
+    Get.lazyPut<AuthServices>(
+      () => AuthServicesImpl(authRepository: Get.find<AuthRepository>()),
+      fenix: true,
+    );
     Get.lazyPut(() => CarrinhoServices(), fenix: true);
     Get.lazyPut(() => ViaCepService(), fenix: true);
   }

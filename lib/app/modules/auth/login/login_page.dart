@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/core/masks/mask_cnpj.dart';
-import 'package:restaurante_galegos/app/core/masks/mask_cpf.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
@@ -35,24 +33,18 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           return ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: constraints.maxHeight,
-            ),
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
             child: IntrinsicHeight(
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const SizedBox(
-                      height: 95,
-                    ),
+                    const SizedBox(height: 95),
                     Image.network(
                       'https://restaurantegalegos.wabiz.delivery/stores/restaurantegalegos/img/homeLogo.png?vc=20250915111500&cvc=',
                       fit: BoxFit.cover,
                     ),
-                    const SizedBox(
-                      height: 75,
-                    ),
+                    const SizedBox(height: 75),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Form(
@@ -75,19 +67,14 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                               GalegosTextFormField(
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 controller: _usuarioEC,
-                                inputType: TextInputType.number,
-                                mask: (controller.isCpf.value == true) ? MaskCpf() : MaskCnpj(),
-                                label: (controller.isCpf.value == true) ? 'CPF' : 'CNPJ',
+                                inputType: TextInputType.text,
+                                label: 'E-mail',
                                 validator: Validatorless.multiple([
                                   Validatorless.required('Campo obrigatório'),
-                                  (controller.isCpf.value == true)
-                                      ? Validatorless.cpf('CPF inválido')
-                                      : Validatorless.cnpj('CNPJ inválido'),
+                                  Validatorless.email('E-mail inválido'),
                                 ]),
                               ),
-                              const SizedBox(
-                                height: 25,
-                              ),
+                              const SizedBox(height: 25),
                               GalegosTextFormField(
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 controller: _passwordEC,
@@ -106,9 +93,7 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                                 ]),
                                 label: 'Senha (Mínimo 6 caracteres)',
                               ),
-                              const SizedBox(
-                                height: 25,
-                              ),
+                              const SizedBox(height: 25),
                               GalegosButtonDefault(
                                 label: 'Entrar',
                                 onPressed: () {
@@ -121,9 +106,7 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                                   }
                                 },
                               ),
-                              const SizedBox(
-                                height: 15,
-                              ),
+                              const SizedBox(height: 15),
                             ],
                           );
                         }),
@@ -134,22 +117,12 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          height: context.heightTransformer(reducedBy: 85),
-                        ),
-                        Text(
-                          'Não possui cadastro?',
-                          style: TextStyle(fontSize: 15),
-                        ),
+                        SizedBox(height: context.heightTransformer(reducedBy: 85)),
+                        Text('Não possui cadastro?', style: TextStyle(fontSize: 15)),
                         TextButton(
                           style: GalegosUiDefaut.theme.textButtonTheme.style,
                           onPressed: () => Get.toNamed('/auth/register'),
-                          child: Text(
-                            'Clique aqui',
-                            style: TextStyle(
-                              fontSize: 15,
-                            ),
-                          ),
+                          child: Text('Clique aqui', style: TextStyle(fontSize: 15)),
                         ),
                       ],
                     ),

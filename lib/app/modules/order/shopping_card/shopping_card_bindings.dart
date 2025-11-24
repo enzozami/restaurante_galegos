@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
 import 'package:restaurante_galegos/app/core/rest_client/via_cep_service.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/service/orders_state.dart';
@@ -17,27 +16,14 @@ import 'shopping_card_controller.dart';
 class ShoppingCardBindings implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<OrderReposiroty>(
-      () => OrderReposirotyImpl(
-        restClient: Get.find<RestClient>(),
-      ),
-    );
+    Get.lazyPut<OrderReposiroty>(() => OrderReposirotyImpl());
     Get.lazyPut<OrderServices>(
-      () => OrderServicesImpl(
-        orderRepository: Get.find<OrderReposiroty>(),
-      ),
+      () => OrderServicesImpl(orderRepository: Get.find<OrderReposiroty>()),
     );
 
-    Get.lazyPut<CepRepository>(
-      () => CepRepositoryImpl(
-        viaCepService: Get.find<ViaCepService>(),
-        restClient: Get.find<RestClient>(),
-      ),
-    );
+    Get.lazyPut<CepRepository>(() => CepRepositoryImpl(viaCepService: Get.find<ViaCepService>()));
 
-    Get.lazyPut<CepServices>(
-      () => CepServicesImpl(cepRepository: Get.find<CepRepository>()),
-    );
+    Get.lazyPut<CepServices>(() => CepServicesImpl(cepRepository: Get.find<CepRepository>()));
 
     Get.put(
       ShoppingCardController(

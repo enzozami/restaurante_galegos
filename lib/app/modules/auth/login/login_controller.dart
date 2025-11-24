@@ -38,22 +38,15 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
     isSelected.value = !isSelected.value;
   }
 
-  Future<void> login({
-    required String value,
-    required String password,
-  }) async {
+  Future<void> login({required String value, required String password}) async {
     try {
       _loading(true);
-      final userLogger = await _authServices.login(
-        isCpf: isCpf.value,
-        value: value,
-        password: password,
-      );
+      final userLogger = await _authServices.login(email: value, password: password);
       final storage = GetStorage();
       storage.write(Constants.ADMIN_KEY, userLogger.isAdmin);
       storage.write(Constants.USER_KEY, userLogger.id);
       storage.write(Constants.USER_NAME, userLogger.name);
-      storage.write(Constants.USER_CPFORCNPJ, userLogger.value);
+      storage.write(Constants.USER_CPFORCNPJ, userLogger.cpfOrCnpj);
     } on AuthException catch (e, s) {
       _loading(false);
       log('Falha no login', error: e, stackTrace: s);

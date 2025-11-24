@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/service/food_service.dart';
 import 'package:restaurante_galegos/app/repositories/lunchboxes/lunchboxes_repository.dart';
@@ -13,15 +12,9 @@ import './lunchboxes_controller.dart';
 class LunchboxesBindings implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<LunchboxesRepository>(
-      () => LunchboxesRepositoryImpl(
-        restClient: Get.find<RestClient>(),
-      ),
-    );
+    Get.lazyPut<LunchboxesRepository>(() => LunchboxesRepositoryImpl());
     Get.lazyPut<LunchboxesServices>(
-      () => LunchboxesServicesImpl(
-        lunchboxesRepository: Get.find<LunchboxesRepository>(),
-      ),
+      () => LunchboxesServicesImpl(lunchboxesRepository: Get.find<LunchboxesRepository>()),
     );
 
     Get.putAsync(

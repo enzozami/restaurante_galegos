@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 
 class AlertDialogHistory extends StatelessWidget {
-  final int idPedido;
   final String pedidoLabel;
   final String carrinhoName;
   final String valor;
@@ -49,7 +48,6 @@ class AlertDialogHistory extends StatelessWidget {
     required this.statusPedido,
     required this.isAdmin,
     this.titleButton,
-    required this.idPedido,
   });
 
   @override
@@ -82,13 +80,6 @@ class AlertDialogHistory extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Text(
-              'Pedido $idPedido',
-              overflow: TextOverflow.ellipsis,
-              style: GalegosUiDefaut.theme.textTheme.titleSmall,
-            ),
-          ),
           Text(
             statusPedido[0].toUpperCase() + statusPedido.substring(1),
             style: GalegosUiDefaut.theme.textTheme.bodySmall,

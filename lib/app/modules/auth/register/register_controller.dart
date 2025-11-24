@@ -23,9 +23,7 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
   final isSelected = true.obs;
   final isSelectedConfirmaSenha = true.obs;
 
-  RegisterController({
-    required AuthServices authServices,
-  }) : _authServices = authServices;
+  RegisterController({required AuthServices authServices}) : _authServices = authServices;
 
   @override
   void onInit() {
@@ -49,34 +47,34 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
 
   Future<void> register({
     required String name,
-    required String value,
+    required String email,
+    required String cpfOrCnpj,
     required String password,
   }) async {
     try {
-      _loading.toggle();
+      _loading.value = true;
       final userLogged = await _authServices.register(
         isCpf: isCpf,
         name: name,
-        value: value,
+        email: email,
+        cpfOrCnpj: cpfOrCnpj,
         password: password,
       );
       final storage = GetStorage();
       storage.write(Constants.USER_KEY, userLogged.id);
       storage.write(Constants.ADMIN_KEY, false);
       storage.write(Constants.USER_NAME, userLogged.name);
-      storage.write(Constants.USER_CPFORCNPJ, userLogged.value);
+      storage.write(Constants.USER_CPFORCNPJ, userLogged.cpfOrCnpj);
       _loading.toggle();
     } catch (e, s) {
       _loading.toggle();
       log(e.toString());
       log(s.toString());
-      _message(MessageModel(
-        title: 'Erro',
-        message: 'Erro ao cadastrar usuário',
-        type: MessageType.error,
-      ));
+      _message(
+        MessageModel(title: 'Erro', message: 'Erro ao cadastrar usuário', type: MessageType.error),
+      );
     } finally {
-      _loading(false);
+      _loading.value = false;
     }
   }
 }

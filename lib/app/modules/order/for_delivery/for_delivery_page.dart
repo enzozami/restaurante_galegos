@@ -83,7 +83,6 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialogHistory(
-                                  idPedido: e.id,
                                   isAdmin: true,
                                   titleButton: 'Pedido Entregue',
                                   pedidoLabel: pedidoTipo,
@@ -104,7 +103,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                                   horarioEntregue: e.timeFinished ?? '',
                                   data: e.date,
                                   onPressed: () async {
-                                    controller.orderFinished(e);
+                                    // controller.orderFinished(e);
                                     Get.close(0);
                                   },
                                   statusPedido: 'Pedido Entregue',

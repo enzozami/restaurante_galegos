@@ -57,7 +57,7 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   final _textAboutUs = ''.obs;
   String get textAboutUs => _textAboutUs.value;
 
-// HISTÓRICO
+  // HISTÓRICO
   final history = <PedidoModel>[].obs;
 
   GalegosDrawerController({
@@ -66,11 +66,11 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
     required AboutUsServices aboutUsServices,
     required TimeServices timeServices,
     required OrderServices orderServices,
-  })  : _userServices = userServices,
-        _authService = authService,
-        _aboutUsServices = aboutUsServices,
-        _timeServices = timeServices,
-        _orderServices = orderServices;
+  }) : _userServices = userServices,
+       _authService = authService,
+       _aboutUsServices = aboutUsServices,
+       _timeServices = timeServices,
+       _orderServices = orderServices;
 
   @override
   void onInit() {
@@ -105,14 +105,11 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
       final userData = await _userServices.getUser(id: userId);
       _name.value = userData.name;
       _password.value = userData.password;
-      valueCpfOrCnpj.value = userData.value;
+      valueCpfOrCnpj.value = userData.cpfOrCnpj ?? '';
     }
   }
 
-  Future<void> updateUser(
-    String? name,
-    String? password,
-  ) async {
+  Future<void> updateUser(String? name, String? password) async {
     final userId = _authService.getUserId();
     if (userId != null) {
       log(name ?? 'nome nao digitado');

@@ -8,7 +8,7 @@ class ProductsServicesImpl implements ProductsServices {
   final ProductsRepository _productsRepository;
 
   ProductsServicesImpl({required ProductsRepository productsRepository})
-      : _productsRepository = productsRepository;
+    : _productsRepository = productsRepository;
 
   @override
   Future<List<ProductModel>> getProducts() => _productsRepository.getProducts();

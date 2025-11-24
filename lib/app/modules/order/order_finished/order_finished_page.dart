@@ -85,7 +85,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                               builder: (context) {
                                 return AlertDialogHistory(
                                   isAdmin: true,
-                                  idPedido: e.id,
+
                                   titleButton: 'Fechar',
                                   pedidoLabel: pedidoTipo,
                                   carrinhoName: carrinhoName,

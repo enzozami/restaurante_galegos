@@ -1,79 +1,80 @@
 import 'dart:developer';
 
-import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
 
 import './order_reposiroty.dart';
 
 class OrderReposirotyImpl implements OrderReposiroty {
-  final RestClient _restClient;
-
-  OrderReposirotyImpl({required RestClient restClient}) : _restClient = restClient;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   Future<CarrinhoModel> createOrder(PedidoModel order) async {
-    final result = await _restClient.post('/orders', {
-      'id': order.id,
-      'userId': order.userId,
-      'userName': order.userName,
-      'cpfOrCnpj': order.cpfOrCnpj,
-      'cep': order.cep,
-      'rua': order.rua,
-      'bairro': order.bairro,
-      'cidade': order.cidade,
-      'estado': order.estado,
-      'numeroResidencia': order.numeroResidencia,
-      'taxa': order.taxa,
-      'cart': order.cart.map((e) => e.toMap()).toList(),
-      'amountToPay': order.amountToPay,
-      'status': order.status,
-      'time': order.time,
-      'timeFinished': order.timeFinished,
-      'date': order.date,
-    });
+    try {
+      final docRef = await firestore.collection('orders').add({
+        'userId': order.userId,
+        'userName': order.userName,
+        'cpfOrCnpj': order.cpfOrCnpj,
+        'cep': order.cep,
+        'rua': order.rua,
+        'bairro': order.bairro,
+        'cidade': order.cidade,
+        'estado': order.estado,
+        'numeroResidencia': order.numeroResidencia,
+        'taxa': order.taxa,
+        'cart': order.cart.map((e) => e.toMap()).toList(),
+        'amountToPay': order.amountToPay,
+        'status': order.status,
+        'time': order.time,
+        'timeFinished': order.timeFinished,
+        'date': order.date,
+      });
 
-    if (result.hasError) {
-      log(
-        'Erro ao enviar novo pedido',
-        error: result.statusText,
-        stackTrace: StackTrace.current,
-      );
-      RestClientException(message: 'Erro ao enviar novo pedido');
+      final snapshot = await docRef.get();
+      return CarrinhoModel.fromMap({...snapshot.data()!, 'id': snapshot.id});
+    } catch (e, s) {
+      log('Erro ao realizar pedido', error: e, stackTrace: s);
+      throw Exception('Erro ao realizar pedido');
     }
-
-    return CarrinhoModel.fromMap(result.body);
   }
 
   @override
   Future<PedidoModel> getIdOrder() async {
-    final result = await _restClient.get('/orders');
+    final query = await firestore.collection('orders').get();
 
-    if (result.hasError) {
-      log('Id não encontrado', error: result.statusText, stackTrace: StackTrace.current);
-      throw RestClientException(message: 'Id não encontrado;');
+    if (query.docs.isEmpty) {
+      return PedidoModel.fromMap({'id': '0'});
     }
 
-    final data = result.body as List;
-
-    if (data.isEmpty) {
-      return PedidoModel.fromMap(data.isEmpty ? <String, dynamic>{'id': 0} : {});
-    } else {
-      return PedidoModel.fromMap(data.last);
-    }
+    final lastDoc = query.docs.last;
+    return PedidoModel.fromMap({...lastDoc.data(), 'id': lastDoc.id});
   }
 
   @override
   Future<List<PedidoModel>> getOrder() async {
-    final result = await _restClient.get('/orders');
+    final snapshot = await firestore.collection('orders').get();
+    return snapshot.docs.map((doc) => PedidoModel.fromMap({...doc.data(), 'id': doc.id})).toList();
+  }
 
-    if (result.hasError) {
-      log('Id não encontrado', error: result.statusText, stackTrace: StackTrace.current);
-      throw RestClientException(message: 'Id não encontrado;');
-    }
-    final data = result.body as List;
-    final list = data.map((e) => PedidoModel.fromMap(e)).toList();
+  @override
+  Future<String> generateSequentialOrderId() async {
+    final docRef = firestore.collection('configs').doc('pedido_counter');
 
-    return list;
+    return firestore.runTransaction((transaction) async {
+      final snapshot = await transaction.get(docRef);
+
+      if (!snapshot.exists) {
+        throw Exception('Documento pedido_counter não existe.');
+      }
+
+      final data = snapshot.data()!;
+      final lastId = data['lastId'] as int? ?? 0;
+
+      final newId = lastId + 1;
+
+      transaction.update(docRef, {'lastId': newId});
+      return newId.toString();
+    });
   }
 }

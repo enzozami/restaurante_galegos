@@ -33,12 +33,12 @@ class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin
   RxList<PedidoModel> get listOrders =>
       _ordersState.all.where((e) => e.status == 'preparando').toList().obs;
 
-  void orderFinished(PedidoModel pedido) async {
-    final newTime = FormatterHelper.formatDateAndTime();
-    await _orderFinishedServices.orderFinished(
-      pedido.copyWith(status: 'a caminho', timePath: newTime),
-    );
-    _orderFinishedServices.changeStatusOnTheWay(pedido.copyWith(timePath: newTime));
-    _ordersState.update(pedido, 'a caminho');
-  }
+  // void orderFinished(PedidoModel pedido) async {
+  //   final newTime = FormatterHelper.formatDateAndTime();
+  //   await _orderFinishedServices.orderFinished(
+  //     pedido.copyWith(status: 'a caminho', timePath: newTime),
+  //   );
+  //   _orderFinishedServices.changeStatusOnTheWay(pedido.copyWith(timePath: newTime));
+  //   _ordersState.update(pedido, 'a caminho');
+  // }
 }

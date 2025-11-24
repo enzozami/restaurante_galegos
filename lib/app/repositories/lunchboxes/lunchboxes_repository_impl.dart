@@ -1,76 +1,63 @@
 import 'dart:developer';
 
-import 'package:restaurante_galegos/app/core/rest_client/rest_client.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/models/menu_model.dart';
 
 import './lunchboxes_repository.dart';
 
 class LunchboxesRepositoryImpl implements LunchboxesRepository {
-  final RestClient _restClient;
-
-  LunchboxesRepositoryImpl({required RestClient restClient}) : _restClient = restClient;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   Future<List<FoodModel>> getFood() async {
-    final result = await _restClient.get('/alimentos');
-
-    if (result.hasError) {
-      log('Erro ao buscar alimentos', error: result.statusText);
-      throw Exception('Erro ao buscar alimentos');
+    try {
+      final snapshot = await firestore.collection('foods').get();
+      final foods = snapshot.docs
+          .map((doc) => FoodModel.fromMap({...doc.data(), 'id': doc.id}))
+          .toList();
+      return foods;
+    } catch (e, s) {
+      log('Erro ao carregar marmitas', error: e, stackTrace: s);
+      throw Exception('Erro ao carregar marmitas');
     }
-
-    final data = List<Map<String, dynamic>>.from(result.body);
-
-    final alimentos = data.map((e) => FoodModel.fromMap(e)).toList();
-
-    return alimentos;
   }
 
   @override
   Future<List<MenuModel>> getMenu() async {
-    final result = await _restClient.get('/menu');
-
-    if (result.hasError) {
-      log('Erro ao buscar menu', error: result.statusText);
-      RestClientException(message: 'Erro ao buscar marmitas');
-    }
-
-    final List data = (result.body as List);
-
-    final menuList = data.map((d) => MenuModel.fromMap(d)).toList();
-
-    return menuList;
+    final snapshot = await firestore.collection('menu').get();
+    final menu = snapshot.docs
+        .map((doc) => MenuModel.fromMap({...doc.data(), 'id': doc.id}))
+        .toList();
+    return menu;
   }
 
   @override
   Future<void> updateTemHoje(int id, FoodModel food, bool novoValor) async {
-    final result = await _restClient.put('/alimentos/$id', {
-      'temHoje': novoValor,
-    });
-    if (result.hasError) {}
+    try {
+      await firestore.collection('foods').doc(id.toString()).update({'temHoje': novoValor});
+    } catch (e, s) {
+      log('Erro ao atualizar temHoje [alimentos]', error: e, stackTrace: s);
+      throw Exception('Erro ao atualizar temHoje [alimentos]');
+    }
   }
 
   @override
   Future<FoodModel> cadastrarMarmita(FoodModel food) async {
-    final result = await _restClient.post('/alimentos', {
-      'name': food.name,
-      'id': food.id,
-      'dayName': food.dayName,
-      'temHoje': food.temHoje,
-      'description': food.description,
-      'pricePerSize': food.pricePerSize,
-    });
-
-    if (result.hasError) {
-      log(
-        'Erro ao cadastrar novo produto',
-        error: result.statusText,
-        stackTrace: StackTrace.current,
-      );
-      RestClientException(message: 'Erro ao cadastrar nova marmita');
+    try {
+      final docRef = await firestore.collection('foods').add({
+        "name": food.name,
+        "dayName": food.dayName,
+        "temHoje": food.temHoje,
+        "description": food.description,
+        "pricePerSize": food.pricePerSize,
+        "image": food.image,
+      });
+      final snapshot = await docRef.get();
+      return FoodModel.fromMap({...snapshot.data()!, 'id': snapshot.id});
+    } catch (e, s) {
+      log('Erro ao cadastrar marmita', error: e, stackTrace: s);
+      throw Exception('Erro ao cadastrar marmita');
     }
-
-    return FoodModel.fromMap(result.body);
   }
 }

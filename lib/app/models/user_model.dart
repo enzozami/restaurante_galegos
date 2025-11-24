@@ -3,17 +3,18 @@ import 'dart:convert';
 class UserModel {
   int id;
   String name;
-  bool isCpf;
-  bool isAdmin;
-  String value;
+  bool? isCpf;
+  bool? isAdmin;
+  String email;
+  String? cpfOrCnpj;
   String password;
-
   UserModel({
     required this.id,
     required this.name,
-    required this.isCpf,
-    required this.isAdmin,
-    required this.value,
+    this.isCpf,
+    this.isAdmin,
+    required this.email,
+    this.cpfOrCnpj,
     required this.password,
   });
 
@@ -23,7 +24,8 @@ class UserModel {
       'name': name,
       'isCpf': isCpf,
       'isAdmin': isAdmin,
-      'value': value,
+      'email': email,
+      'cpfOrCnpj': cpfOrCnpj,
       'password': password,
     };
   }
@@ -32,9 +34,10 @@ class UserModel {
     return UserModel(
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
-      isCpf: map['isCpf'] ?? false,
-      isAdmin: map['isAdmin'] ?? false,
-      value: map['value'] ?? '',
+      isCpf: map['isCpf'],
+      isAdmin: map['isAdmin'],
+      email: map['email'] ?? '',
+      cpfOrCnpj: map['cpfOrCnpj'] ?? '',
       password: map['password'] ?? '',
     );
   }

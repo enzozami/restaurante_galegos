@@ -31,15 +31,8 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<UserModel> updateUser(
-    String name,
-    String password, {
-    required int id,
-  }) async {
-    final result = await _restClient.put('/users/$id', {
-      'name': name,
-      'password': password,
-    });
+  Future<UserModel> updateUser(String name, String password, {required int id}) async {
+    final result = await _restClient.put('/users/$id', {'name': name, 'password': password});
 
     if (result.hasError) {
       log('Erro ao atualizar dados', error: result.statusText, stackTrace: StackTrace.current);

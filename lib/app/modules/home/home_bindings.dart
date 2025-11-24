@@ -42,18 +42,15 @@ import './home_controller.dart';
 class HomeBindings implements Bindings {
   @override
   Future<void> dependencies() async {
-    Get.lazyPut<ProductsRepository>(
-        () => ProductsRepositoryImpl(restClient: Get.find<RestClient>()));
+    Get.lazyPut<ProductsRepository>(() => ProductsRepositoryImpl());
     Get.lazyPut<ProductsServices>(
-      () => ProductsServicesImpl(
-        productsRepository: Get.find<ProductsRepository>(),
-      ),
+      () => ProductsServicesImpl(productsRepository: Get.find<ProductsRepository>()),
     );
 
-    Get.lazyPut<LunchboxesRepository>(
-        () => LunchboxesRepositoryImpl(restClient: Get.find<RestClient>()));
+    Get.lazyPut<LunchboxesRepository>(() => LunchboxesRepositoryImpl());
     Get.lazyPut<LunchboxesServices>(
-        () => LunchboxesServicesImpl(lunchboxesRepository: Get.find<LunchboxesRepository>()));
+      () => LunchboxesServicesImpl(lunchboxesRepository: Get.find<LunchboxesRepository>()),
+    );
     Get.lazyPut(
       () => LunchboxesController(
         lunchboxesServices: Get.find<LunchboxesServices>(),
@@ -63,26 +60,16 @@ class HomeBindings implements Bindings {
       ),
     );
 
-    Get.lazyPut<CepRepository>(
-      () => CepRepositoryImpl(
-        viaCepService: Get.find<ViaCepService>(),
-        restClient: Get.find<RestClient>(),
-      ),
-    );
-    Get.lazyPut<CepServices>(
-      () => CepServicesImpl(cepRepository: Get.find<CepRepository>()),
-    );
+    Get.lazyPut<CepRepository>(() => CepRepositoryImpl(viaCepService: Get.find<ViaCepService>()));
+    Get.lazyPut<CepServices>(() => CepServicesImpl(cepRepository: Get.find<CepRepository>()));
 
-    Get.lazyPut<TimeRepository>(() => TimeRepositoryImpl(restClient: Get.find<RestClient>()));
-    Get.lazyPut<TimeServices>(
-      () => TimeServicesImpl(
-        timeRepository: Get.find<TimeRepository>(),
-      ),
-    );
+    Get.lazyPut<TimeRepository>(() => TimeRepositoryImpl());
+    Get.lazyPut<TimeServices>(() => TimeServicesImpl(timeRepository: Get.find<TimeRepository>()));
 
-    Get.lazyPut<OrderReposiroty>(() => OrderReposirotyImpl(restClient: Get.find<RestClient>()));
+    Get.lazyPut<OrderReposiroty>(() => OrderReposirotyImpl());
     Get.lazyPut<OrderServices>(
-        () => OrderServicesImpl(orderRepository: Get.find<OrderReposiroty>()));
+      () => OrderServicesImpl(orderRepository: Get.find<OrderReposiroty>()),
+    );
     Get.lazyPut(
       () => ShoppingCardController(
         orderServices: Get.find<OrderServices>(),
@@ -94,14 +81,10 @@ class HomeBindings implements Bindings {
     );
 
     Get.lazyPut<OrderFinishedRepository>(
-      () => OrderFinishedRepositoryImpl(
-        restClient: Get.find<RestClient>(),
-      ),
+      () => OrderFinishedRepositoryImpl(restClient: Get.find<RestClient>()),
     );
     Get.lazyPut<OrderFinishedServices>(
-      () => OrderFinishedServicesImpl(
-        orderFinishedRepository: Get.find<OrderFinishedRepository>(),
-      ),
+      () => OrderFinishedServicesImpl(orderFinishedRepository: Get.find<OrderFinishedRepository>()),
     );
 
     Get.lazyPut(
@@ -117,22 +100,10 @@ class HomeBindings implements Bindings {
       ),
     );
 
-    Get.lazyPut(
-      () => OrderFinishedController(
-        ordersState: Get.find<OrdersState>(),
-      ),
-    );
+    Get.lazyPut(() => OrderFinishedController(ordersState: Get.find<OrdersState>()));
 
-    Get.lazyPut(
-      () => OrdersState(
-        orderServices: Get.find<OrderServices>(),
-      ),
-    );
-    Get.lazyPut(
-      () => ProductsService(
-        itemsServices: Get.find<ProductsServices>(),
-      ),
-    );
+    Get.lazyPut(() => OrdersState(orderServices: Get.find<OrderServices>()));
+    Get.lazyPut(() => ProductsService(itemsServices: Get.find<ProductsServices>()));
 
     Get.lazyPut(
       () => FoodService(

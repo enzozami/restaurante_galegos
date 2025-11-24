@@ -5,4 +5,5 @@ abstract interface class OrderReposiroty {
   Future<CarrinhoModel> createOrder(PedidoModel order);
   Future<PedidoModel> getIdOrder();
   Future<List<PedidoModel>> getOrder();
+  Future<String> generateSequentialOrderId();
 }

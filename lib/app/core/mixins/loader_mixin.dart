@@ -3,22 +3,19 @@ import 'package:get/get.dart';
 
 mixin LoaderMixin on GetxController {
   void loaderListener(RxBool rxLoading) {
-    ever(
-      rxLoading,
-      (loading) async {
-        if (loading) {
+    ever(rxLoading, (loading) async {
+      if (loading) {
+        if (Get.isDialogOpen!) {
           await Get.dialog(
-            Center(
-              child: CircularProgressIndicator(
-                color: Color(0xFFE2933C),
-              ),
-            ),
+            Center(child: CircularProgressIndicator(color: Color(0xFFE2933C))),
             barrierDismissible: false,
           );
-        } else {
+        }
+      } else {
+        if (Get.isDialogOpen!) {
           Get.back();
         }
-      },
-    );
+      }
+    });
   }
 }

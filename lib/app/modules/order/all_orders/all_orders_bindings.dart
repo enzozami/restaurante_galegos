@@ -14,33 +14,19 @@ import './all_orders_controller.dart';
 class AllOrdersBindings implements Bindings {
   @override
   Future<void> dependencies() async {
-    Get.lazyPut<OrderReposiroty>(
-      () => OrderReposirotyImpl(
-        restClient: Get.find<RestClient>(),
-      ),
-    );
+    Get.lazyPut<OrderReposiroty>(() => OrderReposirotyImpl());
     Get.lazyPut<OrderServices>(
-      () => OrderServicesImpl(
-        orderRepository: Get.find<OrderReposiroty>(),
-      ),
+      () => OrderServicesImpl(orderRepository: Get.find<OrderReposiroty>()),
     );
 
     Get.lazyPut<OrderFinishedRepository>(
-      () => OrderFinishedRepositoryImpl(
-        restClient: Get.find<RestClient>(),
-      ),
+      () => OrderFinishedRepositoryImpl(restClient: Get.find<RestClient>()),
     );
     Get.lazyPut<OrderFinishedServices>(
-      () => OrderFinishedServicesImpl(
-        orderFinishedRepository: Get.find<OrderFinishedRepository>(),
-      ),
+      () => OrderFinishedServicesImpl(orderFinishedRepository: Get.find<OrderFinishedRepository>()),
     );
 
-    await Get.putAsync(
-      () async => OrdersState(
-        orderServices: Get.find<OrderServices>(),
-      ).init(),
-    );
+    await Get.putAsync(() async => OrdersState(orderServices: Get.find<OrderServices>()).init());
 
     Get.put(
       AllOrdersController(
