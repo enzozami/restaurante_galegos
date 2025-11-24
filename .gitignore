@@ -1,6 +1,10 @@
 # Environment/Secrets
 .env
 /backend/
+tools/serviceAccountKey.json
+*.pem
+*.key
+*.p8
 
 # Miscellaneous
 *.class
