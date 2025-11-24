@@ -40,18 +40,6 @@ class OrderReposirotyImpl implements OrderReposiroty {
   }
 
   @override
-  Future<PedidoModel> getIdOrder() async {
-    final query = await firestore.collection('orders').get();
-
-    if (query.docs.isEmpty) {
-      return PedidoModel.fromMap({'id': '0'});
-    }
-
-    final lastDoc = query.docs.last;
-    return PedidoModel.fromMap({...lastDoc.data(), 'id': lastDoc.id});
-  }
-
-  @override
   Future<List<PedidoModel>> getOrder() async {
     final snapshot = await firestore.collection('orders').get();
     return snapshot.docs.map((doc) => PedidoModel.fromMap({...doc.data(), 'id': doc.id})).toList();
@@ -75,6 +63,22 @@ class OrderReposirotyImpl implements OrderReposiroty {
 
       transaction.update(docRef, {'lastId': newId});
       return newId.toString();
+    });
+  }
+
+  @override
+  Future<void> changeStatusFinished(PedidoModel pedido) async {
+    await firestore.collection('orders').doc(pedido.id.toString()).update({
+      'status': 'entregue',
+      'timeFinished': pedido.timeFinished,
+    });
+  }
+
+  @override
+  Future<void> changeStatusOnTheWay(PedidoModel pedido) async {
+    await firestore.collection('orders').doc(pedido.id.toString()).update({
+      'status': 'a caminho',
+      'timeFinished': pedido.timeFinished,
     });
   }
 }

@@ -14,11 +14,20 @@ class OrderServicesImpl implements OrderServices {
   Future<CarrinhoModel> createOrder(PedidoModel order) => _orderReposiroty.createOrder(order);
 
   @override
-  Future<PedidoModel> getIdOrder() => _orderReposiroty.getIdOrder();
-
-  @override
   Future<List<PedidoModel>> getOrder() => _orderReposiroty.getOrder();
 
   @override
   Future<String> generateSequentialOrderId() => _orderReposiroty.generateSequentialOrderId();
+
+  @override
+  Future<void> changeStatusFinished(PedidoModel pedido) {
+    // TODO: implement changeStatusFinished
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> changeStatusOnTheWay(PedidoModel pedido) {
+    // TODO: implement changeStatusOnTheWay
+    throw UnimplementedError();
+  }
 }
