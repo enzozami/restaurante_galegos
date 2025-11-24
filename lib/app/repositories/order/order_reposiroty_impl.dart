@@ -78,7 +78,7 @@ class OrderReposirotyImpl implements OrderReposiroty {
   Future<void> changeStatusOnTheWay(PedidoModel pedido) async {
     await firestore.collection('orders').doc(pedido.id.toString()).update({
       'status': 'a caminho',
-      'timeFinished': pedido.timeFinished,
+      'timeFinished': pedido.timePath,
     });
   }
 }
