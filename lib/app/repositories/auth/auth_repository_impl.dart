@@ -54,6 +54,7 @@ class AuthRepositoryImpl implements AuthRepository {
       await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).set({
         'nome': name,
         'cpfOrCnpj': cpfOrCnpj,
+        'email': email,
         'createdAt': FieldValue.serverTimestamp(),
       });
 

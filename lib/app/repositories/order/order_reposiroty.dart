@@ -5,6 +5,6 @@ abstract interface class OrderReposiroty {
   Future<CarrinhoModel> createOrder(PedidoModel order);
   Future<List<PedidoModel>> getOrder();
   Future<String> generateSequentialOrderId();
-  Future<void> changeStatusOnTheWay(PedidoModel pedido);
-  Future<void> changeStatusFinished(PedidoModel pedido);
+  Future<void> changeStatusOnTheWay(int id, String newTime);
+  Future<void> changeStatusFinished(int id, String newTime);
 }
