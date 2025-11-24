@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/orders_state.dart';
-import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
 
 class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin {
