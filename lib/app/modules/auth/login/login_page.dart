@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/galegos_check_box.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:validatorless/validatorless.dart';
 import './login_controller.dart';
@@ -44,7 +43,7 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                       'https://restaurantegalegos.wabiz.delivery/stores/restaurantegalegos/img/homeLogo.png?vc=20250915111500&cvc=',
                       fit: BoxFit.cover,
                     ),
-                    const SizedBox(height: 75),
+                    const SizedBox(height: 120),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Form(
@@ -52,18 +51,6 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                         child: Obx(() {
                           return Column(
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text('CNPJ'),
-                                  GalegosCheckBox(
-                                    isChecked: controller.isChecked.value,
-                                    onChanged: (value) {
-                                      controller.onSelected(value ?? false);
-                                    },
-                                  ),
-                                ],
-                              ),
                               GalegosTextFormField(
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 controller: _usuarioEC,

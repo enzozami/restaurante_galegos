@@ -49,23 +49,14 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                       'https://restaurantegalegos.wabiz.delivery/stores/restaurantegalegos/img/homeLogo.png?vc=20250915111500&cvc=',
                       fit: BoxFit.cover,
                     ),
-                    const SizedBox(height: 75),
+                    const SizedBox(height: 30),
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(15.0),
                       child: Form(
                         key: _formKey,
                         child: Obx(() {
                           return Column(
                             children: [
-                              GalegosTextFormField(
-                                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                controller: _nameEC,
-                                label: 'Nome completo',
-                                validator: Validatorless.multiple([
-                                  Validatorless.required('Campo obrigatório'),
-                                ]),
-                              ),
-                              const SizedBox(height: 15),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -89,7 +80,19 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                                       : Validatorless.cnpj('CNPJ inválido'),
                                 ]),
                               ),
-                              const SizedBox(height: 25),
+                              const SizedBox(height: 20),
+                              Divider(),
+                              const SizedBox(height: 20),
+
+                              GalegosTextFormField(
+                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                controller: _nameEC,
+                                label: 'Nome completo',
+                                validator: Validatorless.multiple([
+                                  Validatorless.required('Campo obrigatório'),
+                                ]),
+                              ),
+                              const SizedBox(height: 15),
                               GalegosTextFormField(
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 controller: _emailEC,
@@ -99,7 +102,8 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                                   Validatorless.email('E-mail inválido'),
                                 ]),
                               ),
-                              const SizedBox(height: 25),
+
+                              const SizedBox(height: 15),
                               GalegosTextFormField(
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 controller: _passwordEC,
@@ -118,7 +122,7 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                                   Validatorless.min(6, 'Senha obrigatória'),
                                 ]),
                               ),
-                              const SizedBox(height: 25),
+                              const SizedBox(height: 15),
                               GalegosTextFormField(
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 obscureText: controller.isSelectedConfirmaSenha.value,
@@ -136,7 +140,7 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                                   Validatorless.compare(_passwordEC, 'Senhas diferentes'),
                                 ]),
                               ),
-                              const SizedBox(height: 25),
+                              const SizedBox(height: 20),
                               GalegosButtonDefault(
                                 label: 'Cadastrar',
                                 onPressed: () {
