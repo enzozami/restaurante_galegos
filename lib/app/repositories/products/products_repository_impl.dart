@@ -49,16 +49,30 @@ class ProductsRepositoryImpl implements ProductsRepository {
   @override
   Future<ProductModel> cadastrarProdutos(ProductModel item) async {
     try {
-      final docRef = await firestore.collection('products').add({
+      final query = await firestore
+          .collection('products')
+          .orderBy('id', descending: true)
+          .limit(1)
+          .get();
+      int newId;
+      if (query.docs.isEmpty) {
+        newId = 1;
+      } else {
+        final lastId = query.docs.first.data()['id'];
+        newId = (lastId as int) + 1;
+      }
+      final newDocData = {
+        'id': newId,
         'categoryId': item.categoryId,
         'name': item.name,
         'description': item.description ?? '',
         'temHoje': item.temHoje,
         'price': item.price,
-      });
+      };
 
-      final snapshot = await docRef.get();
-      return ProductModel.fromMap({...snapshot.data()!, 'id': snapshot.id});
+      await firestore.collection('products').doc(newId.toString()).set(newDocData);
+
+      return ProductModel.fromMap({...newDocData, 'id': newId});
     } catch (e, s) {
       log('Erro ao cadastrar produto', error: e, stackTrace: s);
       throw Exception('Erro ao cadastrar produto');

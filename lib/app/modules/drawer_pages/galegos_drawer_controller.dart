@@ -10,10 +10,8 @@ import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/services/about_us/about_us_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 import 'package:restaurante_galegos/app/services/time/time_services.dart';
-import 'package:restaurante_galegos/app/services/user/user_services.dart';
 
 class GalegosDrawerController extends GetxController with LoaderMixin, MessagesMixin {
-  final UserServices _userServices;
   final AuthService _authService;
   final OrderServices _orderServices;
   final AboutUsServices _aboutUsServices;
@@ -61,13 +59,11 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   final history = <PedidoModel>[].obs;
 
   GalegosDrawerController({
-    required UserServices userServices,
     required AuthService authService,
     required AboutUsServices aboutUsServices,
     required TimeServices timeServices,
     required OrderServices orderServices,
-  }) : _userServices = userServices,
-       _authService = authService,
+  }) : _authService = authService,
        _aboutUsServices = aboutUsServices,
        _timeServices = timeServices,
        _orderServices = orderServices;
@@ -102,10 +98,9 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   Future<void> getUser() async {
     final userId = _authService.getUserId();
     if (userId != null) {
-      final userData = await _userServices.getUser(id: userId);
-      _name.value = userData.name;
-      _password.value = userData.password;
-      valueCpfOrCnpj.value = userData.cpfOrCnpj ?? '';
+      // _name.value = userData.name;
+      // _password.value = userData.password;
+      // valueCpfOrCnpj.value = userData.cpfOrCnpj ?? '';
     }
   }
 
@@ -115,13 +110,13 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
       log(name ?? 'nome nao digitado');
       log(password ?? 'senha nao digitada');
       if (name != null && name != '' && password == '' && password != null) {
-        await _userServices.updateUser(name, _password.value, id: userId);
+        // await _userServices.updateUser(name, _password.value, id: userId);
       } else if (name != null && name == '' && password != null && password != '') {
-        await _userServices.updateUser(_name.value, password, id: userId);
+        // await _userServices.updateUser(_name.value, password, id: userId);
       } else if (name != null && name != '' && password != null && password != '') {
-        await _userServices.updateUser(name, password, id: userId);
+        // await _userServices.updateUser(name, password, id: userId);
       } else if (name != null && password != null && name == '' && password == '') {
-        await _userServices.updateUser(_name.value, _password.value, id: userId);
+        // await _userServices.updateUser(_name.value, _password.value, id: userId);
       }
     }
   }
