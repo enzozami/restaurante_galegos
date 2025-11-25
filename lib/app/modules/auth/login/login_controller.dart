@@ -42,6 +42,7 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
     try {
       _loading(true);
       final userLogger = await _authServices.login(email: value, password: password);
+      log('Usuário admin: ${userLogger.isAdmin}');
       final storage = GetStorage();
       storage.write(Constants.ADMIN_KEY, userLogger.isAdmin);
       storage.write(Constants.USER_KEY, userLogger.id);

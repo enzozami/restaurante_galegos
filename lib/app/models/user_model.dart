@@ -4,7 +4,7 @@ class UserModel {
   int id;
   String name;
   bool? isCpf;
-  bool? isAdmin;
+  bool isAdmin;
   String email;
   String? cpfOrCnpj;
   String password;
@@ -12,7 +12,7 @@ class UserModel {
     required this.id,
     required this.name,
     this.isCpf,
-    this.isAdmin,
+    required this.isAdmin,
     required this.email,
     this.cpfOrCnpj,
     required this.password,
@@ -35,9 +35,9 @@ class UserModel {
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       isCpf: map['isCpf'],
-      isAdmin: map['isAdmin'],
+      isAdmin: map['isAdmin'] ?? false,
       email: map['email'] ?? '',
-      cpfOrCnpj: map['cpfOrCnpj'] ?? '',
+      cpfOrCnpj: map['cpfOrCnpj'],
       password: map['password'] ?? '',
     );
   }

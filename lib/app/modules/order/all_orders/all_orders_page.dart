@@ -4,6 +4,7 @@ import 'package:restaurante_galegos/app/core/masks/mask_cep.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_history.dart';
+import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import './all_orders_controller.dart';
 
 class AllOrdersPage extends GetView<AllOrdersController> {
@@ -12,71 +13,81 @@ class AllOrdersPage extends GetView<AllOrdersController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: GalegosUiDefaut.colorScheme.tertiary,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Center(
-                    child: Text(
-                      'PEDIDOS REALIZADOS',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: GalegosUiDefaut.colors['fundo'],
-                      ),
+      body: Column(
+        children: [
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: GalegosUiDefaut.colorScheme.tertiary,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Center(
+                  child: Text(
+                    'PEDIDOS REALIZADOS',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: GalegosUiDefaut.colors['fundo'],
                     ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            Center(
-              child: SizedBox(
-                width: context.widthTransformer(reducedBy: 10),
-                child: Obx(() {
-                  return ListView(
-                    physics: NeverScrollableScrollPhysics(),
+          ),
+          const SizedBox(height: 20),
+          Center(
+            child: SizedBox(
+              width: context.widthTransformer(reducedBy: 10),
+              child: StreamBuilder(
+                stream: controller.listOrders,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  final docs = snapshot.data!.docs;
+
+                  return ListView.builder(
                     shrinkWrap: true,
-                    children: controller.listOrders.value.map((e) {
-                      final carrinho = e.cart
-                          .map((item) {
-                            return item.item.alimento?.name ?? item.item.produto?.name ?? '';
-                          })
-                          .toList()
+                    // physics: const NeverScrollableScrollPhysics(),
+                    itemCount: docs.length,
+                    itemBuilder: (context, index) {
+                      final data = docs[index].data();
+                      final pedido = PedidoModel.fromMap({...data, 'id': docs[index].id});
+
+                      final nome = pedido.cart
+                          .map((e) => e.item.alimento?.name ?? e.item.produto?.name)
                           .join(', ');
 
-                      final total = FormatterHelper.formatCurrency(e.amountToPay);
+                      final total = FormatterHelper.formatCurrency(pedido.amountToPay);
                       return Card(
                         elevation: 5,
                         color: GalegosUiDefaut.colorScheme.secondary,
                         child: InkWell(
                           onTap: () {
-                            final carrinhoName = e.cart
+                            final carrinhoName = pedido.cart
                                 .map((item) {
                                   return item.item.alimento?.name ?? item.item.produto?.name ?? '';
                                 })
                                 .toList()
                                 .join(', ');
 
-                            final pedidoTipo = e.cart
+                            final pedidoTipo = pedido.cart
                                 .map((e) => e.item.produto != null ? 'Produto' : 'Marmita')
                                 .toList()
                                 .join(', ');
 
                             final cep = MaskCep();
 
-                            final valor = FormatterHelper.formatCurrency(e.amountToPay - e.taxa);
-                            final taxa = FormatterHelper.formatCurrency(e.taxa);
-                            final total = FormatterHelper.formatCurrency(e.amountToPay);
+                            final valor = FormatterHelper.formatCurrency(
+                              pedido.amountToPay - pedido.taxa,
+                            );
+                            final taxa = FormatterHelper.formatCurrency(pedido.taxa);
+                            final total = FormatterHelper.formatCurrency(pedido.amountToPay);
                             showDialog(
                               context: context,
                               builder: (context) => AlertDialogHistory(
@@ -87,20 +98,20 @@ class AllOrdersPage extends GetView<AllOrdersController> {
                                 valor: valor,
                                 taxa: taxa,
                                 total: total,
-                                nomeCliente: e.userName,
-                                cpfOrCnpj: e.cpfOrCnpj,
-                                rua: e.rua,
-                                numeroResidencia: e.numeroResidencia.toString(),
-                                bairro: e.bairro,
-                                cidade: e.cidade,
-                                estado: e.estado,
-                                cep: cep.maskText(e.cep),
-                                horarioInicio: e.time,
-                                horarioSairEntrega: e.timePath ?? '',
-                                horarioEntregue: e.timeFinished ?? '',
-                                data: e.date,
+                                nomeCliente: pedido.userName,
+                                cpfOrCnpj: pedido.cpfOrCnpj,
+                                rua: pedido.rua,
+                                numeroResidencia: pedido.numeroResidencia.toString(),
+                                bairro: pedido.bairro,
+                                cidade: pedido.cidade,
+                                estado: pedido.estado,
+                                cep: cep.maskText(pedido.cep),
+                                horarioInicio: pedido.time,
+                                horarioSairEntrega: pedido.timePath ?? '',
+                                horarioEntregue: pedido.timeFinished ?? '',
+                                data: pedido.date,
                                 onPressed: () async {
-                                  // controller.orderFinished(e);
+                                  controller.orderFinished(pedido);
                                   Get.back();
                                 },
                                 statusPedido: 'Sair para entrega',
@@ -110,20 +121,20 @@ class AllOrdersPage extends GetView<AllOrdersController> {
                           splashColor: GalegosUiDefaut.colorScheme.primary,
                           borderRadius: BorderRadius.circular(8),
                           child: ListTile(
-                            title: Text('Carrinho: $carrinho', overflow: TextOverflow.ellipsis),
+                            title: Text('Carrinho: $nome', overflow: TextOverflow.ellipsis),
                             trailing: Text(total),
-                            leading: Text('Pedido: ${e.id}'),
-                            subtitle: Text('Status: ${e.status.toUpperCase()}'),
+                            // leading: Text('Pedido: ${e.id}'),
+                            subtitle: Text('Status: ${pedido.status.toUpperCase()}'),
                           ),
                         ),
                       );
-                    }).toList(),
+                    },
                   );
-                }),
+                },
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -18,11 +18,25 @@ class AuthRepositoryImpl implements AuthRepository {
         throw AuthException(message: 'Usuário inválido');
       }
 
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(firebaseUser.uid)
+          .get();
+
+      if (!userDoc.exists) {
+        throw AuthException(message: 'Dados do usuário não encontrados');
+      }
+
+      final data = userDoc.data()!;
+      final isAdmin = data['isAdmin'] ?? false;
+
       return UserModel(
         id: firebaseUser.uid.hashCode,
-        name: firebaseUser.displayName ?? '',
-        email: email,
+        name: data['nome'] ?? '',
+        email: data['email'] ?? '',
+        cpfOrCnpj: data['cpfOrCnpj'],
         password: password,
+        isAdmin: isAdmin,
       );
     } on FirebaseAuthException catch (e) {
       throw AuthException(message: e.message ?? 'Erro ao fazer login');

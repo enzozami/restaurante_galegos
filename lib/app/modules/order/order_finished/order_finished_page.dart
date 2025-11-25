@@ -4,6 +4,7 @@ import 'package:restaurante_galegos/app/core/masks/mask_cep.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_history.dart';
+import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import './order_finished_controller.dart';
 
 class OrderFinishedPage extends GetView<OrderFinishedController> {
@@ -42,89 +43,108 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
             Center(
               child: SizedBox(
                 width: context.widthTransformer(reducedBy: 10),
-                child: Obx(() {
-                  controller.listOrder();
-                  final inverso = controller.listOrder.reversed.toList();
+                child: StreamBuilder(
+                  stream: controller.listOrders,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    }
 
-                  return ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: inverso.length,
-                    itemBuilder: (context, index) {
-                      final e = inverso[index];
-                      final carrinho = e.cart
-                          .map((item) => item.item.alimento?.name ?? item.item.produto?.name ?? '')
-                          .toList()
-                          .join(', ');
+                    if (snapshot.hasError) {
+                      return Center(child: Text('Erro ao carregar pedidos'));
+                    }
 
-                      final total = FormatterHelper.formatCurrency(e.amountToPay);
-                      return Card(
-                        color: GalegosUiDefaut.colorScheme.secondary,
-                        elevation: 5,
-                        child: InkWell(
-                          onTap: () {
-                            final carrinhoName = e.cart
-                                .map((item) {
-                                  return item.item.alimento?.name ?? item.item.produto?.name ?? '';
-                                })
-                                .toList()
-                                .join(', ');
+                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                      return Center(
+                        child: Text('Nenhum pedido encontrado', style: TextStyle(fontSize: 18)),
+                      );
+                    }
 
-                            final pedidoTipo = e.cart
-                                .map((e) => e.item.produto != null ? 'Produto' : 'Marmita')
-                                .toList()
-                                .join(', ');
+                    final docs = snapshot.data!.docs;
 
-                            final cep = MaskCep();
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      // physics: const NeverScrollableScrollPhysics(),
+                      itemCount: docs.length,
+                      itemBuilder: (context, index) {
+                        final data = docs[index].data();
+                        final pedido = PedidoModel.fromMap({...data, 'id': docs[index].id});
 
-                            final valor = FormatterHelper.formatCurrency(e.amountToPay - e.taxa);
-                            final taxa = FormatterHelper.formatCurrency(e.taxa);
-                            final total = FormatterHelper.formatCurrency(e.amountToPay);
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialogHistory(
+                        final nome = pedido.cart
+                            .map((e) => e.item.alimento?.name ?? e.item.produto?.name)
+                            .join(', ');
+
+                        final total = FormatterHelper.formatCurrency(pedido.amountToPay);
+                        return Card(
+                          elevation: 5,
+                          color: GalegosUiDefaut.colorScheme.secondary,
+                          child: InkWell(
+                            onTap: () {
+                              final carrinhoName = pedido.cart
+                                  .map((item) {
+                                    return item.item.alimento?.name ??
+                                        item.item.produto?.name ??
+                                        '';
+                                  })
+                                  .toList()
+                                  .join(', ');
+
+                              final pedidoTipo = pedido.cart
+                                  .map((e) => e.item.produto != null ? 'Produto' : 'Marmita')
+                                  .toList()
+                                  .join(', ');
+
+                              final cep = MaskCep();
+
+                              final valor = FormatterHelper.formatCurrency(
+                                pedido.amountToPay - pedido.taxa,
+                              );
+                              final taxa = FormatterHelper.formatCurrency(pedido.taxa);
+                              final total = FormatterHelper.formatCurrency(pedido.amountToPay);
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialogHistory(
+                                  titleButton: 'Sair para entrega',
                                   isAdmin: true,
-
-                                  titleButton: 'Fechar',
                                   pedidoLabel: pedidoTipo,
                                   carrinhoName: carrinhoName,
                                   valor: valor,
                                   taxa: taxa,
                                   total: total,
-                                  nomeCliente: e.userName,
-                                  cpfOrCnpj: e.cpfOrCnpj,
-                                  rua: e.rua,
-                                  numeroResidencia: e.numeroResidencia.toString(),
-                                  bairro: e.bairro,
-                                  cidade: e.cidade,
-                                  estado: e.estado,
-                                  cep: cep.maskText(e.cep),
-                                  horarioInicio: e.time,
-                                  horarioSairEntrega: e.timePath ?? '',
-                                  horarioEntregue: e.timeFinished ?? '',
-                                  data: e.date,
-                                  onPressed: () {
-                                    Get.close(0);
+                                  nomeCliente: pedido.userName,
+                                  cpfOrCnpj: pedido.cpfOrCnpj,
+                                  rua: pedido.rua,
+                                  numeroResidencia: pedido.numeroResidencia.toString(),
+                                  bairro: pedido.bairro,
+                                  cidade: pedido.cidade,
+                                  estado: pedido.estado,
+                                  cep: cep.maskText(pedido.cep),
+                                  horarioInicio: pedido.time,
+                                  horarioSairEntrega: pedido.timePath ?? '',
+                                  horarioEntregue: pedido.timeFinished ?? '',
+                                  data: pedido.date,
+                                  onPressed: () async {
+                                    // controller.orderFinished(pedido);
+                                    Get.back();
                                   },
-                                  statusPedido: 'Fechar',
-                                );
-                              },
-                            );
-                          },
-                          splashColor: GalegosUiDefaut.theme.splashColor,
-                          borderRadius: BorderRadius.circular(8),
-                          child: ListTile(
-                            title: Text('Carrinho: $carrinho'),
-                            trailing: Text(total),
-                            leading: Text('Pedido ${e.id}'),
-                            subtitle: Text(e.status.toUpperCase()),
+                                  statusPedido: 'Sair para entrega',
+                                ),
+                              );
+                            },
+                            splashColor: GalegosUiDefaut.colorScheme.primary,
+                            borderRadius: BorderRadius.circular(8),
+                            child: ListTile(
+                              title: Text('Carrinho: $nome', overflow: TextOverflow.ellipsis),
+                              trailing: Text(total),
+                              // leading: Text('Pedido: ${e.id}'),
+                              subtitle: Text('Status: ${pedido.status.toUpperCase()}'),
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  );
-                }),
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ),
           ],

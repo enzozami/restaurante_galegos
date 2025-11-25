@@ -1,5 +1,4 @@
-import 'dart:async';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
@@ -9,6 +8,8 @@ import 'package:restaurante_galegos/app/models/pedido_model.dart';
 
 class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin {
   final OrdersState _ordersState;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late final Stream<QuerySnapshot<Map<String, dynamic>>> listOrders;
 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
@@ -21,14 +22,14 @@ class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin
     loaderListener(_loading);
     messageListener(_message);
     _ordersState.init();
-    Timer.periodic(Duration(seconds: 5), (_) => _ordersState.init());
+    listOrders = firestore
+        .collection('orders')
+        .where('status', isEqualTo: 'preparando')
+        .snapshots();
   }
-
-  RxList<PedidoModel> get listOrders =>
-      _ordersState.all.where((e) => e.status == 'preparando').toList().obs;
 
   void orderFinished(PedidoModel pedido) async {
     final newTime = FormatterHelper.formatDateAndTime();
-    _ordersState.changeStatusOnTheWay(int.parse(pedido.id), newTime);
+    _ordersState.updateACaminho(pedido, newTime);
   }
 }

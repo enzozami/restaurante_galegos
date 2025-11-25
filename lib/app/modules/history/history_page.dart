@@ -26,10 +26,7 @@ class HistoryPage extends GetView<HistoryController> {
                   width: context.widthTransformer(reducedBy: 10),
                   decoration: BoxDecoration(
                     color: GalegosUiDefaut.colorScheme.tertiary,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(5),
-                      topRight: Radius.circular(5),
-                    ),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   child: Center(
                     child: Padding(
@@ -47,125 +44,150 @@ class HistoryPage extends GetView<HistoryController> {
                 ),
               ),
             ),
-            Obx(() {
-              final inverso = controller.history.reversed.toList();
+            StreamBuilder(
+              stream: controller.allOrders,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
 
-              final pedidos = <String, List<PedidoModel>>{};
+                if (snapshot.hasError) {
+                  return Center(child: Text('Erro ao carregar pedidos'));
+                }
 
-              for (var pedido in inverso) {
-                pedidos.putIfAbsent(pedido.date, () => []);
-                pedidos[pedido.date]!.add(pedido);
-              }
-              return Column(
-                spacing: 20,
-                children: pedidos.entries.map((e) {
-                  final data = e.key;
-                  final pedidosDoDia = e.value;
-
+                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                   return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
-                          child: Text(data, style: GalegosUiDefaut.theme.textTheme.titleMedium),
-                        ),
-                        ...pedidosDoDia.map((e) {
-                          final carrinho = e.cart
-                              .map((item) {
-                                return item.item.alimento?.name ?? item.item.produto?.name ?? '';
-                              })
-                              .toList()
-                              .join(', ');
+                    child: Text('Nenhum pedido encontrado', style: TextStyle(fontSize: 18)),
+                  );
+                }
 
-                          final total = FormatterHelper.formatCurrency(e.amountToPay);
-                          return SizedBox(
-                            width: context.widthTransformer(reducedBy: 10),
-                            child: Card(
-                              elevation: 5,
-                              color: GalegosUiDefaut.colorScheme.secondary,
-                              // color: GalegosUiDefaut.colors['fundo'],
-                              shape: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(
-                                  color: const Color.fromARGB(255, 190, 132, 98),
-                                ),
-                              ),
-                              child: InkWell(
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      final cep = MaskCep();
-                                      final valor = FormatterHelper.formatCurrency(
-                                        e.amountToPay - e.taxa,
-                                      );
-                                      final taxa = FormatterHelper.formatCurrency(e.taxa);
+                final docs = snapshot.data!.docs;
+                final pedidos = docs.map((doc) {
+                  final data = doc.data();
+                  return PedidoModel.fromMap({...data, 'id': doc.id});
+                }).toList();
 
-                                      return AlertDialogHistory(
+                final Map<String, List<PedidoModel>> pedidosPorData = {};
+
+                for (var pedido in pedidos) {
+                  pedidosPorData.putIfAbsent(pedido.date, () => []);
+                  pedidosPorData[pedido.date]!.add(pedido);
+                }
+
+                return Column(
+                  children: pedidosPorData.entries.map((pedido) {
+                    final data = pedido.key;
+                    final pedidosDoDia = pedido.value;
+
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+                            child: Text(data, style: GalegosUiDefaut.theme.textTheme.titleMedium),
+                          ),
+                          ...pedidosDoDia.map((pedido) {
+                            final nome = pedido.cart
+                                .map((e) => e.item.alimento?.name ?? e.item.produto?.name)
+                                .join(', ');
+
+                            final total = FormatterHelper.formatCurrency(pedido.amountToPay);
+                            return SizedBox(
+                              width: context.widthTransformer(reducedBy: 10),
+                              child: Card(
+                                elevation: 5,
+                                color: GalegosUiDefaut.colorScheme.secondary,
+                                child: InkWell(
+                                  onTap: () {
+                                    final carrinhoName = pedido.cart
+                                        .map((item) {
+                                          return item.item.alimento?.name ??
+                                              item.item.produto?.name ??
+                                              '';
+                                        })
+                                        .toList()
+                                        .join(', ');
+
+                                    final pedidoTipo = pedido.cart
+                                        .map((e) => e.item.produto != null ? 'Produto' : 'Marmita')
+                                        .toList()
+                                        .join(', ');
+
+                                    final cep = MaskCep();
+
+                                    final valor = FormatterHelper.formatCurrency(
+                                      pedido.amountToPay - pedido.taxa,
+                                    );
+                                    final taxa = FormatterHelper.formatCurrency(pedido.taxa);
+                                    final total = FormatterHelper.formatCurrency(
+                                      pedido.amountToPay,
+                                    );
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialogHistory(
+                                        titleButton: 'Fechar',
                                         isAdmin: false,
-                                        pedidoLabel: e.id.toString(),
-
-                                        carrinhoName: carrinho,
+                                        pedidoLabel: pedidoTipo,
+                                        carrinhoName: carrinhoName,
                                         valor: valor,
                                         taxa: taxa,
                                         total: total,
-                                        nomeCliente: e.userName,
-                                        cpfOrCnpj: e.cpfOrCnpj,
-                                        rua: e.rua,
-                                        numeroResidencia: e.numeroResidencia.toString(),
-                                        bairro: e.bairro,
-                                        cidade: e.cidade,
-                                        estado: e.estado,
-                                        cep: cep.maskText(e.cep),
-                                        horarioInicio: e.time,
-                                        horarioSairEntrega: e.timePath ?? '',
-                                        horarioEntregue: e.timeFinished ?? '',
-                                        data: e.date,
+                                        nomeCliente: pedido.userName,
+                                        cpfOrCnpj: pedido.cpfOrCnpj,
+                                        rua: pedido.rua,
+                                        numeroResidencia: pedido.numeroResidencia.toString(),
+                                        bairro: pedido.bairro,
+                                        cidade: pedido.cidade,
+                                        estado: pedido.estado,
+                                        cep: cep.maskText(pedido.cep),
+                                        horarioInicio: pedido.time,
+                                        horarioSairEntrega: pedido.timePath ?? '',
+                                        horarioEntregue: pedido.timeFinished ?? '',
+                                        data: pedido.date,
                                         onPressed: () {},
-                                        statusPedido: e.status,
-                                      );
-                                    },
-                                  );
-                                },
-                                splashColor: GalegosUiDefaut.theme.splashColor,
-                                borderRadius: BorderRadius.circular(8),
-                                child: ListTile(
-                                  title: Text(carrinho, overflow: TextOverflow.ellipsis),
-                                  // subtitle: Text('Itens no carrinho: ${e.cart.length}'),
-                                  trailing: Text('Total: $total'),
-                                  subtitle: (e.status == 'preparando')
-                                      ? Text(
-                                          e.status.toUpperCase(),
-                                          style: TextStyle(
-                                            color: GalegosUiDefaut.colorScheme.error,
+                                        statusPedido: pedido.status,
+                                      ),
+                                    );
+                                  },
+                                  splashColor: GalegosUiDefaut.colorScheme.primary,
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: ListTile(
+                                    title: Text('Carrinho: $nome', overflow: TextOverflow.ellipsis),
+                                    trailing: Text(total),
+                                    // leading: Text('Pedido: ${e.id}'),
+                                    subtitle: (pedido.status == 'preparando')
+                                        ? Text(
+                                            pedido.status.toUpperCase(),
+                                            style: TextStyle(
+                                              color: GalegosUiDefaut.colorScheme.error,
+                                            ),
+                                          )
+                                        : (pedido.status == 'a caminho')
+                                        ? Text(
+                                            pedido.status.toUpperCase(),
+                                            style: TextStyle(
+                                              color: Color(0xFFC97B3E),
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )
+                                        : Text(
+                                            pedido.status.toUpperCase(),
+                                            style: TextStyle(color: Colors.green),
                                           ),
-                                        )
-                                      : (e.status == 'a caminho')
-                                      ? Text(
-                                          e.status.toUpperCase(),
-                                          style: TextStyle(
-                                            color: Color(0xFFC97B3E),
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )
-                                      : Text(
-                                          e.status.toUpperCase(),
-                                          style: TextStyle(color: Colors.green),
-                                        ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        }),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              );
-            }),
-
+                            );
+                          }),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                );
+              },
+            ),
             const SizedBox(height: 10),
           ],
         ),

@@ -20,10 +20,10 @@ class OrderServicesImpl implements OrderServices {
   Future<String> generateSequentialOrderId() => _orderReposiroty.generateSequentialOrderId();
 
   @override
-  Future<void> changeStatusFinished(int id, String newTime) =>
-      _orderReposiroty.changeStatusFinished(id, newTime);
+  Future<void> changeStatusFinished(PedidoModel pedido, String newTime) =>
+      _orderReposiroty.changeStatusFinished(pedido, newTime);
 
   @override
-  Future<void> changeStatusOnTheWay(int id, String newTime) =>
-      _orderReposiroty.changeStatusOnTheWay(id, newTime);
+  Future<void> changeStatusOnTheWay(PedidoModel pedido, String newTime) =>
+      _orderReposiroty.changeStatusOnTheWay(pedido, newTime);
 }

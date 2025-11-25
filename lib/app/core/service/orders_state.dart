@@ -18,15 +18,19 @@ class OrdersState extends GetxService {
     all.assignAll(data);
   }
 
-  // void update(PedidoModel pedido, String newStatus) async {
-  //   final index = all.indexWhere((p) => p.id == pedido.id);
-  //   if (index != -1) {
-  //     all[index] = pedido.copyWith(status: newStatus);
-  //     all.refresh();
-  //   }
-  // }
+  void updateACaminho(PedidoModel pedido, String newStatus) async {
+    final index = all.indexWhere((p) => p.id == pedido.id);
+    if (index != -1) {
+      _orderServices.changeStatusOnTheWay(pedido, newStatus);
+      all.refresh();
+    }
+  }
 
-  void changeStatusOnTheWay(int id, String newTime) async {
-    await _orderServices.changeStatusOnTheWay(id, newTime);
+  void updateEntregue(PedidoModel pedido, String newStatus) async {
+    final index = all.indexWhere((p) => p.id == pedido.id);
+    if (index != -1) {
+      _orderServices.changeStatusFinished(pedido, newStatus);
+      all.refresh();
+    }
   }
 }

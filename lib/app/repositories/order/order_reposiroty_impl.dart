@@ -30,6 +30,7 @@ class OrderReposirotyImpl implements OrderReposiroty {
         'timeFinished': order.timeFinished,
         'date': order.date,
       });
+      await docRef.update({'id': docRef.id});
 
       final snapshot = await docRef.get();
       return CarrinhoModel.fromMap({...snapshot.data()!, 'id': snapshot.id});
@@ -67,18 +68,18 @@ class OrderReposirotyImpl implements OrderReposiroty {
   }
 
   @override
-  Future<void> changeStatusFinished(int id, String newTime) async {
-    await firestore.collection('orders').doc(id.toString()).update({
+  Future<void> changeStatusFinished(PedidoModel pedido, String newTime) async {
+    await firestore.collection('orders').doc(pedido.id.toString()).update({
       'status': 'entregue',
       'timeFinished': newTime,
     });
   }
 
   @override
-  Future<void> changeStatusOnTheWay(int id, String newTime) async {
-    await firestore.collection('orders').doc(id.toString()).update({
+  Future<void> changeStatusOnTheWay(PedidoModel pedido, String newTime) async {
+    await firestore.collection('orders').doc(pedido.id.toString()).update({
       'status': 'a caminho',
-      'timeFinished': newTime,
+      'timePath': newTime,
     });
   }
 }

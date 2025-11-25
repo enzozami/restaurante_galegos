@@ -6,6 +6,8 @@ import 'package:restaurante_galegos/app/core/service/orders_state.dart';
 import 'package:restaurante_galegos/app/core/service/products_service.dart';
 import 'package:restaurante_galegos/app/modules/history/history_controller.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
+import 'package:restaurante_galegos/app/modules/order/all_orders/all_orders_controller.dart';
+import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_controller.dart';
 import 'package:restaurante_galegos/app/modules/order/order_finished/order_finished_controller.dart';
 import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_controller.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
@@ -40,6 +42,9 @@ class HomeBindings implements Bindings {
       () => ProductsServicesImpl(productsRepository: Get.find<ProductsRepository>()),
     );
 
+    Get.lazyPut(() => AllOrdersController(ordersState: Get.find<OrdersState>()));
+    Get.lazyPut(() => ForDeliveryController(ordersState: Get.find<OrdersState>()));
+
     Get.lazyPut<LunchboxesRepository>(() => LunchboxesRepositoryImpl());
     Get.lazyPut<LunchboxesServices>(
       () => LunchboxesServicesImpl(lunchboxesRepository: Get.find<LunchboxesRepository>()),
@@ -73,7 +78,7 @@ class HomeBindings implements Bindings {
       ),
     );
 
-    Get.lazyPut(() => OrderFinishedController(ordersState: Get.find<OrdersState>()));
+    Get.lazyPut(() => OrderFinishedController());
 
     Get.lazyPut(() => OrdersState(orderServices: Get.find<OrderServices>()));
     Get.lazyPut(() => ProductsService(itemsServices: Get.find<ProductsServices>()));

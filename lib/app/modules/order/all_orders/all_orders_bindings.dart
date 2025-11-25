@@ -13,9 +13,12 @@ class AllOrdersBindings implements Bindings {
     Get.lazyPut<OrderServices>(
       () => OrderServicesImpl(orderRepository: Get.find<OrderReposiroty>()),
     );
+    Get.lazyPut<OrdersState>(() => OrdersState(orderServices: Get.find<OrderServices>()));
 
     await Get.putAsync(() async => OrdersState(orderServices: Get.find<OrderServices>()).init());
 
-    Get.put(AllOrdersController(ordersState: Get.find<OrdersState>()));
+    Get.lazyPut<AllOrdersController>(
+      () => AllOrdersController(ordersState: Get.find<OrdersState>()),
+    );
   }
 }
