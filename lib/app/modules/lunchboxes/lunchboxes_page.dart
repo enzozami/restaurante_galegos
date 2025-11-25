@@ -84,11 +84,11 @@ class _LunchboxesPageState
                                 ),
                               ),
                               IconButton(
+                                onPressed: () => Get.back(),
                                 icon: Icon(
                                   Icons.close,
                                   color: GalegosUiDefaut.colorScheme.secondary,
                                 ),
-                                onPressed: () => Get.back(),
                               ),
                             ],
                           ),

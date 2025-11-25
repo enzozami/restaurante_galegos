@@ -204,7 +204,7 @@ class _ProductsPageState extends GalegosState<ProductsPage, ProductsController> 
               label: Text('Adicionar'),
             )
           : null,
-      body: RefreshIndicator.noSpinner(
+      body: RefreshIndicator(
         onRefresh: controller.refreshProducts,
         child: SingleChildScrollView(
           controller: controller.scrollController,

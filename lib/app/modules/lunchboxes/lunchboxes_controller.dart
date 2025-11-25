@@ -19,6 +19,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   // --- ESTADO REATIVO CENTRALIZADO ---
   final _loading = false.obs;
+  bool get loading => _loading.value;
   final _message = Rxn<MessageModel>();
   final isProcessing = false.obs;
 
