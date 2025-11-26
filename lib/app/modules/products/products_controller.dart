@@ -192,4 +192,11 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   }
 
   Future<void> deletarProd(ProductModel item) => _productsService.deletarProduct(item);
+  Future<void> atualizarDados(
+    int id,
+    String newCategoryId,
+    String newDescription,
+    String newName,
+    double newPrice,
+  ) => _productsService.updateData(id, newCategoryId, newDescription, newName, newPrice);
 }

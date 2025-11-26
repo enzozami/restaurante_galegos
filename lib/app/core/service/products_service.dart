@@ -59,4 +59,11 @@ class ProductsService extends GetxService {
   }
 
   Future<void> deletarProduct(ProductModel item) => _itemsServices.deletarProdutos(item);
+  Future<void> updateData(
+    int id,
+    String newCategoryId,
+    String newDescription,
+    String newName,
+    double newPrice,
+  ) => _itemsServices.atualizarDados(id, newCategoryId, newDescription, newName, newPrice);
 }

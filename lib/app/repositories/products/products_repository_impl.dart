@@ -88,4 +88,25 @@ class ProductsRepositoryImpl implements ProductsRepository {
       throw Exception('Erro ao deletar produto');
     }
   }
+
+  @override
+  Future<void> atualizarDados(
+    int id,
+    String newCategoryId,
+    String newDescription,
+    String newName,
+    double newPrice,
+  ) async {
+    try {
+      await firestore.collection('products').doc(id.toString()).update({
+        'categoryId': newCategoryId,
+        'description': newDescription,
+        'name': newName,
+        'price': newPrice,
+      });
+    } catch (e, s) {
+      log('Erro ao atualizar dados do produto', error: e, stackTrace: s);
+      throw Exception('Erro ao atualizar dados do produto');
+    }
+  }
 }

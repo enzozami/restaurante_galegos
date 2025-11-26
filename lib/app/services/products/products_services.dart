@@ -7,4 +7,11 @@ abstract interface class ProductsServices {
   Future<void> updateTemHoje(int id, ProductModel item, bool novoValor);
   Future<ProductModel> cadastrarProdutos(ProductModel item);
   Future<void> deletarProdutos(ProductModel item);
+  Future<void> atualizarDados(
+    int id,
+    String newCategoryId,
+    String newDescription,
+    String newName,
+    double newPrice,
+  );
 }
