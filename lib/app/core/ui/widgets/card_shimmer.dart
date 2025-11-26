@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class Robson extends StatelessWidget {
-  const Robson({super.key});
+class CardShimmer extends StatelessWidget {
+  const CardShimmer({super.key});
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
