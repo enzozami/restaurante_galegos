@@ -236,16 +236,32 @@ class _ProductsAdmin extends StatelessWidget {
                               showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return AlertProductsLunchboxesAdm(
-                                    title: 'ATENÇÃO',
-                                    body: e.temHoje
-                                        ? 'Deseja desabilitar esse produto?'
-                                        : 'Deseja habilitar esse produto?',
-                                    onPressed: () async {
-                                      controller.updateListItems(e.id, e);
-                                      Get.back();
-                                    },
-                                  );
+                                  return Obx(() {
+                                    return AlertProductsLunchboxesAdm(
+                                      category: e.categoryId,
+                                      nameProduct: e.name,
+                                      description: e.description ?? '',
+                                      price: FormatterHelper.formatCurrency(e.price),
+                                      // title: 'ATENÇÃO',
+                                      // body: e.temHoje
+                                      //     ? 'Deseja desabilitar esse produto?'
+                                      //     : 'Deseja habilitar esse produto?',
+                                      onPressedEdit: () async {
+                                        controller.editValue();
+                                      },
+                                      onPressed: () {
+                                        controller.updateListItems(e.id, e);
+                                        Get.back();
+                                      },
+                                      isEditing: controller.isEditing,
+                                      onChanged: (value) async {
+                                        e.temHoje = value;
+                                        await controller.updateListItems(e.id, e);
+                                        await controller.refreshProducts();
+                                      },
+                                      temHoje: e.temHoje,
+                                    );
+                                  });
                                 },
                               );
                             },

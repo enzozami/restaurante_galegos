@@ -36,6 +36,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final _quantity = 1.obs;
   final _alreadyAdded = false.obs;
   final _totalPrice = 0.0.obs;
+  final _isEditing = false.obs;
 
   // --- GETTERS ---
   ProductModel? get selectedItem => itemSelect.value;
@@ -43,6 +44,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   bool get alreadyAdded => _alreadyAdded.value;
   double get totalPrice => _totalPrice.value;
   CarrinhoServices get carrinhoServices => _carrinhoServices;
+  bool get isEditing => _isEditing.value;
 
   RxList<ProductModel> get items => _productsServices.items;
   RxList<CategoryModel> get category => _productsServices.categories;
@@ -199,4 +201,8 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     String newName,
     double newPrice,
   ) => _productsServices.atualizarDados(id, newCategoryId, newDescription, newName, newPrice);
+
+  bool editValue() {
+    return _isEditing.value = !_isEditing.value;
+  }
 }

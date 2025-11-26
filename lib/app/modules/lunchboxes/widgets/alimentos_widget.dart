@@ -189,14 +189,22 @@ class _FoodsAdmin extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           return AlertProductsLunchboxesAdm(
-                            title: 'ATENÇÃO',
-                            body: alimento.temHoje
-                                ? 'Deseja desabilitar esse produto?'
-                                : 'Deseja habilitar esse produto?',
+                            category: '',
+                            nameProduct: alimento.name,
+                            description: alimento.description,
+                            price: '',
+                            // title: 'ATENÇÃO',
+                            // body: alimento.temHoje
+                            //     ? 'Deseja desabilitar esse produto?'
+                            //     : 'Deseja habilitar esse produto?',
                             onPressed: () async {
                               controller.updateListFoods(alimento.id, alimento);
                               Get.back();
                             },
+                            isEditing: false,
+                            onPressedEdit: () {},
+                            onChanged: (_) {},
+                            temHoje: alimento.temHoje,
                           );
                         },
                       );
