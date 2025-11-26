@@ -32,7 +32,7 @@ class ProductsServicesImpl extends GetxService implements ProductsServices {
     final novoValor = !item.temHoje;
     await _productsRepository.updateTemHoje(id, item, novoValor);
 
-    final index = items.indexWhere((e) => e.id == item.id);
+    final index = _items.indexWhere((e) => e.id == item.id);
     if (index != -1) {
       _items.value[index] = items[index].copyWith(temHoje: novoValor);
     }

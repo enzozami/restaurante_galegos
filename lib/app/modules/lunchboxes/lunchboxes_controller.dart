@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/core/service/food_service.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/models/time_model.dart';
@@ -14,7 +13,7 @@ import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart
 class LunchboxesController extends GetxController with LoaderMixin, MessagesMixin {
   final LunchboxesServices _lunchboxesServices;
   final CarrinhoServices _carrinhoServices;
-  final FoodService _foodService;
+  final LunchboxesServices _foodService;
   final AuthServices _authServices;
 
   // --- ESTADO REATIVO CENTRALIZADO ---
@@ -51,7 +50,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   LunchboxesController({
     required LunchboxesServices lunchboxesServices,
     required CarrinhoServices carrinhoServices,
-    required FoodService foodService,
+    required LunchboxesServices foodService,
     required AuthServices authServices,
   }) : _lunchboxesServices = lunchboxesServices,
        _carrinhoServices = carrinhoServices,
@@ -94,7 +93,10 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       return;
     }
     log("DEBUG: função de salvar foi chamada");
-    _foodService.cadastrarM(name, addDays, description, {'mini': priceMini, 'media': priceMedia});
+    _foodService.cadastrarMarmita(name, addDays, description, {
+      'mini': priceMini,
+      'media': priceMedia,
+    });
     log(" função de salvar foi chamada");
   }
 
@@ -210,5 +212,5 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     }
   }
 
-  Future<void> deletarMarmita(FoodModel food) => _foodService.deletarLunch(food);
+  Future<void> deletarMarmita(FoodModel food) => _foodService.deletarMarmita(food);
 }
