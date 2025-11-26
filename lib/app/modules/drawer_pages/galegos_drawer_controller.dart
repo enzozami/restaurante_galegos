@@ -4,15 +4,15 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/services/about_us/about_us_services.dart';
+import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 import 'package:restaurante_galegos/app/services/time/time_services.dart';
 
 class GalegosDrawerController extends GetxController with LoaderMixin, MessagesMixin {
-  final AuthService _authService;
+  final AuthServices _authServices;
   final OrderServices _orderServices;
   final AboutUsServices _aboutUsServices;
   final TimeServices _timeServices;
@@ -59,11 +59,11 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   final history = <PedidoModel>[].obs;
 
   GalegosDrawerController({
-    required AuthService authService,
+    required AuthServices authServices,
     required AboutUsServices aboutUsServices,
     required TimeServices timeServices,
     required OrderServices orderServices,
-  }) : _authService = authService,
+  }) : _authServices = authServices,
        _aboutUsServices = aboutUsServices,
        _timeServices = timeServices,
        _orderServices = orderServices;
@@ -96,7 +96,7 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   }
 
   Future<void> getUser() async {
-    final userId = _authService.getUserId();
+    final userId = _authServices.getUserId();
     if (userId != null) {
       // _name.value = userData.name;
       // _password.value = userData.password;
@@ -105,7 +105,7 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   }
 
   Future<void> updateUser(String? name, String? password) async {
-    final userId = _authService.getUserId();
+    final userId = _authServices.getUserId();
     if (userId != null) {
       log(name ?? 'nome nao digitado');
       log(password ?? 'senha nao digitada');
@@ -159,7 +159,7 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   Future<void> getHistory() async {
     _loading(true);
     try {
-      final userId = _authService.getUserId();
+      final userId = _authServices.getUserId();
       if (userId != null) {
         final historyData = await _orderServices.getOrder();
         final items = historyData.where((e) => e.userId == userId);

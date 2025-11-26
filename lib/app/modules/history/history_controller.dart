@@ -5,18 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/service/orders_state.dart';
+import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 
 class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
-  final AuthService _authService;
+  final AuthServices _authServices;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   late final Stream<QuerySnapshot<Map<String, dynamic>>> allOrders;
 
   final ScrollController scrollController = ScrollController();
 
-  HistoryController({required AuthService authService, required OrdersState ordersState})
-    : _authService = authService;
+  HistoryController({required AuthServices authServices, required OrdersState ordersState})
+    : _authServices = authServices;
 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
@@ -29,7 +29,7 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
 
     allOrders = firestore
         .collection('orders')
-        .where('userId', isEqualTo: _authService.getUserId())
+        .where('userId', isEqualTo: _authServices.getUserId())
         .orderBy('date', descending: true)
         .snapshots();
   }

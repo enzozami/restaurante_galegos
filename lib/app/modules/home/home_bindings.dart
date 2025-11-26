@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/rest_client/via_cep_service.dart';
-import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/service/food_service.dart';
 import 'package:restaurante_galegos/app/core/service/orders_state.dart';
 import 'package:restaurante_galegos/app/modules/history/history_controller.dart';
@@ -20,6 +19,7 @@ import 'package:restaurante_galegos/app/repositories/order/order_reposiroty.dart
 import 'package:restaurante_galegos/app/repositories/order/order_reposiroty_impl.dart';
 import 'package:restaurante_galegos/app/repositories/time/time_repository.dart';
 import 'package:restaurante_galegos/app/repositories/time/time_repository_impl.dart';
+import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/cep/cep_services.dart';
 import 'package:restaurante_galegos/app/services/cep/cep_services_impl.dart';
 import 'package:restaurante_galegos/app/services/products/products_services.dart';
@@ -53,7 +53,7 @@ class HomeBindings implements Bindings {
         lunchboxesServices: Get.find<LunchboxesServices>(),
         carrinhoServices: Get.find<CarrinhoServices>(),
         foodService: Get.find<FoodService>(),
-        authService: Get.find<AuthService>(),
+        authServices: Get.find<AuthServices>(),
       ),
     );
 
@@ -71,7 +71,7 @@ class HomeBindings implements Bindings {
       () => ShoppingCardController(
         orderServices: Get.find<OrderServices>(),
         carrinhoServices: Get.find<CarrinhoServices>(),
-        authService: Get.find<AuthService>(),
+        authServices: Get.find<AuthServices>(),
         cepServices: Get.find<CepServices>(),
         ordersState: Get.find<OrdersState>(),
       ),
@@ -92,7 +92,7 @@ class HomeBindings implements Bindings {
 
     Get.lazyPut(
       () => ProductsController(
-        authService: Get.find<AuthService>(),
+        authService: Get.find<AuthServices>(),
         carrinhoServices: Get.find<CarrinhoServices>(),
         productsServices: Get.find<ProductsServices>(),
       ),
@@ -101,7 +101,7 @@ class HomeBindings implements Bindings {
 
     Get.lazyPut(
       () => HistoryController(
-        authService: Get.find<AuthService>(),
+        authServices: Get.find<AuthServices>(),
         ordersState: Get.find<OrdersState>(),
       ),
     );
@@ -109,7 +109,7 @@ class HomeBindings implements Bindings {
     Get.lazyPut<HomeController>(
       () => HomeController(
         carrinhoServices: Get.find<CarrinhoServices>(),
-        authService: Get.find<AuthService>(),
+        authServices: Get.find<AuthServices>(),
       ),
     );
   }

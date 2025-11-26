@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:restaurante_galegos/app/repositories/auth/auth_repository.dart';
+import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
+import 'package:restaurante_galegos/app/services/auth/auth_services_impl.dart';
 
-class GalegosDrawer extends GetView<AuthService> {
+class GalegosDrawer extends GetView<AuthServices> {
   const GalegosDrawer({super.key});
 
   @override
@@ -41,7 +43,10 @@ class GalegosDrawer extends GetView<AuthService> {
               Get.toNamed('/about_us');
             },
           ),
-          ButtonDrawer(title: 'Sair', onTap: AuthService().logout),
+          ButtonDrawer(
+            title: 'Sair',
+            onTap: AuthServicesImpl(authRepository: Get.find<AuthRepository>()).logout,
+          ),
         ],
       ),
     );

@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/service/food_service.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/models/time_model.dart';
+import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
@@ -15,7 +15,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   final LunchboxesServices _lunchboxesServices;
   final CarrinhoServices _carrinhoServices;
   final FoodService _foodService;
-  final AuthService _authService;
+  final AuthServices _authServices;
 
   // --- ESTADO REATIVO CENTRALIZADO ---
   final _loading = false.obs;
@@ -52,13 +52,13 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     required LunchboxesServices lunchboxesServices,
     required CarrinhoServices carrinhoServices,
     required FoodService foodService,
-    required AuthService authService,
+    required AuthServices authServices,
   }) : _lunchboxesServices = lunchboxesServices,
        _carrinhoServices = carrinhoServices,
        _foodService = foodService,
-       _authService = authService;
+       _authServices = authServices;
 
-  bool get admin => _authService.isAdmin();
+  bool get admin => _authServices.isAdmin();
   void updateListFoods(int id, FoodModel food) => _foodService.updateTemHoje(id, food);
 
   final RxList<String> addDays = <String>[].obs;

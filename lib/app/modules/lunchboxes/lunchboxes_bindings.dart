@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/service/food_service.dart';
 import 'package:restaurante_galegos/app/repositories/lunchboxes/lunchboxes_repository.dart';
 import 'package:restaurante_galegos/app/repositories/lunchboxes/lunchboxes_repository_impl.dart';
+import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services_impl.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
@@ -28,7 +28,7 @@ class LunchboxesBindings implements Bindings {
         lunchboxesServices: Get.find<LunchboxesServices>(),
         carrinhoServices: Get.find<CarrinhoServices>(),
         foodService: Get.find<FoodService>(),
-        authService: Get.find<AuthService>(),
+        authServices: Get.find<AuthServices>(),
       ),
     );
   }

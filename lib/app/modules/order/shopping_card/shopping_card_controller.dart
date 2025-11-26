@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/core/service/orders_state.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
@@ -12,6 +11,7 @@ import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 import 'package:restaurante_galegos/app/models/cep_model.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/modules/home/home_controller.dart';
+import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/cep/cep_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
@@ -19,7 +19,7 @@ import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart
 class ShoppingCardController extends GetxController with LoaderMixin, MessagesMixin {
   final OrderServices _orderServices;
   final OrdersState _ordersState;
-  final AuthService _authService;
+  final AuthServices _authServices;
   final CepServices _cepServices;
 
   final cepEC = TextEditingController();
@@ -65,11 +65,11 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   ShoppingCardController({
     required OrderServices orderServices,
     required OrdersState ordersState,
-    required AuthService authService,
+    required AuthServices authServices,
     required CarrinhoServices carrinhoServices,
     required CepServices cepServices,
   }) : _orderServices = orderServices,
-       _authService = authService,
+       _authServices = authServices,
        _carrinhoServices = carrinhoServices,
        _cepServices = cepServices,
        _ordersState = ordersState;
@@ -157,9 +157,9 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   Future<bool> createOrder({required String address, required String numero}) async {
     try {
       _loading(true);
-      final user = _authService.getUserId();
-      final name = _authService.getUserName();
-      final cpfOrCnpj = _authService.getUserCPFORCNPJ();
+      final user = _authServices.getUserId();
+      final name = _authServices.getUserName();
+      final cpfOrCnpj = _authServices.getUserCPFORCNPJ();
 
       final id = await _orderServices.generateSequentialOrderId();
 

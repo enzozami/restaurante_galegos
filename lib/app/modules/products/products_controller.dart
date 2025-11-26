@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/core/service/auth_service.dart';
 import 'package:restaurante_galegos/app/models/category_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
+import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/products/products_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
 class ProductsController extends GetxController with LoaderMixin, MessagesMixin {
   // --- 2. SERVIÇOS (Dependências Injetadas) ---
-  final AuthService _authService;
+  final AuthServices _authService;
   final CarrinhoServices _carrinhoServices;
   final ProductsServices _productsServices;
 
@@ -49,7 +49,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   // --- Construtor ---
   ProductsController({
-    required AuthService authService,
+    required AuthServices authService,
     required CarrinhoServices carrinhoServices,
     required ProductsServices productsServices,
   }) : _carrinhoServices = carrinhoServices,
