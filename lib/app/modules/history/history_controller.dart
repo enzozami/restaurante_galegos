@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/core/service/orders_state.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
+import 'package:restaurante_galegos/app/services/order/order_services.dart';
 
 class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
   final AuthServices _authServices;
@@ -15,7 +15,7 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
 
   final ScrollController scrollController = ScrollController();
 
-  HistoryController({required AuthServices authServices, required OrdersState ordersState})
+  HistoryController({required AuthServices authServices, required OrderServices ordersState})
     : _authServices = authServices;
 
   final _loading = false.obs;

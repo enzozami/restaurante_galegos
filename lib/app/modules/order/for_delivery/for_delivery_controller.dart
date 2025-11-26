@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/core/service/orders_state.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
+import 'package:restaurante_galegos/app/services/order/order_services.dart';
 
 class ForDeliveryController extends GetxController with LoaderMixin, MessagesMixin {
-  final OrdersState _ordersState;
+  final OrderServices _ordersState;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   late final Stream<QuerySnapshot<Map<String, dynamic>>> listOrders;
 
@@ -16,7 +16,7 @@ class ForDeliveryController extends GetxController with LoaderMixin, MessagesMix
 
   final status = Rxn<String>(Get.arguments);
 
-  ForDeliveryController({required OrdersState ordersState}) : _ordersState = ordersState;
+  ForDeliveryController({required OrderServices ordersState}) : _ordersState = ordersState;
 
   @override
   void onInit() {
@@ -29,6 +29,6 @@ class ForDeliveryController extends GetxController with LoaderMixin, MessagesMix
 
   void orderFinished(PedidoModel pedido) async {
     final newTime = FormatterHelper.formatDateAndTime();
-    _ordersState.updateEntregue(pedido, newTime);
+    _ordersState.changeStatusFinished(pedido, newTime);
   }
 }
