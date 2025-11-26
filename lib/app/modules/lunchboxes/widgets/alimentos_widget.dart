@@ -168,53 +168,67 @@ class _FoodsAdmin extends StatelessWidget {
               Card(
                 elevation: 2,
                 color: GalegosUiDefaut.theme.cardTheme.color,
-                child: InkWell(
-                  splashColor: GalegosUiDefaut.theme.splashColor,
-                  onTap: () {
-                    controller.setFoodSelected(alimento, selectedSize);
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertProductsLunchboxesAdm(
-                          title: 'ATENÇÃO',
-                          body: alimento.temHoje
-                              ? 'Deseja desabilitar esse produto?'
-                              : 'Deseja habilitar esse produto?',
-                          onPressed: () async {
-                            controller.updateListFoods(alimento.id, alimento);
-                            Get.back();
-                          },
-                        );
-                      },
-                    );
+                child: Dismissible(
+                  background: Container(
+                    color: GalegosUiDefaut.colorScheme.error,
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.all(15),
+                    child: Icon(Icons.delete, color: Colors.white),
+                  ),
+                  direction: DismissDirection.endToStart,
+                  onDismissed: (_) {
+                    controller.deletarMarmita(alimento);
+                    controller.refreshLunchboxes();
                   },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ListTile(
-                        leading: alimento.temHoje
-                            ? Text('Ativo', style: TextStyle(color: Colors.green))
-                            : Text(
-                                'Inativo',
-                                style: TextStyle(color: GalegosUiDefaut.colorScheme.error),
-                              ),
-                        title: Text(
-                          alimento.name,
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  key: ValueKey(alimento.id),
+                  child: InkWell(
+                    splashColor: GalegosUiDefaut.theme.splashColor,
+                    onTap: () {
+                      controller.setFoodSelected(alimento, selectedSize);
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertProductsLunchboxesAdm(
+                            title: 'ATENÇÃO',
+                            body: alimento.temHoje
+                                ? 'Deseja desabilitar esse produto?'
+                                : 'Deseja habilitar esse produto?',
+                            onPressed: () async {
+                              controller.updateListFoods(alimento.id, alimento);
+                              Get.back();
+                            },
+                          );
+                        },
+                      );
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ListTile(
+                          leading: alimento.temHoje
+                              ? Text('Ativo', style: TextStyle(color: Colors.green))
+                              : Text(
+                                  'Inativo',
+                                  style: TextStyle(color: GalegosUiDefaut.colorScheme.error),
+                                ),
+                          title: Text(
+                            alimento.name,
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                          subtitle: Text(alimento.description),
+                          trailing: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (price != null)
+                                Text(
+                                  FormatterHelper.formatCurrency(price),
+                                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                                ),
+                            ],
+                          ),
                         ),
-                        subtitle: Text(alimento.description),
-                        trailing: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            if (price != null)
-                              Text(
-                                FormatterHelper.formatCurrency(price),
-                                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                              ),
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

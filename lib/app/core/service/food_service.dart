@@ -62,4 +62,6 @@ class FoodService extends GetxService {
     final result = await _timeServices.getTime();
     times.value = result;
   }
+
+  Future<void> deletarLunch(FoodModel food) => _lunchboxesServices.deletarMarmita(food);
 }

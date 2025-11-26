@@ -8,7 +8,7 @@ class LunchboxesServicesImpl implements LunchboxesServices {
   final LunchboxesRepository _lunchboxesRepository;
 
   LunchboxesServicesImpl({required LunchboxesRepository lunchboxesRepository})
-      : _lunchboxesRepository = lunchboxesRepository;
+    : _lunchboxesRepository = lunchboxesRepository;
 
   @override
   Future<List<FoodModel>> getFood() => _lunchboxesRepository.getFood();
@@ -23,4 +23,7 @@ class LunchboxesServicesImpl implements LunchboxesServices {
   @override
   Future<FoodModel> cadastrarMarmita(FoodModel food) =>
       _lunchboxesRepository.cadastrarMarmita(food);
+
+  @override
+  Future<void> deletarMarmita(FoodModel food) => _lunchboxesRepository.deletarMarmita(food);
 }

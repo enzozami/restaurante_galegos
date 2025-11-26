@@ -209,4 +209,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       );
     }
   }
+
+  Future<void> deletarMarmita(FoodModel food) => _foodService.deletarLunch(food);
 }
