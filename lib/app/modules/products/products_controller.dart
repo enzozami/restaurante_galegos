@@ -6,16 +6,16 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/service/auth_service.dart';
-import 'package:restaurante_galegos/app/core/service/products_service.dart';
 import 'package:restaurante_galegos/app/models/category_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
+import 'package:restaurante_galegos/app/services/products/products_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
 class ProductsController extends GetxController with LoaderMixin, MessagesMixin {
   // --- 2. SERVIÇOS (Dependências Injetadas) ---
   final AuthService _authService;
   final CarrinhoServices _carrinhoServices;
-  final ProductsService _productsService;
+  final ProductsServices _productsServices;
 
   ScrollController scrollController = ScrollController();
 
@@ -44,28 +44,28 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   double get totalPrice => _totalPrice.value;
   CarrinhoServices get carrinhoServices => _carrinhoServices;
 
-  RxList<ProductModel> get items => _productsService.items;
-  RxList<CategoryModel> get category => _productsService.categories;
+  RxList<ProductModel> get items => _productsServices.items;
+  RxList<CategoryModel> get category => _productsServices.categories;
 
   // --- Construtor ---
   ProductsController({
     required AuthService authService,
     required CarrinhoServices carrinhoServices,
-    required ProductsService productsService,
+    required ProductsServices productsServices,
   }) : _carrinhoServices = carrinhoServices,
        _authService = authService,
-       _productsService = productsService;
+       _productsServices = productsServices;
 
   bool get admin => _authService.isAdmin();
   Future<void> updateListItems(int id, ProductModel item) async {
-    await _productsService.updateTemHoje(id, item);
+    await _productsServices.updateTemHoje(id, item);
   }
 
-  void cadastrar(String name, double price, String? description) {
+  void addProduct(String name, double price, String? description) {
     if (categoryId.value != null) {
       final category = categoryId.value!;
 
-      _productsService.cadastrarProduto(category, name, price, description);
+      _productsServices.cadastrarProdutos(category, name, price, description);
     }
   }
 
@@ -91,7 +91,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   Future<void> _fetchProductsAndItems() async {
     try {
       _loading(true);
-      await _productsService.init();
+      await _productsServices.init();
 
       // itemsFiltrados.assignAll(items);
     } catch (e, s) {
@@ -191,12 +191,12 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
   }
 
-  Future<void> deletarProd(ProductModel item) => _productsService.deletarProduct(item);
-  Future<void> atualizarDados(
+  Future<void> deletarProd(ProductModel item) => _productsServices.deletarProdutos(item);
+  Future<void> updateData(
     int id,
     String newCategoryId,
     String newDescription,
     String newName,
     double newPrice,
-  ) => _productsService.updateData(id, newCategoryId, newDescription, newName, newPrice);
+  ) => _productsServices.atualizarDados(id, newCategoryId, newDescription, newName, newPrice);
 }
