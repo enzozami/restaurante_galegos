@@ -7,7 +7,6 @@ import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_default.dar
 import 'package:restaurante_galegos/app/core/ui/widgets/alert_products_lunchboxes_adm.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/card_items.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
-import 'package:restaurante_galegos/app/models/category_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
 
@@ -18,27 +17,22 @@ class ProductItems extends GetView<ProductsController> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-      child: Obx(() {
-        final category = controller.category;
-        final items = controller.items;
-
-        return controller.admin
-            ? _ProductsAdmin(category: category, controller: controller, items: items)
-            : _ProductsClient(category: category, controller: controller, items: items);
-      }),
+      child: controller.admin
+          ? _ProductsAdmin(controller: controller)
+          : _ProductsClient(controller: controller),
     );
   }
 }
 
 class _ProductsClient extends StatelessWidget {
-  const _ProductsClient({required this.category, required this.controller, required this.items});
+  const _ProductsClient({required this.controller});
 
-  final RxList<CategoryModel> category;
   final ProductsController controller;
-  final RxList<ProductModel> items;
 
   @override
   Widget build(BuildContext context) {
+    final category = controller.category;
+    final items = controller.items;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: category.map((c) {
@@ -174,14 +168,14 @@ class _ProductsClient extends StatelessWidget {
 }
 
 class _ProductsAdmin extends StatelessWidget {
-  const _ProductsAdmin({required this.category, required this.controller, required this.items});
+  const _ProductsAdmin({required this.controller});
 
-  final RxList<CategoryModel> category;
   final ProductsController controller;
-  final RxList<ProductModel> items;
 
   @override
   Widget build(BuildContext context) {
+    final category = controller.category;
+    final items = controller.items;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: category.map((c) {
@@ -210,20 +204,30 @@ class _ProductsAdmin extends StatelessWidget {
               padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 16.0),
               child: Text(c.name, style: GalegosUiDefaut.theme.textTheme.titleLarge),
             ),
-            Card(
-              elevation: 5,
-              color: GalegosUiDefaut.theme.cardTheme.color,
-              margin: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Container(
-                constraints: const BoxConstraints(minHeight: 100),
-                width: context.width,
-                child: Column(
-                  children: filtered
-                      .where((e) => e.categoryId == c.name)
-                      .map(
-                        (e) => Card(
-                          elevation: 2,
-                          color: GalegosUiDefaut.theme.cardTheme.color,
+            Container(
+              constraints: const BoxConstraints(minHeight: 100),
+              width: context.width,
+              child: Column(
+                children: filtered
+                    .where((e) => e.categoryId == c.name)
+                    .map(
+                      (e) => Card(
+                        elevation: 2,
+                        color: GalegosUiDefaut.theme.cardTheme.color,
+                        clipBehavior: Clip.hardEdge,
+                        child: Dismissible(
+                          background: Container(
+                            color: GalegosUiDefaut.colorScheme.error,
+                            alignment: Alignment.centerRight,
+                            padding: EdgeInsets.all(15),
+                            child: Icon(Icons.delete, color: Colors.white),
+                          ),
+                          direction: DismissDirection.endToStart,
+                          key: ValueKey(e.id),
+                          onDismissed: (_) {
+                            controller.deletarProd(e);
+                            controller.refreshProducts();
+                          },
                           child: InkWell(
                             splashColor: GalegosUiDefaut.theme.splashColor,
                             borderRadius: BorderRadius.circular(8),
@@ -270,9 +274,9 @@ class _ProductsAdmin extends StatelessWidget {
                             ),
                           ),
                         ),
-                      )
-                      .toList(),
-                ),
+                      ),
+                    )
+                    .toList(),
               ),
             ),
             const SizedBox(height: 45),

@@ -6,4 +6,5 @@ abstract interface class ProductsServices {
   Future<List<ProductModel>> getProducts();
   Future<void> updateTemHoje(int id, ProductModel item, bool novoValor);
   Future<ProductModel> cadastrarProdutos(ProductModel item);
+  Future<void> deletarProdutos(ProductModel item);
 }

@@ -190,4 +190,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       );
     }
   }
+
+  Future<void> deletarProd(ProductModel item) => _productsService.deletarProduct(item);
 }

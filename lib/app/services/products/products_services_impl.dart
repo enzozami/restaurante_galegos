@@ -23,4 +23,7 @@ class ProductsServicesImpl implements ProductsServices {
   @override
   Future<ProductModel> cadastrarProdutos(ProductModel item) =>
       _productsRepository.cadastrarProdutos(item);
+
+  @override
+  Future<void> deletarProdutos(ProductModel item) => _productsRepository.deletarProdutos(item);
 }

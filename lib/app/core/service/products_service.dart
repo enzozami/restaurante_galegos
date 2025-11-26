@@ -57,4 +57,6 @@ class ProductsService extends GetxService {
     _itemsServices.cadastrarProdutos(produto);
     refreshItens();
   }
+
+  Future<void> deletarProduct(ProductModel item) => _itemsServices.deletarProdutos(item);
 }

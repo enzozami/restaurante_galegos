@@ -78,4 +78,14 @@ class ProductsRepositoryImpl implements ProductsRepository {
       throw Exception('Erro ao cadastrar produto');
     }
   }
+
+  @override
+  Future<void> deletarProdutos(ProductModel item) async {
+    try {
+      await firestore.collection('products').doc(item.id.toString()).delete();
+    } catch (e, s) {
+      log('Erro ao cadastrar produto', error: e, stackTrace: s);
+      throw Exception('Erro ao deletar produto');
+    }
+  }
 }
