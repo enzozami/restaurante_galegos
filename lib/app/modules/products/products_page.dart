@@ -225,6 +225,7 @@ class _FloatingActionButtonAdmin extends StatelessWidget {
                         final description = descricaoEC.text;
                         controller.addProduct(name, double.parse(price), description);
                       }
+                      controller.refreshProducts();
                       Get.back();
                     },
                     child: Text('Cadastrar'),

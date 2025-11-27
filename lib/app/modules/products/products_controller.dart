@@ -202,7 +202,5 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     double newPrice,
   ) => _productsServices.atualizarDados(id, newCategoryId, newDescription, newName, newPrice);
 
-  bool editValue() {
-    return _isEditing.value = !_isEditing.value;
-  }
+  RxBool temHoje(ProductModel p) => RxBool(p.temHoje);
 }

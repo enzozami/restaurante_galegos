@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/alert_products_lunchboxes_adm.dart';
@@ -17,9 +19,7 @@ class ProductItems extends GetView<ProductsController> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-      child: controller.admin
-          ? _ProductsAdmin(controller: controller)
-          : _ProductsClient(controller: controller),
+      child: controller.admin ? _ProductsAdmin() : _ProductsClient(controller: controller),
     );
   }
 }
@@ -167,10 +167,13 @@ class _ProductsClient extends StatelessWidget {
   }
 }
 
-class _ProductsAdmin extends StatelessWidget {
-  const _ProductsAdmin({required this.controller});
+class _ProductsAdmin extends StatefulWidget {
+  @override
+  State<_ProductsAdmin> createState() => _ProductsAdminState();
+}
 
-  final ProductsController controller;
+class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsController> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -232,36 +235,50 @@ class _ProductsAdmin extends StatelessWidget {
                             splashColor: GalegosUiDefaut.theme.splashColor,
                             borderRadius: BorderRadius.circular(8),
                             onTap: () {
+                              final number = NumberFormat('#,##0.00', 'pt_BR');
                               controller.setSelectedItem(e);
+                              final temHoje = controller.temHoje(e);
                               showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return Obx(() {
-                                    return AlertProductsLunchboxesAdm(
-                                      category: e.categoryId,
-                                      nameProduct: e.name,
-                                      description: e.description ?? '',
-                                      price: FormatterHelper.formatCurrency(e.price),
-                                      // title: 'ATENÇÃO',
-                                      // body: e.temHoje
-                                      //     ? 'Deseja desabilitar esse produto?'
-                                      //     : 'Deseja habilitar esse produto?',
-                                      onPressedEdit: () async {
-                                        controller.editValue();
-                                      },
+                                  final nameEC = TextEditingController(text: e.name);
+                                  final descriptionEC = TextEditingController(text: e.description);
+                                  final categoryEC = TextEditingController(text: e.categoryId);
+                                  final priceEC = TextEditingController(
+                                    text: number.format(e.price),
+                                  );
+                                  return Form(
+                                    key: _formKey,
+                                    child: AlertProductsLunchboxesAdm(
+                                      category: categoryEC,
+                                      nameProduct: nameEC,
+                                      description: descriptionEC,
+                                      price: priceEC,
                                       onPressed: () {
-                                        controller.updateListItems(e.id, e);
+                                        final formValid =
+                                            _formKey.currentState?.validate() ?? false;
+                                        if (formValid) {
+                                          final cleaned = priceEC.text
+                                              .replaceAll('.', '')
+                                              .replaceAll(',', '.');
+                                          controller.updateData(
+                                            e.id,
+                                            e.categoryId,
+                                            descriptionEC.text,
+                                            nameEC.text,
+                                            double.parse(cleaned),
+                                          );
+                                        }
                                         Get.back();
                                       },
-                                      isEditing: controller.isEditing,
+                                      value: temHoje,
                                       onChanged: (value) async {
-                                        e.temHoje = value;
+                                        temHoje.value = value;
                                         await controller.updateListItems(e.id, e);
                                         await controller.refreshProducts();
                                       },
-                                      temHoje: e.temHoje,
-                                    );
-                                  });
+                                    ),
+                                  );
                                 },
                               );
                             },
