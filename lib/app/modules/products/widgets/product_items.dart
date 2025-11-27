@@ -34,7 +34,7 @@ class _ProductsClient extends StatelessWidget {
     final category = controller.category;
     final items = controller.items;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: category.map((c) {
         final List<ProductModel> filtered;
         final categoriaSelecionada = controller.categorySelected.value?.name;
@@ -54,8 +54,8 @@ class _ProductsClient extends StatelessWidget {
 
         if (filtered.isEmpty) return SizedBox.shrink();
         return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: .start,
+          crossAxisAlignment: .start,
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 30.0),
@@ -65,7 +65,7 @@ class _ProductsClient extends StatelessWidget {
               constraints: const BoxConstraints(minHeight: 100),
               width: context.width,
               child: Wrap(
-                alignment: WrapAlignment.spaceAround,
+                alignment: .spaceAround,
                 children: filtered
                     .where((e) => e.categoryId == c.name)
                     .map(
@@ -227,9 +227,46 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
                           ),
                           direction: DismissDirection.endToStart,
                           key: ValueKey(e.id),
-                          onDismissed: (_) {
+                          confirmDismiss: (_) async {
+                            final confirm = await showDialog<bool>(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  backgroundColor: GalegosUiDefaut.colors['fundo'],
+                                  titlePadding: EdgeInsets.only(top: 25, bottom: 0),
+                                  contentPadding: EdgeInsets.only(top: 15, bottom: 0),
+                                  actionsPadding: EdgeInsets.symmetric(vertical: 15),
+                                  title: Text(
+                                    'ATENÇÃO',
+                                    textAlign: .center,
+                                    style: GalegosUiDefaut.theme.textTheme.titleMedium,
+                                  ),
+                                  content: Text(
+                                    'Deseja excluir esse produto?',
+                                    textAlign: .center,
+                                    style: GalegosUiDefaut.theme.textTheme.bodySmall,
+                                  ),
+                                  actionsAlignment: .center,
+                                  actions: [
+                                    ElevatedButton(
+                                      onPressed: () => Navigator.of(context).pop(false),
+                                      style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+                                      child: Text('Cancelar'),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () => Navigator.of(context).pop(true),
+                                      style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+                                      child: Text('Confirmar'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            return confirm == true;
+                          },
+                          onDismissed: (_) async {
                             controller.deletarProd(e);
-                            controller.refreshProducts();
+                            await controller.refreshProducts();
                           },
                           child: InkWell(
                             splashColor: GalegosUiDefaut.theme.splashColor,

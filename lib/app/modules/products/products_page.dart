@@ -8,39 +8,13 @@ import 'package:restaurante_galegos/app/modules/products/widgets/product_items.d
 import 'package:validatorless/validatorless.dart';
 import './products_controller.dart';
 
-class ProductsPage extends StatefulWidget {
+class ProductsPage extends GetView<ProductsController> {
   const ProductsPage({super.key});
-
-  @override
-  State<ProductsPage> createState() => _ProductsPageState();
-}
-
-class _ProductsPageState extends GalegosState<ProductsPage, ProductsController> {
-  final nomeProdutoEC = TextEditingController();
-  final descricaoEC = TextEditingController();
-  final precoEC = TextEditingController();
-  final formKey = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    super.dispose();
-    nomeProdutoEC.dispose();
-    descricaoEC.dispose();
-    precoEC.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: controller.admin
-          ? _FloatingActionButtonAdmin(
-              formKey: formKey,
-              controller: controller,
-              nomeProdutoEC: nomeProdutoEC,
-              descricaoEC: descricaoEC,
-              precoEC: precoEC,
-            )
-          : null,
+      floatingActionButton: controller.admin ? _FloatingActionButtonAdmin() : null,
       body: RefreshIndicator(
         onRefresh: controller.refreshProducts,
         child: SingleChildScrollView(
@@ -71,20 +45,27 @@ class _ProductsPageState extends GalegosState<ProductsPage, ProductsController> 
   }
 }
 
-class _FloatingActionButtonAdmin extends StatelessWidget {
-  const _FloatingActionButtonAdmin({
-    required this.formKey,
-    required this.controller,
-    required this.nomeProdutoEC,
-    required this.descricaoEC,
-    required this.precoEC,
-  });
+class _FloatingActionButtonAdmin extends StatefulWidget {
+  const _FloatingActionButtonAdmin();
 
-  final GlobalKey<FormState> formKey;
-  final ProductsController controller;
-  final TextEditingController nomeProdutoEC;
-  final TextEditingController descricaoEC;
-  final TextEditingController precoEC;
+  @override
+  State<_FloatingActionButtonAdmin> createState() => _FloatingActionButtonAdminState();
+}
+
+class _FloatingActionButtonAdminState
+    extends GalegosState<_FloatingActionButtonAdmin, ProductsController> {
+  final formKey = GlobalKey<FormState>();
+  final nomeProdutoEC = TextEditingController();
+  final descricaoEC = TextEditingController();
+  final precoEC = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    nomeProdutoEC.dispose();
+    descricaoEC.dispose();
+    precoEC.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,30 +77,19 @@ class _FloatingActionButtonAdmin extends StatelessWidget {
             return Form(
               key: formKey,
               child: AlertDialog(
-                backgroundColor: GalegosUiDefaut.colorScheme.onPrimary,
-                titlePadding: const EdgeInsets.only(top: 15, left: 24, right: 24, bottom: 0),
+                backgroundColor: GalegosUiDefaut.colors['fundo'],
+                titlePadding: const EdgeInsets.only(left: 24, right: 24, bottom: 15),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 actionsPadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 15),
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Adiciona Produto',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: GalegosUiDefaut.colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.close, color: GalegosUiDefaut.colorScheme.secondary),
-                      onPressed: () => Get.back(),
-                    ),
-                  ],
+                icon: Align(
+                  alignment: .bottomRight,
+                  child: Icon(Icons.close, color: GalegosUiDefaut.colorScheme.tertiary),
+                ),
+                title: Text(
+                  'Adiciona Produto',
+                  overflow: .ellipsis,
+                  textAlign: .center,
+                  style: GalegosUiDefaut.theme.textTheme.titleMedium,
                 ),
                 content: SingleChildScrollView(
                   child: Column(
@@ -131,26 +101,30 @@ class _FloatingActionButtonAdmin extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5),
                           decoration: InputDecoration(
                             labelText: 'Categoria',
-                            labelStyle: TextStyle(color: GalegosUiDefaut.colorScheme.primary),
+                            labelStyle: TextStyle(color: GalegosUiDefaut.colorScheme.tertiary),
                             hint: Text(
                               'Selecione',
-                              style: TextStyle(color: GalegosUiDefaut.colorScheme.primary),
+                              style: TextStyle(color: GalegosUiDefaut.colorScheme.tertiary),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide(color: GalegosUiDefaut.colorScheme.primary),
+                              borderSide: BorderSide(color: GalegosUiDefaut.colorScheme.tertiary),
                             ),
                             border: OutlineInputBorder(
-                              borderSide: BorderSide(color: GalegosUiDefaut.colorScheme.primary),
+                              borderSide: BorderSide(color: GalegosUiDefaut.colorScheme.tertiary),
                               borderRadius: BorderRadius.all(Radius.circular(5)),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(color: GalegosUiDefaut.colorScheme.tertiary),
+                            ),
                           ),
-                          style: TextStyle(color: GalegosUiDefaut.colorScheme.primary),
+                          style: TextStyle(color: GalegosUiDefaut.colorScheme.tertiary),
                           selectedItemBuilder: (context) {
                             return controller.category.map((c) {
                               return Text(
                                 c.name,
-                                style: TextStyle(color: GalegosUiDefaut.colorScheme.primary),
+                                style: TextStyle(color: GalegosUiDefaut.colorScheme.tertiary),
                               );
                             }).toList();
                           },
@@ -163,9 +137,7 @@ class _FloatingActionButtonAdmin extends StatelessWidget {
                                   value: c.name,
                                   child: Text(
                                     c.name,
-                                    style: TextStyle(
-                                      color: GalegosUiDefaut.colorScheme.onSecondary,
-                                    ),
+                                    style: TextStyle(color: GalegosUiDefaut.colorScheme.tertiary),
                                   ),
                                 ),
                               )
@@ -179,26 +151,26 @@ class _FloatingActionButtonAdmin extends StatelessWidget {
                         );
                       }),
                       GalegosTextFormField(
-                        colorText: GalegosUiDefaut.colorScheme.primary,
-                        colorBorder: GalegosUiDefaut.colorScheme.secondary,
-                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        colorText: GalegosUiDefaut.colorScheme.tertiary,
+                        colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                        floatingLabelBehavior: .auto,
                         enabled: true,
                         label: 'Nome do Produto',
                         validator: Validatorless.required('Nome inválido'),
                         controller: nomeProdutoEC,
                       ),
                       GalegosTextFormField(
-                        colorText: GalegosUiDefaut.colorScheme.primary,
-                        colorBorder: GalegosUiDefaut.colorScheme.secondary,
-                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        colorText: GalegosUiDefaut.colorScheme.tertiary,
+                        colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                        floatingLabelBehavior: .auto,
                         enabled: true,
                         label: 'Descrição',
                         controller: descricaoEC,
                       ),
                       GalegosTextFormField(
-                        colorText: GalegosUiDefaut.colorScheme.primary,
-                        colorBorder: GalegosUiDefaut.colorScheme.secondary,
-                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        colorText: GalegosUiDefaut.colorScheme.tertiary,
+                        colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                        floatingLabelBehavior: .auto,
                         enabled: true,
                         inputType: TextInputType.number,
                         prefixText: 'R\$ ',
@@ -213,10 +185,7 @@ class _FloatingActionButtonAdmin extends StatelessWidget {
                 ),
                 actions: [
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: GalegosUiDefaut.colorScheme.primary,
-                      foregroundColor: GalegosUiDefaut.colorScheme.onPrimary,
-                    ),
+                    style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
                     onPressed: () {
                       final formValid = formKey.currentState?.validate() ?? false;
                       if (formValid) {
@@ -225,6 +194,9 @@ class _FloatingActionButtonAdmin extends StatelessWidget {
                         final description = descricaoEC.text;
                         controller.addProduct(name, double.parse(price), description);
                       }
+                      nomeProdutoEC.clear();
+                      descricaoEC.clear();
+                      precoEC.clear();
                       controller.refreshProducts();
                       Get.back();
                     },

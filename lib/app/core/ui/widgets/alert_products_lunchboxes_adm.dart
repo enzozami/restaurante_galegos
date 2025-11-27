@@ -33,54 +33,57 @@ class AlertProductsLunchboxesAdm extends StatelessWidget {
       actionsPadding: const EdgeInsets.only(top: 20, left: 0, right: 20, bottom: 20),
       title: Row(mainAxisAlignment: .center, children: [sectionTitle('Editar Produto')]),
       content: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: .start,
-          crossAxisAlignment: .start,
-          spacing: 20,
-          children: [
-            GalegosTextFormField(
-              floatingLabelBehavior: .auto,
-              label: 'Nome',
-              controller: nameProduct,
-              colorBorder: GalegosUiDefaut.colorScheme.tertiary,
-            ),
-            GalegosTextFormField(
-              floatingLabelBehavior: .auto,
-              label: 'Descrição',
-              controller: description,
-              colorBorder: GalegosUiDefaut.colorScheme.tertiary,
-            ),
-            GalegosTextFormField(
-              floatingLabelBehavior: .auto,
-              label: 'Preço',
-              inputType: .number,
-              controller: price,
-              colorBorder: GalegosUiDefaut.colorScheme.tertiary,
-              prefixText: 'R\$ ',
-            ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Column(
+            mainAxisAlignment: .start,
+            crossAxisAlignment: .start,
+            spacing: 20,
+            children: [
+              GalegosTextFormField(
+                floatingLabelBehavior: .auto,
+                label: 'Nome',
+                controller: nameProduct,
+                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+              ),
+              GalegosTextFormField(
+                floatingLabelBehavior: .auto,
+                label: 'Descrição',
+                controller: description,
+                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+              ),
+              GalegosTextFormField(
+                floatingLabelBehavior: .auto,
+                label: 'Preço',
+                inputType: .number,
+                controller: price,
+                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                prefixText: 'R\$ ',
+              ),
 
-            GalegosTextFormField(
-              floatingLabelBehavior: .auto,
-              label: 'Categoria',
-              enabled: false,
-              controller: category,
-              colorBorder: GalegosUiDefaut.colorScheme.tertiary,
-            ),
-            Divider(),
-            Row(
-              mainAxisAlignment: .spaceBetween,
-              children: [
-                Text('Ativo'),
-                Obx(() {
-                  return Switch(
-                    value: value.value,
-                    onChanged: onChanged,
-                    activeThumbColor: GalegosUiDefaut.colors['primaria'],
-                  );
-                }),
-              ],
-            ),
-          ],
+              GalegosTextFormField(
+                floatingLabelBehavior: .auto,
+                label: 'Categoria',
+                enabled: false,
+                controller: category,
+                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+              ),
+              Divider(),
+              Row(
+                mainAxisAlignment: .spaceBetween,
+                children: [
+                  Text('Ativo'),
+                  Obx(() {
+                    return Switch(
+                      value: value.value,
+                      onChanged: onChanged,
+                      activeThumbColor: GalegosUiDefaut.colors['primaria'],
+                    );
+                  }),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       actions: [
