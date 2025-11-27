@@ -21,9 +21,12 @@ class ProductHeader extends GetView<ProductsController> {
               children: category
                   .map(
                     (c) => FilterTag(
-                        category: c,
-                        onPressed: () => controller.searchItemsByFilter(c),
-                        isSelected: controller.categorySelected.value?.name == c.name),
+                      category: c,
+                      onPressed: () => controller.searchItemsByFilter(c),
+                      isSelected: controller.isProcessing.value == false
+                          ? controller.categorySelected.value?.name == c.name
+                          : false,
+                    ),
                   )
                   .toList(),
             ),

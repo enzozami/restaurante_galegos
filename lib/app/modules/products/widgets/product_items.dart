@@ -19,151 +19,144 @@ class ProductItems extends GetView<ProductsController> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-      child: controller.admin ? _ProductsAdmin() : _ProductsClient(controller: controller),
+      child: controller.admin ? _ProductsAdmin() : _ProductsClient(),
     );
   }
 }
 
-class _ProductsClient extends StatelessWidget {
-  const _ProductsClient({required this.controller});
-
-  final ProductsController controller;
-
+class _ProductsClient extends GetView<ProductsController> {
+  const _ProductsClient();
+  //TODOS FAZER O QUE FIZ AQUI DO FILTRO NA PAGINA DE LOGIN
   @override
   Widget build(BuildContext context) {
-    final category = controller.category;
-    final items = controller.items;
-    return Column(
-      crossAxisAlignment: .start,
-      children: category.map((c) {
-        final List<ProductModel> filtered;
-        final categoriaSelecionada = controller.categorySelected.value?.name;
+    return Obx(() {
+      final category = controller.category;
+      final items = controller.items;
+      return Column(
+        crossAxisAlignment: .start,
+        children: category.map((c) {
+          final categoriaSelecionada = controller.categorySelected.value?.name;
 
-        if (categoriaSelecionada != null) {
-          filtered = items
-              .where(
-                (p) =>
-                    p.categoryId == c.name &&
-                    p.categoryId == (controller.categorySelected.value?.name) &&
-                    p.temHoje,
-              )
-              .toList();
-        } else {
-          filtered = items.where((p) => p.categoryId == c.name && p.temHoje).toList();
-        }
-
-        if (filtered.isEmpty) return SizedBox.shrink();
-        return Column(
-          mainAxisAlignment: .start,
-          crossAxisAlignment: .start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 30.0),
-              child: Text(c.name, style: GalegosUiDefaut.theme.textTheme.titleLarge),
-            ),
-            Container(
-              constraints: const BoxConstraints(minHeight: 100),
-              width: context.width,
-              child: Wrap(
-                alignment: .spaceAround,
-                children: filtered
-                    .where((e) => e.categoryId == c.name)
-                    .map(
-                      (e) => CardItems(
-                        width: 190,
-                        height: 310,
-                        imageHeight: 130,
-                        titulo: e.name,
-                        preco: FormatterHelper.formatCurrency(e.price),
-                        descricao: e.description,
-                        image: (e.image.isNotEmpty) ? e.image : '',
-                        onPressed: () {
-                          controller.setSelectedItem(e);
-                          final idItem = controller.carrinhoServices.getById(e.id);
-                          if (idItem == null) {
-                            controller.addItemsToCart();
-                            Get.snackbar(
-                              'Item: ${e.name}',
-                              'Item adicionado ao carrinho',
-                              snackPosition: SnackPosition.TOP,
-                              duration: Duration(seconds: 1),
-                              backgroundColor: Color(0xFFE2933C),
-                              colorText: Colors.black,
-                              isDismissible: true,
-                              overlayBlur: 0,
-                              overlayColor: Colors.transparent,
-                              barBlur: 0,
-                            );
-                          } else {
-                            controller.addProductUnit();
-                            controller.addItemsToCart();
-                          }
-
-                          log('Item clicado: ${e.name} - ${e.price}');
-                        },
-                        onTap: () {
-                          controller.setSelectedItem(e);
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialogDefault(
-                                visible: controller.quantity > 0 && controller.alreadyAdded == true,
-                                plusMinus: Obx(() {
-                                  return GalegosPlusMinus(
-                                    addCallback: controller.addProductUnit,
-                                    removeCallback: controller.removeProductUnit,
-                                    quantityUnit: controller.quantity,
-                                  );
-                                }),
-                                item: e,
-                                onPressed: () {
-                                  final idItem = controller.carrinhoServices.getById(e.id);
-
-                                  if (idItem == null) {
-                                    controller.addItemsToCart();
-                                    Get.snackbar(
-                                      'Item: ${e.name}',
-                                      'Item adicionado ao carrinho',
-                                      snackPosition: SnackPosition.TOP,
-                                      duration: Duration(seconds: 1),
-                                      backgroundColor: Color(0xFFE2933C),
-                                      colorText: Colors.black,
-                                      isDismissible: true,
-                                      overlayBlur: 0,
-                                      overlayColor: Colors.transparent,
-                                      barBlur: 0,
-                                    );
-                                    Get.close(0);
-                                    log('Item clicado: ${e.name} - ${e.price}');
-                                  } else {
-                                    controller.addItemsToCart();
-                                    Get.close(0);
-                                    log('Item clicado: ${e.name} - ${e.price}');
-                                  }
-                                },
-                                onPressedR: () {
-                                  controller.removeAllProductsUnit();
-                                  controller.addItemsToCart();
-                                },
-                              );
-                            },
-                          );
-                        },
-                        styleTitle: GalegosUiDefaut.theme.textTheme.titleMedium,
-                        styleDescricao: GalegosUiDefaut.theme.textTheme.bodyLarge,
-                        stylePreco: GalegosUiDefaut.textProduct.titleMedium,
-                        isProduct: true,
-                      ),
-                    )
-                    .toList(),
+          final List<ProductModel> filtered = items.where((p) {
+            final matchesCategory = categoriaSelecionada == null
+                ? p.categoryId == c.name
+                : p.categoryId == categoriaSelecionada && p.categoryId == c.name;
+            return matchesCategory && p.temHoje;
+          }).toList();
+          if (filtered.isEmpty) return SizedBox.shrink();
+          return Column(
+            mainAxisAlignment: .start,
+            crossAxisAlignment: .start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 30.0),
+                child: Text(c.name, style: GalegosUiDefaut.theme.textTheme.titleLarge),
               ),
-            ),
+              Container(
+                constraints: const BoxConstraints(minHeight: 100),
+                width: context.width,
+                child: Wrap(
+                  alignment: .spaceAround,
+                  children: filtered
+                      .where((e) => e.categoryId == c.name)
+                      .map(
+                        (e) => CardItems(
+                          width: 190,
+                          height: 310,
+                          imageHeight: 130,
+                          titulo: e.name,
+                          preco: FormatterHelper.formatCurrency(e.price),
+                          descricao: e.description,
+                          image: (e.image.isNotEmpty) ? e.image : '',
+                          onPressed: () {
+                            controller.setSelectedItem(e);
+                            final idItem = controller.carrinhoServices.getById(e.id);
+                            if (idItem == null) {
+                              controller.addItemsToCart();
+                              Get.snackbar(
+                                'Item: ${e.name}',
+                                'Item adicionado ao carrinho',
+                                snackPosition: SnackPosition.TOP,
+                                duration: Duration(seconds: 1),
+                                backgroundColor: Color(0xFFE2933C),
+                                colorText: Colors.black,
+                                isDismissible: true,
+                                overlayBlur: 0,
+                                overlayColor: Colors.transparent,
+                                barBlur: 0,
+                              );
+                            } else {
+                              controller.addProductUnit();
+                              controller.addItemsToCart();
+                            }
 
-            const SizedBox(height: 8),
-          ],
-        );
-      }).toList(),
-    );
+                            log('Item clicado: ${e.name} - ${e.price}');
+                          },
+                          onTap: () {
+                            controller.setSelectedItem(e);
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialogDefault(
+                                  visible:
+                                      controller.quantity > 0 && controller.alreadyAdded == true,
+                                  plusMinus: Obx(() {
+                                    return GalegosPlusMinus(
+                                      addCallback: controller.addProductUnit,
+                                      removeCallback: controller.removeProductUnit,
+                                      quantityUnit: controller.quantity,
+                                    );
+                                  }),
+                                  item: e,
+                                  onPressed: () {
+                                    final idItem = controller.carrinhoServices.getById(e.id);
+
+                                    if (idItem == null) {
+                                      controller.addItemsToCart();
+                                      Get.snackbar(
+                                        'Item: ${e.name}',
+                                        'Item adicionado ao carrinho',
+                                        snackPosition: SnackPosition.TOP,
+                                        duration: Duration(seconds: 1),
+                                        backgroundColor: Color(0xFFE2933C),
+                                        colorText: Colors.black,
+                                        isDismissible: true,
+                                        overlayBlur: 0,
+                                        overlayColor: Colors.transparent,
+                                        barBlur: 0,
+                                      );
+                                      Get.close(0);
+                                      log('Item clicado: ${e.name} - ${e.price}');
+                                    } else {
+                                      controller.addItemsToCart();
+                                      Get.close(0);
+                                      log('Item clicado: ${e.name} - ${e.price}');
+                                    }
+                                  },
+                                  onPressedR: () {
+                                    controller.removeAllProductsUnit();
+                                    controller.addItemsToCart();
+                                  },
+                                );
+                              },
+                            );
+                          },
+                          styleTitle: GalegosUiDefaut.theme.textTheme.titleMedium,
+                          styleDescricao: GalegosUiDefaut.theme.textTheme.bodyLarge,
+                          stylePreco: GalegosUiDefaut.textProduct.titleMedium,
+                          isProduct: true,
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+
+              const SizedBox(height: 8),
+            ],
+          );
+        }).toList(),
+      );
+    });
   }
 }
 

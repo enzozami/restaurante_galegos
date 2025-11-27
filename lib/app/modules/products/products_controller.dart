@@ -111,26 +111,25 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   }
 
   void searchItemsByFilter(CategoryModel? categoryModel) {
+    if (isProcessing.value) return;
+
     try {
-      if (isProcessing.value == false) {
-        isProcessing.value = true;
-        if (categoryModel == null) return;
+      isProcessing.value = true;
+      _loading.value = true;
 
-        final currentCategory = categorySelected.value;
-
-        if (categoryModel.name == currentCategory?.name) {
-          categorySelected.value = null;
-          _fetchProductsAndItems();
-          // itemsFiltrados.value = items;
-          return;
-        }
-        categorySelected.value = categoryModel;
-
-        // final filtered = items
-        items.where((e) => e.categoryId == (categorySelected.value!.name)).toList();
-
-        // itemsFiltrados.value = filtered;
+      if (categoryModel == null) {
+        categorySelected.value = null;
+        return;
       }
+
+      // Toggle da categoria
+      final selected = categorySelected.value;
+      if (selected?.name == categoryModel.name) {
+        categorySelected.value = null;
+        return;
+      }
+
+      categorySelected.value = categoryModel;
     } catch (e, s) {
       log('Erro ao filtrar', error: e, stackTrace: s);
     } finally {
