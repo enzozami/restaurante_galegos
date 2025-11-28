@@ -15,8 +15,8 @@ class TimeData extends GetView<GalegosDrawerController> {
           decoration: BoxDecoration(
             color: GalegosUiDefaut.colorScheme.tertiary,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(5),
-              topRight: Radius.circular(5),
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(12),
             ),
           ),
           child: Padding(
