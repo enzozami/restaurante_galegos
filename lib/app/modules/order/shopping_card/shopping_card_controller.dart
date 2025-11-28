@@ -23,6 +23,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   final cepEC = TextEditingController();
   final cepInput = ''.obs;
   final numeroEC = TextEditingController();
+  final isProcessing = false.obs;
 
   final isOpen = true.obs;
 
@@ -152,8 +153,10 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   final homeController = Get.find<HomeController>();
 
   Future<bool> createOrder({required String address, required String numero}) async {
+    if (isProcessing.value) return false;
+    _loading(true);
     try {
-      _loading(true);
+      isProcessing.value = true;
       final user = _authServices.getUserId();
       final name = _authServices.getUserName();
       final cpfOrCnpj = _authServices.getUserCPFORCNPJ();
@@ -180,16 +183,11 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
         timeFinished: '',
       );
       await _orderServices.createOrder(order);
-
       reset();
-
-      _loading(false);
-
       homeController.selectedIndex = 0;
 
       return true;
     } catch (e, s) {
-      _loading(false);
       log('Erro ao carregar produtos no carrinho', error: e, stackTrace: s);
       _message(
         MessageModel(
@@ -201,6 +199,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       return false;
     } finally {
       _loading(false);
+      isProcessing.value = false;
     }
   }
 
