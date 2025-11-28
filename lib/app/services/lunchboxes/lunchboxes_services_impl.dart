@@ -93,4 +93,16 @@ class LunchboxesServicesImpl extends GetxService implements LunchboxesServices {
   Future<void> refreshTime() async {
     _times.assignAll(await _timeServices.getTime());
   }
+
+  @override
+  Future<void> updateData(
+    int id,
+    String newName,
+    String? newDescription,
+    List<String> newDays,
+    Map<String, double> newPrices,
+  ) async {
+    await _lunchboxesRepository.updateData(id, newName, newDescription, newDays, newPrices);
+    await refreshFood();
+  }
 }

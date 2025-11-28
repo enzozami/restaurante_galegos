@@ -55,9 +55,8 @@ class LunchboxesRepositoryImpl implements LunchboxesRepository {
         newId = 1;
       } else {
         final lastId = query.docs.first.data()['id'];
-        newId = (lastId as int) + 1;
+        newId = (lastId is String ? int.parse(lastId) : lastId) + 1;
       }
-
       final newDocData = {
         'id': newId,
         "name": food.name,
@@ -83,6 +82,27 @@ class LunchboxesRepositoryImpl implements LunchboxesRepository {
     } catch (e, s) {
       log('Erro ao deletar marmita', error: e, stackTrace: s);
       throw Exception('Erro ao deletar marmita');
+    }
+  }
+
+  @override
+  Future<void> updateData(
+    int id,
+    String newName,
+    String? newDescription,
+    List<String> newDays,
+    Map<String, double> newPrices,
+  ) async {
+    try {
+      await firestore.collection('foods').doc(id.toString()).update({
+        'name': newName,
+        'description': newDescription,
+        'dayName': newDays,
+        'pricePerSize': newPrices,
+      });
+    } catch (e, s) {
+      log('Erro ao atualizar dados da marmita', error: e, stackTrace: s);
+      throw Exception('Erro ao atualizar dados da marmita');
     }
   }
 }

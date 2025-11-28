@@ -58,7 +58,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
        _authServices = authServices;
 
   bool get admin => _authServices.isAdmin();
-  void updateListFoods(int id, FoodModel food) => _foodService.updateTemHoje(id, food);
+  Future<void> updateListFoods(int id, FoodModel food) => _foodService.updateTemHoje(id, food);
 
   final RxList<String> addDays = <String>[].obs;
   final daysSelected = Rxn<String>();
@@ -213,4 +213,30 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   }
 
   Future<void> deletarMarmita(FoodModel food) => _foodService.deletarMarmita(food);
+
+  Future<void> atualizarDados(
+    int id,
+    String newName,
+    String? newDescription,
+    double priceMini,
+    double priceMedia,
+  ) async {
+    if (addDays.isEmpty) {
+      _message(
+        MessageModel(
+          title: 'Atenção',
+          message: 'Selecione ao menos um dia para cadastrar.',
+          type: MessageType.error,
+        ),
+      );
+      return;
+    }
+    await _foodService.updateData(id, newName, newDescription, addDays, {
+      'mini': priceMini,
+      'media': priceMedia,
+    });
+    await refreshLunchboxes();
+  }
+
+  RxBool temHoje(FoodModel a) => RxBool(a.temHoje);
 }

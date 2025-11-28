@@ -83,7 +83,11 @@ class _FloatingActionButtonAdminState
                 actionsPadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 15),
                 icon: Align(
                   alignment: .bottomRight,
-                  child: Icon(Icons.close, color: GalegosUiDefaut.colorScheme.tertiary),
+                  child: IconButton(
+                    onPressed: () => Get.back(),
+                    icon: Icon(Icons.close),
+                    color: GalegosUiDefaut.colorScheme.tertiary,
+                  ),
                 ),
                 title: Text(
                   'Adiciona Produto',

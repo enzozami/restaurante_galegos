@@ -1,8 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/alert_products_lunchboxes_adm.dart';
@@ -25,11 +28,7 @@ class AlimentosWidget extends GetView<LunchboxesController> {
         final selectedSize = controller.sizeSelected.value;
 
         return controller.admin
-            ? _FoodsAdmin(
-                alimentos: alimentos,
-                selectedSize: selectedSize ?? '',
-                controller: controller,
-              )
+            ? _FoodsAdmin(alimentos: alimentos, selectedSize: selectedSize ?? '')
             : _FoodClient(alimentos: alimentos, controller: controller);
       }),
     );
@@ -144,101 +143,188 @@ class _FoodClient extends StatelessWidget {
   }
 }
 
-class _FoodsAdmin extends StatelessWidget {
+class _FoodsAdmin extends StatefulWidget {
   final List<FoodModel> alimentos;
   final String selectedSize;
-  final LunchboxesController controller;
 
-  const _FoodsAdmin({
-    required this.alimentos,
-    required this.selectedSize,
-    required this.controller,
-  });
+  const _FoodsAdmin({required this.alimentos, required this.selectedSize});
+
+  @override
+  State<_FoodsAdmin> createState() => _FoodsAdminState();
+}
+
+class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
+  final _formKey = GlobalKey<FormState>();
+
+  final controllerCard = MultiSelectController<String>();
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: alimentos.map((alimento) {
-        final price = selectedSize != '' ? alimento.pricePerSize[selectedSize] : null;
-        return Container(
-          constraints: BoxConstraints(minHeight: 100),
-          width: context.width,
-          child: Column(
-            children: [
-              Card(
-                elevation: 2,
-                color: GalegosUiDefaut.theme.cardTheme.color,
-                child: Dismissible(
-                  background: Container(
-                    color: GalegosUiDefaut.colorScheme.error,
-                    alignment: Alignment.centerRight,
-                    padding: EdgeInsets.all(15),
-                    child: Icon(Icons.delete, color: Colors.white),
-                  ),
-                  direction: DismissDirection.endToStart,
-                  onDismissed: (_) {
-                    controller.deletarMarmita(alimento);
-                    controller.refreshLunchboxes();
-                  },
-                  key: ValueKey(alimento.id),
-                  child: InkWell(
-                    splashColor: GalegosUiDefaut.theme.splashColor,
-                    onTap: () {
-                      controller.setFoodSelected(alimento, selectedSize);
-                      showDialog(
+      spacing: 5,
+      children: [
+        ...widget.alimentos.map((alimento) {
+          return Container(
+            constraints: BoxConstraints(minHeight: 100),
+            width: context.width,
+            child: Column(
+              children: [
+                Card(
+                  elevation: 2,
+                  color: GalegosUiDefaut.theme.cardTheme.color,
+                  child: Dismissible(
+                    background: Container(
+                      color: GalegosUiDefaut.colorScheme.error,
+                      alignment: Alignment.centerRight,
+                      padding: EdgeInsets.all(15),
+                      child: Icon(Icons.delete, color: Colors.white),
+                    ),
+                    direction: DismissDirection.endToStart,
+                    key: ValueKey(alimento.id),
+                    confirmDismiss: (_) async {
+                      final confirm = await showDialog<bool>(
                         context: context,
                         builder: (context) {
-                          return AlertProductsLunchboxesAdm(
-                            category: TextEditingController(),
-                            description: TextEditingController(),
-                            nameProduct: TextEditingController(),
-                            price: TextEditingController(),
-                            onPressed: () {},
-                            // onPressed: () async {
-                            //   controller.updateListFoods(alimento.id, alimento);
-                            //   Get.back();
-                            // },
-                            onChanged: (_) {},
-                            value: RxBool(alimento.temHoje),
+                          return AlertDialog(
+                            backgroundColor: GalegosUiDefaut.colors['fundo'],
+                            titlePadding: EdgeInsets.only(top: 25, bottom: 0),
+                            contentPadding: EdgeInsets.only(top: 15, bottom: 0),
+                            actionsPadding: EdgeInsets.symmetric(vertical: 15),
+                            title: Text(
+                              'ATENÇÃO',
+                              textAlign: .center,
+                              style: GalegosUiDefaut.theme.textTheme.titleMedium,
+                            ),
+                            content: Text(
+                              'Deseja excluir essa marmita?',
+                              textAlign: .center,
+                              style: GalegosUiDefaut.theme.textTheme.bodySmall,
+                            ),
+                            actionsAlignment: .center,
+                            actions: [
+                              ElevatedButton(
+                                onPressed: () => Navigator.of(context).pop(false),
+                                style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+                                child: Text('Cancelar'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () => Navigator.of(context).pop(true),
+                                style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+                                child: Text('Confirmar'),
+                              ),
+                            ],
                           );
                         },
                       );
+                      return confirm == true;
                     },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ListTile(
-                          leading: alimento.temHoje
-                              ? Text('Ativo', style: TextStyle(color: Colors.green))
-                              : Text(
-                                  'Inativo',
-                                  style: TextStyle(color: GalegosUiDefaut.colorScheme.error),
-                                ),
-                          title: Text(
-                            alimento.name,
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    onDismissed: (_) {
+                      controller.deletarMarmita(alimento);
+                      controller.refreshLunchboxes();
+                    },
+                    child: InkWell(
+                      splashColor: GalegosUiDefaut.theme.splashColor,
+                      onTap: () {
+                        controller.setFoodSelected(alimento, widget.selectedSize);
+                        final number = NumberFormat('#,##0.00', 'pt_BR');
+                        final temHoje = controller.temHoje(alimento);
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            final nameEC = TextEditingController(text: alimento.name);
+                            final descriptionEC = TextEditingController(text: alimento.description);
+                            final priceMiniEC = TextEditingController(
+                              text: number.format(alimento.pricePerSize['mini']),
+                            );
+                            final priceMediaEC = TextEditingController(
+                              text: number.format(alimento.pricePerSize['media']),
+                            );
+
+                            return Form(
+                              key: _formKey,
+                              child: AlertProductsLunchboxesAdm(
+                                isProduct: false,
+                                onPressed: () async {
+                                  final formValid = _formKey.currentState?.validate() ?? false;
+                                  if (formValid) {
+                                    final cleanedMini = priceMiniEC.text
+                                        .replaceAll('.', '')
+                                        .replaceAll(',', '.');
+                                    final cleanedMedia = priceMediaEC.text
+                                        .replaceAll('.', '')
+                                        .replaceAll(',', '.');
+
+                                    await controller.atualizarDados(
+                                      alimento.id,
+                                      nameEC.text,
+                                      descriptionEC.text,
+                                      double.parse(cleanedMini),
+                                      double.parse(cleanedMedia),
+                                    );
+
+                                    Get.back();
+                                  }
+                                },
+                                description: descriptionEC,
+                                value: temHoje,
+                                onChanged: (bool value) async {
+                                  temHoje.value = value;
+                                  await controller.updateListFoods(alimento.id, alimento);
+                                  await controller.refreshLunchboxes();
+                                },
+                                nameFood: nameEC,
+                                priceMini: priceMiniEC,
+                                priceMedia: priceMediaEC,
+                                items: controller.times
+                                    .expand((d) => d.days)
+                                    .map(
+                                      (e) => MultiSelectCard<String>(
+                                        value: e,
+                                        label: e[0],
+                                        selected: alimento.dayName.contains(e),
+                                      ),
+                                    )
+                                    .toList(),
+                                onChangedSection: (allSelectedItems, selectedItem) {
+                                  alimento.dayName = allSelectedItems.cast<String>();
+                                  controller.addDays.value = allSelectedItems
+                                      .map((e) => e)
+                                      .toList();
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ListTile(
+                            leading: alimento.temHoje
+                                ? Text('Ativo', style: TextStyle(color: Colors.green))
+                                : Text(
+                                    'Inativo',
+                                    style: TextStyle(color: GalegosUiDefaut.colorScheme.error),
+                                  ),
+                            title: Text(
+                              alimento.name,
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                            ),
+                            subtitle: Text(alimento.description),
+                            trailing: Icon(Icons.edit_outlined),
                           ),
-                          subtitle: Text(alimento.description),
-                          trailing: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (price != null)
-                                Text(
-                                  FormatterHelper.formatCurrency(price),
-                                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                                ),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
-      }).toList(),
+              ],
+            ),
+          );
+        }),
+        // .toList(),
+        const SizedBox(height: 50),
+      ],
     );
   }
 }

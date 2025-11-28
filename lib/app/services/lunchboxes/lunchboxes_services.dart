@@ -18,4 +18,11 @@ abstract interface class LunchboxesServices {
   );
   Future<void> deletarMarmita(FoodModel food);
   Future<void> updateTemHoje(int id, FoodModel food);
+  Future<void> updateData(
+    int id,
+    String newName,
+    String? newDescription,
+    List<String> newDays,
+    Map<String, double> newPrices,
+  );
 }

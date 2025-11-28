@@ -173,6 +173,7 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
       final category = controller.category;
       final items = controller.items;
       return Column(
+        spacing: 5,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: category.map((c) {
           final categoriaSelecionada = controller.categorySelected.value?.name;
@@ -277,6 +278,7 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
                                     return Form(
                                       key: _formKey,
                                       child: AlertProductsLunchboxesAdm(
+                                        isProduct: true,
                                         category: categoryEC,
                                         nameProduct: nameEC,
                                         description: descriptionEC,
