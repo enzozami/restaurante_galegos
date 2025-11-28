@@ -61,4 +61,12 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
       _loading(false);
     }
   }
+
+  Future<void> senhaNova({required String email}) async {
+    try {
+      await _authServices.resetPassword(email: email);
+    } catch (e) {
+      log('Erro ao resetar senha', error: e);
+    }
+  }
 }

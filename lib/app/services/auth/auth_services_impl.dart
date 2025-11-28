@@ -103,4 +103,8 @@ class AuthServicesImpl extends GetxService implements AuthServices {
 
   @override
   bool isAdmin() => _getStorage.read(Constants.ADMIN_KEY) ?? false;
+
+  @override
+  Future<void> resetPassword({required String email}) =>
+      _authRepository.resetPassword(email: email);
 }

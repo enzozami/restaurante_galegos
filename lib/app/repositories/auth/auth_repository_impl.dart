@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:restaurante_galegos/app/models/user_model.dart';
@@ -75,6 +77,16 @@ class AuthRepositoryImpl implements AuthRepository {
       return login(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       throw AuthException(message: e.message ?? 'Erro ao fazer cadastro');
+    }
+  }
+
+  @override
+  Future<void> resetPassword({required String email}) async {
+    try {
+      await _firebase.sendPasswordResetEmail(email: email);
+    } catch (e, s) {
+      log('Erro ao resetar senha', error: e, stackTrace: s);
+      throw AuthException(message: 'Erro ao resetar senha');
     }
   }
 }

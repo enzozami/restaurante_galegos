@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
@@ -16,12 +18,12 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends GalegosState<LoginPage, LoginController> {
   final _formKey = GlobalKey<FormState>();
-  final _usuarioEC = TextEditingController();
+  final _emailEC = TextEditingController();
   final _passwordEC = TextEditingController();
 
   @override
   void dispose() {
-    _usuarioEC.dispose();
+    _emailEC.dispose();
     _passwordEC.dispose();
     super.dispose();
   }
@@ -36,7 +38,7 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
             child: IntrinsicHeight(
               child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: .spaceEvenly,
                   children: [
                     const SizedBox(height: 95),
                     Image.network(
@@ -53,8 +55,8 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                             children: [
                               GalegosTextFormField(
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                controller: _usuarioEC,
-                                inputType: TextInputType.text,
+                                controller: _emailEC,
+                                inputType: .emailAddress,
                                 label: 'E-mail',
                                 validator: Validatorless.multiple([
                                   Validatorless.required('Campo obrigatório'),
@@ -80,6 +82,20 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                                 ]),
                                 label: 'Senha (Mínimo 6 caracteres)',
                               ),
+                              Align(
+                                alignment: .centerRight,
+                                child: TextButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return _AlertResetPassword();
+                                      },
+                                    );
+                                  },
+                                  child: Text('Esqueci minha senha'),
+                                ),
+                              ),
                               const SizedBox(height: 25),
                               GalegosButtonDefault(
                                 label: 'Entrar',
@@ -87,7 +103,7 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                                   final formValid = _formKey.currentState?.validate() ?? false;
                                   if (formValid) {
                                     controller.login(
-                                      value: _usuarioEC.text,
+                                      value: _emailEC.text,
                                       password: _passwordEC.text,
                                     );
                                   }
@@ -119,6 +135,74 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class _AlertResetPassword extends StatefulWidget {
+  const _AlertResetPassword();
+
+  @override
+  State<_AlertResetPassword> createState() => _AlertResetPasswordState();
+}
+
+class _AlertResetPasswordState extends GalegosState<_AlertResetPassword, LoginController> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailEC = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: AlertDialog(
+        contentPadding: EdgeInsets.all(30),
+        icon: Align(
+          alignment: .centerRight,
+          child: Icon(Icons.close, color: GalegosUiDefaut.colorScheme.tertiary),
+        ),
+        title: Text(
+          'Restaurar senha',
+          style: GalegosUiDefaut.theme.textTheme.titleLarge,
+          textAlign: .center,
+        ),
+        content: SingleChildScrollView(
+          child: Column(
+            spacing: 20,
+            children: [
+              Text(
+                'Digite o e-mail referente a conta para restaurar a senha',
+                textAlign: .justify,
+                style: GalegosUiDefaut.theme.textTheme.bodyLarge,
+              ),
+              GalegosTextFormField(
+                floatingLabelBehavior: .auto,
+                inputType: .emailAddress,
+                controller: _emailEC,
+                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                label: 'E-mail',
+                validator: Validatorless.multiple([
+                  Validatorless.required('E-mail obrigatório'),
+                  Validatorless.email('E-mail inválido'),
+                ]),
+              ),
+            ],
+          ),
+        ),
+        actionsAlignment: .center,
+        actions: [
+          GalegosButtonDefault(
+            label: 'Enviar',
+            onPressed: () {
+              final formValid = _formKey.currentState?.validate() ?? false;
+              if (formValid) {
+                controller.senhaNova(email: _emailEC.text);
+                log('Mensagem enviada');
+                Get.back();
+              }
+            },
+          ),
+        ],
       ),
     );
   }

@@ -15,4 +15,5 @@ abstract interface class AuthServices {
     required String cpfOrCnpj,
     required String password,
   });
+  Future<void> resetPassword({required String email});
 }
