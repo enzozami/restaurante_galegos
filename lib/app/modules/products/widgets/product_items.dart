@@ -170,182 +170,181 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
 
   @override
   Widget build(BuildContext context) {
-    final category = controller.category;
-    final items = controller.items;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: category.map((c) {
-        final List<ProductModel> filtered;
-        final categoriaSelecionada = controller.categorySelected.value?.name;
+    return Obx(() {
+      final category = controller.category;
+      final items = controller.items;
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: category.map((c) {
+          final categoriaSelecionada = controller.categorySelected.value?.name;
 
-        if (categoriaSelecionada != null) {
-          filtered = items
-              .where(
-                (p) =>
-                    p.categoryId == c.name &&
-                    p.categoryId == (controller.categorySelected.value?.name),
-              )
-              .toList();
-        } else {
-          filtered = items.where((p) => p.categoryId == c.name).toList();
-        }
+          final List<ProductModel> filtered = items.where((p) {
+            final matchesCategory = categoriaSelecionada == null
+                ? p.categoryId == c.name
+                : p.categoryId == categoriaSelecionada && p.categoryId == c.name;
 
-        if (filtered.isEmpty) return SizedBox.shrink();
+            return matchesCategory;
+          }).toList();
 
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 16.0),
-              child: Text(c.name, style: GalegosUiDefaut.theme.textTheme.titleLarge),
-            ),
-            Container(
-              constraints: const BoxConstraints(minHeight: 100),
-              width: context.width,
-              child: Column(
-                children: filtered
-                    .where((e) => e.categoryId == c.name)
-                    .map(
-                      (e) => Card(
-                        elevation: 2,
-                        color: GalegosUiDefaut.theme.cardTheme.color,
-                        clipBehavior: Clip.hardEdge,
-                        child: Dismissible(
-                          background: Container(
-                            color: GalegosUiDefaut.colorScheme.error,
-                            alignment: Alignment.centerRight,
-                            padding: EdgeInsets.all(15),
-                            child: Icon(Icons.delete, color: Colors.white),
-                          ),
-                          direction: DismissDirection.endToStart,
-                          key: ValueKey(e.id),
-                          confirmDismiss: (_) async {
-                            final confirm = await showDialog<bool>(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  backgroundColor: GalegosUiDefaut.colors['fundo'],
-                                  titlePadding: EdgeInsets.only(top: 25, bottom: 0),
-                                  contentPadding: EdgeInsets.only(top: 15, bottom: 0),
-                                  actionsPadding: EdgeInsets.symmetric(vertical: 15),
-                                  title: Text(
-                                    'ATENÇÃO',
-                                    textAlign: .center,
-                                    style: GalegosUiDefaut.theme.textTheme.titleMedium,
-                                  ),
-                                  content: Text(
-                                    'Deseja excluir esse produto?',
-                                    textAlign: .center,
-                                    style: GalegosUiDefaut.theme.textTheme.bodySmall,
-                                  ),
-                                  actionsAlignment: .center,
-                                  actions: [
-                                    ElevatedButton(
-                                      onPressed: () => Navigator.of(context).pop(false),
-                                      style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
-                                      child: Text('Cancelar'),
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: () => Navigator.of(context).pop(true),
-                                      style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
-                                      child: Text('Confirmar'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                            return confirm == true;
-                          },
-                          onDismissed: (_) async {
-                            controller.deletarProd(e);
-                            await controller.refreshProducts();
-                          },
-                          child: InkWell(
-                            splashColor: GalegosUiDefaut.theme.splashColor,
-                            borderRadius: BorderRadius.circular(8),
-                            onTap: () {
-                              final number = NumberFormat('#,##0.00', 'pt_BR');
-                              controller.setSelectedItem(e);
-                              final temHoje = controller.temHoje(e);
-                              showDialog(
+          if (filtered.isEmpty) return SizedBox.shrink();
+
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 16.0),
+                child: Text(c.name, style: GalegosUiDefaut.theme.textTheme.titleLarge),
+              ),
+              Container(
+                constraints: const BoxConstraints(minHeight: 100),
+                width: context.width,
+                child: Column(
+                  children: filtered
+                      .where((e) => e.categoryId == c.name)
+                      .map(
+                        (e) => Card(
+                          elevation: 2,
+                          color: GalegosUiDefaut.theme.cardTheme.color,
+                          clipBehavior: Clip.hardEdge,
+                          child: Dismissible(
+                            background: Container(
+                              color: GalegosUiDefaut.colorScheme.error,
+                              alignment: Alignment.centerRight,
+                              padding: EdgeInsets.all(15),
+                              child: Icon(Icons.delete, color: Colors.white),
+                            ),
+                            direction: DismissDirection.endToStart,
+                            key: ValueKey(e.id),
+                            confirmDismiss: (_) async {
+                              final confirm = await showDialog<bool>(
                                 context: context,
                                 builder: (context) {
-                                  final nameEC = TextEditingController(text: e.name);
-                                  final descriptionEC = TextEditingController(text: e.description);
-                                  final categoryEC = TextEditingController(text: e.categoryId);
-                                  final priceEC = TextEditingController(
-                                    text: number.format(e.price),
-                                  );
-                                  return Form(
-                                    key: _formKey,
-                                    child: AlertProductsLunchboxesAdm(
-                                      category: categoryEC,
-                                      nameProduct: nameEC,
-                                      description: descriptionEC,
-                                      price: priceEC,
-                                      onPressed: () {
-                                        final formValid =
-                                            _formKey.currentState?.validate() ?? false;
-                                        if (formValid) {
-                                          final cleaned = priceEC.text
-                                              .replaceAll('.', '')
-                                              .replaceAll(',', '.');
-                                          controller.updateData(
-                                            e.id,
-                                            e.categoryId,
-                                            descriptionEC.text,
-                                            nameEC.text,
-                                            double.parse(cleaned),
-                                          );
-                                        }
-                                        Get.back();
-                                      },
-                                      value: temHoje,
-                                      onChanged: (value) async {
-                                        temHoje.value = value;
-                                        await controller.updateListItems(e.id, e);
-                                        await controller.refreshProducts();
-                                      },
+                                  return AlertDialog(
+                                    backgroundColor: GalegosUiDefaut.colors['fundo'],
+                                    titlePadding: EdgeInsets.only(top: 25, bottom: 0),
+                                    contentPadding: EdgeInsets.only(top: 15, bottom: 0),
+                                    actionsPadding: EdgeInsets.symmetric(vertical: 15),
+                                    title: Text(
+                                      'ATENÇÃO',
+                                      textAlign: .center,
+                                      style: GalegosUiDefaut.theme.textTheme.titleMedium,
                                     ),
+                                    content: Text(
+                                      'Deseja excluir esse produto?',
+                                      textAlign: .center,
+                                      style: GalegosUiDefaut.theme.textTheme.bodySmall,
+                                    ),
+                                    actionsAlignment: .center,
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () => Navigator.of(context).pop(false),
+                                        style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+                                        child: Text('Cancelar'),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () => Navigator.of(context).pop(true),
+                                        style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+                                        child: Text('Confirmar'),
+                                      ),
+                                    ],
                                   );
                                 },
                               );
+                              return confirm == true;
                             },
-                            child: ListTile(
-                              textColor: Colors.black87,
-                              leading: e.temHoje
-                                  ? Text('Ativo', style: TextStyle(color: Colors.green))
-                                  : Text(
-                                      'Inativo',
-                                      style: TextStyle(color: GalegosUiDefaut.colorScheme.error),
-                                    ),
-                              title: Text(
-                                e.name,
-                                textAlign: TextAlign.start,
-                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                              ),
-                              subtitle: Text(
-                                e.description ?? '',
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              trailing: Text(
-                                FormatterHelper.formatCurrency(e.price),
-                                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                            onDismissed: (_) async {
+                              controller.deletarProd(e);
+                              await controller.refreshProducts();
+                            },
+                            child: InkWell(
+                              splashColor: GalegosUiDefaut.theme.splashColor,
+                              borderRadius: BorderRadius.circular(8),
+                              onTap: () {
+                                final number = NumberFormat('#,##0.00', 'pt_BR');
+                                controller.setSelectedItem(e);
+                                final temHoje = controller.temHoje(e);
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    final nameEC = TextEditingController(text: e.name);
+                                    final descriptionEC = TextEditingController(
+                                      text: e.description,
+                                    );
+                                    final categoryEC = TextEditingController(text: e.categoryId);
+                                    final priceEC = TextEditingController(
+                                      text: number.format(e.price),
+                                    );
+                                    return Form(
+                                      key: _formKey,
+                                      child: AlertProductsLunchboxesAdm(
+                                        category: categoryEC,
+                                        nameProduct: nameEC,
+                                        description: descriptionEC,
+                                        price: priceEC,
+                                        onPressed: () {
+                                          final formValid =
+                                              _formKey.currentState?.validate() ?? false;
+                                          if (formValid) {
+                                            final cleaned = priceEC.text
+                                                .replaceAll('.', '')
+                                                .replaceAll(',', '.');
+                                            controller.updateData(
+                                              e.id,
+                                              e.categoryId,
+                                              descriptionEC.text,
+                                              nameEC.text,
+                                              double.parse(cleaned),
+                                            );
+                                          }
+                                          Get.back();
+                                        },
+                                        value: temHoje,
+                                        onChanged: (value) async {
+                                          temHoje.value = value;
+                                          await controller.updateListItems(e.id, e);
+                                          await controller.refreshProducts();
+                                        },
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              child: ListTile(
+                                textColor: Colors.black87,
+                                leading: e.temHoje
+                                    ? Text('Ativo', style: TextStyle(color: Colors.green))
+                                    : Text(
+                                        'Inativo',
+                                        style: TextStyle(color: GalegosUiDefaut.colorScheme.error),
+                                      ),
+                                title: Text(
+                                  e.name,
+                                  textAlign: TextAlign.start,
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                ),
+                                subtitle: Text(
+                                  e.description ?? '',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                trailing: Text(
+                                  FormatterHelper.formatCurrency(e.price),
+                                  style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    )
-                    .toList(),
+                      )
+                      .toList(),
+                ),
               ),
-            ),
-            const SizedBox(height: 45),
-          ],
-        );
-      }).toList(),
-    );
+              const SizedBox(height: 45),
+            ],
+          );
+        }).toList(),
+      );
+    });
   }
 }
