@@ -26,7 +26,6 @@ class ProductItems extends GetView<ProductsController> {
 
 class _ProductsClient extends GetView<ProductsController> {
   const _ProductsClient();
-  //TODOS FAZER O QUE FIZ AQUI DO FILTRO NA PAGINA DE LOGIN
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -328,10 +327,7 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                trailing: Text(
-                                  FormatterHelper.formatCurrency(e.price),
-                                  style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                                ),
+                                trailing: Icon(Icons.edit_outlined),
                               ),
                             ),
                           ),
