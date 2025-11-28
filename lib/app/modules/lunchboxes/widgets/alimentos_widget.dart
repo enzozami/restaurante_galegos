@@ -43,16 +43,24 @@ class _FoodClient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // controller.loading.value = true;
     return SizedBox(
       width: double.infinity,
-      child: Wrap(
-        alignment: WrapAlignment.spaceAround,
-        children: alimentos
-            .where((element) => element.dayName.contains(controller.dayNow) && element.temHoje)
-            .map((alimento) {
-              return controller.loading
-                  ? CardShimmer()
-                  : CardItems(
+      child: controller.loading.value
+          ? Wrap(
+              children: List.generate(
+                2,
+                (_) => Center(child: CardShimmer().paddingOnly(bottom: 10)),
+              ),
+            )
+          : Wrap(
+              alignment: WrapAlignment.spaceAround,
+              children: alimentos
+                  .where(
+                    (element) => element.dayName.contains(controller.dayNow) && element.temHoje,
+                  )
+                  .map((alimento) {
+                    return CardItems(
                       width: context.widthTransformer(reducedBy: 10),
                       height: 280,
                       isProduct: false,
@@ -136,9 +144,9 @@ class _FoodClient extends StatelessWidget {
                             .toList(),
                       ),
                     );
-            })
-            .toList(),
-      ),
+                  })
+                  .toList(),
+            ),
     );
   }
 }

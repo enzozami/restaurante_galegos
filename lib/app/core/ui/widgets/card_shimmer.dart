@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CardShimmer extends StatelessWidget {
@@ -10,8 +11,11 @@ class CardShimmer extends StatelessWidget {
       highlightColor: Colors.grey.shade200,
       child: Container(
         height: 280,
-        width: double.infinity,
-        decoration: BoxDecoration(color: Colors.grey.shade300, border: Border.all()),
+        width: context.widthTransformer(reducedBy: 10),
+        decoration: BoxDecoration(
+          color: Colors.grey.shade300,
+          borderRadius: BorderRadius.circular(20),
+        ),
       ),
     );
   }
