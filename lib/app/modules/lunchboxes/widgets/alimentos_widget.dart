@@ -49,8 +49,11 @@ class _FoodClient extends StatelessWidget {
       child: controller.loading.value
           ? Wrap(
               children: List.generate(
-                2,
-                (_) => Center(child: CardShimmer().paddingOnly(bottom: 10)),
+                3,
+                (_) => CardShimmer(
+                  height: 280,
+                  width: context.widthTransformer(reducedBy: 10),
+                ).paddingOnly(bottom: 10),
               ),
             )
           : Wrap(

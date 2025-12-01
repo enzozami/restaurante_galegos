@@ -1,5 +1,5 @@
-import 'dart:developer';
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,10 +21,13 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   // --- ESTADO REATIVO PRIVADO   ---
   final _loading = false.obs;
+
+  RxBool get loading => _loading;
   final _message = Rxn<MessageModel>();
 
   // --- DADOS/ESTADO PÚBLICO REATIVO ---
   final Rx<String?> categoryId = Rx(null);
+
   // final RxList<ProductModel> itemsFiltrados = <ProductModel>[].obs;
   final isProcessing = RxBool(false);
 
@@ -40,13 +43,19 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   // --- GETTERS ---
   ProductModel? get selectedItem => itemSelect.value;
+
   int get quantity => _quantity.value;
+
   bool get alreadyAdded => _alreadyAdded.value;
+
   double get totalPrice => _totalPrice.value;
+
   CarrinhoServices get carrinhoServices => _carrinhoServices;
+
   bool get isEditing => _isEditing.value;
 
   RxList<ProductModel> get items => _productsServices.items;
+
   RxList<CategoryModel> get category => _productsServices.categories;
 
   // --- Construtor ---
@@ -59,6 +68,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
        _productsServices = productsServices;
 
   bool get admin => _authService.isAdmin();
+
   Future<void> updateListItems(int id, ProductModel item) async {
     await _productsServices.updateTemHoje(id, item);
   }
@@ -94,8 +104,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     try {
       _loading(true);
       await _productsServices.init();
-
-      // itemsFiltrados.assignAll(items);
     } catch (e, s) {
       log('Erro ao carregar dados', error: e, stackTrace: s);
       _message(
@@ -133,7 +141,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     } catch (e, s) {
       log('Erro ao filtrar', error: e, stackTrace: s);
     } finally {
-      _loading(false);
+      _loading.value = false;
       isProcessing.value = false;
     }
   }
@@ -193,6 +201,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   }
 
   Future<void> deletarProd(ProductModel item) => _productsServices.deletarProdutos(item);
+
   Future<void> updateData(
     int id,
     String newCategoryId,

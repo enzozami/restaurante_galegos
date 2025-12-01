@@ -117,8 +117,8 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   }
 
   Future<void> getLunchboxes() async {
-    _loading(true);
     try {
+      _loading(true);
       final menuData = await _lunchboxesServices.getMenu();
       final List<String> sizesList = List<String>.from(menuData.first.pricePerSize);
 
@@ -129,7 +129,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
       _foodService.init();
     } catch (e, s) {
-      _loading(false);
       log('Erro ao carregar marmitas', error: e, stackTrace: s);
       _message(
         MessageModel(title: 'Erro', message: 'Erro ao carregar marmitas', type: MessageType.error),
@@ -203,7 +202,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   Future<void> refreshLunchboxes() async {
     try {
-      await getLunchboxes();
+      getLunchboxes();
     } catch (e, s) {
       log('Erro ao atualizar marmitas', error: e, stackTrace: s);
       _message(

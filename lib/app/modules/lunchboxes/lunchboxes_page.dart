@@ -49,7 +49,7 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
             )
           : null,
 
-      body: RefreshIndicator.noSpinner(
+      body: RefreshIndicator(
         onRefresh: controller.refreshLunchboxes,
         child: LayoutBuilder(
           builder: (context, constraints) {
