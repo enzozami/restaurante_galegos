@@ -40,6 +40,8 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   final CarrinhoServices _carrinhoServices;
 
   final _loading = false.obs;
+  RxBool get loading => _loading;
+
   final _message = Rxn<MessageModel>();
   var id = 0;
 
@@ -117,39 +119,6 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     );
   }
 
-  // PARTE PARA ADMIN
-  // Future<void> createOrder({required String address}) async {
-  //   try {
-  //     _loading.toggle();
-  //     final user = _authService.getUserId();
-  //     log('USUÁRIO: $user');
-  //     final order = ItemCarrinho(
-  //       userId: user!,
-  //       address: address,
-  //       items: _cardServices.productsSelected,
-  //       quantity: quantity,
-  //     );
-  //     log('ORDER-json: ${order.items.map((e) => e.toJson())}');
-  //     var finished = await _orderServices.createOrder(order);
-  //     finished = finished.copyWith(amountToPay: totalPay());
-  //     log('ORDER-FINALIZADO: ${finished.toJson()}');
-  //     _loading.toggle();
-  //     clear();
-  //     await Get.offNamed('/order/finished', arguments: finished);
-  //   } catch (e, s) {
-  //     _loading.toggle();
-  //     log('Erro ao carregar produtos no carrinho', error: e, stackTrace: s);
-  //     _message(
-  //       MessageModel(
-  //         title: 'Erro',
-  //         message: 'Erro ao carregar produtos no carrinho',
-  //         type: MessageType.error,
-  //       ),
-  //     );
-  //   } finally {
-  //     _loading(false);
-  //   }
-  // }
   final homeController = Get.find<HomeController>();
 
   Future<bool> createOrder({required String address, required String numero}) async {
@@ -263,6 +232,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   }
 
   void resetCepTaxa() {
+    taxa.value = 0.0;
     cep.value = '';
     rua.value = '';
     bairro.value = '';
@@ -271,6 +241,41 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     numero.value = '';
     numeroEC.text = '';
     cepEC.text = '';
-    taxa.value = 0.0;
   }
 }
+
+
+
+ // PARTE PARA ADMIN
+  // Future<void> createOrder({required String address}) async {
+  //   try {
+  //     _loading.toggle();
+  //     final user = _authService.getUserId();
+  //     log('USUÁRIO: $user');
+  //     final order = ItemCarrinho(
+  //       userId: user!,
+  //       address: address,
+  //       items: _cardServices.productsSelected,
+  //       quantity: quantity,
+  //     );
+  //     log('ORDER-json: ${order.items.map((e) => e.toJson())}');
+  //     var finished = await _orderServices.createOrder(order);
+  //     finished = finished.copyWith(amountToPay: totalPay());
+  //     log('ORDER-FINALIZADO: ${finished.toJson()}');
+  //     _loading.toggle();
+  //     clear();
+  //     await Get.offNamed('/order/finished', arguments: finished);
+  //   } catch (e, s) {
+  //     _loading.toggle();
+  //     log('Erro ao carregar produtos no carrinho', error: e, stackTrace: s);
+  //     _message(
+  //       MessageModel(
+  //         title: 'Erro',
+  //         message: 'Erro ao carregar produtos no carrinho',
+  //         type: MessageType.error,
+  //       ),
+  //     );
+  //   } finally {
+  //     _loading(false);
+  //   }
+  // }
