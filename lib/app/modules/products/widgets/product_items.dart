@@ -202,8 +202,8 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
           if (filtered.isEmpty) return SizedBox.shrink();
 
           return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: .start,
+            crossAxisAlignment: .start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 16.0),
@@ -219,11 +219,11 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
                         (e) => Card(
                           elevation: 2,
                           color: GalegosUiDefaut.theme.cardTheme.color,
-                          clipBehavior: Clip.hardEdge,
+                          clipBehavior: .hardEdge,
                           child: Dismissible(
                             background: Container(
                               color: GalegosUiDefaut.colorScheme.error,
-                              alignment: Alignment.centerRight,
+                              alignment: .centerRight,
                               padding: EdgeInsets.all(15),
                               child: Icon(Icons.delete, color: Colors.white),
                             ),
