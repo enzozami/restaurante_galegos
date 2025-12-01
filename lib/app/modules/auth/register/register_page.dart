@@ -90,9 +90,6 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                                   Validatorless.min(8, 'Senha obrigatória'),
                                 ]),
                               ),
-                              Column(
-                                children: controller.regras.map((regra) => Text(regra)).toList(),
-                              ),
                               const SizedBox(height: 15),
                               GalegosTextFormField(
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,

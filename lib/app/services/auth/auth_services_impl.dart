@@ -1,29 +1,22 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
 import 'package:restaurante_galegos/app/core/constants/constants.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/models/password_model.dart';
 import 'package:restaurante_galegos/app/models/user_model.dart';
 import 'package:restaurante_galegos/app/repositories/auth/auth_repository.dart';
-import 'package:restaurante_galegos/firebase_options.dart';
 
 import './auth_services.dart';
 
 class AuthServicesImpl extends GetxService implements AuthServices {
   final AuthRepository _authRepository;
-  PasswordModel? policy;
   final _isLogged = RxnBool();
   final _isAdmin = RxnBool();
   final _name = RxnString();
   final _cpfOrCnpj = RxnString();
   final _getStorage = GetStorage();
 
-  AuthServicesImpl({required AuthRepository authRepository, this.policy})
-    : _authRepository = authRepository;
+  AuthServicesImpl({required AuthRepository authRepository}) : _authRepository = authRepository;
 
   @override
   Future<UserModel> login({required String email, required String password}) =>
@@ -104,26 +97,4 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   @override
   Future<void> resetPassword({required String email}) =>
       _authRepository.resetPassword(email: email);
-
-  @override
-  Future<PasswordModel> initPassword() async {
-    await fetchPolicy();
-    return policy!;
-  }
-
-  Future<void> fetchPolicy() async {
-    final projectId = DefaultFirebaseOptions.currentPlatform.projectId;
-    final apiKey = DefaultFirebaseOptions.currentPlatform.apiKey;
-
-    final url =
-        'https://identitytoolkit.googleapis.com/v2/projects/$projectId/passwordPolicies?key=$apiKey';
-
-    final response = await http.get(Uri.parse(url));
-
-    if (response.statusCode == 200) {
-      policy = PasswordModel.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Erro ao buscar política de senha');
-    }
-  }
 }

@@ -1,4 +1,3 @@
-import 'package:restaurante_galegos/app/models/password_model.dart';
 import 'package:restaurante_galegos/app/models/user_model.dart';
 
 abstract interface class AuthServices {
@@ -15,5 +14,4 @@ abstract interface class AuthServices {
     required String password,
   });
   Future<void> resetPassword({required String email});
-  Future<PasswordModel> initPassword();
 }
