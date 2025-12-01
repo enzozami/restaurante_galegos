@@ -136,7 +136,9 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                                           Icons.search,
                                           color: GalegosUiDefaut.colorScheme.tertiary,
                                         ),
-                                        onPressed: controller.cepInput.value.length == 9
+                                        onPressed:
+                                            controller.cepEC.text.isNotEmpty &&
+                                                controller.cepInput.value.length == 9
                                             ? () {
                                                 controller.getCep(
                                                   address: _cepFormatter.getUnmaskedText(),
