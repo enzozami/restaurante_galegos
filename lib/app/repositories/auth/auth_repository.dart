@@ -6,7 +6,6 @@ abstract interface class AuthRepository {
   Future<UserModel> register({
     required bool isCpf,
     required String name,
-    required String cpfOrCnpj,
     required String email,
     required String password,
   });

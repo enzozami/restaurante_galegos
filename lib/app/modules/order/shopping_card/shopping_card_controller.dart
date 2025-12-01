@@ -128,7 +128,6 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       isProcessing.value = true;
       final user = _authServices.getUserId();
       final name = _authServices.getUserName();
-      final cpfOrCnpj = _authServices.getUserCPFORCNPJ();
 
       final id = await _orderServices.generateSequentialOrderId();
 
@@ -146,7 +145,6 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
         taxa: taxa.value,
         status: 'preparando',
         userName: name ?? '',
-        cpfOrCnpj: cpfOrCnpj ?? '',
         date: date,
         time: time,
         timeFinished: '',

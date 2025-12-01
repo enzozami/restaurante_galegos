@@ -112,7 +112,6 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                                   taxa: taxa,
                                   total: total,
                                   nomeCliente: pedido.userName,
-                                  cpfOrCnpj: pedido.cpfOrCnpj,
                                   rua: pedido.rua,
                                   numeroResidencia: pedido.numeroResidencia.toString(),
                                   bairro: pedido.bairro,

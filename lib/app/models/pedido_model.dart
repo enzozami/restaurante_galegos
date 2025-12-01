@@ -8,7 +8,6 @@ class PedidoModel {
   String id;
   int userId;
   String userName;
-  String cpfOrCnpj;
   String cep;
   String rua;
   String bairro;
@@ -27,7 +26,6 @@ class PedidoModel {
     required this.id,
     required this.userId,
     required this.userName,
-    required this.cpfOrCnpj,
     required this.cep,
     required this.rua,
     required this.bairro,
@@ -49,7 +47,6 @@ class PedidoModel {
       'id': id,
       'userId': userId,
       'userName': userName,
-      'cpfOrCnpj': cpfOrCnpj,
       'cep': cep,
       'rua': rua,
       'bairro': bairro,
@@ -72,7 +69,6 @@ class PedidoModel {
       id: map['id'] ?? '',
       userId: map['userId']?.toInt() ?? 0,
       userName: map['userName'] ?? '',
-      cpfOrCnpj: map['cpfOrCnpj'] ?? '',
       cep: map['cep'] ?? '',
       rua: map['rua'] ?? '',
       bairro: map['bairro'] ?? '',
@@ -98,7 +94,6 @@ class PedidoModel {
     String? id,
     int? userId,
     String? userName,
-    String? cpfOrCnpj,
     String? cep,
     String? rua,
     String? bairro,
@@ -118,7 +113,6 @@ class PedidoModel {
       id: id ?? this.id,
       userId: userId ?? this.userId,
       userName: userName ?? this.userName,
-      cpfOrCnpj: cpfOrCnpj ?? this.cpfOrCnpj,
       cep: cep ?? this.cep,
       rua: rua ?? this.rua,
       bairro: bairro ?? this.bairro,

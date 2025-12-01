@@ -9,7 +9,6 @@ class AlertDialogHistory extends StatelessWidget {
   final String taxa;
   final String total;
   final String nomeCliente;
-  final String cpfOrCnpj;
   final String rua;
   final String numeroResidencia;
   final String bairro;
@@ -33,7 +32,6 @@ class AlertDialogHistory extends StatelessWidget {
     required this.taxa,
     required this.total,
     required this.nomeCliente,
-    required this.cpfOrCnpj,
     required this.rua,
     required this.numeroResidencia,
     required this.bairro,
@@ -98,7 +96,6 @@ class AlertDialogHistory extends StatelessWidget {
                 child: sectionTitle('Dados'),
               ),
               infoLine('Nome: ', nomeCliente),
-              infoLine('', cpfOrCnpj),
               Divider(color: GalegosUiDefaut.colorScheme.secondary),
               sectionTitle('Descrição'),
               infoLine('', carrinhoName),

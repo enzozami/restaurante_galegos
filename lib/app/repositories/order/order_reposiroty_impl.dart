@@ -15,7 +15,6 @@ class OrderReposirotyImpl implements OrderReposiroty {
       final docRef = await firestore.collection('orders').add({
         'userId': order.userId,
         'userName': order.userName,
-        'cpfOrCnpj': order.cpfOrCnpj,
         'cep': order.cep,
         'rua': order.rua,
         'bairro': order.bairro,

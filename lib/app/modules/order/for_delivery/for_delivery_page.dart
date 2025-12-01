@@ -112,7 +112,6 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                                   taxa: taxa,
                                   total: total,
                                   nomeCliente: pedido.userName,
-                                  cpfOrCnpj: pedido.cpfOrCnpj,
                                   rua: pedido.rua,
                                   numeroResidencia: pedido.numeroResidencia.toString(),
                                   bairro: pedido.bairro,

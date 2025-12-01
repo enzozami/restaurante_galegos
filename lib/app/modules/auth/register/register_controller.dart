@@ -6,6 +6,7 @@ import 'package:restaurante_galegos/app/core/constants/constants.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cpf.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
+import 'package:restaurante_galegos/app/models/password_model.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 
 class RegisterController extends GetxController with LoaderMixin, MessagesMixin {
@@ -23,13 +24,19 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
   final isSelected = true.obs;
   final isSelectedConfirmaSenha = true.obs;
 
+  final _regrasObs = <String>[].obs;
+  List<String> get regras => _regrasObs.value;
+
   RegisterController({required AuthServices authServices}) : _authServices = authServices;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
+
+    final policy = await _authServices.initPassword();
+    _regrasSenha(policy);
   }
 
   void onSelected(bool value) {
@@ -48,7 +55,6 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
   Future<void> register({
     required String name,
     required String email,
-    required String cpfOrCnpj,
     required String password,
   }) async {
     try {
@@ -57,7 +63,6 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
         isCpf: isCpf,
         name: name,
         email: email,
-        cpfOrCnpj: cpfOrCnpj,
         password: password,
       );
       final storage = GetStorage();
@@ -76,5 +81,13 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
     } finally {
       _loading.value = false;
     }
+  }
+
+  List<String> _regrasSenha(PasswordModel policy) {
+    regras.add('Mínimo de ${policy.minLength} caracteres');
+    if (policy.requireLowercase) regras.add('Pelo menos uma letra minúscula.');
+    if (policy.requireUppercase) regras.add('Pelo menos uma letra maiúscula.');
+
+    return regras;
   }
 }

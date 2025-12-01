@@ -78,9 +78,9 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                                 ),
                                 validator: Validatorless.multiple([
                                   Validatorless.required('Senha obrigatória'),
-                                  Validatorless.min(6, 'Senha deve ter 6 dígitos'),
+                                  Validatorless.min(8, 'Senha deve ter 8 dígitos'),
                                 ]),
-                                label: 'Senha (Mínimo 6 caracteres)',
+                                label: 'Senha',
                               ),
                               Align(
                                 alignment: .centerRight,

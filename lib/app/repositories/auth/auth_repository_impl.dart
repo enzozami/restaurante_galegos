@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:restaurante_galegos/app/models/user_model.dart';
@@ -50,7 +49,6 @@ class AuthRepositoryImpl implements AuthRepository {
     required bool isCpf,
     required String name,
     required String email,
-    required String cpfOrCnpj,
     required String password,
   }) async {
     try {
@@ -69,13 +67,22 @@ class AuthRepositoryImpl implements AuthRepository {
 
       await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).set({
         'nome': name,
-        'cpfOrCnpj': cpfOrCnpj,
         'email': email,
         'createdAt': FieldValue.serverTimestamp(),
       });
 
       return login(email: email, password: password);
     } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'weak-password':
+          throw AuthException(message: 'A senha é fraca demais.');
+        case 'password-does-not-meet-requirements':
+          throw AuthException(message: 'A senha não atende aos requisitos definidos.');
+        case 'requires-uppercase':
+          throw AuthException(message: 'A senha deve conter pelo menos uma letra maiúscula.');
+        case 'requires-lowercase':
+          throw AuthException(message: 'A senha deve conter pelo menos uma letra minúscula.');
+      }
       throw AuthException(message: e.message ?? 'Erro ao fazer cadastro');
     }
   }
