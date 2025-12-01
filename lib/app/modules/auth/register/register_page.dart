@@ -1,3 +1,4 @@
+import 'package:fancy_password_field/fancy_password_field.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
@@ -72,23 +73,34 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                               ),
 
                               const SizedBox(height: 15),
-                              GalegosTextFormField(
-                                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                controller: _passwordEC,
-                                obscureText: controller.isSelected.value,
-                                icon: IconButton(
-                                  onPressed: () {
-                                    controller.seePassword();
-                                  },
-                                  icon: controller.isSelected.value
-                                      ? Icon(Icons.visibility)
-                                      : Icon(Icons.visibility_off),
+                              // GalegosTextFormField(
+                              //   floatingLabelBehavior: FloatingLabelBehavior.auto,
+                              //   controller: _passwordEC,
+                              //   obscureText: controller.isSelected.value,
+                              //   icon: IconButton(
+                              //     onPressed: () {
+                              //       controller.seePassword();
+                              //     },
+                              //     icon: controller.isSelected.value
+                              //         ? Icon(Icons.visibility)
+                              //         : Icon(Icons.visibility_off),
+                              //   ),
+                              //   label: 'Senha',
+                              //   validator: Validatorless.multiple([
+                              //     Validatorless.required('Senha obrigatória'),
+                              //     Validatorless.min(8, 'Senha obrigatória'),
+                              //   ]),
+                              // ),
+                              FancyPasswordField(
+                                decoration: InputDecoration(
+                                  label: Text('Senha'),
+                                  border: OutlineInputBorder(),
                                 ),
-                                label: 'Senha',
-                                validator: Validatorless.multiple([
-                                  Validatorless.required('Senha obrigatória'),
-                                  Validatorless.min(8, 'Senha obrigatória'),
-                                ]),
+                                validationRules: {
+                                  LowercaseValidationRule(customText: 'Letra minúscula'),
+                                  UppercaseValidationRule(customText: 'Letra maiúscula'),
+                                  MinCharactersValidationRule(8, customText: '8 caracteres'),
+                                },
                               ),
                               const SizedBox(height: 15),
                               GalegosTextFormField(

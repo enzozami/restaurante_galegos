@@ -52,6 +52,7 @@ dependencies:
   firebase_auth: ^6.1.2
   cloud_firestore: ^6.1.0
   shimmer: ^3.0.0
+  fancy_password_field: ^2.0.8
 
 
 dev_dependencies:
