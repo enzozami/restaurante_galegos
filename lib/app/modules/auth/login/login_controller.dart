@@ -42,14 +42,11 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
     try {
       _loading(true);
       final userLogger = await _authServices.login(email: value, password: password);
-      log('Usuário admin: ${userLogger.isAdmin}');
       final storage = GetStorage();
       storage.write(Constants.ADMIN_KEY, userLogger.isAdmin);
       storage.write(Constants.USER_KEY, userLogger.id);
       storage.write(Constants.USER_NAME, userLogger.name);
-      storage.write(Constants.USER_CPFORCNPJ, userLogger.cpfOrCnpj);
     } on AuthException catch (e, s) {
-      _loading(false);
       log('Falha no login', error: e, stackTrace: s);
       _message.value = MessageModel(
         title: 'Erro',

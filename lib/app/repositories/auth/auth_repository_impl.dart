@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:restaurante_galegos/app/core/constants/constants.dart';
 import 'package:restaurante_galegos/app/models/user_model.dart';
 
 import './auth_repository.dart';
@@ -72,7 +74,6 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<UserModel> register({
-    required bool isCpf,
     required String name,
     required String email,
     required String password,
@@ -97,9 +98,14 @@ class AuthRepositoryImpl implements AuthRepository {
         'createdAt': FieldValue.serverTimestamp(),
       });
 
+      final storage = GetStorage();
+      storage.write(Constants.USER_KEY, result.user?.uid);
+      storage.write(Constants.ADMIN_KEY, false);
+      storage.write(Constants.USER_NAME, result.user?.displayName);
       return login(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       late String mensagem;
+
       switch (e.code) {
         case 'weak-password':
           mensagem = 'A senha é fraca demais.';
@@ -135,6 +141,21 @@ class AuthRepositoryImpl implements AuthRepository {
     } catch (e, s) {
       log('Erro ao resetar senha', error: e, stackTrace: s);
       throw AuthException(message: 'Erro ao resetar senha');
+    }
+  }
+
+  @override
+  Future<void> updateUserName({required String newName}) async {
+    if (_firebase.currentUser != null) {
+      await _firebase.currentUser?.updateDisplayName(newName);
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(_firebase.currentUser?.uid.toString())
+          .update(
+            {'nome': newName},
+          );
+      final storage = GetStorage();
+      storage.write(Constants.USER_NAME, newName);
     }
   }
 }

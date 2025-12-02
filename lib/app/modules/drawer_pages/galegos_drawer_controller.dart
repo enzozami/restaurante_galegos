@@ -19,13 +19,6 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
 
   final ScrollController scrollController = ScrollController();
 
-  final isPasswordSee = true.obs;
-  final senha = false.obs;
-
-  void atualizarSenha() {
-    senha.value = !senha.value;
-  }
-
   final dayNow = FormatterHelper.formatDate();
   final _dateTime = <String>[].obs;
   final _inicioTime = ''.obs;
@@ -38,17 +31,12 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
   final _isSelected = false.obs;
-  final _isObscure = true.obs;
 
   bool get isSelected => _isSelected.value;
   set isSelected(bool value) => _isSelected.value = value;
-  bool get isObscure => _isObscure.value;
 
   final _name = ''.obs;
   String get name => _name.value;
-  final _password = ''.obs;
-  String get password => _password.value;
-  final valueCpfOrCnpj = ''.obs;
 
   final _titleAboutUs = ''.obs;
   String get titleAboutUs => _titleAboutUs.value;
@@ -86,38 +74,20 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
 
   void isSelect() {
     _isSelected.toggle();
-    if (_isSelected.value == true) {
-      senha.value = false;
-    }
-  }
-
-  void seePassword() {
-    isPasswordSee.value = !isPasswordSee.value;
+    if (_isSelected.value == true) {}
   }
 
   Future<void> getUser() async {
-    final userId = _authServices.getUserId();
-    if (userId != null) {
-      // _name.value = userData.name;
-      // _password.value = userData.password;
-      // valueCpfOrCnpj.value = userData.cpfOrCnpj ?? '';
+    final userName = _authServices.getUserName();
+    if (userName != null) {
+      _name.value = userName;
     }
   }
 
-  Future<void> updateUser(String? name, String? password) async {
-    final userId = _authServices.getUserId();
-    if (userId != null) {
-      log(name ?? 'nome nao digitado');
-      log(password ?? 'senha nao digitada');
-      if (name != null && name != '' && password == '' && password != null) {
-        // await _userServices.updateUser(name, _password.value, id: userId);
-      } else if (name != null && name == '' && password != null && password != '') {
-        // await _userServices.updateUser(_name.value, password, id: userId);
-      } else if (name != null && name != '' && password != null && password != '') {
-        // await _userServices.updateUser(name, password, id: userId);
-      } else if (name != null && password != null && name == '' && password == '') {
-        // await _userServices.updateUser(_name.value, _password.value, id: userId);
-      }
+  Future<void> updateName({required String name}) async {
+    final user = _authServices.getUserName();
+    if (user != null) {
+      await _authServices.updateUserName(newName: name);
     }
   }
 
@@ -126,11 +96,8 @@ class GalegosDrawerController extends GetxController with LoaderMixin, MessagesM
     try {
       final aboutUsData = await _aboutUsServices.getAboutUs();
       _titleAboutUs.value = aboutUsData.title;
-      log('TITULO ABOUTTTTTT: ${_titleAboutUs.value}');
       _textAboutUs.value = aboutUsData.text;
-      _loading(false);
     } catch (e) {
-      _loading(false);
       _message(
         MessageModel(
           title: 'Erro ao buscar dados',

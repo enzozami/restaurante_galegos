@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -13,7 +16,6 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   final _isLogged = RxnBool();
   final _isAdmin = RxnBool();
   final _name = RxnString();
-  final _cpfOrCnpj = RxnString();
   final _getStorage = GetStorage();
 
   AuthServicesImpl({required AuthRepository authRepository}) : _authRepository = authRepository;
@@ -24,25 +26,53 @@ class AuthServicesImpl extends GetxService implements AuthServices {
 
   @override
   Future<UserModel> register({
-    required bool isCpf,
     required String name,
     required String email,
     required String password,
-  }) => _authRepository.register(isCpf: isCpf, name: name, email: email, password: password);
+  }) => _authRepository.register(name: name, email: email, password: password);
 
-  bool canUseApp() {
+  Future<bool> canUseApp() async {
     if (kDebugMode) return true;
     var timeNow = DateTime.now();
 
-    final inicio = DateTime(timeNow.year, timeNow.month, timeNow.day, 9, 0);
-    final fim = DateTime(timeNow.year, timeNow.month, timeNow.day, 14, 50);
+    final firestore = FirebaseFirestore.instance;
 
-    return inicio.isBefore(timeNow) && fim.isAfter(timeNow);
+    final snapshot = await firestore.collection('horario_funcionamento').get();
+    final dateApi = snapshot.docs.first.data();
+
+    const diasSemana = {
+      1: "Segunda-feira",
+      2: "Terça-feira",
+      3: "Quarta-feira",
+      4: "Quinta-feira",
+      5: "Sexta-feira",
+      6: "Sábado",
+      7: "Domingo",
+    };
+    final diaHoje = diasSemana[timeNow.weekday];
+    if (!dateApi.containsValue(diaHoje)) {
+      log('Fechado, hoje não funcionou');
+      return false;
+    }
+
+    DateTime montarHorario(DateTime base, String hhmm) {
+      final partes = hhmm.split(':');
+      final hora = int.parse(partes[0]);
+      final minuto = int.parse(partes[1]);
+      return DateTime(base.year, base.month, base.day, hora, minuto);
+    }
+
+    final inicio = montarHorario(timeNow, dateApi['inicio']);
+    final fim = montarHorario(timeNow, dateApi['fim']);
+
+    final aberto = timeNow.isAfter(inicio) && timeNow.isBefore(fim);
+
+    return aberto;
   }
 
   @override
   Future<AuthServices> init() async {
-    if (canUseApp()) {
+    if (await canUseApp()) {
       _getStorage.listenKey(Constants.USER_KEY, (value) {
         _isLogged(value != null);
       });
@@ -51,9 +81,6 @@ class AuthServicesImpl extends GetxService implements AuthServices {
       });
       _getStorage.listenKey(Constants.USER_NAME, (value) {
         _name(value ?? '');
-      });
-      _getStorage.listenKey(Constants.USER_CPFORCNPJ, (value) {
-        _cpfOrCnpj(value ?? '');
       });
 
       ever(_isLogged, (isLogged) {
@@ -82,7 +109,6 @@ class AuthServicesImpl extends GetxService implements AuthServices {
     _getStorage.write(Constants.USER_KEY, null);
     _getStorage.write(Constants.ADMIN_KEY, false);
     _getStorage.write(Constants.USER_NAME, null);
-    _getStorage.write(Constants.USER_CPFORCNPJ, null);
   }
 
   @override
@@ -97,4 +123,8 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   @override
   Future<void> resetPassword({required String email}) =>
       _authRepository.resetPassword(email: email);
+
+  @override
+  Future<void> updateUserName({required String newName}) =>
+      _authRepository.updateUserName(newName: newName);
 }
