@@ -40,7 +40,33 @@ class AuthRepositoryImpl implements AuthRepository {
         isAdmin: isAdmin,
       );
     } on FirebaseAuthException catch (e) {
-      throw AuthException(message: e.message ?? 'Erro ao fazer login');
+      late String mensagem;
+
+      switch (e.code) {
+        case 'invalid-email':
+          mensagem = 'E-mail inválido.';
+          break;
+        case 'user-disabled':
+          mensagem = 'Esse usuário foi desativado.';
+          break;
+        case 'user-not-found':
+          mensagem = 'Não existe usuário com esse e-mail.';
+          break;
+        case 'wrong-password':
+          mensagem = 'Senha incorreta.';
+          break;
+        case 'too-many-request':
+          mensagem = 'Muitas tentativas. Tente novamente mais tarde.';
+          break;
+        case 'network-request-failed':
+          mensagem = 'Falha de conexão. Verifique sua internet';
+          break;
+        default:
+          mensagem = 'Erro inesperado. Tente novamente.';
+          break;
+      }
+
+      throw AuthException(message: mensagem);
     }
   }
 

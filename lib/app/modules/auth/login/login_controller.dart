@@ -52,9 +52,8 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
       _loading(false);
       log('Falha no login', error: e, stackTrace: s);
       _message.value = MessageModel(
-        title: 'Falha no login',
-        message:
-            'CPF/CNPJ ou senha incorreta', // pode ser "Senha incorreta" ou outro texto vindo do service
+        title: 'Erro',
+        message: e.message,
         type: MessageType.error,
       );
     } finally {
