@@ -6,6 +6,7 @@ import 'package:restaurante_galegos/app/core/constants/constants.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cpf.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
+import 'package:restaurante_galegos/app/repositories/auth/auth_repository_impl.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 
 class RegisterController extends GetxController with LoaderMixin, MessagesMixin {
@@ -41,7 +42,7 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
     isSelected.value = !isSelected.value;
   }
 
-  void seeConfirmaPassword() {
+  void seeConfirmPassword() {
     isSelectedConfirmaSenha.value = !isSelectedConfirmaSenha.value;
   }
 
@@ -64,12 +65,13 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
       storage.write(Constants.USER_NAME, userLogged.name);
       storage.write(Constants.USER_CPFORCNPJ, userLogged.cpfOrCnpj);
       _loading.toggle();
-    } catch (e, s) {
+    } on AuthException catch (e, s) {
       _loading.toggle();
       log(e.toString());
       log(s.toString());
+
       _message(
-        MessageModel(title: 'Erro', message: 'Erro ao cadastrar usuário', type: MessageType.error),
+        MessageModel(title: 'Erro', message: e.message, type: MessageType.error),
       );
     } finally {
       _loading.value = false;

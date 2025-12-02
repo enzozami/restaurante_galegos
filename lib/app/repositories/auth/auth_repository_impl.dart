@@ -73,17 +73,32 @@ class AuthRepositoryImpl implements AuthRepository {
 
       return login(email: email, password: password);
     } on FirebaseAuthException catch (e) {
+      late String mensagem;
       switch (e.code) {
         case 'weak-password':
-          throw AuthException(message: 'A senha é fraca demais.');
+          mensagem = 'A senha é fraca demais.';
+          break;
         case 'password-does-not-meet-requirements':
-          throw AuthException(message: 'A senha não atende aos requisitos definidos.');
+          mensagem = 'A senha não atende aos requisitos definidos.';
+          break;
         case 'requires-uppercase':
-          throw AuthException(message: 'A senha deve conter pelo menos uma letra maiúscula.');
+          mensagem = 'A senha deve conter pelo menos uma letra maiúscula.';
+          break;
         case 'requires-lowercase':
-          throw AuthException(message: 'A senha deve conter pelo menos uma letra minúscula.');
+          mensagem = 'A senha deve conter pelo menos uma letra minúscula.';
+          break;
+        case 'invalid-email':
+          mensagem = 'E-mail inválido.';
+          break;
+        case 'email-already-in-use':
+          mensagem = 'Esse e-mail já existe.';
+          break;
+        default:
+          mensagem = 'Erro ao cadastrar usuário';
+          break;
       }
-      throw AuthException(message: e.message ?? 'Erro ao fazer cadastro');
+
+      throw AuthException(message: mensagem);
     }
   }
 

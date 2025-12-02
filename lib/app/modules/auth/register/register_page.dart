@@ -2,6 +2,7 @@ import 'package:fancy_password_field/fancy_password_field.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:validatorless/validatorless.dart';
@@ -64,6 +65,7 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                               const SizedBox(height: 15),
                               GalegosTextFormField(
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                inputType: .emailAddress,
                                 controller: _emailEC,
                                 label: 'E-mail',
                                 validator: Validatorless.multiple([
@@ -71,35 +73,65 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                                   Validatorless.email('E-mail inválido'),
                                 ]),
                               ),
-
                               const SizedBox(height: 15),
-                              // GalegosTextFormField(
-                              //   floatingLabelBehavior: FloatingLabelBehavior.auto,
-                              //   controller: _passwordEC,
-                              //   obscureText: controller.isSelected.value,
-                              //   icon: IconButton(
-                              //     onPressed: () {
-                              //       controller.seePassword();
-                              //     },
-                              //     icon: controller.isSelected.value
-                              //         ? Icon(Icons.visibility)
-                              //         : Icon(Icons.visibility_off),
-                              //   ),
-                              //   label: 'Senha',
-                              //   validator: Validatorless.multiple([
-                              //     Validatorless.required('Senha obrigatória'),
-                              //     Validatorless.min(8, 'Senha obrigatória'),
-                              //   ]),
-                              // ),
                               FancyPasswordField(
+                                controller: _passwordEC,
+                                keyboardType: .visiblePassword,
                                 decoration: InputDecoration(
-                                  label: Text('Senha'),
-                                  border: OutlineInputBorder(),
+                                  label: Text(
+                                    'Senha',
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  floatingLabelStyle: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(
+                                      color: Colors.red,
+                                    ),
+                                  ),
                                 ),
+                                cursorColor: Colors.black,
+                                validator: Validatorless.multiple([
+                                  Validatorless.required('Senha ibrigatória'),
+                                  Validatorless.min(8, 'Mínimo 8 caracteres'),
+                                ]),
                                 validationRules: {
-                                  LowercaseValidationRule(customText: 'Letra minúscula'),
+                                  DigitValidationRule(customText: 'Um numero'),
                                   UppercaseValidationRule(customText: 'Letra maiúscula'),
                                   MinCharactersValidationRule(8, customText: '8 caracteres'),
+                                },
+                                hasStrengthIndicator: false,
+                                validationRuleBuilder: (rules, value) {
+                                  return Column(
+                                    crossAxisAlignment: .start,
+                                    spacing: 10,
+                                    children: [
+                                      const SizedBox(height: 5),
+                                      Text('A senha deve conter pelo menos: '),
+                                      ...rules.map(
+                                        (rule) => _passwordValidator(context, rule, value),
+                                      ),
+                                    ],
+                                  );
                                 },
                               ),
                               const SizedBox(height: 15),
@@ -108,7 +140,7 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                                 obscureText: controller.isSelectedConfirmaSenha.value,
                                 icon: IconButton(
                                   onPressed: () {
-                                    controller.seeConfirmaPassword();
+                                    controller.seeConfirmPassword();
                                   },
                                   icon: controller.isSelectedConfirmaSenha.value
                                       ? Icon(Icons.visibility)
@@ -149,4 +181,19 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
       ),
     );
   }
+}
+
+Widget _passwordValidator(BuildContext context, ValidationRule rule, String value) {
+  final bool isValid = rule.validate(value);
+
+  return Row(
+    spacing: 10,
+    children: [
+      Icon(
+        isValid ? Icons.check_circle : Icons.cancel,
+        color: isValid ? const Color(0xFF36A739) : GalegosUiDefaut.colorScheme.error,
+      ),
+      Text(rule.name),
+    ],
+  );
 }

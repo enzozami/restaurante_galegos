@@ -20,7 +20,7 @@ class GalegosDrawer extends GetView<AuthServices> {
           UserAccountsDrawerHeader(
             decoration: BoxDecoration(color: GalegosUiDefaut.colorScheme.tertiary),
             accountName: Text(
-              'Usuário: ${controller.getUserName()}',
+              'Olá, ${controller.getUserName()}',
               style: GalegosUiDefaut.textLunchboxes.titleMedium,
             ),
             accountEmail: Visibility(visible: controller.isAdmin(), child: Text('Administrador')),
