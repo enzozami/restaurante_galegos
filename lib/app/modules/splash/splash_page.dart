@@ -12,10 +12,6 @@ class SplashPage extends GetView<SplashController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Image.network(
-            //   'https://restaurantegalegos.wabiz.delivery/stores/restaurantegalegos/img/homeLogo.png?vc=20250915111500&cvc=',
-            //   fit: BoxFit.cover,
-            // ),
             Image.asset('assets/splash/splash.png', fit: BoxFit.cover),
             const SizedBox(
               height: 10,
