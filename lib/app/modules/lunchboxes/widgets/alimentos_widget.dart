@@ -49,7 +49,7 @@ class _FoodClient extends StatelessWidget {
       child: controller.loading.value
           ? Wrap(
               children: List.generate(
-                3,
+                5,
                 (_) => CardShimmer(
                   height: 280,
                   width: context.widthTransformer(reducedBy: 10),
