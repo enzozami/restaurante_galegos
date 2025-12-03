@@ -24,7 +24,7 @@ class HomePage extends GetView<HomeController> {
             ),
             NavigationDestination(
               icon: Icon(Icons.motorcycle, color: GalegosUiDefaut.colorScheme.primary),
-              label: 'Entrega',
+              label: 'Entregas',
             ),
             NavigationDestination(
               icon: Icon(Icons.shopping_bag_outlined, color: GalegosUiDefaut.colorScheme.primary),
