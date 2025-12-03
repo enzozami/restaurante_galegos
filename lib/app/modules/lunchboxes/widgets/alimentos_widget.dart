@@ -115,10 +115,7 @@ class _FoodClient extends StatelessWidget {
                                             barBlur: 0,
                                           );
                                         },
-                                        onPressedR: () {
-                                          controller.removeAllFoodsUnit();
-                                          controller.addFoodShoppingCard();
-                                        },
+
                                         plusMinus: Obx(() {
                                           return GalegosPlusMinus(
                                             addCallback: controller.addFood,

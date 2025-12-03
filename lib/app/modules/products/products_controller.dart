@@ -12,53 +12,38 @@ import 'package:restaurante_galegos/app/services/products/products_services.dart
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
 class ProductsController extends GetxController with LoaderMixin, MessagesMixin {
-  // --- 2. SERVIÇOS (Dependências Injetadas) ---
   final AuthServices _authService;
   final CarrinhoServices _carrinhoServices;
   final ProductsServices _productsServices;
 
   ScrollController scrollController = ScrollController();
 
-  // --- ESTADO REATIVO PRIVADO   ---
+  final isProcessing = RxBool(false);
   final _loading = false.obs;
-
-  RxBool get loading => _loading;
   final _message = Rxn<MessageModel>();
 
-  // --- DADOS/ESTADO PÚBLICO REATIVO ---
   final Rx<String?> categoryId = Rx(null);
 
-  // final RxList<ProductModel> itemsFiltrados = <ProductModel>[].obs;
-  final isProcessing = RxBool(false);
-
-  // Estado de Seleção
   final categorySelected = Rxn<CategoryModel>();
   final itemSelect = Rxn<ProductModel>();
 
-  // Estado da Compra (para o modal)
   final _quantity = 1.obs;
   final _alreadyAdded = false.obs;
   final _totalPrice = 0.0.obs;
   final _isEditing = false.obs;
 
-  // --- GETTERS ---
-  ProductModel? get selectedItem => itemSelect.value;
+  RxBool get loading => _loading; // carregamento
+  RxList<ProductModel> get items => _productsServices.items; // itens da api
+  RxList<CategoryModel> get category => _productsServices.categories; // categorias da api
+  ProductModel? get selectedItem => itemSelect.value; // item que é selecionado
+  int get quantity => _quantity.value; // quantidade de itens
+  bool get alreadyAdded => _alreadyAdded.value; // se está no carrinho ou nao
+  double get totalPrice => _totalPrice.value; // valor total do carrinho
+  CarrinhoServices get carrinhoServices => _carrinhoServices; // carrinho
+  bool get isEditing => _isEditing.value; // se está editando ou nao
+  bool get admin => _authService.isAdmin(); // se é admin ou nao
+  RxBool temHoje(ProductModel p) => RxBool(p.temHoje); // se tem no dia ou nao
 
-  int get quantity => _quantity.value;
-
-  bool get alreadyAdded => _alreadyAdded.value;
-
-  double get totalPrice => _totalPrice.value;
-
-  CarrinhoServices get carrinhoServices => _carrinhoServices;
-
-  bool get isEditing => _isEditing.value;
-
-  RxList<ProductModel> get items => _productsServices.items;
-
-  RxList<CategoryModel> get category => _productsServices.categories;
-
-  // --- Construtor ---
   ProductsController({
     required AuthServices authService,
     required CarrinhoServices carrinhoServices,
@@ -67,27 +52,13 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
        _authService = authService,
        _productsServices = productsServices;
 
-  bool get admin => _authService.isAdmin();
-
-  Future<void> updateListItems(int id, ProductModel item) async {
-    await _productsServices.updateTemHoje(id, item);
-  }
-
-  void addProduct(String name, double price, String? description) {
-    if (categoryId.value != null) {
-      final category = categoryId.value!;
-
-      _productsServices.cadastrarProdutos(category, name, price, description);
-    }
-  }
-
   @override
   void onInit() async {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
 
-    await _fetchProductsAndItems();
+    await _fetchAllProducts();
 
     ever<int>(_quantity, (quantity) {
       _totalPrice(selectedItem?.price);
@@ -95,12 +66,10 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
     ever<List<ProductModel>>(items, (_) {
       items.where((e) => e.temHoje).toList();
-      // itemsFiltrados.refresh();
     });
   }
 
-  // 9. Renomeado e tornado privado e mais robusto
-  Future<void> _fetchProductsAndItems() async {
+  Future<void> _fetchAllProducts() async {
     try {
       _loading(true);
       await _productsServices.init();
@@ -118,6 +87,18 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
   }
 
+  Future<void> atualizarItensDoDia(int id, ProductModel item) async {
+    await _productsServices.updateTemHoje(id, item);
+  }
+
+  void cadastrarNovosProdutos(String name, double price, String? description) {
+    if (categoryId.value != null) {
+      final category = categoryId.value!;
+
+      _productsServices.cadastrarProdutos(category, name, price, description);
+    }
+  }
+
   void searchItemsByFilter(CategoryModel? categoryModel) {
     if (isProcessing.value) return;
 
@@ -130,7 +111,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         return;
       }
 
-      // Toggle da categoria
       final selected = categorySelected.value;
       if (selected?.name == categoryModel.name) {
         categorySelected.value = null;
@@ -156,10 +136,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
   }
 
-  void removeAllProductsUnit() {
-    _quantity.value = 0;
-  }
-
   void setSelectedItem(ProductModel item) {
     itemSelect.value = item;
 
@@ -182,16 +158,14 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
 
     _carrinhoServices.addOrUpdateProduct(selected, quantity: _quantity.value);
-    log('QUANTIDADE ENVIADA : $quantity');
   }
 
   Future<void> refreshProducts() async {
     try {
-      // itemsFiltrados.value = items;
       if (categorySelected.value != null) {
         categorySelected.value = null;
       }
-      _fetchProductsAndItems();
+      _fetchAllProducts();
     } catch (e, s) {
       log('Erro ao atualizar produtos', error: e, stackTrace: s);
       _message(
@@ -200,15 +174,13 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
   }
 
-  Future<void> deletarProd(ProductModel item) => _productsServices.deletarProdutos(item);
+  Future<void> apagarProduto(ProductModel item) => _productsServices.deletarProdutos(item);
 
-  Future<void> updateData(
+  Future<void> atualizarDadosDoProduto(
     int id,
     String newCategoryId,
     String newDescription,
     String newName,
     double newPrice,
   ) => _productsServices.atualizarDados(id, newCategoryId, newDescription, newName, newPrice);
-
-  RxBool temHoje(ProductModel p) => RxBool(p.temHoje);
 }

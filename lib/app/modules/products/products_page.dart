@@ -196,7 +196,7 @@ class _FloatingActionButtonAdminState
                         final name = nomeProdutoEC.text;
                         final price = precoEC.text;
                         final description = descricaoEC.text;
-                        controller.addProduct(name, double.parse(price), description);
+                        controller.cadastrarNovosProdutos(name, double.parse(price), description);
                       }
                       nomeProdutoEC.clear();
                       descricaoEC.clear();

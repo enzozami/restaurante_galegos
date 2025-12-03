@@ -8,7 +8,6 @@ class AlertDialogDefault extends StatelessWidget {
   final ProductModel? item;
   final FoodModel? alimento;
   final VoidCallback onPressed;
-  final VoidCallback onPressedR;
   final Widget? plusMinus;
   final bool visible;
 
@@ -19,7 +18,6 @@ class AlertDialogDefault extends StatelessWidget {
     required this.onPressed,
     this.plusMinus,
     required this.visible,
-    required this.onPressedR,
   });
 
   @override

@@ -145,10 +145,6 @@ class _ProductsClient extends GetView<ProductsController> {
                                             log('Item clicado: ${e.name} - ${e.price}');
                                           }
                                         },
-                                        onPressedR: () {
-                                          controller.removeAllProductsUnit();
-                                          controller.addItemsToCart();
-                                        },
                                       );
                                     },
                                   );
@@ -267,7 +263,7 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
                               return confirm == true;
                             },
                             onDismissed: (_) async {
-                              controller.deletarProd(e);
+                              controller.apagarProduto(e);
                               await controller.refreshProducts();
                             },
                             child: InkWell(
@@ -303,7 +299,7 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
                                             final cleaned = priceEC.text
                                                 .replaceAll('.', '')
                                                 .replaceAll(',', '.');
-                                            controller.updateData(
+                                            controller.atualizarDadosDoProduto(
                                               e.id,
                                               e.categoryId,
                                               descriptionEC.text,
@@ -316,7 +312,7 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
                                         value: temHoje,
                                         onChanged: (value) async {
                                           temHoje.value = value;
-                                          await controller.updateListItems(e.id, e);
+                                          await controller.atualizarItensDoDia(e.id, e);
                                           await controller.refreshProducts();
                                         },
                                       ),
