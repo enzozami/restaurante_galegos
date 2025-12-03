@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/masks/mask_cpf.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/repositories/auth/auth_repository_impl.dart';
@@ -12,14 +11,10 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
 
-  final typeMask = MaskCpf().obs;
-  final _isCpf = true.obs;
   final _isChecked = false.obs;
 
-  bool get isCpf => _isCpf.value;
   bool get isChecked => _isChecked.value;
 
-  final isSelected = true.obs;
   final isSelectedConfirmaSenha = true.obs;
 
   RegisterController({required AuthServices authServices}) : _authServices = authServices;

@@ -54,103 +54,18 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                         child: Obx(() {
                           return Column(
                             children: [
-                              GalegosTextFormField(
-                                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                controller: _nameEC,
-                                label: 'Nome completo',
-                                validator: Validatorless.multiple([
-                                  Validatorless.required('Campo obrigatório'),
-                                ]),
-                              ),
-                              const SizedBox(height: 15),
-                              GalegosTextFormField(
-                                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                inputType: .emailAddress,
-                                controller: _emailEC,
-                                label: 'E-mail',
-                                validator: Validatorless.multiple([
-                                  Validatorless.required('Senha obrigatória'),
-                                  Validatorless.email('E-mail inválido'),
-                                ]),
-                              ),
-                              const SizedBox(height: 15),
-                              FancyPasswordField(
-                                controller: _passwordEC,
-                                keyboardType: .visiblePassword,
-                                decoration: InputDecoration(
-                                  label: Text(
-                                    'Senha',
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  floatingLabelStyle: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ),
-                                cursorColor: Colors.black,
-                                validator: Validatorless.multiple([
-                                  Validatorless.required('Senha ibrigatória'),
-                                  Validatorless.min(8, 'Mínimo 8 caracteres'),
-                                ]),
-                                validationRules: {
-                                  DigitValidationRule(customText: 'Um numero'),
-                                  UppercaseValidationRule(customText: 'Letra maiúscula'),
-                                  MinCharactersValidationRule(8, customText: '8 caracteres'),
+                              _formFieldsRegister(
+                                context: context,
+                                nameEC: _nameEC,
+                                passwordEC: _passwordEC,
+                                emailEC: _emailEC,
+                                icons: controller.isSelectedConfirmaSenha.value
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                onPressed: () {
+                                  controller.seeConfirmPassword();
                                 },
-                                hasStrengthIndicator: false,
-                                validationRuleBuilder: (rules, value) {
-                                  return Column(
-                                    crossAxisAlignment: .start,
-                                    spacing: 10,
-                                    children: [
-                                      const SizedBox(height: 5),
-                                      Text('A senha deve conter pelo menos: '),
-                                      ...rules.map(
-                                        (rule) => _passwordValidator(context, rule, value),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-                              const SizedBox(height: 15),
-                              GalegosTextFormField(
-                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 obscureText: controller.isSelectedConfirmaSenha.value,
-                                icon: IconButton(
-                                  onPressed: () {
-                                    controller.seeConfirmPassword();
-                                  },
-                                  icon: controller.isSelectedConfirmaSenha.value
-                                      ? Icon(Icons.visibility)
-                                      : Icon(Icons.visibility_off),
-                                ),
-                                label: 'Confirma senha',
-                                validator: Validatorless.multiple([
-                                  Validatorless.required('Confirma senha obrigatória'),
-                                  Validatorless.compare(_passwordEC, 'Senhas diferentes'),
-                                ]),
                               ),
                               const SizedBox(height: 20),
                               GalegosButtonDefault(
@@ -195,5 +110,121 @@ Widget _passwordValidator(BuildContext context, ValidationRule rule, String valu
       ),
       Text(rule.name),
     ],
+  );
+}
+
+Widget _formFieldsRegister({
+  required BuildContext context,
+  required TextEditingController nameEC,
+  required TextEditingController passwordEC,
+  required TextEditingController emailEC,
+  required IconData icons,
+  required VoidCallback onPressed,
+  required bool obscureText,
+}) {
+  return Column(
+    children: [
+      GalegosTextFormField(
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        controller: nameEC,
+        label: 'Nome completo',
+        validator: Validatorless.multiple([
+          Validatorless.required('Campo obrigatório'),
+        ]),
+      ),
+      const SizedBox(height: 15),
+      GalegosTextFormField(
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        inputType: .emailAddress,
+        controller: emailEC,
+        label: 'E-mail',
+        validator: Validatorless.multiple([
+          Validatorless.required('Senha obrigatória'),
+          Validatorless.email('E-mail inválido'),
+        ]),
+      ),
+      const SizedBox(height: 15),
+      _fancyPasswordField(context: context, passwordEC: passwordEC),
+      const SizedBox(height: 15),
+      GalegosTextFormField(
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        obscureText: obscureText,
+        icon: IconButton(
+          onPressed: onPressed,
+          icon: Icon(icons),
+        ),
+        label: 'Confirma senha',
+        validator: Validatorless.multiple([
+          Validatorless.required('Confirma senha obrigatória'),
+          Validatorless.compare(passwordEC, 'Senhas diferentes'),
+        ]),
+      ),
+    ],
+  );
+}
+
+Widget _fancyPasswordField({
+  required BuildContext context,
+  required TextEditingController passwordEC,
+}) {
+  return FancyPasswordField(
+    controller: passwordEC,
+    keyboardType: .visiblePassword,
+    decoration: InputDecoration(
+      label: Text(
+        'Senha',
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(
+          color: Colors.black,
+        ),
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(
+          color: Colors.black,
+        ),
+      ),
+      floatingLabelStyle: TextStyle(
+        color: Colors.black,
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(
+          color: Colors.black,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(
+          color: Colors.red,
+        ),
+      ),
+    ),
+    cursorColor: Colors.black,
+    validator: Validatorless.multiple([
+      Validatorless.required('Senha ibrigatória'),
+      Validatorless.min(8, 'Mínimo 8 caracteres'),
+    ]),
+    validationRules: {
+      DigitValidationRule(customText: 'Um numero'),
+      UppercaseValidationRule(customText: 'Letra maiúscula'),
+      MinCharactersValidationRule(8, customText: '8 caracteres'),
+    },
+    hasStrengthIndicator: false,
+    validationRuleBuilder: (rules, value) {
+      return Column(
+        crossAxisAlignment: .start,
+        spacing: 10,
+        children: [
+          const SizedBox(height: 5),
+          Text('A senha deve conter pelo menos: '),
+          ...rules.map(
+            (rule) => _passwordValidator(context, rule, value),
+          ),
+        ],
+      );
+    },
   );
 }

@@ -53,48 +53,17 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                         child: Obx(() {
                           return Column(
                             children: [
-                              GalegosTextFormField(
-                                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                controller: _emailEC,
-                                inputType: .emailAddress,
-                                label: 'E-mail',
-                                validator: Validatorless.multiple([
-                                  Validatorless.required('Campo obrigatório'),
-                                  Validatorless.email('E-mail inválido'),
-                                ]),
-                              ),
-                              const SizedBox(height: 25),
-                              GalegosTextFormField(
-                                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                controller: _passwordEC,
+                              _formFieldsLogin(
+                                emailEC: _emailEC,
+                                passwordEC: _passwordEC,
+                                context: context,
+                                icons: controller.isSelected.value
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                onPressed: () {
+                                  controller.seePassword();
+                                },
                                 obscureText: controller.isSelected.value,
-                                icon: IconButton(
-                                  onPressed: () {
-                                    controller.seePassword();
-                                  },
-                                  icon: controller.isSelected.value
-                                      ? Icon(Icons.visibility)
-                                      : Icon(Icons.visibility_off),
-                                ),
-                                validator: Validatorless.multiple([
-                                  Validatorless.required('Senha obrigatória'),
-                                  Validatorless.min(8, 'Senha deve ter 8 dígitos'),
-                                ]),
-                                label: 'Senha',
-                              ),
-                              Align(
-                                alignment: .centerRight,
-                                child: TextButton(
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return _AlertResetPassword();
-                                      },
-                                    );
-                                  },
-                                  child: Text('Esqueci minha senha'),
-                                ),
                               ),
                               const SizedBox(height: 25),
                               GalegosButtonDefault(
@@ -138,6 +107,60 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
       ),
     );
   }
+}
+
+Widget _formFieldsLogin({
+  required TextEditingController emailEC,
+  required TextEditingController passwordEC,
+  required BuildContext context,
+  required IconData icons,
+  required VoidCallback onPressed,
+  required bool obscureText,
+}) {
+  return Column(
+    children: [
+      GalegosTextFormField(
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        controller: emailEC,
+        inputType: .emailAddress,
+        label: 'E-mail',
+        validator: Validatorless.multiple([
+          Validatorless.required('Campo obrigatório'),
+          Validatorless.email('E-mail inválido'),
+        ]),
+      ),
+      const SizedBox(height: 25),
+      GalegosTextFormField(
+        floatingLabelBehavior: .auto,
+        controller: passwordEC,
+        obscureText: obscureText,
+        inputType: .visiblePassword,
+        icon: IconButton(
+          onPressed: onPressed,
+          icon: Icon(icons),
+        ),
+        validator: Validatorless.multiple([
+          Validatorless.required('Senha obrigatória'),
+          Validatorless.min(8, 'Senha deve ter 8 dígitos'),
+        ]),
+        label: 'Senha',
+      ),
+      Align(
+        alignment: .centerRight,
+        child: TextButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return _AlertResetPassword();
+              },
+            );
+          },
+          child: Text('Esqueci minha senha'),
+        ),
+      ),
+    ],
+  );
 }
 
 class _AlertResetPassword extends StatefulWidget {
