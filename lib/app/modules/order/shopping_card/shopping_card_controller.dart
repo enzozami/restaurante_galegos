@@ -112,8 +112,8 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
 
   Future<bool> createOrder({required String address, required String numero}) async {
     if (isProcessing.value) return false;
-    _loading(true);
     try {
+      _loading.value = true;
       isProcessing.value = true;
       final user = _authServices.getUserId();
       final name = _authServices.getUserName();
@@ -154,14 +154,14 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       );
       return false;
     } finally {
-      _loading(false);
+      _loading.value = false;
       isProcessing.value = false;
     }
   }
 
   Future<void> getCep({required String address}) async {
     try {
-      _loading(true);
+      _loading.value = true;
       final cepData = await _cepServices.getCep(address);
       cep.value = cepData['cep'] ?? '';
       rua.value = cepData['logradouro'];
@@ -192,7 +192,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       );
       rethrow;
     } finally {
-      _loading(false);
+      _loading.value = false;
     }
   }
 

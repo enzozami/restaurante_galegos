@@ -50,8 +50,16 @@ class AuthServicesImpl extends GetxService implements AuthServices {
       7: "Domingo",
     };
     final diaHoje = diasSemana[timeNow.weekday];
-    if (!dateApi.containsValue(diaHoje)) {
-      log('Fechado, hoje não funcionou');
+    final List<String> diasFuncionamento =
+        (dateApi['days'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? [];
+
+    if (!diasFuncionamento.contains(diaHoje)) {
+      log('Fechado, hoje ($diaHoje) não funcionou');
+      return false;
+    }
+
+    if (dateApi['inicio'] == null || dateApi['fim'] == null) {
+      log('Fechado, horário de início ou fim ausente.');
       return false;
     }
 
