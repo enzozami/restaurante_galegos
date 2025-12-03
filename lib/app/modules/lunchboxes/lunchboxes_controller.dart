@@ -73,7 +73,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
-    await getLunchboxes();
 
     ever<int>(_quantity, (quantity) {
       _totalPrice(selectedFood?.pricePerSize[sizeSelected.value]);
@@ -82,6 +81,12 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     ever<List<FoodModel>>(alimentos, (_) {
       alimentos.where((e) => e.temHoje).toList();
     });
+  }
+
+  @override
+  Future<void> onReady() async {
+    super.onReady();
+    await getLunchboxes();
   }
 
   Future<void> getLunchboxes() async {

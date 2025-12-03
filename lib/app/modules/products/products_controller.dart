@@ -58,8 +58,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     loaderListener(_loading);
     messageListener(_message);
 
-    await _fetchAllProducts();
-
     ever<int>(_quantity, (quantity) {
       _totalPrice(selectedItem?.price);
     });
@@ -67,6 +65,12 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     ever<List<ProductModel>>(items, (_) {
       items.where((e) => e.temHoje).toList();
     });
+  }
+
+  @override
+  Future<void> onReady() async {
+    super.onReady();
+    await _fetchAllProducts();
   }
 
   Future<void> _fetchAllProducts() async {
