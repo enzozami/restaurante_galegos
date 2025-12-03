@@ -34,20 +34,41 @@ import './home_controller.dart';
 class HomeBindings implements Bindings {
   @override
   Future<void> dependencies() async {
-    Get.lazyPut<ProductsRepository>(() => ProductsRepositoryImpl());
-    Get.lazyPut<ProductsServices>(
-      () => ProductsServicesImpl(productsRepository: Get.find<ProductsRepository>()),
-    );
-
-    Get.lazyPut(() => AllOrdersController(ordersState: Get.find<OrderServices>()));
-    Get.lazyPut(() => ForDeliveryController(ordersState: Get.find<OrderServices>()));
-
+    // Repositories
+    Get.lazyPut<TimeRepository>(() => TimeRepositoryImpl());
+    Get.lazyPut<OrderReposiroty>(() => OrderReposirotyImpl());
     Get.lazyPut<LunchboxesRepository>(() => LunchboxesRepositoryImpl());
+    Get.lazyPut<ProductsRepository>(() => ProductsRepositoryImpl());
+    Get.lazyPut<CepRepository>(() => CepRepositoryImpl(viaCepService: Get.find<ViaCepService>()));
+
+    // Services
+    Get.lazyPut<TimeServices>(() => TimeServicesImpl(timeRepository: Get.find<TimeRepository>()));
+    Get.lazyPut<OrderServices>(
+      () => OrderServicesImpl(orderRepository: Get.find<OrderReposiroty>()),
+    );
     Get.lazyPut<LunchboxesServices>(
       () => LunchboxesServicesImpl(
         lunchboxesRepository: Get.find<LunchboxesRepository>(),
         timeServices: Get.find<TimeServices>(),
       ),
+    );
+    Get.lazyPut<ProductsServices>(
+      () => ProductsServicesImpl(productsRepository: Get.find<ProductsRepository>()),
+    );
+    // Registro duplicado de ProductsServices da sua lista original (mantido).
+    Get.lazyPut<ProductsServices>(
+      () => ProductsServicesImpl(productsRepository: Get.find<ProductsRepository>()),
+    );
+    Get.lazyPut<CepServices>(() => CepServicesImpl(cepRepository: Get.find<CepRepository>()));
+
+    // Controllers
+    Get.lazyPut(
+      () => ProductsController(
+        authService: Get.find<AuthServices>(),
+        carrinhoServices: Get.find<CarrinhoServices>(),
+        productsServices: Get.find<ProductsServices>(),
+      ),
+      fenix: true,
     );
     Get.lazyPut(
       () => LunchboxesController(
@@ -57,17 +78,8 @@ class HomeBindings implements Bindings {
         authServices: Get.find<AuthServices>(),
       ),
     );
-
-    Get.lazyPut<CepRepository>(() => CepRepositoryImpl(viaCepService: Get.find<ViaCepService>()));
-    Get.lazyPut<CepServices>(() => CepServicesImpl(cepRepository: Get.find<CepRepository>()));
-
-    Get.lazyPut<TimeRepository>(() => TimeRepositoryImpl());
-    Get.lazyPut<TimeServices>(() => TimeServicesImpl(timeRepository: Get.find<TimeRepository>()));
-
-    Get.lazyPut<OrderReposiroty>(() => OrderReposirotyImpl());
-    Get.lazyPut<OrderServices>(
-      () => OrderServicesImpl(orderRepository: Get.find<OrderReposiroty>()),
-    );
+    Get.lazyPut(() => AllOrdersController(ordersState: Get.find<OrderServices>()));
+    Get.lazyPut(() => ForDeliveryController(ordersState: Get.find<OrderServices>()));
     Get.lazyPut(
       () => ShoppingCardController(
         orderServices: Get.find<OrderServices>(),
@@ -77,28 +89,13 @@ class HomeBindings implements Bindings {
         ordersState: Get.find<OrderServices>(),
       ),
     );
-
     Get.lazyPut(() => OrderFinishedController());
-
-    Get.lazyPut<ProductsRepository>(() => ProductsRepositoryImpl());
-    Get.lazyPut(() => ProductsServicesImpl(productsRepository: Get.find<ProductsRepository>()));
-
-    Get.lazyPut(
-      () => ProductsController(
-        authService: Get.find<AuthServices>(),
-        carrinhoServices: Get.find<CarrinhoServices>(),
-        productsServices: Get.find<ProductsServices>(),
-      ),
-      fenix: true,
-    );
-
     Get.lazyPut(
       () => HistoryController(
         authServices: Get.find<AuthServices>(),
         ordersState: Get.find<OrderServices>(),
       ),
     );
-
     Get.lazyPut<HomeController>(
       () => HomeController(
         carrinhoServices: Get.find<CarrinhoServices>(),
