@@ -32,7 +32,7 @@ class HomePage extends GetView<HomeController> {
             ),
             NavigationDestination(
               icon: Icon(Icons.lunch_dining, color: GalegosUiDefaut.colorScheme.primary),
-              label: 'Produto',
+              label: 'Produtos',
             ),
             NavigationDestination(
               icon: Icon(Icons.restaurant_menu, color: GalegosUiDefaut.colorScheme.primary),
@@ -43,7 +43,7 @@ class HomePage extends GetView<HomeController> {
           destinations = [
             NavigationDestination(
               icon: Icon(Icons.lunch_dining, color: GalegosUiDefaut.colorScheme.primary),
-              label: 'Produto',
+              label: 'Produtos',
             ),
             NavigationDestination(
               icon: Icon(Icons.restaurant_menu, color: GalegosUiDefaut.colorScheme.primary),
