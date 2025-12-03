@@ -88,8 +88,8 @@ class _FoodClient extends StatelessWidget {
                                 style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
                                 onPressed: () {
                                   log('alimentosWidget - $s');
-                                  controller.setFoodSelected(alimento, s);
-                                  controller.filterPrice(s);
+                                  controller.definirComidaSelecionada(alimento, s);
+                                  controller.filtrarPreco(s);
                                   controller.sizeSelected.value = s;
                                   showDialog(
                                     context: context,
@@ -98,7 +98,7 @@ class _FoodClient extends StatelessWidget {
                                         visible: controller.quantity > 0,
                                         alimento: alimento,
                                         onPressed: () {
-                                          controller.addFoodShoppingCard();
+                                          controller.adicionarMarmitaAoCarrinho();
                                           log(
                                             'Item: ${alimento.name} - Valor: ${alimento.pricePerSize[s]}',
                                           );
@@ -118,8 +118,8 @@ class _FoodClient extends StatelessWidget {
 
                                         plusMinus: Obx(() {
                                           return GalegosPlusMinus(
-                                            addCallback: controller.addFood,
-                                            removeCallback: controller.removeFood,
+                                            addCallback: controller.adicionarQuantidade,
+                                            removeCallback: controller.removerQuantidade,
                                             quantityUnit: controller.quantity,
                                           );
                                         }),
@@ -233,7 +233,7 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
                     child: InkWell(
                       splashColor: GalegosUiDefaut.theme.splashColor,
                       onTap: () {
-                        controller.setFoodSelected(alimento, widget.selectedSize);
+                        controller.definirComidaSelecionada(alimento, widget.selectedSize);
                         final number = NumberFormat('#,##0.00', 'pt_BR');
                         final temHoje = controller.temHoje(alimento);
                         showDialog(

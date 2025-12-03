@@ -132,7 +132,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     log(" função de salvar foi chamada");
   }
 
-  void filterPrice(String selectedSize) {
+  void filtrarPreco(String selectedSize) {
     if (sizeSelected.value == selectedSize) {
       sizeSelected.value = '';
       return;
@@ -141,7 +141,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     sizeSelected.value = selectedSize;
   }
 
-  void filterByDay(String? day) {
+  void filtrarPorDia(String? day) {
     if (day == daysSelected.value) {
       daysSelected.value = null;
       return;
@@ -149,15 +149,15 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     daysSelected.value = day;
   }
 
-  void addFood() {
+  void adicionarQuantidade() {
     _quantity.value++;
   }
 
-  void removeFood() {
+  void removerQuantidade() {
     if (_quantity.value > 0) _quantity.value--;
   }
 
-  void setFoodSelected(FoodModel food, String size) {
+  void definirComidaSelecionada(FoodModel food, String size) {
     foodSelect.value = food;
 
     final carrinhoItem = _carrinhoServices.getByIdAndSize(food.id, size);
@@ -170,7 +170,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     }
   }
 
-  void addFoodShoppingCard() {
+  void adicionarMarmitaAoCarrinho() {
     final selected = selectedFood;
 
     if (selected == null) {

@@ -75,7 +75,7 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                                     (d) => FilterTag(
                                       isSelected: controller.daysSelected.value == d,
                                       onPressed: () {
-                                        controller.filterByDay(d);
+                                        controller.filtrarPorDia(d);
                                       },
                                       days: d,
                                     ),
