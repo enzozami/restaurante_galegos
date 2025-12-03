@@ -48,7 +48,11 @@ class AllOrdersPage extends GetView<AllOrdersController> {
                   if (!snapshot.hasData) {
                     return Center(child: CircularProgressIndicator());
                   }
-
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return Center(
+                      child: Text('Nenhum pedido encontrado', style: TextStyle(fontSize: 18)),
+                    );
+                  }
                   final docs = snapshot.data!.docs;
 
                   return ListView.builder(

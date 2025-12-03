@@ -14,6 +14,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        controller: controller.scrollController,
         child: Column(
           children: [
             const SizedBox(height: 20),
@@ -64,7 +65,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
 
                     return ListView.builder(
                       shrinkWrap: true,
-                      // physics: const NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: docs.length,
                       itemBuilder: (context, index) {
                         final data = docs[index].data();
