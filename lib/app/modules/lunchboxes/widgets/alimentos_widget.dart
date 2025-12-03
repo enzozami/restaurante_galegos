@@ -227,7 +227,7 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
                       return confirm == true;
                     },
                     onDismissed: (_) {
-                      controller.deletarMarmita(alimento);
+                      controller.apagarMarmita(alimento);
                       controller.refreshLunchboxes();
                     },
                     child: InkWell(
@@ -262,7 +262,7 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
                                         .replaceAll('.', '')
                                         .replaceAll(',', '.');
 
-                                    await controller.atualizarDados(
+                                    await controller.atualizarDadosDaMarmita(
                                       alimento.id,
                                       nameEC.text,
                                       descriptionEC.text,
@@ -277,7 +277,7 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
                                 value: temHoje,
                                 onChanged: (bool value) async {
                                   temHoje.value = value;
-                                  await controller.updateListFoods(alimento.id, alimento);
+                                  await controller.atualizarMarmitasDoDia(alimento.id, alimento);
                                   await controller.refreshLunchboxes();
                                 },
                                 nameFood: nameEC,

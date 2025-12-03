@@ -16,53 +16,30 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   final LunchboxesServices _foodService;
   final AuthServices _authServices;
 
-  // --- ESTADO REATIVO CENTRALIZADO ---
-  final _loading = false.obs;
-  RxBool get loading => _loading;
-  final _message = Rxn<MessageModel>();
-  final isProcessing = false.obs;
-
-  // --- DADOS PRINCIPAIS E BACKUPS ---
-  final availableSizes = <String>[].obs;
-  final _availableSizesOriginal = <String>[];
-
-  RxList<FoodModel> get alimentos => _foodService.alimentos;
-  RxList<TimeModel> get times => _foodService.times;
-  // final alimentosFiltrados = <FoodModel>[].obs;
-
-  // 3. O dia atual deve ser um Rx ou ser calculado na UI, mas manter como final para simplicidade.
   final dayNow = FormatterHelper.formatDate();
 
-  // --- ESTADO DE SELEÇÃO E COMPRA ---
-  final sizeSelected = Rxn<String>(); // O tamanho selecionado
+  final _loading = false.obs;
+  final _message = Rxn<MessageModel>();
+  final isProcessing = false.obs;
+  final availableSizes = <String>[].obs;
   final foodSelect = Rxn<FoodModel>(); // O alimento selecionado
-
+  final sizeSelected = Rxn<String>(); // O tamanho selecionado
   final _quantity = 1.obs;
   final _alreadyAdded = false.obs;
   final _totalPrice = 0.0.obs;
+  final RxList<String> addDays = <String>[].obs;
+  final daysSelected = Rxn<String>();
 
-  // --- GETTERS ---
+  final _availableSizesOriginal = <String>[];
+
+  RxBool get loading => _loading;
+  RxList<FoodModel> get alimentos => _foodService.alimentos;
+  RxList<TimeModel> get times => _foodService.times;
   FoodModel? get selectedFood => foodSelect.value;
   int get quantity => _quantity.value;
   bool get alreadyAdded => _alreadyAdded.value;
   double get totalPrice => _totalPrice.value;
-
-  LunchboxesController({
-    required LunchboxesServices lunchboxesServices,
-    required CarrinhoServices carrinhoServices,
-    required LunchboxesServices foodService,
-    required AuthServices authServices,
-  }) : _lunchboxesServices = lunchboxesServices,
-       _carrinhoServices = carrinhoServices,
-       _foodService = foodService,
-       _authServices = authServices;
-
   bool get admin => _authServices.isAdmin();
-  Future<void> updateListFoods(int id, FoodModel food) => _foodService.updateTemHoje(id, food);
-
-  final RxList<String> addDays = <String>[].obs;
-  final daysSelected = Rxn<String>();
-
   List<FoodModel> get alimentosFiltrados {
     final size = sizeSelected.value;
     final day = daysSelected.value;
@@ -81,24 +58,15 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
         .toList();
   }
 
-  void cadastrar(String name, String? description, double priceMini, double priceMedia) {
-    if (addDays.isEmpty) {
-      _message(
-        MessageModel(
-          title: 'Atenção',
-          message: 'Selecione ao menos um dia para cadastrar.',
-          type: MessageType.error,
-        ),
-      );
-      return;
-    }
-    log("DEBUG: função de salvar foi chamada");
-    _foodService.cadastrarMarmita(name, addDays, description, {
-      'mini': priceMini,
-      'media': priceMedia,
-    });
-    log(" função de salvar foi chamada");
-  }
+  LunchboxesController({
+    required LunchboxesServices lunchboxesServices,
+    required CarrinhoServices carrinhoServices,
+    required LunchboxesServices foodService,
+    required AuthServices authServices,
+  }) : _lunchboxesServices = lunchboxesServices,
+       _carrinhoServices = carrinhoServices,
+       _foodService = foodService,
+       _authServices = authServices;
 
   @override
   Future<void> onInit() async {
@@ -138,6 +106,32 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     }
   }
 
+  Future<void> atualizarMarmitasDoDia(int id, FoodModel food) =>
+      _foodService.updateTemHoje(id, food);
+
+  void cadastrarNovasMarmitas(
+    String name,
+    String? description,
+    double priceMini,
+    double priceMedia,
+  ) {
+    if (addDays.isEmpty) {
+      _message(
+        MessageModel(
+          title: 'Atenção',
+          message: 'Selecione ao menos um dia para cadastrar.',
+          type: MessageType.error,
+        ),
+      );
+      return;
+    }
+    _foodService.cadastrarMarmita(name, addDays, description, {
+      'mini': priceMini,
+      'media': priceMedia,
+    });
+    log(" função de salvar foi chamada");
+  }
+
   void filterPrice(String selectedSize) {
     if (sizeSelected.value == selectedSize) {
       sizeSelected.value = '';
@@ -163,10 +157,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     if (_quantity.value > 0) _quantity.value--;
   }
 
-  void removeAllFoodsUnit() {
-    _quantity.value = 0;
-  }
-
   void setFoodSelected(FoodModel food, String size) {
     foodSelect.value = food;
 
@@ -182,7 +172,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   void addFoodShoppingCard() {
     final selected = selectedFood;
-    log('TAMANHO SELECIONADO - ${sizeSelected.value}');
 
     if (selected == null) {
       _alreadyAdded(false);
@@ -194,9 +183,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       quantity: _quantity.value,
       selectedSize: sizeSelected.value ?? '',
     );
-    log('QUANTIDADE ENVIADA : $quantity');
     sizeSelected.value = '';
-    log('TAMANHO SELECIONADO - ${sizeSelected.value}');
     Get.close(0);
   }
 
@@ -211,9 +198,9 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     }
   }
 
-  Future<void> deletarMarmita(FoodModel food) => _foodService.deletarMarmita(food);
+  Future<void> apagarMarmita(FoodModel food) => _foodService.deletarMarmita(food);
 
-  Future<void> atualizarDados(
+  Future<void> atualizarDadosDaMarmita(
     int id,
     String newName,
     String? newDescription,

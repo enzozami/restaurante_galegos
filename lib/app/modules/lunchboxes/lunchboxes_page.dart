@@ -240,7 +240,12 @@ class _FloatingActionAdmin extends StatelessWidget {
                           final priceMedia = double.parse(precoMediaEC.text);
                           final description = descricaoEC.text;
 
-                          controller.cadastrar(name, description, priceMini, priceMedia);
+                          controller.cadastrarNovasMarmitas(
+                            name,
+                            description,
+                            priceMini,
+                            priceMedia,
+                          );
                         }
                         nomeMarmitaEC.clear();
                         descricaoEC.clear();
