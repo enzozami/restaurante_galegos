@@ -16,52 +16,38 @@ import 'package:restaurante_galegos/app/services/order/order_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
 class ShoppingCardController extends GetxController with LoaderMixin, MessagesMixin {
+  final homeController = Get.find<HomeController>();
+
   final OrderServices _orderServices;
   final AuthServices _authServices;
   final CepServices _cepServices;
-
-  final cepEC = TextEditingController();
-  final cepInput = ''.obs;
-  final numeroEC = TextEditingController();
-  final isProcessing = false.obs;
-
-  final isOpen = true.obs;
-
-  final date = FormatterHelper.formatDateNumber();
-  final time = FormatterHelper.formatDateAndTime();
-
-  @override
-  void onClose() {
-    super.onClose();
-    cepEC.dispose();
-    numeroEC.dispose();
-  }
-
   final CarrinhoServices _carrinhoServices;
 
+  final cepEC = TextEditingController();
+  final numeroEC = TextEditingController();
+
   final _loading = false.obs;
-  RxBool get loading => _loading;
-
   final _message = Rxn<MessageModel>();
-  var id = 0;
-
+  final cepInput = ''.obs;
+  final isProcessing = false.obs;
+  final isOpen = true.obs;
   final quantityRx = Rxn<int>();
-  int get quantity => quantityRx.value ?? 0;
-
-  void clear() => _carrinhoServices.clear();
-
-  // CEP
+  final taxa = 0.0.obs;
   final cep = ''.obs;
   final rua = ''.obs;
   final bairro = ''.obs;
   final cidade = ''.obs;
   final estado = ''.obs;
   final numero = ''.obs;
-
-  // CEP mocado
   final cepMok = <CepModel>[].obs;
 
-  final taxa = 0.0.obs;
+  final date = FormatterHelper.formatDateNumber();
+  final time = FormatterHelper.formatDateAndTime();
+  var id = 0;
+
+  RxBool get loading => _loading;
+  int get quantity => quantityRx.value ?? 0;
+  List<CarrinhoModel> get products => _carrinhoServices.itensCarrinho;
 
   ShoppingCardController({
     required OrderServices orderServices,
@@ -74,8 +60,6 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
        _carrinhoServices = carrinhoServices,
        _cepServices = cepServices;
 
-  List<CarrinhoModel> get products => _carrinhoServices.itensCarrinho;
-
   @override
   void onInit() {
     super.onInit();
@@ -87,6 +71,13 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   void onReady() {
     super.onReady();
     resetCepTaxa();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    cepEC.dispose();
+    numeroEC.dispose();
   }
 
   void addQuantityProduct(CarrinhoModel shoppingCardModel) {
@@ -118,8 +109,6 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       selectedSize: shoppingCardModel.item.tamanho ?? '',
     );
   }
-
-  final homeController = Get.find<HomeController>();
 
   Future<bool> createOrder({required String address, required String numero}) async {
     if (isProcessing.value) return false;
@@ -193,7 +182,6 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
         }
       }
     } catch (e, s) {
-      _loading(false);
       log('Erro ao buscar CEP: $e');
       log('StackTrace: $s');
       Get.snackbar(
@@ -240,40 +228,6 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     numeroEC.text = '';
     cepEC.text = '';
   }
+
+  void clear() => _carrinhoServices.clear();
 }
-
-
-
- // PARTE PARA ADMIN
-  // Future<void> createOrder({required String address}) async {
-  //   try {
-  //     _loading.toggle();
-  //     final user = _authService.getUserId();
-  //     log('USUÁRIO: $user');
-  //     final order = ItemCarrinho(
-  //       userId: user!,
-  //       address: address,
-  //       items: _cardServices.productsSelected,
-  //       quantity: quantity,
-  //     );
-  //     log('ORDER-json: ${order.items.map((e) => e.toJson())}');
-  //     var finished = await _orderServices.createOrder(order);
-  //     finished = finished.copyWith(amountToPay: totalPay());
-  //     log('ORDER-FINALIZADO: ${finished.toJson()}');
-  //     _loading.toggle();
-  //     clear();
-  //     await Get.offNamed('/order/finished', arguments: finished);
-  //   } catch (e, s) {
-  //     _loading.toggle();
-  //     log('Erro ao carregar produtos no carrinho', error: e, stackTrace: s);
-  //     _message(
-  //       MessageModel(
-  //         title: 'Erro',
-  //         message: 'Erro ao carregar produtos no carrinho',
-  //         type: MessageType.error,
-  //       ),
-  //     );
-  //   } finally {
-  //     _loading(false);
-  //   }
-  // }
