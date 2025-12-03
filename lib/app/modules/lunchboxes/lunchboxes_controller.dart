@@ -103,6 +103,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       _foodService.init();
     } catch (e, s) {
       log('Erro ao carregar marmitas', error: e, stackTrace: s);
+      _loading.value = false;
       _message(
         MessageModel(title: 'Erro', message: 'Erro ao carregar marmitas', type: MessageType.error),
       );
@@ -197,6 +198,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       _getLunchboxes();
     } catch (e, s) {
       log('Erro ao atualizar marmitas', error: e, stackTrace: s);
+      _loading.value = false;
       _message(
         MessageModel(title: 'Erro', message: 'Erro ao atualizar marmitas', type: MessageType.error),
       );
@@ -212,21 +214,30 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     double priceMini,
     double priceMedia,
   ) async {
-    if (addDays.isEmpty) {
+    try {
+      if (addDays.isEmpty) {
+        _message(
+          MessageModel(
+            title: 'Atenção',
+            message: 'Selecione ao menos um dia para cadastrar.',
+            type: MessageType.error,
+          ),
+        );
+        return;
+      }
+      await _foodService.updateData(id, newName, newDescription, addDays, {
+        'mini': priceMini,
+        'media': priceMedia,
+      });
+      await refreshLunchboxes();
+    } catch (e) {
+      _loading.value = false;
       _message(
-        MessageModel(
-          title: 'Atenção',
-          message: 'Selecione ao menos um dia para cadastrar.',
-          type: MessageType.error,
-        ),
+        MessageModel(title: 'Erro', message: 'Erro ao atualizar marmita', type: MessageType.error),
       );
-      return;
+    } finally {
+      _loading.value = false;
     }
-    await _foodService.updateData(id, newName, newDescription, addDays, {
-      'mini': priceMini,
-      'media': priceMedia,
-    });
-    await refreshLunchboxes();
   }
 
   RxBool temHoje(FoodModel a) => RxBool(a.temHoje);

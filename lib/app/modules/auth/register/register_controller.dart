@@ -45,7 +45,7 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
     } on AuthException catch (e, s) {
       log(e.toString());
       log(s.toString());
-
+      _loading.value = false;
       _message(
         MessageModel(title: 'Erro', message: e.message, type: MessageType.error),
       );

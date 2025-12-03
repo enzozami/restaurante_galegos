@@ -87,7 +87,6 @@ class _FoodClient extends StatelessWidget {
                               (s) => ElevatedButton(
                                 style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
                                 onPressed: () {
-                                  log('alimentosWidget - $s');
                                   controller.definirComidaSelecionada(alimento, s);
                                   controller.filtrarPreco(s);
                                   controller.sizeSelected.value = s;
@@ -236,6 +235,7 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
                         controller.definirComidaSelecionada(alimento, widget.selectedSize);
                         final number = NumberFormat('#,##0.00', 'pt_BR');
                         final temHoje = controller.temHoje(alimento);
+                        final RxBool novoTemHoje = temHoje.value.obs;
                         showDialog(
                           context: context,
                           builder: (context) {
@@ -254,6 +254,11 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
                                 isProduct: false,
                                 onPressed: () async {
                                   final formValid = _formKey.currentState?.validate() ?? false;
+                                  if (novoTemHoje.value != temHoje.value) {
+                                    temHoje.value = novoTemHoje.value;
+                                    await controller.atualizarMarmitasDoDia(alimento.id, alimento);
+                                    await controller.refreshLunchboxes();
+                                  }
                                   if (formValid) {
                                     final cleanedMini = priceMiniEC.text
                                         .replaceAll('.', '')
@@ -271,14 +276,14 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
                                     );
 
                                     Get.back();
+                                  } else if (novoTemHoje.value != temHoje.value) {
+                                    Get.back();
                                   }
                                 },
                                 description: descriptionEC,
-                                value: temHoje,
+                                value: novoTemHoje,
                                 onChanged: (bool value) async {
-                                  temHoje.value = value;
-                                  await controller.atualizarMarmitasDoDia(alimento.id, alimento);
-                                  await controller.refreshLunchboxes();
+                                  novoTemHoje.value = value;
                                 },
                                 nameFood: nameEC,
                                 priceMini: priceMiniEC,

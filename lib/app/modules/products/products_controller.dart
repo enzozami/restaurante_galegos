@@ -79,6 +79,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       await _productsServices.init();
     } catch (e, s) {
       log('Erro ao carregar dados', error: e, stackTrace: s);
+      _loading.value = false;
       _message(
         MessageModel(
           title: 'Erro',
@@ -87,7 +88,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         ),
       );
     } finally {
-      _loading(false);
+      _loading.value = false;
     }
   }
 

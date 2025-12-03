@@ -46,6 +46,7 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
       storage.write(Constants.USER_KEY, userLogger.id);
       storage.write(Constants.USER_NAME, userLogger.name);
     } on AuthException catch (e, s) {
+      _loading.value = false;
       log('Falha no login', error: e, stackTrace: s);
       _message.value = MessageModel(
         title: 'Erro',
