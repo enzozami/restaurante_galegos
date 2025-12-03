@@ -4,8 +4,8 @@ import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
-import 'package:restaurante_galegos/app/modules/drawer_pages/galegos_drawer_controller.dart';
-import 'package:restaurante_galegos/app/modules/drawer_pages/profile/widgets/profile_data.dart';
+import 'package:restaurante_galegos/app/modules/drawer/profile/profile_controller.dart';
+import 'package:restaurante_galegos/app/modules/drawer/profile/widget/profile_data.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -14,7 +14,7 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends GalegosState<ProfilePage, GalegosDrawerController> {
+class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
   final _formKey = GlobalKey<FormState>();
   final _newNameEC = TextEditingController();
 

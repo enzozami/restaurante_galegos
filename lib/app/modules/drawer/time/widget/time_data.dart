@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/modules/drawer_pages/galegos_drawer_controller.dart';
+import 'package:restaurante_galegos/app/modules/drawer/time/time_controller.dart';
 
-class TimeData extends GetView<GalegosDrawerController> {
+class TimeData extends GetView<TimeController> {
   const TimeData({super.key});
 
   @override

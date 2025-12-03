@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/modules/drawer_pages/galegos_drawer_controller.dart';
+import 'package:restaurante_galegos/app/modules/drawer/about_us/about_us_controller.dart';
 
-class AboutUsData extends GetView<GalegosDrawerController> {
+class AboutUsData extends GetView<AboutUsController> {
   const AboutUsData({super.key});
 
   @override
