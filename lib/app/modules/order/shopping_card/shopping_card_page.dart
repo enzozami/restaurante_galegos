@@ -20,8 +20,20 @@ class ShoppingCardPage extends StatefulWidget {
 
 class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCardController> {
   final _formKey = GlobalKey<FormState>();
-
+  late FocusNode _numeroFocus;
   final _cepFormatter = MaskCep();
+
+  @override
+  void initState() {
+    super.initState();
+    _numeroFocus = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _numeroFocus.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +84,8 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                     border: Border.all(),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                  constraints: BoxConstraints(maxHeight: context.heightTransformer(reducedBy: 50)),
                   child: Padding(padding: const EdgeInsets.all(8.0), child: ListShoppingCard()),
                 ),
                 const SizedBox(height: 30),
@@ -142,6 +153,7 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                                             ? () {
                                                 controller.getCep(
                                                   address: _cepFormatter.getUnmaskedText(),
+                                                  numeroFocus: _numeroFocus,
                                                 );
                                                 controller.isOpen.value = true;
                                               }
@@ -163,7 +175,10 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                                         child: Icon(Icons.expand_more),
                                       ),
                                     ),
-                                    child: _AddressCard(controller: controller),
+                                    child: _AddressCard(
+                                      controller: controller,
+                                      focusNodeNumero: _numeroFocus,
+                                    ),
                                   ),
                                 ),
                           const SizedBox(height: 15),
@@ -297,9 +312,10 @@ class _FinishedOrder extends StatelessWidget {
 }
 
 class _AddressCard extends StatelessWidget {
-  const _AddressCard({required this.controller});
+  const _AddressCard({required this.controller, required this.focusNodeNumero});
 
   final ShoppingCardController controller;
+  final FocusNode focusNodeNumero;
 
   @override
   Widget build(BuildContext context) {
@@ -363,6 +379,7 @@ class _AddressCard extends StatelessWidget {
                       floatingLabelBehavior: .auto,
                       enabled: true,
                       label: 'Número*',
+                      focusNode: focusNodeNumero,
                       inputType: TextInputType.number,
                       controller: controller.numeroEC,
                       validator: Validatorless.required('Número obrigatório'),

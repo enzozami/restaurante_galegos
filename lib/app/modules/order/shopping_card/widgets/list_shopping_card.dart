@@ -13,6 +13,7 @@ class ListShoppingCard extends GetView<ShoppingCardController> {
       return ListView.separated(
         itemCount: controller.products.length,
         shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           final p = controller.products[index];
           var product = p.item.alimento ?? p.item.produto;
@@ -48,9 +49,11 @@ class ListShoppingCard extends GetView<ShoppingCardController> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  subtitle: Text((sizeSelected != '')
-                      ? sizeSelected[0].toUpperCase() + sizeSelected.substring(1)
-                      : 'Produto'),
+                  subtitle: Text(
+                    (sizeSelected != '')
+                        ? sizeSelected[0].toUpperCase() + sizeSelected.substring(1)
+                        : 'Produto',
+                  ),
                   trailing: Text(
                     FormatterHelper.formatCurrency(p.item.produto?.price ?? priceFood),
                     style: TextStyle(

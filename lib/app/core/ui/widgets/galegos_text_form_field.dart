@@ -16,6 +16,7 @@ class GalegosTextFormField extends StatelessWidget {
   final Color? colorBorder;
   final String? prefixText;
   final String? suffixText;
+  final FocusNode? focusNode;
 
   const GalegosTextFormField({
     super.key,
@@ -33,6 +34,7 @@ class GalegosTextFormField extends StatelessWidget {
     this.colorBorder,
     this.prefixText,
     this.suffixText,
+    this.focusNode,
   });
 
   @override
@@ -50,8 +52,8 @@ class GalegosTextFormField extends StatelessWidget {
       style: TextStyle(
         color: colorText ?? Colors.black,
       ),
+      focusNode: focusNode,
       decoration: InputDecoration(
-        // suffixIcon: icon
         labelText: label,
         suffixIcon: icon,
         prefixText: prefixText,

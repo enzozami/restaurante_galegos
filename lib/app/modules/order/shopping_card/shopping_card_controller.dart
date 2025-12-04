@@ -159,7 +159,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
     }
   }
 
-  Future<void> getCep({required String address}) async {
+  Future<void> getCep({required String address, required FocusNode numeroFocus}) async {
     try {
       _loading.value = true;
       final cepData = await _cepServices.getCep(address);
@@ -193,6 +193,9 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       rethrow;
     } finally {
       _loading.value = false;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        FocusScope.of(Get.context!).requestFocus(numeroFocus);
+      });
     }
   }
 
