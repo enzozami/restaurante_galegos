@@ -88,10 +88,22 @@ class _AlertProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: GalegosUiDefaut.colors['fundo'],
-      titlePadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
+      titlePadding: const EdgeInsets.only(left: 20, right: 20, bottom: 0),
       contentPadding: const EdgeInsets.only(top: 15, left: 10, right: 15, bottom: 10),
       actionsPadding: const EdgeInsets.only(top: 20, left: 0, right: 20, bottom: 20),
-      title: Row(mainAxisAlignment: .center, children: [sectionTitle('Editar Produto')]),
+      icon: Align(
+        alignment: .centerRight,
+        child: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.close,
+            color: Colors.black,
+          ),
+        ),
+      ),
+      title: sectionTitle('Editar Produto'),
       content: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -159,7 +171,11 @@ class _AlertProduct extends StatelessWidget {
 
 Widget sectionTitle(String text) => Padding(
   padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-  child: Text(text, style: GalegosUiDefaut.theme.textTheme.titleMedium),
+  child: Text(
+    text,
+    style: GalegosUiDefaut.theme.textTheme.titleMedium,
+    textAlign: .center,
+  ),
 );
 
 class _AlertFoods extends StatelessWidget {
@@ -189,16 +205,28 @@ class _AlertFoods extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: GalegosUiDefaut.colors['fundo'],
-      titlePadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
+      titlePadding: const EdgeInsets.only(top: 0, left: 20, right: 20, bottom: 0),
       contentPadding: const EdgeInsets.only(top: 15, left: 10, right: 15, bottom: 10),
       actionsPadding: const EdgeInsets.only(top: 20, left: 0, right: 20, bottom: 20),
-      title: Row(mainAxisAlignment: .center, children: [sectionTitle('Editar Marmita')]),
+      icon: Align(
+        alignment: .centerRight,
+        child: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.close,
+            color: Colors.black,
+          ),
+        ),
+      ),
+      title: sectionTitle('Editar Marmita'),
       content: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
-            mainAxisAlignment: .start,
-            crossAxisAlignment: .start,
+            mainAxisAlignment: .center,
+            crossAxisAlignment: .center,
             spacing: 20,
             children: [
               SectionHeader(items: items, onChanged: onChangedSection),
