@@ -17,7 +17,7 @@ class CardShimmer extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           color: Colors.grey.shade300,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(15),
         ),
       ),
     );

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
@@ -15,6 +17,7 @@ class TimeController extends GetxController with LoaderMixin, MessagesMixin {
   final _fimTime = ''.obs;
 
   final dayNow = FormatterHelper.formatDate();
+  RxBool get loading => _loading;
 
   bool get isSelected => _isSelected.value;
   set isSelected(bool value) => _isSelected.value = value;
@@ -32,19 +35,34 @@ class TimeController extends GetxController with LoaderMixin, MessagesMixin {
   }
 
   @override
-  void onReady() {
+  Future<void> onReady() async {
     super.onReady();
-    time();
+    await time();
   }
 
   Future<void> time() async {
-    _loading(true);
-    final timeData = await _timeServices.getTime();
+    try {
+      _loading.value = true;
+      await 3.seconds.delay();
+      final timeData = await _timeServices.getTime();
 
-    final data = timeData.where((e) => e.days.contains(dayNow));
+      final data = timeData.where((e) => e.days.contains(dayNow));
 
-    _dateTime.assignAll(data.first.days);
-    _inicioTime.value = data.first.inicio;
-    _fimTime.value = data.first.fim;
+      _dateTime.assignAll(data.first.days);
+      _inicioTime.value = data.first.inicio;
+      _fimTime.value = data.first.fim;
+    } catch (e, s) {
+      _loading.value = false;
+      log('Erro ao carregar horário de funcionamento', error: e, stackTrace: s);
+      _message(
+        MessageModel(
+          title: 'Erro',
+          message: 'Erro ao carregar horário de funcionamento',
+          type: MessageType.error,
+        ),
+      );
+    } finally {
+      _loading.value = false;
+    }
   }
 }

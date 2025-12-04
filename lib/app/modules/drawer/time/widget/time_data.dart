@@ -4,7 +4,9 @@ import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/modules/drawer/time/time_controller.dart';
 
 class TimeData extends GetView<TimeController> {
-  const TimeData({super.key});
+  const TimeData({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class TimeData extends GetView<TimeController> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'HORÁRIOS DE FUNCIONAMENTO',
+              'HORÁRIO DE FUNCIONAMENTO',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 30,
