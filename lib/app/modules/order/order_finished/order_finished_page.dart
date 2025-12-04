@@ -105,7 +105,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialogHistory(
-                                  titleButton: 'Sair para entrega',
+                                  titleButton: 'Fechar',
                                   isAdmin: true,
                                   pedidoLabel: pedidoTipo,
                                   carrinhoName: carrinhoName,
@@ -127,7 +127,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                                     // controller.orderFinished(pedido);
                                     Get.back();
                                   },
-                                  statusPedido: 'Sair para entrega',
+                                  statusPedido: 'Entregue',
                                 ),
                               );
                             },

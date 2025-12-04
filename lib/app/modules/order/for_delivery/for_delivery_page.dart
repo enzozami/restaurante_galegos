@@ -104,7 +104,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialogHistory(
-                                  titleButton: 'Sair para entrega',
+                                  titleButton: 'Entregue',
                                   isAdmin: true,
                                   pedidoLabel: pedidoTipo,
                                   carrinhoName: carrinhoName,
@@ -126,7 +126,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                                     controller.orderFinished(pedido);
                                     Get.back();
                                   },
-                                  statusPedido: 'Sair para entrega',
+                                  statusPedido: 'A caminho',
                                 ),
                               );
                             },
