@@ -37,7 +37,6 @@ class AuthRepositoryImpl implements AuthRepository {
         id: firebaseUser.uid.hashCode,
         name: data['nome'] ?? '',
         email: data['email'] ?? '',
-        cpfOrCnpj: data['cpfOrCnpj'],
         password: password,
         isAdmin: isAdmin,
       );
@@ -63,11 +62,13 @@ class AuthRepositoryImpl implements AuthRepository {
         case 'network-request-failed':
           mensagem = 'Falha de conexão. Verifique sua internet';
           break;
+        case 'invalid-credential':
+          mensagem = 'E-mail ou senha inválidos.';
+          break;
         default:
           mensagem = 'Erro inesperado. Tente novamente.';
           break;
       }
-
       throw AuthException(message: mensagem);
     }
   }
