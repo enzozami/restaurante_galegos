@@ -43,12 +43,12 @@ class TimeController extends GetxController with LoaderMixin, MessagesMixin {
   Future<void> time() async {
     try {
       _loading.value = true;
-      await 3.seconds.delay();
       final timeData = await _timeServices.getTime();
 
       final data = timeData.where((e) => e.days.contains(dayNow));
 
       _dateTime.assignAll(data.first.days);
+
       _inicioTime.value = data.first.inicio;
       _fimTime.value = data.first.fim;
     } catch (e, s) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/card_shimmer.dart';
 
 class CardItems extends StatelessWidget {
   final String titulo;
@@ -73,7 +74,14 @@ class CardItems extends StatelessWidget {
                                 topLeft: Radius.circular(12),
                                 topRight: Radius.circular(12),
                               ),
-                              child: Image.network(image ?? '', fit: BoxFit.cover),
+                              child: Image.network(
+                                image ?? '',
+                                fit: BoxFit.cover,
+                                loadingBuilder: (context, child, loadingProgress) =>
+                                    loadingProgress == null
+                                    ? child
+                                    : CardShimmer(height: imageHeight ?? 0, width: width ?? 0),
+                              ),
                             ),
                           )
                         : SizedBox(height: 120),
