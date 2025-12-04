@@ -94,6 +94,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   Future<void> atualizarItensDoDia(int id, ProductModel item) async {
     await _productsServices.updateTemHoje(id, item);
+    await refreshProducts();
   }
 
   void cadastrarNovosProdutos(String name, double price, String? description) {

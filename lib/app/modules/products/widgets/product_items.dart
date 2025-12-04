@@ -292,7 +292,7 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
                                         nameProduct: nameEC,
                                         description: descriptionEC,
                                         price: priceEC,
-                                        onPressed: () {
+                                        onPressed: () async {
                                           final formValid =
                                               _formKey.currentState?.validate() ?? false;
                                           if (formValid) {
@@ -306,14 +306,13 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
                                               nameEC.text,
                                               double.parse(cleaned),
                                             );
+                                            Get.close(0);
                                           }
-                                          Get.back();
                                         },
                                         value: temHoje,
                                         onChanged: (value) async {
                                           temHoje.value = value;
                                           await controller.atualizarItensDoDia(e.id, e);
-                                          await controller.refreshProducts();
                                         },
                                       ),
                                     );
