@@ -11,12 +11,15 @@ class GalegosTextFormField extends StatelessWidget {
   final FloatingLabelBehavior floatingLabelBehavior;
   final bool? enabled;
   final IconButton? icon;
+  final Icon? prefixIcon;
   final ValueChanged<String>? onChanged;
   final Color? colorText;
   final Color? colorBorder;
   final String? prefixText;
   final String? suffixText;
   final FocusNode? focusNode;
+  final VoidCallback? onEditingComplete;
+  final TextInputAction? textInputAction;
 
   const GalegosTextFormField({
     super.key,
@@ -35,6 +38,9 @@ class GalegosTextFormField extends StatelessWidget {
     this.prefixText,
     this.suffixText,
     this.focusNode,
+    this.prefixIcon,
+    this.onEditingComplete,
+    this.textInputAction,
   });
 
   @override
@@ -43,7 +49,9 @@ class GalegosTextFormField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       enabled: enabled,
+      textInputAction: textInputAction,
       keyboardType: inputType,
+      onEditingComplete: onEditingComplete,
       validator: validator,
       onChanged: onChanged,
       inputFormatters: [
@@ -55,6 +63,7 @@ class GalegosTextFormField extends StatelessWidget {
       focusNode: focusNode,
       decoration: InputDecoration(
         labelText: label,
+        prefixIcon: prefixIcon,
         suffixIcon: icon,
         prefixText: prefixText,
         suffixText: suffixText,

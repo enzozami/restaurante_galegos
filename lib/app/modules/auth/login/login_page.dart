@@ -64,6 +64,12 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                                   controller.seePassword();
                                 },
                                 obscureText: controller.isSelected.value,
+                                onEditingComplete: () {
+                                  controller.login(
+                                    value: _emailEC.text,
+                                    password: _passwordEC.text,
+                                  );
+                                },
                               ),
                               const SizedBox(height: 25),
                               GalegosButtonDefault(
@@ -116,6 +122,7 @@ Widget _formFieldsLogin({
   required IconData icons,
   required VoidCallback onPressed,
   required bool obscureText,
+  required VoidCallback onEditingComplete,
 }) {
   return Column(
     children: [
@@ -123,6 +130,7 @@ Widget _formFieldsLogin({
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         controller: emailEC,
         inputType: .emailAddress,
+        prefixIcon: Icon(Icons.email),
         label: 'E-mail',
         validator: Validatorless.multiple([
           Validatorless.required('Campo obrigatório'),
@@ -130,10 +138,14 @@ Widget _formFieldsLogin({
         ]),
       ),
       const SizedBox(height: 25),
+
       GalegosTextFormField(
         floatingLabelBehavior: .auto,
         controller: passwordEC,
         obscureText: obscureText,
+        prefixIcon: Icon(Icons.lock),
+        textInputAction: .done,
+        onEditingComplete: onEditingComplete,
         inputType: .visiblePassword,
         icon: IconButton(
           onPressed: onPressed,

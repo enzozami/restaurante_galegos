@@ -12,7 +12,7 @@ mixin LoaderMixin on GetxController {
             Center(
               child: LoadingAnimationWidget.progressiveDots(
                 color: GalegosUiDefaut.colorScheme.primary,
-                size: 75,
+                size: 65,
               ),
             ),
             barrierDismissible: false,

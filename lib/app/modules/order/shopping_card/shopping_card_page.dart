@@ -110,6 +110,18 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                               inputType: TextInputType.numberWithOptions(decimal: true),
                               floatingLabelBehavior: FloatingLabelBehavior.auto,
                               label: 'CEP',
+                              prefixIcon: Icon(Icons.location_on),
+                              onEditingComplete:
+                                  controller.cepEC.text.isNotEmpty &&
+                                      controller.cepInput.value.length == 9
+                                  ? () {
+                                      controller.getCep(
+                                        address: _cepFormatter.getUnmaskedText(),
+                                        numeroFocus: _numeroFocus,
+                                      );
+                                      controller.isOpen.value = true;
+                                    }
+                                  : null,
                               mask: _cepFormatter,
                               controller: controller.cepEC,
                               validator: Validatorless.required('CEP obrigatório'),
