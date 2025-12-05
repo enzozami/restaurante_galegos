@@ -15,15 +15,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
-  final _formKey = GlobalKey<FormState>();
-  final _newNameEC = TextEditingController();
-
-  @override
-  void dispose() {
-    super.dispose();
-    _newNameEC.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,14 +49,14 @@ class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
                         ),
                       ),
                       Form(
-                        key: _formKey,
+                        key: controller.formKey,
                         child: Column(
                           children: [
                             ProfileData(
                               title: 'Nome:',
                               obscure: false,
                               label: controller.name,
-                              controller: _newNameEC,
+                              controller: controller.newNameEC,
                               isSelected: controller.isSelected,
                             ),
                           ],
@@ -82,8 +73,7 @@ class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
                                 child: GalegosButtonDefault(
                                   label: 'Atualizar',
                                   onPressed: () {
-                                    final formValid = _formKey.currentState?.validate() ?? false;
-                                    if (formValid) {
+                                    if (controller.validateForm()) {
                                       showDialog(
                                         context: context,
                                         builder: (context) {
@@ -164,8 +154,8 @@ class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
                                                       borderRadius: BorderRadius.circular(10),
                                                     ),
                                                   ),
-                                                  onPressed: () {
-                                                    controller.updateName(name: _newNameEC.text);
+                                                  onPressed: () async {
+                                                    await controller.updateName();
                                                     controller.isSelected = false;
                                                     Get.snackbar(
                                                       'Sucesso',

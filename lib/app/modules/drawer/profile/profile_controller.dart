@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
@@ -5,6 +6,9 @@ import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 
 class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
   final AuthServices _authServices;
+
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController newNameEC = TextEditingController();
 
   final _name = ''.obs;
   final _loading = false.obs;
@@ -30,6 +34,16 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
     getUser();
   }
 
+  @override
+  void onClose() {
+    newNameEC.dispose();
+    super.onClose();
+  }
+
+  bool validateForm() {
+    return formKey.currentState?.validate() ?? false;
+  }
+
   void isSelect() {
     _isSelected.toggle();
     if (_isSelected.value == true) {}
@@ -42,10 +56,10 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
     }
   }
 
-  Future<void> updateName({required String name}) async {
+  Future<void> updateName() async {
     final user = _authServices.getUserName();
     if (user != null) {
-      await _authServices.updateUserName(newName: name);
+      await _authServices.updateUserName(newName: newNameEC.text);
     }
   }
 }
