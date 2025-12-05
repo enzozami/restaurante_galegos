@@ -1,15 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/alert_products_lunchboxes_adm.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/card_items.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
 
@@ -33,19 +29,10 @@ class _ProductsClient extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final category = controller.category;
-      final items = controller.items;
       return Column(
         crossAxisAlignment: .start,
-        children: category.map((c) {
-          final categoriaSelecionada = controller.categorySelected.value?.name;
-
-          final List<ProductModel> filtered = items.where((p) {
-            final matchesCategory = categoriaSelecionada == null
-                ? p.categoryId == c.name
-                : p.categoryId == categoriaSelecionada && p.categoryId == c.name;
-            return matchesCategory && p.temHoje;
-          }).toList();
+        children: controller.category.map((c) {
+          final List<ProductModel> filtered = controller.getFilteredProducts(c);
           if (filtered.isEmpty) return SizedBox.shrink();
           return Column(
             mainAxisAlignment: .start,
@@ -79,76 +66,8 @@ class _ProductsClient extends GetView<ProductsController> {
                                 preco: FormatterHelper.formatCurrency(e.price),
                                 descricao: e.description,
                                 image: (e.image.isNotEmpty) ? e.image : '',
-                                onPressed: () {
-                                  controller.setSelectedItem(e);
-                                  final idItem = controller.carrinhoServices.getById(e.id);
-                                  if (idItem == null) {
-                                    controller.addItemsToCart();
-                                    Get.snackbar(
-                                      'Item: ${e.name}',
-                                      'Item adicionado ao carrinho',
-                                      snackPosition: SnackPosition.TOP,
-                                      duration: Duration(seconds: 1),
-                                      backgroundColor: Color(0xFFE2933C),
-                                      colorText: Colors.black,
-                                      isDismissible: true,
-                                      overlayBlur: 0,
-                                      overlayColor: Colors.transparent,
-                                      barBlur: 0,
-                                    );
-                                  } else {
-                                    controller.addProductUnit();
-                                    controller.addItemsToCart();
-                                  }
-
-                                  log('Item clicado: ${e.name} - ${e.price}');
-                                },
-                                onTap: () {
-                                  controller.setSelectedItem(e);
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialogDefault(
-                                        visible:
-                                            controller.quantity > 0 &&
-                                            controller.alreadyAdded == true,
-                                        plusMinus: Obx(() {
-                                          return GalegosPlusMinus(
-                                            addCallback: controller.addProductUnit,
-                                            removeCallback: controller.removeProductUnit,
-                                            quantityUnit: controller.quantity,
-                                          );
-                                        }),
-                                        item: e,
-                                        onPressed: () {
-                                          final idItem = controller.carrinhoServices.getById(e.id);
-
-                                          if (idItem == null) {
-                                            controller.addItemsToCart();
-                                            Get.snackbar(
-                                              'Item: ${e.name}',
-                                              'Item adicionado ao carrinho',
-                                              snackPosition: SnackPosition.TOP,
-                                              duration: Duration(seconds: 1),
-                                              backgroundColor: Color(0xFFE2933C),
-                                              colorText: Colors.black,
-                                              isDismissible: true,
-                                              overlayBlur: 0,
-                                              overlayColor: Colors.transparent,
-                                              barBlur: 0,
-                                            );
-                                            Get.close(0);
-                                            log('Item clicado: ${e.name} - ${e.price}');
-                                          } else {
-                                            controller.addItemsToCart();
-                                            Get.close(0);
-                                            log('Item clicado: ${e.name} - ${e.price}');
-                                          }
-                                        },
-                                      );
-                                    },
-                                  );
-                                },
+                                onPressed: () => controller.onClientProductQuickAddPressed(e),
+                                onTap: () => controller.onClientProductDetailsTapped(context, e),
                                 styleTitle: GalegosUiDefaut.theme.textTheme.titleMedium,
                                 styleDescricao: GalegosUiDefaut.theme.textTheme.bodyLarge,
                                 stylePreco: GalegosUiDefaut.textProduct.titleMedium,
@@ -180,20 +99,12 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
   Widget build(BuildContext context) {
     return Obx(() {
       final category = controller.category;
-      final items = controller.items;
+
       return Column(
         spacing: 5,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: category.map((c) {
-          final categoriaSelecionada = controller.categorySelected.value?.name;
-
-          final List<ProductModel> filtered = items.where((p) {
-            final matchesCategory = categoriaSelecionada == null
-                ? p.categoryId == c.name
-                : p.categoryId == categoriaSelecionada && p.categoryId == c.name;
-
-            return matchesCategory;
-          }).toList();
+          final List<ProductModel> filtered = controller.getFilteredProducts(c);
 
           if (filtered.isEmpty) return SizedBox.shrink();
 

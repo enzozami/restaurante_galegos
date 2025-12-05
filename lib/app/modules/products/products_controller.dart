@@ -3,8 +3,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_default.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/alert_products_lunchboxes_adm.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
 import 'package:restaurante_galegos/app/models/category_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
@@ -17,6 +21,11 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final ProductsServices _productsServices;
 
   ScrollController scrollController = ScrollController();
+
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController nameProductEC = TextEditingController();
+  final TextEditingController descriptionEC = TextEditingController();
+  final TextEditingController priceEC = TextEditingController();
 
   final isProcessing = RxBool(false);
   final _loading = false.obs;
@@ -73,9 +82,18 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     await _fetchAllProducts();
   }
 
+  @override
+  void onClose() {
+    scrollController.dispose();
+    nameProductEC.dispose();
+    descriptionEC.dispose();
+    priceEC.dispose();
+    super.onClose();
+  }
+
   Future<void> _fetchAllProducts() async {
     try {
-      _loading(true);
+      _loading.value = true;
       await _productsServices.init();
     } catch (e, s) {
       log('Erro ao carregar dados', error: e, stackTrace: s);
@@ -92,16 +110,17 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
   }
 
-  Future<void> atualizarItensDoDia(int id, ProductModel item) async {
-    await _productsServices.updateTemHoje(id, item);
-    await refreshProducts();
-  }
-
-  void cadastrarNovosProdutos(String name, double price, String? description) {
-    if (categoryId.value != null) {
-      final category = categoryId.value!;
-
-      _productsServices.cadastrarProdutos(category, name, price, description);
+  Future<void> refreshProducts() async {
+    try {
+      if (categorySelected.value != null) {
+        categorySelected.value = null;
+      }
+      _fetchAllProducts();
+    } catch (e, s) {
+      log('Erro ao atualizar produtos', error: e, stackTrace: s);
+      _message(
+        MessageModel(title: 'Erro', message: 'Erro ao atualizar produtos', type: MessageType.error),
+      );
     }
   }
 
@@ -130,6 +149,43 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       _loading.value = false;
       isProcessing.value = false;
     }
+  }
+
+  bool _validateForm() {
+    return formKey.currentState?.validate() ?? false;
+  }
+
+  Future<void> cadastrarNovosProdutos() async {
+    if (!_validateForm()) return;
+
+    if (categoryId.value != null) {
+      final category = categoryId.value!;
+
+      await _productsServices.cadastrarProdutos(
+        category,
+        nameProductEC.text,
+        double.parse(priceEC.text),
+        descriptionEC.text,
+      );
+    }
+    await refreshProducts();
+  }
+
+  Future<void> apagarProduto(ProductModel item) async =>
+      await _productsServices.deletarProdutos(item);
+
+  Future<void> atualizarDadosDoProduto(
+    int id,
+    String newCategoryId,
+    String newDescription,
+    String newName,
+    double newPrice,
+  ) async =>
+      await _productsServices.atualizarDados(id, newCategoryId, newDescription, newName, newPrice);
+
+  Future<void> atualizarItensDoDia(int id, ProductModel item) async {
+    await _productsServices.updateTemHoje(id, item);
+    await refreshProducts();
   }
 
   void addProductUnit() {
@@ -166,27 +222,136 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     _carrinhoServices.addOrUpdateProduct(selected, quantity: _quantity.value);
   }
 
-  Future<void> refreshProducts() async {
-    try {
-      if (categorySelected.value != null) {
-        categorySelected.value = null;
-      }
-      _fetchAllProducts();
-    } catch (e, s) {
-      log('Erro ao atualizar produtos', error: e, stackTrace: s);
-      _message(
-        MessageModel(title: 'Erro', message: 'Erro ao atualizar produtos', type: MessageType.error),
+  // REFATORANDO
+  List<ProductModel> getFilteredProducts(CategoryModel c) {
+    return admin
+        ? items.where((p) {
+            final matchesCategory = categorySelected.value?.name == null
+                ? p.categoryId == c.name
+                : p.categoryId == categorySelected.value?.name && p.categoryId == c.name;
+            return matchesCategory;
+          }).toList()
+        : items.where((p) {
+            final matchsCategory = categorySelected.value?.name == null
+                ? p.categoryId == c.name
+                : p.categoryId == categorySelected.value?.name && p.categoryId == c.name;
+            return matchsCategory && p.temHoje;
+          }).toList();
+  }
+
+  void onClientProductQuickAddPressed(ProductModel product) {
+    setSelectedItem(product);
+    final idItem = carrinhoServices.getById(product.id);
+    if (idItem == null) {
+      addItemsToCart();
+      Get.snackbar(
+        'Item: ${product.name}',
+        'Item adicionado ao carrinho',
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 1),
+        backgroundColor: Color(0xFFE2933C),
+        colorText: Colors.black,
+        isDismissible: true,
+        overlayBlur: 0,
+        overlayColor: Colors.transparent,
+        barBlur: 0,
       );
+    } else {
+      addProductUnit();
+      addItemsToCart();
     }
   }
 
-  Future<void> apagarProduto(ProductModel item) => _productsServices.deletarProdutos(item);
+  void onClientProductDetailsTapped(BuildContext context, ProductModel product) {
+    setSelectedItem(product);
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialogDefault(
+          visible: quantity > 0 && alreadyAdded == true,
+          plusMinus: Obx(() {
+            return GalegosPlusMinus(
+              addCallback: addProductUnit,
+              removeCallback: removeProductUnit,
+              quantityUnit: quantity,
+            );
+          }),
+          item: product,
+          onPressed: () {
+            final idItem = carrinhoServices.getById(product.id);
 
-  Future<void> atualizarDadosDoProduto(
-    int id,
-    String newCategoryId,
-    String newDescription,
-    String newName,
-    double newPrice,
-  ) => _productsServices.atualizarDados(id, newCategoryId, newDescription, newName, newPrice);
+            if (idItem == null) {
+              addItemsToCart();
+              Get.snackbar(
+                'Item: ${product.name}',
+                'Item adicionado ao carrinho',
+                snackPosition: SnackPosition.TOP,
+                duration: Duration(seconds: 1),
+                backgroundColor: Color(0xFFE2933C),
+                colorText: Colors.black,
+                isDismissible: true,
+                overlayBlur: 0,
+                overlayColor: Colors.transparent,
+                barBlur: 0,
+              );
+              Get.close(0);
+              log('Item clicado: ${product.name} - ${product.price}');
+            } else {
+              addItemsToCart();
+              Get.close(0);
+              log('Item clicado: ${product.name} - ${product.price}');
+            }
+          },
+        );
+      },
+    );
+  }
+
+  void onAdminProductUpdateDetailsTapped(BuildContext context, ProductModel product) {
+    setSelectedItem(product);
+    final number = NumberFormat('#,##0.00', 'pt_BR');
+    final temHoje = RxBool(product.temHoje);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        final nameEC = TextEditingController(text: product.name);
+        final descriptionEC = TextEditingController(
+          text: product.description,
+        );
+        final categoryEC = TextEditingController(text: product.categoryId);
+        final priceEC = TextEditingController(
+          text: number.format(product.price),
+        );
+        return Form(
+          key: formKey,
+          child: AlertProductsLunchboxesAdm(
+            isProduct: true,
+            category: categoryEC,
+            nameProduct: nameEC,
+            description: descriptionEC,
+            price: priceEC,
+            onPressed: () async {
+              if (_validateForm()) {
+                final cleaned = priceEC.text.replaceAll('.', '').replaceAll(',', '.');
+                atualizarDadosDoProduto(
+                  product.id,
+                  product.categoryId,
+                  descriptionEC.text,
+                  nameEC.text,
+                  double.parse(cleaned),
+                );
+                Get.close(0);
+              }
+            },
+            value: temHoje,
+            onChanged: (value) async {
+              temHoje.value = value;
+              await atualizarItensDoDia(product.id, product);
+            },
+          ),
+        );
+      },
+    );
+  }
 }

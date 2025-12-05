@@ -54,19 +54,6 @@ class _FloatingActionButtonAdmin extends StatefulWidget {
 
 class _FloatingActionButtonAdminState
     extends GalegosState<_FloatingActionButtonAdmin, ProductsController> {
-  final formKey = GlobalKey<FormState>();
-  final nomeProdutoEC = TextEditingController();
-  final descricaoEC = TextEditingController();
-  final precoEC = TextEditingController();
-
-  @override
-  void dispose() {
-    super.dispose();
-    nomeProdutoEC.dispose();
-    descricaoEC.dispose();
-    precoEC.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
@@ -75,7 +62,7 @@ class _FloatingActionButtonAdminState
           context: context,
           builder: (context) {
             return Form(
-              key: formKey,
+              key: controller.formKey,
               child: AlertDialog(
                 backgroundColor: GalegosUiDefaut.colors['fundo'],
                 titlePadding: const EdgeInsets.only(left: 24, right: 24, bottom: 15),
@@ -161,7 +148,7 @@ class _FloatingActionButtonAdminState
                         enabled: true,
                         label: 'Nome do Produto',
                         validator: Validatorless.required('Nome inválido'),
-                        controller: nomeProdutoEC,
+                        controller: controller.nameProductEC,
                       ),
                       GalegosTextFormField(
                         colorText: GalegosUiDefaut.colorScheme.tertiary,
@@ -169,7 +156,7 @@ class _FloatingActionButtonAdminState
                         floatingLabelBehavior: .auto,
                         enabled: true,
                         label: 'Descrição',
-                        controller: descricaoEC,
+                        controller: controller.descriptionEC,
                       ),
                       GalegosTextFormField(
                         colorText: GalegosUiDefaut.colorScheme.tertiary,
@@ -182,7 +169,7 @@ class _FloatingActionButtonAdminState
                           Validatorless.required('Nome inválido'),
                         ]),
                         label: 'Preço',
-                        controller: precoEC,
+                        controller: controller.priceEC,
                       ),
                     ],
                   ),
@@ -191,17 +178,7 @@ class _FloatingActionButtonAdminState
                   ElevatedButton(
                     style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
                     onPressed: () {
-                      final formValid = formKey.currentState?.validate() ?? false;
-                      if (formValid) {
-                        final name = nomeProdutoEC.text;
-                        final price = precoEC.text;
-                        final description = descricaoEC.text;
-                        controller.cadastrarNovosProdutos(name, double.parse(price), description);
-                      }
-                      nomeProdutoEC.clear();
-                      descricaoEC.clear();
-                      precoEC.clear();
-                      controller.refreshProducts();
+                      controller.cadastrarNovosProdutos();
                       Get.back();
                     },
                     child: Text('Cadastrar'),
