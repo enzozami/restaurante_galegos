@@ -33,8 +33,13 @@ class AuthRepositoryImpl implements AuthRepository {
       final data = userDoc.data()!;
       final isAdmin = data['isAdmin'] ?? false;
 
+      final storage = GetStorage();
+      storage.write(Constants.USER_KEY, firebaseUser.uid);
+      storage.write(Constants.ADMIN_KEY, false);
+      storage.write(Constants.USER_NAME, firebaseUser.displayName);
+
       return UserModel(
-        id: firebaseUser.uid.hashCode,
+        uid: firebaseUser.uid,
         name: data['nome'] ?? '',
         email: data['email'] ?? '',
         password: password,

@@ -117,6 +117,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       isProcessing.value = true;
       final user = _authServices.getUserId();
       final name = _authServices.getUserName();
+      log('ID - SHOPPINGCARDCONTROLLER - $user');
 
       final id = await _orderServices.generateSequentialOrderId();
 

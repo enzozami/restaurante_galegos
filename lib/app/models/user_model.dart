@@ -1,43 +1,51 @@
 import 'dart:convert';
 
 class UserModel {
-  int id;
+  String uid;
   String name;
-  bool? isCpf;
   bool isAdmin;
   String email;
-  String? cpfOrCnpj;
   String password;
   UserModel({
-    required this.id,
+    required this.uid,
     required this.name,
-    this.isCpf,
     required this.isAdmin,
     required this.email,
-    this.cpfOrCnpj,
     required this.password,
   });
 
+  UserModel copyWith({
+    String? uid,
+    String? name,
+    bool? isAdmin,
+    String? email,
+    String? password,
+  }) {
+    return UserModel(
+      uid: uid ?? this.uid,
+      name: name ?? this.name,
+      isAdmin: isAdmin ?? this.isAdmin,
+      email: email ?? this.email,
+      password: password ?? this.password,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'uid': uid,
       'name': name,
-      'isCpf': isCpf,
       'isAdmin': isAdmin,
       'email': email,
-      'cpfOrCnpj': cpfOrCnpj,
       'password': password,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      id: map['id']?.toInt() ?? 0,
+      uid: map['uid'] ?? '',
       name: map['name'] ?? '',
-      isCpf: map['isCpf'],
       isAdmin: map['isAdmin'] ?? false,
       email: map['email'] ?? '',
-      cpfOrCnpj: map['cpfOrCnpj'],
       password: map['password'] ?? '',
     );
   }

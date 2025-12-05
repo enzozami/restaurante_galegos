@@ -120,7 +120,7 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   }
 
   @override
-  int? getUserId() => _getStorage.read(Constants.USER_KEY);
+  String? getUserId() => _getStorage.read(Constants.USER_KEY);
 
   @override
   String? getUserName() => _getStorage.read(Constants.USER_NAME);

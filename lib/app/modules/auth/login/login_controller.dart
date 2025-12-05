@@ -2,8 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:restaurante_galegos/app/core/constants/constants.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/repositories/auth/auth_repository_impl.dart';
@@ -59,12 +57,7 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
       _loading.value = true;
       if (!_validateLogin()) return;
 
-      final result = await _authServices.login(email: emailEC.text, password: passwordEC.text);
-
-      final storage = GetStorage();
-      storage.write(Constants.ADMIN_KEY, result.isAdmin);
-      storage.write(Constants.USER_KEY, result.id);
-      storage.write(Constants.USER_NAME, result.name);
+      await _authServices.login(email: emailEC.text, password: passwordEC.text);
     } on AuthException catch (e, s) {
       _loading.value = false;
       log('Falha no login', error: e, stackTrace: s);

@@ -3,7 +3,7 @@ import 'package:restaurante_galegos/app/models/user_model.dart';
 abstract interface class AuthServices {
   Future<AuthServices> init();
   void logout();
-  int? getUserId();
+  String? getUserId();
   String? getUserName();
   bool isAdmin();
   Future<UserModel> login({required String email, required String password});
