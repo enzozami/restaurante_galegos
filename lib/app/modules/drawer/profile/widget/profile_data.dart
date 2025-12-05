@@ -40,6 +40,8 @@ class ProfileData extends StatelessWidget {
               label: label,
               controller: controller,
               enabled: isSelected,
+              maxLength: 100,
+              maxLengthEnforcement: .none,
               obscureText: obscure,
               validator: validator,
               icon: icon,

@@ -392,7 +392,12 @@ class _AddressCard extends StatelessWidget {
                       enabled: true,
                       label: 'Número*',
                       focusNode: focusNodeNumero,
-                      inputType: TextInputType.number,
+                      inputType: .numberWithOptions(
+                        decimal: false,
+                        signed: false,
+                      ),
+                      maxLength: 6,
+                      maxLengthEnforcement: .enforced,
                       controller: controller.numeroEC,
                       validator: Validatorless.required('Número obrigatório'),
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class GalegosTextFormField extends StatelessWidget {
@@ -20,6 +21,8 @@ class GalegosTextFormField extends StatelessWidget {
   final FocusNode? focusNode;
   final VoidCallback? onEditingComplete;
   final TextInputAction? textInputAction;
+  final int? maxLength;
+  final MaxLengthEnforcement? maxLengthEnforcement;
 
   const GalegosTextFormField({
     super.key,
@@ -41,6 +44,8 @@ class GalegosTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.onEditingComplete,
     this.textInputAction,
+    this.maxLength,
+    this.maxLengthEnforcement,
   });
 
   @override
@@ -49,6 +54,8 @@ class GalegosTextFormField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       enabled: enabled,
+      maxLength: maxLength,
+      maxLengthEnforcement: maxLengthEnforcement,
       textInputAction: textInputAction,
       keyboardType: inputType,
       onEditingComplete: onEditingComplete,

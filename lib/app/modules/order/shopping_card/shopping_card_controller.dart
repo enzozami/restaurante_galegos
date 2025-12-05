@@ -117,7 +117,6 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       isProcessing.value = true;
       final user = _authServices.getUserId();
       final name = _authServices.getUserName();
-      log('ID - SHOPPINGCARDCONTROLLER - $user');
 
       final id = await _orderServices.generateSequentialOrderId();
 
@@ -144,7 +143,19 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       homeController.selectedIndex = 0;
 
       return true;
+    } on Exception catch (e, s) {
+      _loading.value = false;
+      log('Número inválido', error: e, stackTrace: s);
+      _message(
+        MessageModel(
+          title: 'Erro',
+          message: 'Formato de número inválido. Tente novamente!',
+          type: MessageType.error,
+        ),
+      );
+      throw Exception('Número inválido');
     } catch (e, s) {
+      _loading.value = false;
       log('Erro ao carregar produtos no carrinho', error: e, stackTrace: s);
       _message(
         MessageModel(
@@ -183,6 +194,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
         }
       }
     } catch (e, s) {
+      _loading.value = false;
       log('Erro ao buscar CEP: $e');
       log('StackTrace: $s');
       Get.snackbar(
