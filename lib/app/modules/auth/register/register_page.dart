@@ -16,19 +16,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> {
-  final _formKey = GlobalKey<FormState>();
-  final _nameEC = TextEditingController();
-  final _passwordEC = TextEditingController();
-  final _emailEC = TextEditingController();
-
-  @override
-  void dispose() {
-    super.dispose();
-    _nameEC.dispose();
-    _passwordEC.dispose();
-    _emailEC.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,35 +37,28 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Form(
-                        key: _formKey,
+                        key: controller.formKey,
                         child: Obx(() {
                           return Column(
                             children: [
                               _formFieldsRegister(
                                 context: context,
-                                nameEC: _nameEC,
-                                passwordEC: _passwordEC,
-                                emailEC: _emailEC,
-                                icons: controller.isSelectedConfirmaSenha.value
+                                nameEC: controller.nameEC,
+                                passwordEC: controller.passwordEC,
+                                emailEC: controller.emailEC,
+                                icons: controller.viewConfirmPassword
                                     ? Icons.visibility
                                     : Icons.visibility_off,
                                 onPressed: () {
-                                  controller.seeConfirmPassword();
+                                  controller.changePasswordVisibility();
                                 },
-                                obscureText: controller.isSelectedConfirmaSenha.value,
+                                obscureText: controller.viewConfirmPassword,
                               ),
                               const SizedBox(height: 20),
                               GalegosButtonDefault(
                                 label: 'Cadastrar',
-                                onPressed: () {
-                                  final formValid = _formKey.currentState?.validate() ?? false;
-                                  if (formValid) {
-                                    controller.register(
-                                      name: _nameEC.text,
-                                      password: _passwordEC.text,
-                                      email: _emailEC.text,
-                                    );
-                                  }
+                                onPressed: () async {
+                                  await controller.register();
                                 },
                               ),
                               const SizedBox(height: 15),
@@ -139,7 +119,7 @@ Widget _formFieldsRegister({
         controller: emailEC,
         label: 'E-mail',
         validator: Validatorless.multiple([
-          Validatorless.required('Senha obrigatória'),
+          Validatorless.required('Campo obrigatório'),
           Validatorless.email('E-mail inválido'),
         ]),
       ),
@@ -155,7 +135,7 @@ Widget _formFieldsRegister({
         ),
         label: 'Confirma senha',
         validator: Validatorless.multiple([
-          Validatorless.required('Confirma senha obrigatória'),
+          Validatorless.required('Campo obrigatório'),
           Validatorless.compare(passwordEC, 'Senhas diferentes'),
         ]),
       ),
@@ -204,12 +184,12 @@ Widget _fancyPasswordField({
     ),
     cursorColor: Colors.black,
     validator: Validatorless.multiple([
-      Validatorless.required('Senha ibrigatória'),
+      Validatorless.required('Campo obrigatório'),
       Validatorless.min(8, 'Mínimo 8 caracteres'),
     ]),
     validationRules: {
-      DigitValidationRule(customText: 'Um numero'),
-      UppercaseValidationRule(customText: 'Letra maiúscula'),
+      DigitValidationRule(customText: 'Um número (0-9)'),
+      UppercaseValidationRule(customText: 'Uma letra maiúscula (A-Z)'),
       MinCharactersValidationRule(8, customText: '8 caracteres'),
     },
     hasStrengthIndicator: false,

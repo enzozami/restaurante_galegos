@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:restaurante_galegos/app/core/constants/constants.dart';
@@ -10,11 +11,16 @@ import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 
 class LoginController extends GetxController with LoaderMixin, MessagesMixin {
   final AuthServices _authServices;
-  final _loading = false.obs;
-  final _message = Rxn<MessageModel>();
 
-  final isSelected = true.obs;
-  final isChecked = false.obs;
+  final formKey = GlobalKey<FormState>();
+  final emailEC = TextEditingController();
+  final passwordEC = TextEditingController();
+
+  final _message = Rxn<MessageModel>();
+  final _loading = false.obs;
+  final RxBool _viewPassword = false.obs;
+
+  bool get viewPassword => _viewPassword.value;
 
   LoginController({required AuthServices authServices}) : _authServices = authServices;
 
@@ -25,8 +31,19 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
     messageListener(_message);
   }
 
-  void seePassword() {
-    isSelected.value = !isSelected.value;
+  @override
+  void onClose() {
+    emailEC.dispose();
+    passwordEC.dispose();
+    super.onClose();
+  }
+
+  void changePasswordVisibility() {
+    _viewPassword.value = !_viewPassword.value;
+  }
+
+  bool _validateLogin() {
+    return formKey.currentState?.validate() ?? false;
   }
 
   Future<void> senhaNova({required String email}) async {
@@ -37,6 +54,33 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
     }
   }
 
+  Future<void> login() async {
+    try {
+      _loading.value = true;
+      if (!_validateLogin()) return;
+
+      final result = await _authServices.login(email: emailEC.text, password: passwordEC.text);
+
+      final storage = GetStorage();
+      storage.write(Constants.ADMIN_KEY, result.isAdmin);
+      storage.write(Constants.USER_KEY, result.id);
+      storage.write(Constants.USER_NAME, result.name);
+    } on AuthException catch (e, s) {
+      _loading.value = false;
+      log('Falha no login', error: e, stackTrace: s);
+      _message.value = MessageModel(
+        title: 'Erro',
+        message: e.message,
+        type: MessageType.error,
+      );
+    } finally {
+      _loading.value = false;
+    }
+  }
+}
+
+
+/* 
   Future<void> login({required String value, required String password}) async {
     try {
       _loading.value = true;
@@ -57,4 +101,4 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
       _loading.value = false;
     }
   }
-}
+*/

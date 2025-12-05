@@ -17,17 +17,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends GalegosState<LoginPage, LoginController> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailEC = TextEditingController();
-  final _passwordEC = TextEditingController();
-
-  @override
-  void dispose() {
-    _emailEC.dispose();
-    _passwordEC.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,39 +38,30 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Form(
-                        key: _formKey,
+                        key: controller.formKey,
                         child: Obx(() {
                           return Column(
                             children: [
                               _formFieldsLogin(
-                                emailEC: _emailEC,
-                                passwordEC: _passwordEC,
+                                emailEC: controller.emailEC,
+                                passwordEC: controller.passwordEC,
                                 context: context,
-                                icons: controller.isSelected.value
+                                icons: controller.viewPassword
                                     ? Icons.visibility
                                     : Icons.visibility_off,
                                 onPressed: () {
-                                  controller.seePassword();
+                                  controller.changePasswordVisibility();
                                 },
-                                obscureText: controller.isSelected.value,
-                                onEditingComplete: () {
-                                  controller.login(
-                                    value: _emailEC.text,
-                                    password: _passwordEC.text,
-                                  );
+                                obscureText: controller.viewPassword,
+                                onEditingComplete: () async {
+                                  await controller.login();
                                 },
                               ),
                               const SizedBox(height: 25),
                               GalegosButtonDefault(
                                 label: 'Entrar',
-                                onPressed: () {
-                                  final formValid = _formKey.currentState?.validate() ?? false;
-                                  if (formValid) {
-                                    controller.login(
-                                      value: _emailEC.text,
-                                      password: _passwordEC.text,
-                                    );
-                                  }
+                                onPressed: () async {
+                                  await controller.login();
                                 },
                               ),
                               const SizedBox(height: 15),
