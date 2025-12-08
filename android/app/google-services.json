@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "631226660296",
+    "firebase_url": "https://restaurante-galegos-default-rtdb.firebaseio.com",
     "project_id": "restaurante-galegos",
     "storage_bucket": "restaurante-galegos.firebasestorage.app"
   },

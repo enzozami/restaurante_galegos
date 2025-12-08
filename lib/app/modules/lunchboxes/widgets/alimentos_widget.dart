@@ -39,7 +39,6 @@ class _FoodClient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      controller.loading.value = true;
       return SizedBox(
         width: double.infinity,
         child: controller.loading.value

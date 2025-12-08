@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:631226660296:android:5635d0b34a26fcc2733cfd',
     messagingSenderId: '631226660296',
     projectId: 'restaurante-galegos',
+    databaseURL: 'https://restaurante-galegos-default-rtdb.firebaseio.com',
     storageBucket: 'restaurante-galegos.firebasestorage.app',
   );
 
@@ -62,7 +63,9 @@ class DefaultFirebaseOptions {
     appId: '1:631226660296:ios:dcdb333f86f71a7f733cfd',
     messagingSenderId: '631226660296',
     projectId: 'restaurante-galegos',
+    databaseURL: 'https://restaurante-galegos-default-rtdb.firebaseio.com',
     storageBucket: 'restaurante-galegos.firebasestorage.app',
     iosBundleId: 'enzo.crmsolucoes.restauranteGalegos',
   );
+
 }
