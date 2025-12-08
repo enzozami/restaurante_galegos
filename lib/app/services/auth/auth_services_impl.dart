@@ -115,7 +115,7 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   @override
   void logout() {
     _getStorage.write(Constants.USER_KEY, null);
-    _getStorage.write(Constants.ADMIN_KEY, false);
+    _getStorage.write(Constants.ADMIN_KEY, null);
     _getStorage.write(Constants.USER_NAME, null);
   }
 

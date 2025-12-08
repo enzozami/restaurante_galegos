@@ -64,7 +64,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
 
                     return ListView.builder(
                       shrinkWrap: true,
-                      // physics: const NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: docs.length,
                       itemBuilder: (context, index) {
                         final data = docs[index].data();

@@ -31,11 +31,13 @@ class AuthRepositoryImpl implements AuthRepository {
       }
 
       final data = userDoc.data()!;
-      final isAdmin = data['isAdmin'] ?? false;
+      final bool isAdmin = data['isAdmin'] ?? false;
+
+      log('Usuário é administrador: $isAdmin - (AUTHREPOSITORY)');
 
       final storage = GetStorage();
       storage.write(Constants.USER_KEY, firebaseUser.uid);
-      storage.write(Constants.ADMIN_KEY, false);
+      storage.write(Constants.ADMIN_KEY, isAdmin);
       storage.write(Constants.USER_NAME, firebaseUser.displayName);
 
       return UserModel(
@@ -101,6 +103,7 @@ class AuthRepositoryImpl implements AuthRepository {
       await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).set({
         'nome': name,
         'email': email,
+        'isAdmin': false,
         'createdAt': FieldValue.serverTimestamp(),
       });
 
