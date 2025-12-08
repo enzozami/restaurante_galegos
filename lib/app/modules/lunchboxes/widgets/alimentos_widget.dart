@@ -1,16 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_default.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/alert_products_lunchboxes_adm.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/card_items.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
 
@@ -43,7 +37,6 @@ class _FoodClient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // controller.loading.value = true;
     return SizedBox(
       width: double.infinity,
       child: controller.loading.value
@@ -87,43 +80,10 @@ class _FoodClient extends StatelessWidget {
                               (s) => ElevatedButton(
                                 style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
                                 onPressed: () {
-                                  controller.definirComidaSelecionada(alimento, s);
-                                  controller.filtrarPreco(s);
-                                  controller.sizeSelected.value = s;
-                                  showDialog(
+                                  controller.exibirDialogoAdicionarAoCarrinho(
+                                    alimento: alimento,
                                     context: context,
-                                    builder: (context) {
-                                      return AlertDialogDefault(
-                                        visible: controller.quantity > 0,
-                                        alimento: alimento,
-                                        onPressed: () {
-                                          controller.adicionarMarmitaAoCarrinho();
-                                          log(
-                                            'Item: ${alimento.name} - Valor: ${alimento.pricePerSize[s]}',
-                                          );
-                                          Get.snackbar(
-                                            'Item: ${alimento.name}',
-                                            'Item adicionado ao carrinho',
-                                            snackPosition: SnackPosition.TOP,
-                                            duration: Duration(seconds: 1),
-                                            backgroundColor: Color(0xFFE2933C),
-                                            colorText: Colors.black,
-                                            isDismissible: true,
-                                            overlayBlur: 0,
-                                            overlayColor: Colors.transparent,
-                                            barBlur: 0,
-                                          );
-                                        },
-
-                                        plusMinus: Obx(() {
-                                          return GalegosPlusMinus(
-                                            addCallback: controller.adicionarQuantidade,
-                                            removeCallback: controller.removerQuantidade,
-                                            quantityUnit: controller.quantity,
-                                          );
-                                        }),
-                                      );
-                                    },
+                                    size: s,
                                   );
                                 },
                                 child: Column(
@@ -161,8 +121,6 @@ class _FoodsAdmin extends StatefulWidget {
 }
 
 class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
-  final _formKey = GlobalKey<FormState>();
-
   final controllerCard = MultiSelectController<String>();
 
   @override
@@ -189,41 +147,7 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
                     direction: DismissDirection.endToStart,
                     key: ValueKey(alimento.id),
                     confirmDismiss: (_) async {
-                      final confirm = await showDialog<bool>(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            backgroundColor: GalegosUiDefaut.colors['fundo'],
-                            titlePadding: EdgeInsets.only(top: 25, bottom: 0),
-                            contentPadding: EdgeInsets.only(top: 15, bottom: 0),
-                            actionsPadding: EdgeInsets.symmetric(vertical: 15),
-                            title: Text(
-                              'ATENÇÃO',
-                              textAlign: .center,
-                              style: GalegosUiDefaut.theme.textTheme.titleMedium,
-                            ),
-                            content: Text(
-                              'Deseja excluir essa marmita?',
-                              textAlign: .center,
-                              style: GalegosUiDefaut.theme.textTheme.bodySmall,
-                            ),
-                            actionsAlignment: .center,
-                            actions: [
-                              ElevatedButton(
-                                onPressed: () => Navigator.of(context).pop(false),
-                                style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
-                                child: Text('Cancelar'),
-                              ),
-                              ElevatedButton(
-                                onPressed: () => Navigator.of(context).pop(true),
-                                style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
-                                child: Text('Confirmar'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                      return confirm == true;
+                      return await controller.exibirConfirmacaoDescarte(context, alimento);
                     },
                     onDismissed: (_) {
                       controller.apagarMarmita(alimento);
@@ -232,82 +156,7 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
                     child: InkWell(
                       splashColor: GalegosUiDefaut.theme.splashColor,
                       onTap: () {
-                        controller.definirComidaSelecionada(alimento, widget.selectedSize);
-                        final number = NumberFormat('#,##0.00', 'pt_BR');
-                        final temHoje = controller.temHoje(alimento);
-                        final RxBool novoTemHoje = temHoje.value.obs;
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            final nameEC = TextEditingController(text: alimento.name);
-                            final descriptionEC = TextEditingController(text: alimento.description);
-                            final priceMiniEC = TextEditingController(
-                              text: number.format(alimento.pricePerSize['mini']),
-                            );
-                            final priceMediaEC = TextEditingController(
-                              text: number.format(alimento.pricePerSize['media']),
-                            );
-
-                            return Form(
-                              key: _formKey,
-                              child: AlertProductsLunchboxesAdm(
-                                isProduct: false,
-                                onPressed: () async {
-                                  final formValid = _formKey.currentState?.validate() ?? false;
-                                  if (novoTemHoje.value != temHoje.value) {
-                                    temHoje.value = novoTemHoje.value;
-                                    await controller.atualizarMarmitasDoDia(alimento.id, alimento);
-                                    await controller.refreshLunchboxes();
-                                  }
-                                  if (formValid) {
-                                    final cleanedMini = priceMiniEC.text
-                                        .replaceAll('.', '')
-                                        .replaceAll(',', '.');
-                                    final cleanedMedia = priceMediaEC.text
-                                        .replaceAll('.', '')
-                                        .replaceAll(',', '.');
-
-                                    await controller.atualizarDadosDaMarmita(
-                                      alimento.id,
-                                      nameEC.text,
-                                      descriptionEC.text,
-                                      double.parse(cleanedMini),
-                                      double.parse(cleanedMedia),
-                                    );
-
-                                    Get.back();
-                                  } else if (novoTemHoje.value != temHoje.value) {
-                                    Get.back();
-                                  }
-                                },
-                                description: descriptionEC,
-                                value: novoTemHoje,
-                                onChanged: (bool value) async {
-                                  novoTemHoje.value = value;
-                                },
-                                nameFood: nameEC,
-                                priceMini: priceMiniEC,
-                                priceMedia: priceMediaEC,
-                                items: controller.times
-                                    .expand((d) => d.days)
-                                    .map(
-                                      (e) => MultiSelectCard<String>(
-                                        value: e,
-                                        label: e[0],
-                                        selected: alimento.dayName.contains(e),
-                                      ),
-                                    )
-                                    .toList(),
-                                onChangedSection: (allSelectedItems, selectedItem) {
-                                  alimento.dayName = allSelectedItems.cast<String>();
-                                  controller.addDays.value = allSelectedItems
-                                      .map((e) => e)
-                                      .toList();
-                                },
-                              ),
-                            );
-                          },
-                        );
+                        controller.handleFoodTap(context, alimento, widget.selectedSize);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
