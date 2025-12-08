@@ -23,21 +23,23 @@ class AlimentosWidget extends GetView<LunchboxesController> {
 
         return controller.admin
             ? _FoodsAdmin(alimentos: alimentos, selectedSize: selectedSize ?? '')
-            : _FoodClient(alimentos: alimentos, controller: controller);
+            : _FoodClient(
+                alimentos: alimentos,
+              );
       }),
     );
   }
 }
 
 class _FoodClient extends StatelessWidget {
-  const _FoodClient({required this.alimentos, required this.controller});
-
+  final LunchboxesController controller = Get.find<LunchboxesController>();
   final List<FoodModel> alimentos;
-  final LunchboxesController controller;
+  _FoodClient({required this.alimentos});
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      controller.loading.value = true;
       return SizedBox(
         width: double.infinity,
         child: controller.loading.value
@@ -131,68 +133,78 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      spacing: 5,
-      children: [
-        ...widget.alimentos.map((alimento) {
-          return Container(
+    return Obx(() {
+      return Column(
+        children: [
+          Container(
             constraints: BoxConstraints(minHeight: 100),
             width: context.width,
-            child: Column(
-              children: [
-                Card(
-                  elevation: 2,
-                  color: GalegosUiDefaut.theme.cardTheme.color,
-                  child: Dismissible(
-                    background: Container(
-                      color: GalegosUiDefaut.colorScheme.error,
-                      alignment: Alignment.centerRight,
-                      padding: EdgeInsets.all(15),
-                      child: Icon(Icons.delete, color: Colors.white),
+            child: controller.loading.value
+                ? Column(
+                    children: List.generate(
+                      20,
+                      (_) => CardShimmer(
+                        height: 90,
+                        width: context.width,
+                      ).paddingOnly(bottom: 8),
                     ),
-                    direction: DismissDirection.endToStart,
-                    key: ValueKey(alimento.id),
-                    confirmDismiss: (_) async {
-                      return await controller.exibirConfirmacaoDescarte(context, alimento);
-                    },
-                    onDismissed: (_) {
-                      controller.apagarMarmita(alimento);
-                      controller.refreshLunchboxes();
-                    },
-                    child: InkWell(
-                      splashColor: GalegosUiDefaut.theme.splashColor,
-                      onTap: () {
-                        controller.handleFoodTap(context, alimento, widget.selectedSize);
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ListTile(
-                            leading: alimento.temHoje
-                                ? Text('Ativo', style: TextStyle(color: Colors.green))
-                                : Text(
-                                    'Inativo',
-                                    style: TextStyle(color: GalegosUiDefaut.colorScheme.error),
-                                  ),
-                            title: Text(
-                              alimento.name,
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                            subtitle: Text(alimento.description),
-                            trailing: Icon(Icons.edit_outlined),
+                  )
+                : Column(
+                    children: widget.alimentos.map((alimento) {
+                      return Card(
+                        elevation: 2,
+                        color: GalegosUiDefaut.theme.cardTheme.color,
+                        child: Dismissible(
+                          background: Container(
+                            color: GalegosUiDefaut.colorScheme.error,
+                            alignment: Alignment.centerRight,
+                            padding: EdgeInsets.all(15),
+                            child: Icon(Icons.delete, color: Colors.white),
                           ),
-                        ],
-                      ),
-                    ),
+                          direction: DismissDirection.endToStart,
+                          key: ValueKey(alimento.id),
+                          confirmDismiss: (_) async {
+                            return await controller.exibirConfirmacaoDescarte(context, alimento);
+                          },
+                          onDismissed: (_) {
+                            controller.apagarMarmita(alimento);
+                            controller.refreshLunchboxes();
+                          },
+                          child: InkWell(
+                            splashColor: GalegosUiDefaut.theme.splashColor,
+                            onTap: () {
+                              controller.handleFoodTap(context, alimento, widget.selectedSize);
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ListTile(
+                                  leading: alimento.temHoje
+                                      ? Text('Ativo', style: TextStyle(color: Colors.green))
+                                      : Text(
+                                          'Inativo',
+                                          style: TextStyle(
+                                            color: GalegosUiDefaut.colorScheme.error,
+                                          ),
+                                        ),
+                                  title: Text(
+                                    alimento.name,
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                  ),
+                                  subtitle: Text(alimento.description),
+                                  trailing: Icon(Icons.edit_outlined),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
                   ),
-                ),
-              ],
-            ),
-          );
-        }),
-        // .toList(),
-        const SizedBox(height: 50),
-      ],
-    );
+          ),
+          const SizedBox(height: 45),
+        ],
+      );
+    });
   }
 }

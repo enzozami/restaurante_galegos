@@ -4,6 +4,7 @@ import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/card_items.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/text_shimmer.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
 
@@ -109,66 +110,88 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 16.0),
-                child: Text(c.name, style: GalegosUiDefaut.theme.textTheme.titleLarge),
+                child: controller.loading.value
+                    ? SizedBox(
+                        child: TextShimmer(
+                          width: 200,
+                          lines: 1,
+                        ),
+                      )
+                    : Text(c.name, style: GalegosUiDefaut.theme.textTheme.titleLarge),
               ),
               Container(
                 constraints: const BoxConstraints(minHeight: 100),
                 width: context.width,
-                child: Column(
-                  children: filtered
-                      .map(
-                        (e) => Card(
-                          elevation: 2,
-                          color: GalegosUiDefaut.theme.cardTheme.color,
-                          clipBehavior: .hardEdge,
-                          child: Dismissible(
-                            background: Container(
-                              color: GalegosUiDefaut.colorScheme.error,
-                              alignment: .centerRight,
-                              padding: EdgeInsets.all(15),
-                              child: Icon(Icons.delete, color: Colors.white),
-                            ),
-                            direction: DismissDirection.endToStart,
-                            key: ValueKey(e.id),
-                            confirmDismiss: (_) async {
-                              return await controller.exibirConfirmacaoDescarte(context, e);
-                            },
-                            onDismissed: (_) async {
-                              controller.apagarProduto(e);
-                              await controller.refreshProducts();
-                            },
-                            child: InkWell(
-                              splashColor: GalegosUiDefaut.theme.splashColor,
-                              borderRadius: BorderRadius.circular(8),
-                              onTap: () {
-                                controller.onAdminProductUpdateDetailsTapped(context, e);
-                              },
-                              child: ListTile(
-                                textColor: Colors.black87,
-                                leading: e.temHoje
-                                    ? Text('Ativo', style: TextStyle(color: Colors.green))
-                                    : Text(
-                                        'Inativo',
-                                        style: TextStyle(color: GalegosUiDefaut.colorScheme.error),
-                                      ),
-                                title: Text(
-                                  e.name,
-                                  textAlign: TextAlign.start,
-                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                                ),
-                                subtitle: Text(
-                                  e.description ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                trailing: Icon(Icons.edit_outlined),
-                              ),
-                            ),
-                          ),
+                child: controller.loading.value
+                    ? Column(
+                        children: List.generate(
+                          20,
+                          (_) => CardShimmer(
+                            height: 90,
+                            width: context.width,
+                          ).paddingOnly(bottom: 8),
                         ),
                       )
-                      .toList(),
-                ),
+                    : Column(
+                        children: filtered
+                            .map(
+                              (e) => Card(
+                                elevation: 2,
+                                color: GalegosUiDefaut.theme.cardTheme.color,
+                                clipBehavior: .hardEdge,
+                                child: Dismissible(
+                                  background: Container(
+                                    color: GalegosUiDefaut.colorScheme.error,
+                                    alignment: .centerRight,
+                                    padding: EdgeInsets.all(15),
+                                    child: Icon(Icons.delete, color: Colors.white),
+                                  ),
+                                  direction: DismissDirection.endToStart,
+                                  key: ValueKey(e.id),
+                                  confirmDismiss: (_) async {
+                                    return await controller.exibirConfirmacaoDescarte(context, e);
+                                  },
+                                  onDismissed: (_) async {
+                                    controller.apagarProduto(e);
+                                    await controller.refreshProducts();
+                                  },
+                                  child: InkWell(
+                                    splashColor: GalegosUiDefaut.theme.splashColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                    onTap: () {
+                                      controller.onAdminProductUpdateDetailsTapped(context, e);
+                                    },
+                                    child: ListTile(
+                                      textColor: Colors.black87,
+                                      leading: e.temHoje
+                                          ? Text('Ativo', style: TextStyle(color: Colors.green))
+                                          : Text(
+                                              'Inativo',
+                                              style: TextStyle(
+                                                color: GalegosUiDefaut.colorScheme.error,
+                                              ),
+                                            ),
+                                      title: Text(
+                                        e.name,
+                                        textAlign: TextAlign.start,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        e.description ?? '',
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      trailing: Icon(Icons.edit_outlined),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
               ),
               const SizedBox(height: 45),
             ],
