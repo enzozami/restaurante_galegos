@@ -149,7 +149,14 @@ class CardItems extends StatelessWidget {
                                 child: ClipRRect(
                                   clipBehavior: Clip.antiAlias,
                                   borderRadius: BorderRadiusGeometry.circular(20),
-                                  child: Image.network(image ?? '', fit: BoxFit.cover),
+                                  child: Image.network(
+                                    image ?? '',
+                                    fit: BoxFit.cover,
+                                    loadingBuilder: (context, child, loadingProgress) =>
+                                        loadingProgress == null
+                                        ? child
+                                        : CardShimmer(height: imageHeight ?? 0, width: width ?? 0),
+                                  ),
                                 ),
                               ),
                             )

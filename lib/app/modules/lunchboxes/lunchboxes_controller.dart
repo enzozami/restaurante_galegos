@@ -134,7 +134,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
         ..clear()
         ..addAll(sizesList);
 
-      _foodService.init();
+      await _foodService.init();
     } catch (e, s) {
       log('Erro ao carregar marmitas', error: e, stackTrace: s);
       _loading.value = false;
@@ -148,10 +148,9 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   Future<void> refreshLunchboxes() async {
     try {
-      _getLunchboxes();
+      await _getLunchboxes();
     } catch (e, s) {
       log('Erro ao atualizar marmitas', error: e, stackTrace: s);
-      _loading.value = false;
       _message(
         MessageModel(title: 'Erro', message: 'Erro ao atualizar marmitas', type: MessageType.error),
       );

@@ -37,76 +37,82 @@ class _FoodClient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: controller.loading.value
-          ? Wrap(
-              children: List.generate(
-                5,
-                (_) => CardShimmer(
-                  height: 280,
-                  width: context.widthTransformer(reducedBy: 10),
-                ).paddingOnly(bottom: 10),
-              ),
-            )
-          : Wrap(
-              alignment: WrapAlignment.spaceAround,
-              children: alimentos
-                  .where(
-                    (element) => element.dayName.contains(controller.dayNow) && element.temHoje,
-                  )
-                  .map((alimento) {
-                    return CardItems(
-                      width: context.widthTransformer(reducedBy: 10),
-                      height: 280,
-                      isProduct: false,
-                      imageHeight: alimento.description.isEmpty ? 150 : 130,
-                      titulo: alimento.name,
-                      image: alimento.image,
-                      descricao: alimento.description,
-                      onPressed: () {},
-                      onTap: () {},
-                      styleTitle: GalegosUiDefaut.theme.textTheme.titleMedium,
-                      styleDescricao: GalegosUiDefaut.theme.textTheme.bodyLarge,
-                      stylePreco: GalegosUiDefaut.textLunchboxes.titleMedium,
-                      precoMini: FormatterHelper.formatCurrency(alimento.pricePerSize['mini'] ?? 0),
-                      precoMedia: FormatterHelper.formatCurrency(
-                        alimento.pricePerSize['media'] ?? 0,
-                      ),
-                      elevatedButton: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: controller.availableSizes
-                            .map(
-                              (s) => ElevatedButton(
-                                style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
-                                onPressed: () {
-                                  controller.exibirDialogoAdicionarAoCarrinho(
-                                    alimento: alimento,
-                                    context: context,
-                                    size: s,
-                                  );
-                                },
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      s[0].toUpperCase() + s.substring(1),
-                                      style: GalegosUiDefaut.textLunchboxes.titleSmall,
-                                    ),
-                                    Text(
-                                      FormatterHelper.formatCurrency(alimento.pricePerSize[s] ?? 0),
-                                      style: GalegosUiDefaut.textLunchboxes.titleMedium,
-                                    ),
-                                  ],
+    return Obx(() {
+      return SizedBox(
+        width: double.infinity,
+        child: controller.loading.value
+            ? Wrap(
+                children: List.generate(
+                  5,
+                  (_) => CardShimmer(
+                    height: 280,
+                    width: context.widthTransformer(reducedBy: 10),
+                  ).paddingOnly(bottom: 10),
+                ),
+              )
+            : Wrap(
+                alignment: WrapAlignment.spaceAround,
+                children: alimentos
+                    .where(
+                      (element) => element.dayName.contains(controller.dayNow) && element.temHoje,
+                    )
+                    .map((alimento) {
+                      return CardItems(
+                        width: context.widthTransformer(reducedBy: 10),
+                        height: 280,
+                        isProduct: false,
+                        imageHeight: alimento.description.isEmpty ? 150 : 130,
+                        titulo: alimento.name,
+                        image: alimento.image,
+                        descricao: alimento.description,
+                        onPressed: () {},
+                        onTap: () {},
+                        styleTitle: GalegosUiDefaut.theme.textTheme.titleMedium,
+                        styleDescricao: GalegosUiDefaut.theme.textTheme.bodyLarge,
+                        stylePreco: GalegosUiDefaut.textLunchboxes.titleMedium,
+                        precoMini: FormatterHelper.formatCurrency(
+                          alimento.pricePerSize['mini'] ?? 0,
+                        ),
+                        precoMedia: FormatterHelper.formatCurrency(
+                          alimento.pricePerSize['media'] ?? 0,
+                        ),
+                        elevatedButton: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: controller.availableSizes
+                              .map(
+                                (s) => ElevatedButton(
+                                  style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+                                  onPressed: () {
+                                    controller.exibirDialogoAdicionarAoCarrinho(
+                                      alimento: alimento,
+                                      context: context,
+                                      size: s,
+                                    );
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        s[0].toUpperCase() + s.substring(1),
+                                        style: GalegosUiDefaut.textLunchboxes.titleSmall,
+                                      ),
+                                      Text(
+                                        FormatterHelper.formatCurrency(
+                                          alimento.pricePerSize[s] ?? 0,
+                                        ),
+                                        style: GalegosUiDefaut.textLunchboxes.titleMedium,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    );
-                  })
-                  .toList(),
-            ),
-    );
+                              )
+                              .toList(),
+                        ),
+                      );
+                    })
+                    .toList(),
+              ),
+      );
+    });
   }
 }
 

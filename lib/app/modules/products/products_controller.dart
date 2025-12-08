@@ -21,19 +21,19 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final CarrinhoServices _carrinhoServices;
   final ProductsServices _productsServices;
 
-  ScrollController scrollController = ScrollController();
-
-  final formKey = GlobalKey<FormState>();
-  final TextEditingController nameProductEC = TextEditingController();
-  final TextEditingController descriptionEC = TextEditingController();
-  final TextEditingController priceEC = TextEditingController();
+  ProductsController({
+    required AuthServices authService,
+    required CarrinhoServices carrinhoServices,
+    required ProductsServices productsServices,
+  }) : _carrinhoServices = carrinhoServices,
+       _authService = authService,
+       _productsServices = productsServices;
 
   final isProcessing = RxBool(false);
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
 
   final Rx<String?> categoryId = Rx(null);
-
   final categorySelected = Rxn<CategoryModel>();
   final itemSelect = Rxn<ProductModel>();
 
@@ -42,25 +42,39 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final _totalPrice = 0.0.obs;
   final _isEditing = false.obs;
 
-  RxBool get loading => _loading; // carregamento
-  RxList<ProductModel> get items => _productsServices.items; // itens da api
-  RxList<CategoryModel> get category => _productsServices.categories; // categorias da api
-  ProductModel? get selectedItem => itemSelect.value; // item que é selecionado
-  int get quantity => _quantity.value; // quantidade de itens
-  bool get alreadyAdded => _alreadyAdded.value; // se está no carrinho ou nao
-  double get totalPrice => _totalPrice.value; // valor total do carrinho
-  CarrinhoServices get carrinhoServices => _carrinhoServices; // carrinho
-  bool get isEditing => _isEditing.value; // se está editando ou nao
-  bool get admin => _authService.isAdmin(); // se é admin ou nao
-  RxBool temHoje(ProductModel p) => RxBool(p.temHoje); // se tem no dia ou nao
+  ScrollController scrollController = ScrollController();
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController nameProductEC = TextEditingController();
+  final TextEditingController descriptionEC = TextEditingController();
+  final TextEditingController priceEC = TextEditingController();
 
-  ProductsController({
-    required AuthServices authService,
-    required CarrinhoServices carrinhoServices,
-    required ProductsServices productsServices,
-  }) : _carrinhoServices = carrinhoServices,
-       _authService = authService,
-       _productsServices = productsServices;
+  RxBool get loading => _loading;
+  RxList<ProductModel> get items => _productsServices.items;
+  RxList<CategoryModel> get category => _productsServices.categories;
+  ProductModel? get selectedItem => itemSelect.value;
+  int get quantity => _quantity.value;
+  bool get alreadyAdded => _alreadyAdded.value;
+  double get totalPrice => _totalPrice.value;
+  CarrinhoServices get carrinhoServices => _carrinhoServices;
+  bool get isEditing => _isEditing.value;
+  bool get admin => _authService.isAdmin();
+  RxBool temHoje(ProductModel p) => RxBool(p.temHoje);
+
+  List<ProductModel> getFilteredProducts(CategoryModel c) {
+    return admin
+        ? items.where((p) {
+            final matchesCategory = categorySelected.value?.name == null
+                ? p.categoryId == c.name
+                : p.categoryId == categorySelected.value?.name && p.categoryId == c.name;
+            return matchesCategory;
+          }).toList()
+        : items.where((p) {
+            final matchsCategory = categorySelected.value?.name == null
+                ? p.categoryId == c.name
+                : p.categoryId == categorySelected.value?.name && p.categoryId == c.name;
+            return matchsCategory && p.temHoje;
+          }).toList();
+  }
 
   @override
   void onInit() async {
@@ -116,44 +130,13 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       if (categorySelected.value != null) {
         categorySelected.value = null;
       }
-      _fetchAllProducts();
+      await _fetchAllProducts();
     } catch (e, s) {
       log('Erro ao atualizar produtos', error: e, stackTrace: s);
       _message(
         MessageModel(title: 'Erro', message: 'Erro ao atualizar produtos', type: MessageType.error),
       );
     }
-  }
-
-  void searchItemsByFilter(CategoryModel? categoryModel) {
-    if (isProcessing.value) return;
-
-    try {
-      isProcessing.value = true;
-      _loading.value = true;
-
-      if (categoryModel == null) {
-        categorySelected.value = null;
-        return;
-      }
-
-      final selected = categorySelected.value;
-      if (selected?.name == categoryModel.name) {
-        categorySelected.value = null;
-        return;
-      }
-
-      categorySelected.value = categoryModel;
-    } catch (e, s) {
-      log('Erro ao filtrar', error: e, stackTrace: s);
-    } finally {
-      _loading.value = false;
-      isProcessing.value = false;
-    }
-  }
-
-  bool _validateForm() {
-    return formKey.currentState?.validate() ?? false;
   }
 
   Future<void> cadastrarNovosProdutos() async {
@@ -189,13 +172,30 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     await refreshProducts();
   }
 
-  void addProductUnit() {
-    _quantity.value++;
-  }
+  void searchItemsByFilter(CategoryModel? categoryModel) {
+    if (isProcessing.value) return;
 
-  void removeProductUnit() {
-    if (_quantity.value > 0) {
-      _quantity.value--;
+    try {
+      isProcessing.value = true;
+      _loading.value = true;
+
+      if (categoryModel == null) {
+        categorySelected.value = null;
+        return;
+      }
+
+      final selected = categorySelected.value;
+      if (selected?.name == categoryModel.name) {
+        categorySelected.value = null;
+        return;
+      }
+
+      categorySelected.value = categoryModel;
+    } catch (e, s) {
+      log('Erro ao filtrar', error: e, stackTrace: s);
+    } finally {
+      _loading.value = false;
+      isProcessing.value = false;
     }
   }
 
@@ -223,21 +223,14 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     _carrinhoServices.addOrUpdateProduct(selected, quantity: _quantity.value);
   }
 
-  // REFATORANDO
-  List<ProductModel> getFilteredProducts(CategoryModel c) {
-    return admin
-        ? items.where((p) {
-            final matchesCategory = categorySelected.value?.name == null
-                ? p.categoryId == c.name
-                : p.categoryId == categorySelected.value?.name && p.categoryId == c.name;
-            return matchesCategory;
-          }).toList()
-        : items.where((p) {
-            final matchsCategory = categorySelected.value?.name == null
-                ? p.categoryId == c.name
-                : p.categoryId == categorySelected.value?.name && p.categoryId == c.name;
-            return matchsCategory && p.temHoje;
-          }).toList();
+  void addProductUnit() {
+    _quantity.value++;
+  }
+
+  void removeProductUnit() {
+    if (_quantity.value > 0) {
+      _quantity.value--;
+    }
   }
 
   void onClientProductQuickAddPressed(ProductModel product) {
@@ -392,5 +385,9 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       },
     );
     return confirm == true;
+  }
+
+  bool _validateForm() {
+    return formKey.currentState?.validate() ?? false;
   }
 }
