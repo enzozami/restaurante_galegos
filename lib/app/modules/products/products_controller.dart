@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/alert_products_lunchboxes_adm.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
@@ -353,5 +354,43 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         );
       },
     );
+  }
+
+  Future<bool> exibirConfirmacaoDescarte(BuildContext context, ProductModel product) async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: GalegosUiDefaut.colors['fundo'],
+          titlePadding: EdgeInsets.only(top: 25, bottom: 0),
+          contentPadding: EdgeInsets.only(top: 15, bottom: 0),
+          actionsPadding: EdgeInsets.symmetric(vertical: 15),
+          title: Text(
+            'ATENÇÃO',
+            textAlign: .center,
+            style: GalegosUiDefaut.theme.textTheme.titleMedium,
+          ),
+          content: Text(
+            'Deseja excluir esse produto?',
+            textAlign: .center,
+            style: GalegosUiDefaut.theme.textTheme.bodySmall,
+          ),
+          actionsAlignment: .center,
+          actions: [
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+              child: Text('Cancelar'),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+              child: Text('Confirmar'),
+            ),
+          ],
+        );
+      },
+    );
+    return confirm == true;
   }
 }

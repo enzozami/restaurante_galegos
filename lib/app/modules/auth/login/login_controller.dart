@@ -16,7 +16,7 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
 
   final _message = Rxn<MessageModel>();
   final _loading = false.obs;
-  final RxBool _viewPassword = false.obs;
+  final RxBool _viewPassword = true.obs;
 
   bool get viewPassword => _viewPassword.value;
 

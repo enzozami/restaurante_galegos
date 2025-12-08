@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/alert_products_lunchboxes_adm.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/card_items.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
@@ -56,7 +54,6 @@ class _ProductsClient extends GetView<ProductsController> {
                     : Wrap(
                         alignment: .spaceAround,
                         children: filtered
-                            .where((e) => e.categoryId == c.name)
                             .map(
                               (e) => CardItems(
                                 width: 190,
@@ -93,8 +90,6 @@ class _ProductsAdmin extends StatefulWidget {
 }
 
 class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsController> {
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -121,7 +116,6 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
                 width: context.width,
                 child: Column(
                   children: filtered
-                      .where((e) => e.categoryId == c.name)
                       .map(
                         (e) => Card(
                           elevation: 2,
@@ -137,41 +131,7 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
                             direction: DismissDirection.endToStart,
                             key: ValueKey(e.id),
                             confirmDismiss: (_) async {
-                              final confirm = await showDialog<bool>(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    backgroundColor: GalegosUiDefaut.colors['fundo'],
-                                    titlePadding: EdgeInsets.only(top: 25, bottom: 0),
-                                    contentPadding: EdgeInsets.only(top: 15, bottom: 0),
-                                    actionsPadding: EdgeInsets.symmetric(vertical: 15),
-                                    title: Text(
-                                      'ATENÇÃO',
-                                      textAlign: .center,
-                                      style: GalegosUiDefaut.theme.textTheme.titleMedium,
-                                    ),
-                                    content: Text(
-                                      'Deseja excluir esse produto?',
-                                      textAlign: .center,
-                                      style: GalegosUiDefaut.theme.textTheme.bodySmall,
-                                    ),
-                                    actionsAlignment: .center,
-                                    actions: [
-                                      ElevatedButton(
-                                        onPressed: () => Navigator.of(context).pop(false),
-                                        style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
-                                        child: Text('Cancelar'),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () => Navigator.of(context).pop(true),
-                                        style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
-                                        child: Text('Confirmar'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                              return confirm == true;
+                              return await controller.exibirConfirmacaoDescarte(context, e);
                             },
                             onDismissed: (_) async {
                               controller.apagarProduto(e);
@@ -181,54 +141,7 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
                               splashColor: GalegosUiDefaut.theme.splashColor,
                               borderRadius: BorderRadius.circular(8),
                               onTap: () {
-                                final number = NumberFormat('#,##0.00', 'pt_BR');
-                                controller.setSelectedItem(e);
-                                final temHoje = controller.temHoje(e);
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    final nameEC = TextEditingController(text: e.name);
-                                    final descriptionEC = TextEditingController(
-                                      text: e.description,
-                                    );
-                                    final categoryEC = TextEditingController(text: e.categoryId);
-                                    final priceEC = TextEditingController(
-                                      text: number.format(e.price),
-                                    );
-                                    return Form(
-                                      key: _formKey,
-                                      child: AlertProductsLunchboxesAdm(
-                                        isProduct: true,
-                                        category: categoryEC,
-                                        nameProduct: nameEC,
-                                        description: descriptionEC,
-                                        price: priceEC,
-                                        onPressed: () async {
-                                          final formValid =
-                                              _formKey.currentState?.validate() ?? false;
-                                          if (formValid) {
-                                            final cleaned = priceEC.text
-                                                .replaceAll('.', '')
-                                                .replaceAll(',', '.');
-                                            controller.atualizarDadosDoProduto(
-                                              e.id,
-                                              e.categoryId,
-                                              descriptionEC.text,
-                                              nameEC.text,
-                                              double.parse(cleaned),
-                                            );
-                                            Get.close(0);
-                                          }
-                                        },
-                                        value: temHoje,
-                                        onChanged: (value) async {
-                                          temHoje.value = value;
-                                          await controller.atualizarItensDoDia(e.id, e);
-                                        },
-                                      ),
-                                    );
-                                  },
-                                );
+                                controller.onAdminProductUpdateDetailsTapped(context, e);
                               },
                               child: ListTile(
                                 textColor: Colors.black87,
