@@ -397,6 +397,13 @@ class _AddressCard extends StatelessWidget {
                         signed: false,
                       ),
                       maxLength: 6,
+                      buildCounter:
+                          (
+                            context, {
+                            required currentLength,
+                            required isFocused,
+                            required maxLength,
+                          }) => SizedBox.shrink(),
                       maxLengthEnforcement: .enforced,
                       controller: controller.numeroEC,
                       validator: Validatorless.required('Número obrigatório'),

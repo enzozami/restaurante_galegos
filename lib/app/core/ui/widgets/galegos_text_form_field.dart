@@ -23,29 +23,37 @@ class GalegosTextFormField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final int? maxLength;
   final MaxLengthEnforcement? maxLengthEnforcement;
+  final Widget Function(
+    BuildContext context, {
+    required int currentLength,
+    required int? maxLength,
+    required bool isFocused,
+  })?
+  buildCounter;
 
   const GalegosTextFormField({
     super.key,
-    this.controller,
     this.label,
     this.validator,
+    this.controller,
     this.obscureText = false,
     this.mask,
     this.inputType = TextInputType.text,
-    this.enabled,
     required this.floatingLabelBehavior,
+    this.enabled,
     this.icon,
+    this.prefixIcon,
     this.onChanged,
     this.colorText,
     this.colorBorder,
     this.prefixText,
     this.suffixText,
     this.focusNode,
-    this.prefixIcon,
     this.onEditingComplete,
     this.textInputAction,
     this.maxLength,
     this.maxLengthEnforcement,
+    this.buildCounter,
   });
 
   @override
@@ -53,6 +61,7 @@ class GalegosTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
+      buildCounter: buildCounter,
       enabled: enabled,
       maxLength: maxLength,
       maxLengthEnforcement: maxLengthEnforcement,
