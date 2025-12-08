@@ -4,6 +4,7 @@ import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/alert_for_add_to_cart.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/filter_tag.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/text_shimmer.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/widgets/alimentos_widget.dart';
 
 import './lunchboxes_controller.dart';
@@ -39,10 +40,10 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 30.0, bottom: 15, left: 10, right: 10),
-                      child: Visibility(
-                        visible: controller.admin != true,
-                        replacement: Obx(() {
-                          return SingleChildScrollView(
+                      child: Obx(() {
+                        return Visibility(
+                          visible: controller.admin != true,
+                          replacement: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: controller.times
@@ -58,30 +59,37 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                                   )
                                   .toList(),
                             ),
-                          );
-                        }),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Marmitas de Hoje',
-                                  textAlign: TextAlign.center,
-                                  style: GalegosUiDefaut.theme.textTheme.titleLarge,
-                                ),
-                                Text(
-                                  controller.dayNow,
-                                  style: GalegosUiDefaut.theme.textTheme.titleSmall,
-                                ),
-                              ],
+                          ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                              child: controller.loading.value
+                                  ? Column(
+                                      children: List.generate(
+                                        1,
+                                        (_) => TextShimmer(width: 300, lines: 2),
+                                      ),
+                                    )
+                                  : Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Marmitas de Hoje',
+                                          textAlign: TextAlign.center,
+                                          style: GalegosUiDefaut.theme.textTheme.titleLarge,
+                                        ),
+                                        Text(
+                                          controller.dayNow,
+                                          style: GalegosUiDefaut.theme.textTheme.titleSmall,
+                                        ),
+                                      ],
+                                    ),
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      }),
                     ),
 
                     AlimentosWidget(),

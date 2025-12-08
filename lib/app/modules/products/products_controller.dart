@@ -178,7 +178,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     try {
       isProcessing.value = true;
       _loading.value = true;
-      await 400.milliseconds.delay();
+      await 250.milliseconds.delay();
 
       if (categoryModel == null) {
         categorySelected.value = null;

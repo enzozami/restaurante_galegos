@@ -249,12 +249,18 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     sizeSelected.value = selectedSize;
   }
 
-  void filtrarPorDia(String? day) {
-    if (day == daysSelected.value) {
-      daysSelected.value = null;
-      return;
+  Future<void> filtrarPorDia(String? day) async {
+    try {
+      _loading.value = true;
+      await 250.milliseconds.delay();
+      if (day == daysSelected.value) {
+        daysSelected.value = null;
+        return;
+      }
+      daysSelected.value = day;
+    } finally {
+      _loading.value = false;
     }
-    daysSelected.value = day;
   }
 
   // --- MÉTODOS DE CARRINHO E QUANTIDADE ---
