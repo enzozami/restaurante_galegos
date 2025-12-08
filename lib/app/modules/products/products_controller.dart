@@ -172,12 +172,13 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     await refreshProducts();
   }
 
-  void searchItemsByFilter(CategoryModel? categoryModel) {
+  Future<void> searchItemsByFilter(CategoryModel? categoryModel) async {
     if (isProcessing.value) return;
 
     try {
       isProcessing.value = true;
       _loading.value = true;
+      await 400.milliseconds.delay();
 
       if (categoryModel == null) {
         categorySelected.value = null;
