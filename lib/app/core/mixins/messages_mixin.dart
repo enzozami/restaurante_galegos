@@ -15,6 +15,7 @@ mixin MessagesMixin on GetxController {
             colorText: model.type.textColor(),
             margin: EdgeInsets.all(20),
           );
+          message(null);
         }
       },
     );

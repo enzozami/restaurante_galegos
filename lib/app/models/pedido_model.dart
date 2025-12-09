@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
@@ -5,23 +7,6 @@ import 'package:flutter/widgets.dart';
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 
 class PedidoModel {
-  String id;
-  String userId;
-  String userName;
-  String cep;
-  String rua;
-  String bairro;
-  String cidade;
-  String estado;
-  int numeroResidencia; // numero da casa
-  double taxa;
-  List<CarrinhoModel> cart;
-  double amountToPay;
-  String status;
-  String date;
-  String time;
-  String? timePath;
-  String? timeFinished;
   PedidoModel({
     required this.id,
     required this.userId,
@@ -41,6 +26,24 @@ class PedidoModel {
     this.timePath,
     this.timeFinished,
   });
+
+  String id;
+  String userId;
+  String userName;
+  String cep;
+  String rua;
+  String bairro;
+  String cidade;
+  String estado;
+  int numeroResidencia;
+  double taxa;
+  List<CarrinhoModel> cart;
+  double amountToPay;
+  String status;
+  String date;
+  String time;
+  String? timePath;
+  String? timeFinished;
 
   PedidoModel copyWith({
     String? id,
@@ -129,4 +132,31 @@ class PedidoModel {
   String toJson() => json.encode(toMap());
 
   factory PedidoModel.fromJson(String source) => PedidoModel.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return '--- Detalhes do Pedido ---\n'
+        'ID: $id\n'
+        'Usuário: $userName ($userId)\n'
+        'Status: $status\n'
+        'Total a Pagar: R\$${amountToPay.toStringAsFixed(2)} (Taxa: R\$${taxa.toStringAsFixed(2)})\n'
+        'Data/Hora: $date às $time\n'
+        '--- Endereço ---\n'
+        'CEP: $cep\n'
+        'Rua: $rua, Nº: $numeroResidencia\n'
+        'Bairro: $bairro\n'
+        'Cidade/Estado: $cidade/$estado\n'
+        '--- Itens no Carrinho (${cart.length} itens) ---\n'
+        '${_formatCartItems()}\n'
+        '----------------------------';
+  }
+
+  String _formatCartItems() {
+    if (cart.isEmpty) return 'Carrinho vazio.';
+    return cart
+        .map((item) {
+          return '  - ${item.item.quantidade}x ${item.item.alimento?.name ?? item.item.produto?.name ?? 'Produto sem nome'}';
+        })
+        .join('\n');
+  }
 }

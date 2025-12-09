@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 
@@ -57,5 +58,21 @@ class ItemCarrinhoModel {
       tamanho: this.tamanho,
       valorPorTamanho: this.valorPorTamanho,
     );
+  }
+}
+
+extension ItemCarrinhoModelX on ItemCarrinhoModel {
+  String get nameDisplay => produto?.name ?? alimento?.name ?? '';
+  String get priceDisplay {
+    final price = produto?.price ?? valorPorTamanho ?? 0.0;
+    return FormatterHelper.formatCurrency(price);
+  }
+
+  String get subtitleDisplay {
+    if (tamanho != null && tamanho!.isNotEmpty) {
+      return tamanho![0].toUpperCase() + tamanho!.substring(1);
+    } else {
+      return 'Produto';
+    }
   }
 }

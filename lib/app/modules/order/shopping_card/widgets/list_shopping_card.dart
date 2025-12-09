@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
+import 'package:restaurante_galegos/app/models/item_carrinho_model.dart';
 import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_controller.dart';
 
 class ListShoppingCard extends GetView<ShoppingCardController> {
@@ -16,46 +16,21 @@ class ListShoppingCard extends GetView<ShoppingCardController> {
         physics: NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           final p = controller.products[index];
-          var product = p.item.alimento ?? p.item.produto;
-          final foodName = p.item.alimento?.name ?? '';
-          final itemName = p.item.produto?.name ?? '';
-          final sizeSelected = p.item.tamanho ?? '';
-
-          final VoidCallback add = (product == p.item.alimento)
-              ? () => controller.addQuantityFood(p)
-              : () => controller.addQuantityProduct(p);
-
-          final VoidCallback remove = (product == p.item.alimento)
-              ? () => controller.removeQuantityFood(p)
-              : () => controller.removeQuantityProduct(p);
-
-          late String nameItem;
-          if (foodName.isEmpty) {
-            nameItem = itemName;
-          } else {
-            nameItem = foodName;
-          }
-
-          final priceFood = p.item.valorPorTamanho ?? 0.0;
 
           return Row(
             children: [
               Expanded(
                 child: ListTile(
                   title: Text(
-                    nameItem,
+                    p.item.nameDisplay,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  subtitle: Text(
-                    (sizeSelected != '')
-                        ? sizeSelected[0].toUpperCase() + sizeSelected.substring(1)
-                        : 'Produto',
-                  ),
+                  subtitle: Text(p.item.subtitleDisplay),
                   trailing: Text(
-                    FormatterHelper.formatCurrency(p.item.produto?.price ?? priceFood),
+                    p.item.priceDisplay,
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
@@ -65,8 +40,8 @@ class ListShoppingCard extends GetView<ShoppingCardController> {
               ),
               GalegosPlusMinus(
                 color: Colors.black,
-                addCallback: add,
-                removeCallback: remove,
+                addCallback: () => controller.adicionarQuantidadeCarrinho(p),
+                removeCallback: () => controller.removerQuantidadeCarrinho(p),
                 quantityUnit: p.item.quantidade,
               ),
             ],

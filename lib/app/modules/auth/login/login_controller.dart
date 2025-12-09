@@ -60,6 +60,7 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
       await _authServices.login(email: emailEC.text, password: passwordEC.text);
     } on AuthException catch (e, s) {
       _loading.value = false;
+      await 500.milliseconds.delay();
       log('Falha no login', error: e, stackTrace: s);
       _message.value = MessageModel(
         title: 'Erro',
@@ -71,27 +72,3 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
     }
   }
 }
-
-
-/* 
-  Future<void> login({required String value, required String password}) async {
-    try {
-      _loading.value = true;
-      final userLogger = await _authServices.login(email: value, password: password);
-      final storage = GetStorage();
-      storage.write(Constants.ADMIN_KEY, userLogger.isAdmin);
-      storage.write(Constants.USER_KEY, userLogger.id);
-      storage.write(Constants.USER_NAME, userLogger.name);
-    } on AuthException catch (e, s) {
-      _loading.value = false;
-      log('Falha no login', error: e, stackTrace: s);
-      _message.value = MessageModel(
-        title: 'Erro',
-        message: e.message,
-        type: MessageType.error,
-      );
-    } finally {
-      _loading.value = false;
-    }
-  }
-*/
