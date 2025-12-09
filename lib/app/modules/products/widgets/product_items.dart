@@ -37,10 +37,17 @@ class _ProductsClient extends GetView<ProductsController> {
             mainAxisAlignment: .start,
             crossAxisAlignment: .start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 30.0),
-                child: Text(c.name, style: GalegosUiDefaut.theme.textTheme.titleLarge),
-              ),
+              controller.loading.value
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 30.0),
+                      child: Column(
+                        children: List.generate(1, (index) => TextShimmer(width: 200, lines: 1)),
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 30.0),
+                      child: Text(c.name, style: GalegosUiDefaut.theme.textTheme.titleLarge),
+                    ),
               Container(
                 constraints: const BoxConstraints(minHeight: 100),
                 width: context.width,
