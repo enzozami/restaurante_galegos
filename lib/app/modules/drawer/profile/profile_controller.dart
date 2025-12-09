@@ -59,7 +59,16 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
   Future<void> updateName() async {
     final user = _authServices.getUserName();
     if (user != null) {
-      await _authServices.updateUserName(newName: newNameEC.text);
+      if (newNameEC.text.length <= 150) {
+        await _authServices.updateUserName(newName: newNameEC.text);
+      } else {
+        _message.value = MessageModel(
+          title: 'Erro',
+          message: 'Nome muito grande! Não foi possível fazer a atualização',
+          type: MessageType.error,
+        );
+        Get.back();
+      }
     }
   }
 }

@@ -6,7 +6,6 @@ import 'package:restaurante_galegos/app/core/masks/mask_cep.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 import 'package:restaurante_galegos/app/models/cep_model.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
@@ -248,11 +247,11 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       _loading.value = false;
       log('Erro ao buscar CEP: $e');
       log('StackTrace: $s');
-      Get.snackbar(
-        'Erro',
-        'Digite algum CEP válido para finalizar compra!',
-        duration: 3.seconds,
-        backgroundColor: GalegosUiDefaut.colorScheme.primary,
+      500.milliseconds.delay();
+      _message.value = MessageModel(
+        title: 'Erro',
+        message: 'Digite um CEP válido para finalizar compra!',
+        type: MessageType.error,
       );
       rethrow;
     } finally {
