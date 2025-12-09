@@ -34,7 +34,7 @@ class AboutUsData extends GetView<AboutUsController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(15.0),
             child: Text(
               controller.textAboutUs,
               style: GalegosUiDefaut.textProduct.bodyLarge,
