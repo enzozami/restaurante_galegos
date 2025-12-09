@@ -4,6 +4,7 @@ import 'package:restaurante_galegos/app/core/masks/mask_cep.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_history.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/card_shimmer.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_controller.dart';
 
@@ -47,7 +48,15 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                   stream: controller.listOrders,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return Column(
+                        children: List.generate(
+                          20,
+                          (_) => CardShimmer(
+                            height: 80,
+                            width: context.width,
+                          ).paddingOnly(bottom: 10),
+                        ),
+                      );
                     }
 
                     if (snapshot.hasError) {
