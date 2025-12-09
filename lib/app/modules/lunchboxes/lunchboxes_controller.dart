@@ -138,6 +138,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     } catch (e, s) {
       log('Erro ao carregar marmitas', error: e, stackTrace: s);
       _loading.value = false;
+      500.milliseconds.delay();
       _message(
         MessageModel(title: 'Erro', message: 'Erro ao carregar marmitas', type: MessageType.error),
       );
@@ -151,6 +152,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       await _getLunchboxes();
     } catch (e, s) {
       log('Erro ao atualizar marmitas', error: e, stackTrace: s);
+      500.milliseconds.delay();
       _message(
         MessageModel(title: 'Erro', message: 'Erro ao atualizar marmitas', type: MessageType.error),
       );
@@ -229,6 +231,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       }
     } catch (e) {
       _loading.value = false;
+      500.milliseconds.delay();
       _message(
         MessageModel(title: 'Erro', message: 'Erro ao atualizar marmita', type: MessageType.error),
       );

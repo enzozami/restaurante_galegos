@@ -53,6 +53,7 @@ class TimeController extends GetxController with LoaderMixin, MessagesMixin {
       _fimTime.value = data.first.fim;
     } catch (e, s) {
       _loading.value = false;
+      500.milliseconds.delay();
       log('Erro ao carregar horário de funcionamento', error: e, stackTrace: s);
       _message(
         MessageModel(

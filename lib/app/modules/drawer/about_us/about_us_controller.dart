@@ -42,6 +42,8 @@ class AboutUsController extends GetxController with LoaderMixin, MessagesMixin {
       _titleAboutUs.value = aboutUsData.title;
       _textAboutUs.value = aboutUsData.text;
     } catch (e) {
+      _loading.value = false;
+      500.milliseconds.delay();
       _message(
         MessageModel(
           title: 'Erro ao buscar dados',
