@@ -11,18 +11,11 @@ class ForDeliveryController extends GetxController with LoaderMixin, MessagesMix
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   late final Stream<QuerySnapshot<Map<String, dynamic>>> listOrders;
 
-  final _loading = false.obs;
-  final _message = Rxn<MessageModel>();
-
-  final status = Rxn<String>(Get.arguments);
-
   ForDeliveryController({required OrderServices ordersState}) : _ordersState = ordersState;
 
   @override
   void onInit() {
     super.onInit();
-    loaderListener(_loading);
-    messageListener(_message);
 
     listOrders = firestore.collection('orders').where('status', isEqualTo: 'a caminho').snapshots();
   }

@@ -50,25 +50,51 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
   }
 
   Future<void> getUser() async {
-    final userName = _authServices.getUserName();
-    if (userName != null) {
-      _name.value = userName;
+    try {
+      _loading.value = true;
+      final userName = _authServices.getUserName();
+      if (userName != null) {
+        _name.value = userName;
+      }
+    } catch (e) {
+      _loading.value = false;
+      await 500.milliseconds.delay();
+      _message.value = MessageModel(
+        title: 'Erro',
+        message: 'Erro ao buscar dados',
+        type: MessageType.error,
+      );
+    } finally {
+      _loading.value = false;
     }
   }
 
   Future<void> updateName() async {
-    final user = _authServices.getUserName();
-    if (user != null) {
-      if (newNameEC.text.length <= 150) {
-        await _authServices.updateUserName(newName: newNameEC.text);
-      } else {
-        _message.value = MessageModel(
-          title: 'Erro',
-          message: 'Nome muito grande! Não foi possível fazer a atualização',
-          type: MessageType.error,
-        );
-        Get.back();
+    try {
+      _loading.value = true;
+      final user = _authServices.getUserName();
+      if (user != null) {
+        if (newNameEC.text.length <= 150) {
+          await _authServices.updateUserName(newName: newNameEC.text);
+        } else {
+          _message.value = MessageModel(
+            title: 'Erro',
+            message: 'Nome muito grande! Não foi possível fazer a atualização',
+            type: MessageType.error,
+          );
+          Get.back();
+        }
       }
+    } catch (e) {
+      _loading.value = false;
+      await 500.milliseconds.delay();
+      _message.value = MessageModel(
+        title: 'Erro',
+        message: 'Erro ao atualizar nome',
+        type: MessageType.error,
+      );
+    } finally {
+      _loading.value = false;
     }
   }
 }

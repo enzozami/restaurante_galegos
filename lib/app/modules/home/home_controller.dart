@@ -43,7 +43,12 @@ class HomeController extends GetxController {
         ShoppingCardPage(),
       ];
     } else {
-      _pages = [ProductsPage(), LunchboxesPage(), ShoppingCardPage(), HistoryPage()];
+      _pages = [
+        ProductsPage(),
+        LunchboxesPage(),
+        ShoppingCardPage(),
+        HistoryPage(),
+      ];
     }
   }
 

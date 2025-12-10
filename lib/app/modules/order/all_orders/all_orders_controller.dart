@@ -11,18 +11,11 @@ class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   late final Stream<QuerySnapshot<Map<String, dynamic>>> listOrders;
 
-  final _loading = false.obs;
-  final _message = Rxn<MessageModel>();
-
-  RxBool get loading => _loading;
-
   AllOrdersController({required OrderServices ordersState}) : _ordersState = ordersState;
 
   @override
   void onInit() {
     super.onInit();
-    loaderListener(_loading);
-    messageListener(_message);
     _ordersState.init();
     listOrders = firestore
         .collection('orders')

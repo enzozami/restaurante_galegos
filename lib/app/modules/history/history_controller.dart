@@ -18,14 +18,9 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
   HistoryController({required AuthServices authServices, required OrderServices ordersState})
     : _authServices = authServices;
 
-  final _loading = false.obs;
-  final _message = Rxn<MessageModel>();
-
   @override
   void onInit() {
     super.onInit();
-    loaderListener(_loading);
-    messageListener(_message);
 
     allOrders = firestore
         .collection('orders')

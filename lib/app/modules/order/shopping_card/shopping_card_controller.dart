@@ -247,7 +247,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
       _loading.value = false;
       log('Erro ao buscar CEP: $e');
       log('StackTrace: $s');
-      500.milliseconds.delay();
+      await 500.milliseconds.delay();
       _message.value = MessageModel(
         title: 'Erro',
         message: 'Digite um CEP válido para finalizar compra!',

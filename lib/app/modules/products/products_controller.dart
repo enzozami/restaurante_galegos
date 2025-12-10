@@ -113,7 +113,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     } catch (e, s) {
       log('Erro ao carregar dados', error: e, stackTrace: s);
       _loading.value = false;
-      500.milliseconds.delay();
+      await 500.milliseconds.delay();
       _message(
         MessageModel(
           title: 'Erro',
@@ -134,7 +134,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       await _fetchAllProducts();
     } catch (e, s) {
       log('Erro ao atualizar produtos', error: e, stackTrace: s);
-      500.milliseconds.delay();
+      await 500.milliseconds.delay();
       _message(
         MessageModel(title: 'Erro', message: 'Erro ao atualizar produtos', type: MessageType.error),
       );
@@ -197,7 +197,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     } catch (e, s) {
       log('Erro ao filtrar', error: e, stackTrace: s);
       _loading.value = false;
-      500.milliseconds.delay();
+      await 500.milliseconds.delay();
       _message.value = MessageModel(
         title: 'ERRO',
         message: 'Erro ao filtrar',

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:get/get.dart';
@@ -17,12 +16,10 @@ import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
 class LunchboxesController extends GetxController with LoaderMixin, MessagesMixin {
-  // --- CONSTRUTOR E DEPENDÊNCIAS ---
   final LunchboxesServices _lunchboxesServices;
   final CarrinhoServices _carrinhoServices;
   final LunchboxesServices _foodService;
   final AuthServices _authServices;
-
   LunchboxesController({
     required LunchboxesServices lunchboxesServices,
     required CarrinhoServices carrinhoServices,
@@ -32,8 +29,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
        _carrinhoServices = carrinhoServices,
        _foodService = foodService,
        _authServices = authServices;
-
-  // --- PROPRIEDADES REATIVAS (ESTADO) ---
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
   final isProcessing = false.obs;
@@ -46,8 +41,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   final RxList<String> addDays = <String>[].obs;
   final daysSelected = Rxn<String>();
   final _availableSizesOriginal = <String>[];
-
-  // --- CONTROLADORES DE TEXTO E CHAVES ---
   final dayNow = FormatterHelper.formatDate();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController nomeMarmitaEC = TextEditingController();
@@ -58,8 +51,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   final TextEditingController newDescriptionEC = TextEditingController();
   final TextEditingController newPriceMiniEC = TextEditingController();
   final TextEditingController newPriceMediaEC = TextEditingController();
-
-  // --- GETTERS (CÁLCULOS E ACESSO AO ESTADO) ---
   RxBool get loading => _loading;
   RxList<FoodModel> get alimentos => _foodService.alimentos;
   RxList<TimeModel> get times => _foodService.times;
@@ -68,36 +59,29 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   bool get alreadyAdded => _alreadyAdded.value;
   double get totalPrice => _totalPrice.value;
   bool get admin => _authServices.isAdmin();
-
   List<FoodModel> get alimentosFiltrados {
     final size = sizeSelected.value;
     final day = daysSelected.value;
-
     return alimentos
         .where((food) {
           final matchSize = size == null || size.isEmpty
               ? true
               : food.pricePerSize.containsKey(size);
-
           final matchDay = day == null || day.isEmpty ? true : food.dayName.contains(day);
-
           return matchSize && matchDay;
         })
         .toSet()
         .toList();
   }
 
-  // --- MÉTODOS DE CICLO DE VIDA ---
   @override
   Future<void> onInit() async {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
-
     ever<int>(_quantity, (quantity) {
       _totalPrice(selectedFood?.pricePerSize[sizeSelected.value]);
     });
-
     ever<List<FoodModel>>(alimentos, (_) {
       alimentos.where((e) => e.temHoje).toList();
     });
@@ -122,23 +106,20 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     super.onClose();
   }
 
-  // --- MÉTODOS DE BUSCA E ATUALIZAÇÃO DE DADOS (SERVIÇOS) ---
   Future<void> _getLunchboxes() async {
     try {
       _loading.value = true;
       final menuData = await _lunchboxesServices.getMenu();
       final List<String> sizesList = List<String>.from(menuData.first.pricePerSize);
-
       availableSizes.assignAll(sizesList);
       _availableSizesOriginal
         ..clear()
         ..addAll(sizesList);
-
       await _foodService.init();
     } catch (e, s) {
       log('Erro ao carregar marmitas', error: e, stackTrace: s);
       _loading.value = false;
-      500.milliseconds.delay();
+      await 500.milliseconds.delay();
       _message(
         MessageModel(title: 'Erro', message: 'Erro ao carregar marmitas', type: MessageType.error),
       );
@@ -152,17 +133,15 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       await _getLunchboxes();
     } catch (e, s) {
       log('Erro ao atualizar marmitas', error: e, stackTrace: s);
-      500.milliseconds.delay();
+      await 500.milliseconds.delay();
       _message(
         MessageModel(title: 'Erro', message: 'Erro ao atualizar marmitas', type: MessageType.error),
       );
     }
   }
 
-  // --- MÉTODOS DE CADASTRO E ADMINISTRAÇÃO ---
   Future<void> atualizarMarmitasDoDia(int id, FoodModel food) =>
       _foodService.updateTemHoje(id, food);
-
   void cadastrarNovasMarmitas() {
     if (addDays.isEmpty) {
       _message(
@@ -175,12 +154,10 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       return;
     }
     if (!validateForm()) return;
-
     _foodService.cadastrarMarmita(nomeMarmitaEC.text, addDays, descricaoEC.text, {
       'mini': double.parse(precoMiniEC.text.replaceAll('.', '').replaceAll(',', '.')),
       'media': double.parse(precoMediaEC.text.replaceAll('.', '').replaceAll(',', '.')),
     });
-
     nomeMarmitaEC.clear();
     descricaoEC.clear();
     precoMiniEC.clear();
@@ -223,7 +200,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
             'media': double.parse(cleanedMedia),
           },
         );
-
         await refreshLunchboxes();
         Get.back();
       } else if (novoTemHoje.value != temHoje.value) {
@@ -231,7 +207,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       }
     } catch (e) {
       _loading.value = false;
-      500.milliseconds.delay();
+      await 500.milliseconds.delay();
       _message(
         MessageModel(title: 'Erro', message: 'Erro ao atualizar marmita', type: MessageType.error),
       );
@@ -241,14 +217,11 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   }
 
   Future<void> apagarMarmita(FoodModel food) => _foodService.deletarMarmita(food);
-
-  // --- MÉTODOS DE FILTRAGEM ---
   void filtrarPreco(String selectedSize) {
     if (sizeSelected.value == selectedSize) {
       sizeSelected.value = '';
       return;
     }
-
     sizeSelected.value = selectedSize;
   }
 
@@ -266,7 +239,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     }
   }
 
-  // --- MÉTODOS DE CARRINHO E QUANTIDADE ---
   void adicionarQuantidade() {
     _quantity.value++;
   }
@@ -277,7 +249,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   void definirComidaSelecionada(FoodModel food, String size) {
     foodSelect.value = food;
-
     final carrinhoItem = _carrinhoServices.getByIdAndSize(food.id, size);
     if (carrinhoItem != null && carrinhoItem.tamanho == size) {
       _quantity(carrinhoItem.quantidade);
@@ -290,12 +261,10 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   void adicionarMarmitaAoCarrinho() {
     final selected = selectedFood;
-
     if (selected == null) {
       _alreadyAdded(false);
       return;
     }
-
     _carrinhoServices.addOrUpdateFood(
       selected,
       quantity: _quantity.value,
@@ -305,18 +274,12 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     Get.close(0);
   }
 
-  // --- MÉTODOS DE LÓGICA E UTILITÁRIOS ---
   RxBool alimentoTemHoje(FoodModel a) => RxBool(a.temHoje);
-
   bool validateForm() => formKey.currentState?.validate() ?? false;
-
-  // --- MÉTODOS DE INTERAÇÃO COM A UI (SHOW DIALOG, SNACKBAR) ---
   void handleFoodTap(BuildContext context, FoodModel alimento, String size) {
     definirComidaSelecionada(alimento, size);
-
     final temHoje = alimentoTemHoje(alimento);
     final RxBool novoTemHoje = temHoje.value.obs;
-
     Future<void> onPressedFunction() async {
       await atualizarDadosDaMarmita(alimento);
       Get.back();
@@ -368,7 +331,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     definirComidaSelecionada(alimento, size);
     filtrarPreco(size);
     sizeSelected.value = size;
-
     void handleAddToCart() {
       adicionarMarmitaAoCarrinho();
       log(
