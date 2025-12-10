@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/alert_for_add_to_cart.dart';
+import 'package:restaurante_galegos/app/core/ui/dialogs/alert_for_add_to_cart.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/filter_tag.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/text_shimmer.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/widgets/alimentos_widget.dart';

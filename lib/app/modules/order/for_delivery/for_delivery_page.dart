@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cep.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/alert_dialog_history.dart';
+import 'package:restaurante_galegos/app/core/ui/dialogs/alert_dialog_history.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/card_shimmer.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_controller.dart';
