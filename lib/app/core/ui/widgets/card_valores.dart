@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+
+class CardValores extends StatelessWidget {
+  final double preco;
+  final double? taxa;
+  final bool carrinho;
+  const CardValores({super.key, required this.preco, this.taxa, required this.carrinho});
+
+  @override
+  Widget build(BuildContext context) {
+    return carrinho ? _cardCarrinho(preco) : _cardAddress(preco, taxa ?? 0);
+  }
+}
+
+Widget _cardCarrinho(double preco) {
+  return Card(
+    elevation: 5,
+    color: GalegosUiDefaut.colorScheme.secondary,
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+      child: Column(
+        children: [
+          Text(
+            'Total dos itens: ${FormatterHelper.formatCurrency(preco)}',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _cardAddress(double preco, double taxa) {
+  return Card(
+    elevation: 5,
+    color: GalegosUiDefaut.colorScheme.secondary,
+    child: Container(
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Text(
+            'Total dos itens: ${FormatterHelper.formatCurrency(preco)}',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+          ),
+
+          Text(
+            'Taxa de entrega: ${FormatterHelper.formatCurrency(taxa)}',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+          ),
+          Text(
+            'Total a pagar: ${FormatterHelper.formatCurrency(preco + taxa)}',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+        ],
+      ),
+    ),
+  );
+}
