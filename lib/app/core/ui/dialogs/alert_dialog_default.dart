@@ -27,25 +27,18 @@ class AlertDialogDefault extends StatelessWidget {
       titlePadding: const EdgeInsets.only(top: 20, left: 24, right: 24, bottom: 0),
       contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
       actionsPadding: const EdgeInsets.all(20),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Text(
-              item?.name ?? alimento?.name ?? '',
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: GalegosUiDefaut.colorScheme.primary,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          IconButton(
-            icon: Icon(Icons.close, color: GalegosUiDefaut.colorScheme.secondary),
-            onPressed: () => Get.back(),
-          ),
-        ],
+      title: Text(
+        item?.name ?? alimento?.name ?? '',
+        textAlign: .center,
+        style: TextStyle(
+          color: GalegosUiDefaut.colorScheme.primary,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      icon: IconButton(
+        icon: Icon(Icons.close, color: GalegosUiDefaut.colorScheme.secondary),
+        alignment: .centerRight,
+        onPressed: () => Get.back(),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -53,7 +46,11 @@ class AlertDialogDefault extends StatelessWidget {
         children: [
           Text(
             item?.description ?? alimento?.description ?? '',
-            style: TextStyle(color: GalegosUiDefaut.colorScheme.secondary, fontSize: 14),
+            textAlign: .justify,
+            style: TextStyle(
+              color: GalegosUiDefaut.colorScheme.secondary,
+              fontSize: 14,
+            ),
           ),
           const SizedBox(height: 15),
           Row(
