@@ -5,6 +5,7 @@ import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/icons.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/card_valores.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import './payment_controller.dart';
 
@@ -58,6 +59,18 @@ class PaymentPage extends GetView<PaymentController> {
                       controller: controller,
                     ),
                   ],
+                ),
+              ),
+              Divider(),
+              Center(
+                child: GalegosButtonDefault(
+                  label: 'AVANÇAR',
+                  width: context.widthTransformer(reducedBy: 10),
+                  onPressed: () {
+                    Get.toNamed(
+                      '/order/finish',
+                    );
+                  },
                 ),
               ),
             ],

@@ -3,6 +3,8 @@ import 'package:restaurante_galegos/app/modules/order/address/address_bindings.d
 import 'package:restaurante_galegos/app/modules/order/address/address_page.dart';
 import 'package:restaurante_galegos/app/modules/order/all_orders/all_orders_bindings.dart';
 import 'package:restaurante_galegos/app/modules/order/all_orders/all_orders_page.dart';
+import 'package:restaurante_galegos/app/modules/order/finish_order/finish_order_bindings.dart';
+import 'package:restaurante_galegos/app/modules/order/finish_order/finish_order_page.dart';
 import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_bindings.dart';
 import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_page.dart';
 import 'package:restaurante_galegos/app/modules/order/order_finished/order_finished_bindings.dart';
@@ -45,6 +47,11 @@ class OrderRouters {
       name: '/payment',
       binding: PaymentBindings(),
       page: () => PaymentPage(),
+    ),
+    GetPage(
+      name: '/order/finish',
+      binding: FinishOrderBindings(),
+      page: () => FinishOrderPage(),
     ),
   ];
 }
