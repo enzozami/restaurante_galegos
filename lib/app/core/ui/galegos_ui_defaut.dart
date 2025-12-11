@@ -63,8 +63,10 @@ class GalegosUiDefaut {
       titleSmall: TextStyle(color: colors['titulo'], fontSize: 18, fontWeight: FontWeight.bold),
       // Texto de Descrição/Corpo (bodyLarge) - usa a cor de contraste
       bodyLarge: TextStyle(color: colors['texto'], fontSize: 16),
+
+      bodyMedium: TextStyle(color: colors['titulo'], fontSize: 14),
       // Texto Secundário/Pequeno (bodySmall) - usa o neutro
-      bodySmall: TextStyle(color: colors['texto'], fontSize: 14),
+      bodySmall: TextStyle(color: colors['texto'], fontSize: 12),
     ),
 
     // --- Adição Importante: Campos de Formulário ---
