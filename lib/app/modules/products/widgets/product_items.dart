@@ -64,8 +64,9 @@ class _ProductsClient extends GetView<ProductsController> {
                         children: filtered
                             .map(
                               (e) => CardItems(
-                                width: 190,
-                                height: 310,
+                                // width: 175,
+                                width: context.widthTransformer(reducedBy: 55),
+                                height: 280,
                                 imageHeight: 130,
                                 titulo: e.name,
                                 preco: FormatterHelper.formatCurrency(e.price),

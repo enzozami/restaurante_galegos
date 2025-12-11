@@ -107,10 +107,23 @@ class AddressPage extends GetView<AddressController> {
                             : Visibility(
                                 visible: controller.addressValidation(),
                                 child: Center(
-                                  child: CardValores(
-                                    preco: controller.preco,
-                                    taxa: controller.taxa.value,
-                                    carrinho: false,
+                                  child: Column(
+                                    spacing: 20,
+                                    children: [
+                                      CardValores(
+                                        preco: controller.preco,
+                                        taxa: controller.taxa.value,
+                                        carrinho: false,
+                                      ),
+                                      Divider(),
+                                      GalegosButtonDefault(
+                                        label: 'AVANÇAR',
+                                        onPressed: () {
+                                          Get.toNamed('/payment');
+                                        },
+                                        width: context.widthTransformer(reducedBy: 10),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),

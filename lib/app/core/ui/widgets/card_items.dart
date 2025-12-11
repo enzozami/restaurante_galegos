@@ -102,7 +102,7 @@ class CardItems extends StatelessWidget {
                         textAlign: TextAlign.start,
 
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
+                        maxLines: 1,
                       ),
                     ),
                     Row(

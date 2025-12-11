@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import './finish_order_controller.dart';
 
 class FinishOrderPage extends GetView<FinishOrderController> {
-    
-    const FinishOrderPage({Key? key}) : super(key: key);
+  const FinishOrderPage({super.key});
 
-    @override
-    Widget build(BuildContext context) {
-        return Scaffold(
-            appBar: AppBar(title: const Text('FinishOrderPage'),),
-            body: Container(),
-        );
-    }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('FinishOrderPage'),
+      ),
+      body: Container(),
+    );
+  }
 }
