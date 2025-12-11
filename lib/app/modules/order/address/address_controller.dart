@@ -24,7 +24,7 @@ class AddressController extends GetxController with LoaderMixin, MessagesMixin {
   final cepInput = ''.obs;
   final cep = ''.obs;
   final isProcessing = false.obs;
-  final isOpen = true.obs;
+  final isOpen = false.obs;
   final quantityRx = Rxn<int>();
   final taxa = 0.0.obs;
   final rua = ''.obs;
@@ -60,7 +60,11 @@ class AddressController extends GetxController with LoaderMixin, MessagesMixin {
     try {
       if (!_validateForm()) return;
       _loading.value = true;
-      final cepData = await _cepServices.getCep(cepFormatter.getUnmaskedText());
+
+      final unmaskedCep = cepFormatter.getUnmaskedText();
+
+      final cepData = await _cepServices.getCep(unmaskedCep);
+
       cep.value = cepData['cep'] ?? '';
       rua.value = cepData['logradouro'];
       bairro.value = cepData['bairro'];
@@ -99,10 +103,6 @@ class AddressController extends GetxController with LoaderMixin, MessagesMixin {
     }
   }
 
-  void closeCard() {
-    isOpen.value = !isOpen.value;
-  }
-
   void resetCepTaxa() {
     taxa.value = 0.0;
     cep.value = '';
@@ -116,11 +116,23 @@ class AddressController extends GetxController with LoaderMixin, MessagesMixin {
   }
 
   bool addressValidation() {
-    return cepEC.text.isNotEmpty &&
-        cepEC.text != '' &&
-        cep.value != '' &&
-        cepInput.value.length == 9 &&
-        cepInput.value == cep.value;
+    // return cepEC.text.isNotEmpty &&
+    //     cepEC.text != '' &&
+    //     cep.value != '' &&
+    //     cepInput.value.length == 9 &&
+    //     cepInput.value == cep.value;
+    return rua.value.isNotEmpty;
+  }
+
+  Map<String, dynamic>? args() {
+    if (_validateForm()) {
+      return {
+        'numero': numero.value,
+        'preco': preco,
+        'taxa': taxa.value,
+      };
+    }
+    return null;
   }
 
   bool validationOnReplacement() {
@@ -128,6 +140,10 @@ class AddressController extends GetxController with LoaderMixin, MessagesMixin {
   }
 
   bool validationIsOpen() {
-    return isOpen.value == true && cepInput.value.length == 9 && cepInput.value == cep.value;
+    return isOpen.value == true;
+  }
+
+  void closeCard() {
+    isOpen.value = !isOpen.value;
   }
 }

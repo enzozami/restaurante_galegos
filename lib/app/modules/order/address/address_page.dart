@@ -91,25 +91,21 @@ class AddressPage extends GetView<AddressController> {
                                     ),
                                   ),
                                 ),
-                                child: _address(context, controller),
-                              ),
-                        const SizedBox(height: 15),
-                        controller.loading.value
-                            ? Stack(
-                                children: List.generate(
-                                  1,
-                                  (_) => CardShimmer(
-                                    height: 110,
-                                    width: context.widthTransformer(reducedBy: 35),
+                                child: Visibility(
+                                  visible: controller.validationIsOpen(),
+                                  replacement: IconButton(
+                                    onPressed: () {
+                                      controller.closeCard();
+                                    },
+                                    icon: Align(
+                                      alignment: Alignment.center,
+                                      child: Icon(Icons.expand_more),
+                                    ),
                                   ),
-                                ),
-                              )
-                            : Visibility(
-                                visible: controller.addressValidation(),
-                                child: Center(
                                   child: Column(
                                     spacing: 20,
                                     children: [
+                                      _address(context, controller),
                                       CardValores(
                                         preco: controller.preco,
                                         taxa: controller.taxa.value,
@@ -118,15 +114,21 @@ class AddressPage extends GetView<AddressController> {
                                       Divider(),
                                       GalegosButtonDefault(
                                         label: 'AVANÇAR',
-                                        onPressed: () {
-                                          Get.toNamed('/payment');
-                                        },
+                                        onPressed: controller.args() != null
+                                            ? () {
+                                                Get.toNamed(
+                                                  '/payment',
+                                                  arguments: controller.args(),
+                                                );
+                                              }
+                                            : null,
                                         width: context.widthTransformer(reducedBy: 10),
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
+                        const SizedBox(height: 15),
                       ],
                     ),
                   ),
@@ -221,6 +223,16 @@ Widget _address(BuildContext context, AddressController controller) {
                 ),
               ],
             ),
+          ),
+        ),
+        Positioned(
+          right: -3,
+          top: -3,
+          child: IconButton(
+            onPressed: () {
+              controller.closeCard();
+            },
+            icon: Icon(Icons.expand_less_outlined),
           ),
         ),
       ],

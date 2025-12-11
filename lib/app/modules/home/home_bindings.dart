@@ -55,7 +55,6 @@ class HomeBindings implements Bindings {
     Get.lazyPut<ProductsServices>(
       () => ProductsServicesImpl(productsRepository: Get.find<ProductsRepository>()),
     );
-    // Registro duplicado de ProductsServices da sua lista original (mantido).
     Get.lazyPut<ProductsServices>(
       () => ProductsServicesImpl(productsRepository: Get.find<ProductsRepository>()),
     );
