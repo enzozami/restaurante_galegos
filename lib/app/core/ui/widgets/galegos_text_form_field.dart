@@ -23,6 +23,7 @@ class GalegosTextFormField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final int? maxLength;
   final MaxLengthEnforcement? maxLengthEnforcement;
+  final String? hintText;
   final Widget Function(
     BuildContext context, {
     required int currentLength,
@@ -54,6 +55,7 @@ class GalegosTextFormField extends StatelessWidget {
     this.maxLength,
     this.maxLengthEnforcement,
     this.buildCounter,
+    this.hintText,
   });
 
   @override
@@ -79,6 +81,7 @@ class GalegosTextFormField extends StatelessWidget {
       focusNode: focusNode,
       decoration: InputDecoration(
         labelText: label,
+        hintText: hintText,
         prefixIcon: prefixIcon,
         suffixIcon: icon,
         prefixText: prefixText,

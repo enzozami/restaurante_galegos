@@ -5,6 +5,7 @@ import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/icons.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/card_valores.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import './payment_controller.dart';
 
 class PaymentPage extends GetView<PaymentController> {
@@ -27,13 +28,17 @@ class PaymentPage extends GetView<PaymentController> {
                 child: Column(
                   spacing: 15,
                   children: [
-                    CardValores(preco: 15, taxa: 15, carrinho: false),
+                    CardValores(
+                      preco: controller.args['preco'],
+                      taxa: controller.args['taxa'],
+                      carrinho: false,
+                    ),
                     _cardPagamento(
                       context: context,
                       title: 'Cartão',
                       icon: Restaurante.credit_card,
                       subtitle: 'Crédito ou Débito',
-                      type: PaymentType.credito,
+                      type: PaymentType.cartao,
                       controller: controller,
                     ),
                     _cardPagamento(
@@ -71,6 +76,7 @@ Widget _cardPagamento({
   required PaymentType type,
   required PaymentController controller,
 }) {
+  final isSelected = controller.paymentType.value == type;
   return RadioGroup(
     groupValue: controller.paymentType.value,
     onChanged: (value) => controller.changePaymentType(value as PaymentType),
@@ -79,28 +85,147 @@ Widget _cardPagamento({
       color: GalegosUiDefaut.colorScheme.secondary,
       child: SizedBox(
         width: context.widthTransformer(reducedBy: 10),
-        child: ListTile(
-          iconColor: GalegosUiDefaut.colorScheme.tertiary,
-          contentPadding: const EdgeInsets.all(8.0),
-          title: Row(
-            children: [
-              Icon(icon),
-              const SizedBox(
-                width: 15,
+        child: Column(
+          children: [
+            ListTile(
+              iconColor: GalegosUiDefaut.colorScheme.tertiary,
+              contentPadding: const EdgeInsets.all(8.0),
+              title: Row(
+                children: [
+                  Icon(icon),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    title,
+                    style: GalegosUiDefaut.theme.textTheme.titleSmall,
+                  ),
+                ],
               ),
-              Text(
-                title,
-                style: GalegosUiDefaut.theme.textTheme.titleSmall,
+              subtitle: Text(
+                subtitle,
+                style: GalegosUiDefaut.theme.textTheme.bodyMedium,
               ),
-            ],
-          ),
-          subtitle: Text(
-            subtitle,
-            style: GalegosUiDefaut.theme.textTheme.bodyMedium,
-          ),
-          leading: Radio<PaymentType>(value: type),
+              leading: Radio<PaymentType>(value: type),
+            ),
+            if (isSelected)
+              (type == PaymentType.cartao)
+                  ? Column(
+                      children: [
+                        _cardType(
+                          context: context,
+                          title: 'Crédito',
+                          subtitle: subtitle,
+                          type: CardType.credito,
+                          controller: controller,
+                        ),
+                        _cardType(
+                          context: context,
+                          title: 'Débito',
+                          subtitle: subtitle,
+                          type: CardType.debito,
+                          controller: controller,
+                        ),
+                      ],
+                    )
+                  : (type == PaymentType.vale)
+                  ? Column(
+                      children: [
+                        _cardVale(
+                          context: context,
+                          title: 'Alimentação',
+                          subtitle: subtitle,
+                          type: ValeType.alimentacao,
+                          controller: controller,
+                        ),
+                        _cardVale(
+                          context: context,
+                          title: 'Refeição',
+                          subtitle: subtitle,
+                          type: ValeType.refeicao,
+                          controller: controller,
+                        ),
+                      ],
+                    )
+                  : _cardDinheiro(
+                      context: context,
+                      controller: controller,
+                      title: 'Troco para quanto?',
+                      subtitle: 'Deixe vazio se não precisar de troco',
+                    ),
+          ],
         ),
       ),
+    ),
+  );
+}
+
+Widget _cardType({
+  required BuildContext context,
+  required String title,
+  required String subtitle,
+  required CardType type,
+  required PaymentController controller,
+}) {
+  return RadioGroup(
+    groupValue: controller.cardType.value,
+    onChanged: (value) => controller.changeCardType(value as CardType),
+    child: SizedBox(
+      width: context.widthTransformer(reducedBy: 10),
+      child: ListTile(
+        iconColor: GalegosUiDefaut.colorScheme.tertiary,
+        title: Text(
+          title,
+          style: GalegosUiDefaut.theme.textTheme.bodyMedium,
+        ),
+        leading: Radio<CardType>(value: type),
+      ),
+    ),
+  );
+}
+
+Widget _cardVale({
+  required BuildContext context,
+  required String title,
+  required String subtitle,
+  required ValeType type,
+  required PaymentController controller,
+}) {
+  return RadioGroup(
+    groupValue: controller.valeType.value,
+    onChanged: (value) => controller.changeValeType(value as ValeType),
+    child: SizedBox(
+      width: context.widthTransformer(reducedBy: 10),
+      child: ListTile(
+        iconColor: GalegosUiDefaut.colorScheme.tertiary,
+        title: Text(
+          title,
+          style: GalegosUiDefaut.theme.textTheme.bodyMedium,
+        ),
+        leading: Radio<ValeType>(value: type),
+      ),
+    ),
+  );
+}
+
+Widget _cardDinheiro({
+  required BuildContext context,
+  required PaymentController controller,
+  required String title,
+  required String subtitle,
+}) {
+  return ListTile(
+    title: Text(title),
+    subtitle: Column(
+      children: [
+        GalegosTextFormField(
+          floatingLabelBehavior: .auto,
+          inputType: .number,
+          prefixText: 'R\$ ',
+          // hintText: 'R\$ 0,00',
+        ),
+        Text(subtitle),
+      ],
     ),
   );
 }
