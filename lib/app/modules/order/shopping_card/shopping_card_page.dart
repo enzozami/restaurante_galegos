@@ -95,11 +95,13 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                     onPressed: () async {
                       Get.toNamed(
                         '/address',
-                        // arguments: controller.totalPay(),
                         arguments: controller.args(),
                       );
                     },
                   ),
+                ),
+                const SizedBox(
+                  height: 30,
                 ),
               ],
             ),
