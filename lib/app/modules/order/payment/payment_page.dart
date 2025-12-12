@@ -67,9 +67,7 @@ class PaymentPage extends GetView<PaymentController> {
                   label: 'AVANÇAR',
                   width: context.widthTransformer(reducedBy: 10),
                   onPressed: () {
-                    Get.toNamed(
-                      '/order/finish',
-                    );
+                    Get.toNamed('/order/finish', arguments: controller.arguments());
                   },
                 ),
               ),
@@ -227,18 +225,22 @@ Widget _cardDinheiro({
   required String title,
   required String subtitle,
 }) {
-  return ListTile(
-    title: Text(title),
-    subtitle: Column(
-      children: [
-        GalegosTextFormField(
-          floatingLabelBehavior: .auto,
-          inputType: .number,
-          prefixText: 'R\$ ',
-          // hintText: 'R\$ 0,00',
-        ),
-        Text(subtitle),
-      ],
+  return Form(
+    key: controller.formKey,
+    child: ListTile(
+      title: Text(title),
+      subtitle: Column(
+        children: [
+          GalegosTextFormField(
+            floatingLabelBehavior: .auto,
+            inputType: .number,
+            prefixText: 'R\$ ',
+            controller: controller.trocoEC,
+            // hintText: 'R\$ 0,00',
+          ),
+          Text(subtitle),
+        ],
+      ),
     ),
   );
 }

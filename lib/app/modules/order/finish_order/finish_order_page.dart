@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import './finish_order_controller.dart';
 
 class FinishOrderPage extends GetView<FinishOrderController> {
@@ -11,7 +12,17 @@ class FinishOrderPage extends GetView<FinishOrderController> {
       appBar: AppBar(
         title: const Text('FinishOrderPage'),
       ),
-      body: Container(),
+      body: Column(
+        children: [
+          Text('${controller.args}'),
+          GalegosButtonDefault(
+            label: 'FINALIZAR',
+            onPressed: () {
+              controller.createOrder();
+            },
+          ),
+        ],
+      ),
     );
   }
 }

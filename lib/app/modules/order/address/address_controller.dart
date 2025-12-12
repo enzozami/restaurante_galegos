@@ -19,7 +19,7 @@ class AddressController extends GetxController with LoaderMixin, MessagesMixin {
   late final FocusNode numeroFocus;
   final MaskCep cepFormatter = MaskCep();
 
-  final double preco = Get.arguments;
+  final args = Get.arguments;
 
   final cepInput = ''.obs;
   final cep = ''.obs;
@@ -124,13 +124,22 @@ class AddressController extends GetxController with LoaderMixin, MessagesMixin {
     return rua.value.isNotEmpty;
   }
 
-  Map<String, dynamic>? args() {
+  Map<String, dynamic>? arguments() {
     if (_validateForm()) {
-      return {
-        'numero': numero.value,
-        'preco': preco,
-        'taxa': taxa.value,
-      };
+      final numero = int.tryParse(numeroEC.text);
+      if (numero != null) {
+        return {
+          'preco': args['preco'],
+          'itens': args['itens'],
+          'cep': cepFormatter.getUnmaskedText(),
+          'rua': rua.value,
+          'bairro': bairro.value,
+          'cidade': cidade.value,
+          'estado': estado.value,
+          'numero': numero,
+          'taxa': taxa.value,
+        };
+      }
     }
     return null;
   }

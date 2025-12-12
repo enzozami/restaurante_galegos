@@ -12,18 +12,7 @@ class OrderReposirotyImpl implements OrderReposiroty {
   @override
   Future<CarrinhoModel> createOrder(PedidoModel order) async {
     try {
-      final docRef = await firestore.collection('orders').add({
-        'userId': order.userId,
-        'userName': order.userName,
-        'endereco': order.endereco,
-        'taxa': order.taxa,
-        'cart': order.cart.map((e) => e.toMap()).toList(),
-        'amountToPay': order.amountToPay,
-        'status': order.status,
-        'time': order.time,
-        'timeFinished': order.timeFinished,
-        'date': order.date,
-      });
+      final docRef = await firestore.collection('orders').add(order.toMap());
       await docRef.update({'id': docRef.id});
 
       final snapshot = await docRef.get();

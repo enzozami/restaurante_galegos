@@ -54,9 +54,9 @@ class PedidoModel {
   factory PedidoModel.fromMap(Map<String, dynamic> map) {
     return PedidoModel(
       id: map['id'] ?? '',
-      userId: map['userId'] ?? '',
+      userId: map['userId'].toString(),
       userName: map['userName'] ?? '',
-      endereco: EnderecoModel.fromMap(map['endereco']),
+      endereco: EnderecoModel.fromMap(map['endereco'] as Map<String, dynamic>? ?? {}),
       taxa: map['taxa']?.toDouble() ?? 0.0,
       cart: List<CarrinhoModel>.from(map['cart']?.map((x) => CarrinhoModel.fromMap(x)) ?? const []),
       amountToPay: map['amountToPay']?.toDouble() ?? 0.0,
