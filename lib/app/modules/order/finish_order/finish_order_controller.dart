@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/core/enum/payment_type.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
+import 'package:restaurante_galegos/app/core/ui/icons.dart';
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 import 'package:restaurante_galegos/app/models/endereco_model.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
@@ -15,6 +17,7 @@ import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart
 
 class FinishOrderController extends GetxController with LoaderMixin, MessagesMixin {
   final homeController = Get.find<HomeController>();
+  final args = Get.arguments;
 
   final AuthServices _authServices;
   final OrderServices _orderServices;
@@ -49,7 +52,6 @@ class FinishOrderController extends GetxController with LoaderMixin, MessagesMix
     messageListener(_message);
   }
 
-  final args = Get.arguments;
   Future<bool> createOrder() async {
     final List<CarrinhoModel> products = args['itens'];
     final numero = args['numero'];
@@ -154,6 +156,46 @@ class FinishOrderController extends GetxController with LoaderMixin, MessagesMix
         ),
       );
       return true;
+    }
+  }
+
+  IconData getIconData() {
+    if (args['payment'] == PaymentType.cartao) {
+      return Restaurante.credit_card;
+    } else if (args['payment'] == PaymentType.vale) {
+      return Restaurante.ticket_alt;
+    } else if (args['payment'] == PaymentType.dinheiro) {
+      return Restaurante.money_bill_wave;
+    }
+    return Icons.abc;
+  }
+
+  String getNamePaymentType() {
+    if (args['payment'] == PaymentType.cartao) {
+      return 'Cartão';
+    } else if (args['payment'] == PaymentType.vale) {
+      return 'Vale';
+    } else if (args['payment'] == PaymentType.dinheiro) {
+      return 'Dinheiro';
+    }
+    return 'NENHUM';
+  }
+
+  String getType() {
+    if (args['payment'] == PaymentType.cartao) {
+      if (args['type'] == CardType.credito) {
+        return 'Crédito';
+      } else {
+        return 'Débito';
+      }
+    } else if (args['payment'] == PaymentType.vale) {
+      if (args['type'] == ValeType.alimentacao) {
+        return 'Alimentação';
+      } else {
+        return 'Refeição';
+      }
+    } else {
+      return 'oi';
     }
   }
 }

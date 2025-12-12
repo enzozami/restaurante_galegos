@@ -144,4 +144,13 @@ class GalegosUiDefaut {
     titleMedium: TextStyle(color: colors['fundo'], fontSize: 20, fontWeight: FontWeight.bold),
     titleSmall: TextStyle(color: colors['fundo'], fontSize: 16, fontWeight: FontWeight.bold),
   );
+
+  static final TextTheme textCard = TextTheme(
+    titleSmall: TextStyle(color: colorScheme.secondary, fontSize: 18, fontWeight: FontWeight.bold),
+    bodyMedium: TextStyle(color: colorScheme.secondary, fontSize: 14),
+  );
+
+  static final TextTheme textCardPaymentType = TextTheme(
+    bodyMedium: TextStyle(color: colorScheme.tertiary, fontSize: 14),
+  );
 }
