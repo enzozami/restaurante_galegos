@@ -136,6 +136,7 @@ class GalegosUiDefaut {
   static final TextTheme textProduct = TextTheme(
     titleMedium: TextStyle(color: colors['primary'], fontSize: 20, fontWeight: FontWeight.bold),
     bodyLarge: TextStyle(color: colors['titulo'], fontSize: 18),
+    titleSmall: TextStyle(color: colors['primary'], fontSize: 16, fontWeight: FontWeight.bold),
   );
 
   static final TextTheme textLunchboxes = TextTheme(

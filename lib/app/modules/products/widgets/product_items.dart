@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/card_items.dart';
+import 'package:restaurante_galegos/app/core/ui/cards/card_items.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/text_shimmer.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
 
-import '../../../core/ui/widgets/card_shimmer.dart';
+import '../../../core/ui/cards/card_shimmer.dart';
 
 class ProductItems extends GetView<ProductsController> {
   const ProductItems({super.key});

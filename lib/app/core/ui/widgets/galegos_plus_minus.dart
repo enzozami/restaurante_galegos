@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 
 class GalegosPlusMinus extends StatelessWidget {
   final VoidCallback addCallback;
@@ -21,20 +22,20 @@ class GalegosPlusMinus extends StatelessWidget {
           onPressed: removeCallback,
           icon: Icon(
             Icons.remove,
-            color: color ?? Colors.white,
+            color: GalegosUiDefaut.colorScheme.tertiary,
           ),
         ),
         Text(
           '$quantityUnit',
           style: TextStyle(
-            color: color ?? Color(0xFFE2933C),
+            color: GalegosUiDefaut.colorScheme.primary,
           ),
         ),
         IconButton(
           onPressed: addCallback,
           icon: Icon(
             Icons.add,
-            color: color ?? Colors.white,
+            color: GalegosUiDefaut.colorScheme.tertiary,
           ),
         ),
       ],

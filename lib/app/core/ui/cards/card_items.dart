@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/card_shimmer.dart';
+import 'package:restaurante_galegos/app/core/ui/cards/card_shimmer.dart';
 
 class CardItems extends StatelessWidget {
   final String titulo;

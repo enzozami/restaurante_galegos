@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/core/ui/cards/card_carrinho.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/card_valores.dart';
+import 'package:restaurante_galegos/app/core/ui/cards/card_valores.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
-import 'package:restaurante_galegos/app/modules/order/shopping_card/widgets/list_shopping_card.dart';
+import 'package:restaurante_galegos/app/models/item_carrinho_model.dart';
 import 'shopping_card_controller.dart';
 
 class ShoppingCardPage extends StatefulWidget {
@@ -54,13 +55,28 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                     ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Padding(padding: const EdgeInsets.all(8.0), child: ListShoppingCard()),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Obx(() {
+                    return ListView.builder(
+                      itemCount: controller.products.length,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        final p = controller.products[index];
+
+                        return CardCarrinho(
+                          title: p.item.nameDisplay,
+                          description: p.item.subtitleDisplay,
+                          price: p.item.priceDisplay,
+                          quantity: p.item.quantidade.toString(),
+                          isViewFinish: false,
+                          add: () => controller.adicionarQuantidadeCarrinho(p),
+                          remove: () => controller.removerQuantidadeCarrinho(p),
+                        );
+                      },
+                    );
+                  }),
                 ),
                 const SizedBox(height: 30),
                 Center(

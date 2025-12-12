@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/card_items.dart';
+import 'package:restaurante_galegos/app/core/ui/cards/card_items.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
 
-import '../../../core/ui/widgets/card_shimmer.dart';
+import '../../../core/ui/cards/card_shimmer.dart';
 
 class AlimentosWidget extends GetView<LunchboxesController> {
   const AlimentosWidget({super.key});

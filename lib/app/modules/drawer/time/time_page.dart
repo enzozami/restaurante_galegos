@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/card_shimmer.dart';
+import 'package:restaurante_galegos/app/core/ui/cards/card_shimmer.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/modules/drawer/time/time_controller.dart';
 import 'package:restaurante_galegos/app/modules/drawer/time/widget/time_data.dart';
