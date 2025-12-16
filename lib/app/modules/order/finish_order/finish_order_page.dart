@@ -194,6 +194,7 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                               ? Container(
                                   decoration: BoxDecoration(
                                     color: GalegosUiDefaut.colorScheme.secondary,
+                                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(12), bottomLeft: Radius.circular(12))
                                   ),
                                   child: SizedBox(
                                     width: context.widthTransformer(reducedBy: 10),

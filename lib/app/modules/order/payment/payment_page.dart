@@ -99,105 +99,114 @@ Widget _cardPagamento({
   return RadioGroup(
     groupValue: controller.paymentType.value,
     onChanged: (value) => controller.changePaymentType(value as PaymentType),
-    child: Card(
-      elevation: 5,
-      color: (isSelected)
-          ? GalegosUiDefaut.colorScheme.tertiary
-          : GalegosUiDefaut.colorScheme.secondary,
-      child: SizedBox(
-        width: context.widthTransformer(reducedBy: 10),
-        child: Column(
-          children: [
-            ListTile(
-              iconColor: (isSelected)
-                  ? GalegosUiDefaut.colorScheme.secondary
-                  : GalegosUiDefaut.colorScheme.tertiary,
-              contentPadding: const EdgeInsets.all(8.0),
-              title: Row(
-                children: [
-                  Icon(icon),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    title,
-                    style: (isSelected)
-                        ? GalegosUiDefaut.textCard.titleSmall
-                        : GalegosUiDefaut.theme.textTheme.titleSmall,
-                  ),
-                ],
-              ),
-              subtitle: Text(
-                subtitle,
-                style: (isSelected)
-                    ? GalegosUiDefaut.textCard.bodyMedium
-                    : GalegosUiDefaut.theme.textTheme.bodyMedium,
-              ),
-              leading: Radio<PaymentType>(value: type),
-            ),
-            if (isSelected)
-              (type == PaymentType.cartao)
-                  ? Container(
-                      decoration: BoxDecoration(
-                        color: GalegosUiDefaut.colorScheme.secondary,
-                      ),
-                      child: Column(
-                        children: [
-                          _cardType(
-                            context: context,
-                            title: 'Crédito',
-                            subtitle: subtitle,
-                            type: CardType.credito,
-                            controller: controller,
-                          ),
-                          _cardType(
-                            context: context,
-                            title: 'Débito',
-                            subtitle: subtitle,
-                            type: CardType.debito,
-                            controller: controller,
-                          ),
-                        ],
-                      ),
-                    )
-                  : (type == PaymentType.vale)
-                  ? Container(
-                      decoration: BoxDecoration(
-                        color: GalegosUiDefaut.colorScheme.secondary,
-                      ),
-                      child: Column(
-                        children: [
-                          _cardVale(
-                            context: context,
-                            title: 'Alimentação',
-                            subtitle: subtitle,
-                            type: ValeType.alimentacao,
-                            controller: controller,
-                          ),
-                          _cardVale(
-                            context: context,
-                            title: 'Refeição',
-                            subtitle: subtitle,
-                            type: ValeType.refeicao,
-                            controller: controller,
-                          ),
-                        ],
-                      ),
-                    )
-                  : (type == PaymentType.pix)
-                  ? SizedBox.shrink()
-                  : Container(
-                      decoration: BoxDecoration(
-                        color: GalegosUiDefaut.colorScheme.secondary,
-                      ),
-                      child: _cardDinheiro(
-                        context: context,
-                        controller: controller,
-                        title: 'Troco para quanto?',
-                        subtitle: 'Deixe vazio se não precisar de troco',
-                      ),
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20)
+      ),
+      child: Card(
+        elevation: 5,
+        color: (isSelected)
+            ? GalegosUiDefaut.colorScheme.tertiary
+            : GalegosUiDefaut.colorScheme.secondary,
+        child: SizedBox(
+          width: context.widthTransformer(reducedBy: 10),
+          child: Column(
+            children: [
+              ListTile(
+                iconColor: (isSelected)
+                    ? GalegosUiDefaut.colorScheme.secondary
+                    : GalegosUiDefaut.colorScheme.tertiary,
+                contentPadding: const EdgeInsets.all(8.0),
+                title: Row(
+                  children: [
+                    Icon(icon),
+                    const SizedBox(
+                      width: 15,
                     ),
-          ],
+                    Text(
+                      title,
+                      style: (isSelected)
+                          ? GalegosUiDefaut.textCard.titleSmall
+                          : GalegosUiDefaut.theme.textTheme.titleSmall,
+                    ),
+                  ],
+                ),
+                subtitle: Text(
+                  subtitle,
+                  style: (isSelected)
+                      ? GalegosUiDefaut.textCard.bodyMedium
+                      : GalegosUiDefaut.theme.textTheme.bodyMedium,
+                ),
+                leading: Radio<PaymentType>(value: type),
+              ),
+              if (isSelected)
+                (type == PaymentType.cartao)
+                    ? Container(
+                        decoration: BoxDecoration(
+                          color: GalegosUiDefaut.colorScheme.secondary,
+                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12))
+                        ),
+                        child: Column(
+                          children: [
+                            _cardType(
+                              context: context,
+                              title: 'Crédito',
+                              subtitle: subtitle,
+                              type: CardType.credito,
+                              controller: controller,
+                            ),
+                            _cardType(
+                              context: context,
+                              title: 'Débito',
+                              subtitle: subtitle,
+                              type: CardType.debito,
+                              controller: controller,
+                            ),
+                          ],
+                        ),
+                      )
+                    : (type == PaymentType.vale)
+                    ? Container(
+                        decoration: BoxDecoration(
+                          color: GalegosUiDefaut.colorScheme.secondary,
+                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12))
+                        ),
+                        child: Column(
+                          children: [
+                            _cardVale(
+                              context: context,
+                              title: 'Alimentação',
+                              subtitle: subtitle,
+                              type: ValeType.alimentacao,
+                              controller: controller,
+                            ),
+                            _cardVale(
+                              context: context,
+                              title: 'Refeição',
+                              subtitle: subtitle,
+                              type: ValeType.refeicao,
+                              controller: controller,
+                            ),
+                          ],
+                        ),
+                      )
+                    : (type == PaymentType.pix)
+                    ? SizedBox.shrink()
+                    : Container(
+                        decoration: BoxDecoration(
+                          color: GalegosUiDefaut.colorScheme.secondary,
+                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12))
+
+                        ),
+                        child: _cardDinheiro(
+                          context: context,
+                          controller: controller,
+                          title: 'Troco para quanto?',
+                          subtitle: 'Deixe vazio se não precisar de troco',
+                        ),
+                      ),
+            ],
+          ),
         ),
       ),
     ),
@@ -211,18 +220,23 @@ Widget _cardType({
   required CardType type,
   required PaymentController controller,
 }) {
-  return RadioGroup(
-    groupValue: controller.cardType.value,
-    onChanged: (value) => controller.changeCardType(value as CardType),
-    child: SizedBox(
-      width: context.widthTransformer(reducedBy: 10),
-      child: ListTile(
-        iconColor: GalegosUiDefaut.colorScheme.tertiary,
-        title: Text(
-          title,
-          style: GalegosUiDefaut.theme.textTheme.bodyMedium,
+  return Container(
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20)
+    ),
+    child: RadioGroup(
+      groupValue: controller.cardType.value,
+      onChanged: (value) => controller.changeCardType(value as CardType),
+      child: SizedBox(
+        width: context.widthTransformer(reducedBy: 10),
+        child: ListTile(
+          iconColor: GalegosUiDefaut.colorScheme.tertiary,
+          title: Text(
+            title,
+            style: GalegosUiDefaut.theme.textTheme.bodyMedium,
+          ),
+          leading: Radio<CardType>(value: type),
         ),
-        leading: Radio<CardType>(value: type),
       ),
     ),
   );
@@ -235,18 +249,23 @@ Widget _cardVale({
   required ValeType type,
   required PaymentController controller,
 }) {
-  return RadioGroup(
-    groupValue: controller.valeType.value,
-    onChanged: (value) => controller.changeValeType(value as ValeType),
-    child: SizedBox(
-      width: context.widthTransformer(reducedBy: 10),
-      child: ListTile(
-        iconColor: GalegosUiDefaut.colorScheme.tertiary,
-        title: Text(
-          title,
-          style: GalegosUiDefaut.theme.textTheme.bodyMedium,
+  return Container(
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20)
+    ),
+    child: RadioGroup(
+      groupValue: controller.valeType.value,
+      onChanged: (value) => controller.changeValeType(value as ValeType),
+      child: SizedBox(
+        width: context.widthTransformer(reducedBy: 10),
+        child: ListTile(
+          iconColor: GalegosUiDefaut.colorScheme.tertiary,
+          title: Text(
+            title,
+            style: GalegosUiDefaut.theme.textTheme.bodyMedium,
+          ),
+          leading: Radio<ValeType>(value: type),
         ),
-        leading: Radio<ValeType>(value: type),
       ),
     ),
   );
@@ -258,21 +277,26 @@ Widget _cardDinheiro({
   required String title,
   required String subtitle,
 }) {
-  return Form(
-    key: controller.formKey,
-    child: ListTile(
-      title: Text(title),
-      subtitle: Column(
-        children: [
-          GalegosTextFormField(
-            floatingLabelBehavior: .auto,
-            inputType: .number,
-            prefixText: 'R\$ ',
-            controller: controller.trocoEC,
-            // hintText: 'R\$ 0,00',
-          ),
-          Text(subtitle),
-        ],
+  return Container(
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20)
+    ),
+    child: Form(
+      key: controller.formKey,
+      child: ListTile(
+        title: Text(title),
+        subtitle: Column(
+          children: [
+            GalegosTextFormField(
+              floatingLabelBehavior: .auto,
+              inputType: .number,
+              prefixText: 'R\$ ',
+              controller: controller.trocoEC,
+              // hintText: 'R\$ 0,00',
+            ),
+            Text(subtitle),
+          ],
+        ),
       ),
     ),
   );
