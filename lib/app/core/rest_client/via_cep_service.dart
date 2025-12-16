@@ -1,6 +1,5 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/connect.dart';
 
 class ViaCepService extends GetConnect {
   final _viaCepBaseUrl = dotenv.env['VIA_CEP_BASE_URL'];

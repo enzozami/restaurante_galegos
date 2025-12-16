@@ -17,7 +17,6 @@ class FinishOrderPage extends GetView<FinishOrderController> {
   @override
   Widget build(BuildContext context) {
     final PaymentType payment = controller.args['payment'];
-    final type = controller.args['type'];
 
     return Scaffold(
       appBar: GalegosAppBar(),
@@ -30,7 +29,7 @@ class FinishOrderPage extends GetView<FinishOrderController> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
-                child: Text('Finalizar', style: GalegosUiDefaut.theme.textTheme.titleLarge),
+                child: Text('Revise seus Dados', style: GalegosUiDefaut.theme.textTheme.titleLarge),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 15, left: 40),
@@ -186,28 +185,35 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                               ],
                             ),
                             subtitle: Text(
-                              'Forma selecionada',
+                              'Forma selecionada*',
                               style: GalegosUiDefaut.textCard.bodyMedium,
                             ),
-                            leading: Radio<PaymentType>(value: controller.args['payment']),
+                            leading: Radio<PaymentType>(value: payment),
                           ),
-                          Container(
-                            decoration: BoxDecoration(color: GalegosUiDefaut.colorScheme.secondary),
-                            child: RadioGroup(
-                              groupValue: type.value,
-                              onChanged: (_) {},
-                              child: SizedBox(
-                                width: context.widthTransformer(reducedBy: 10),
-                                child: ListTile(
-                                  title: Text(
-                                    controller.getType(),
-                                    style: GalegosUiDefaut.textCardPaymentType.bodyMedium,
+                          (controller.getType() != null)
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    color: GalegosUiDefaut.colorScheme.secondary,
                                   ),
-                                  leading: Radio<CardType>(value: type.value),
-                                ),
-                              ),
-                            ),
-                          ),
+                                  child: SizedBox(
+                                    width: context.widthTransformer(reducedBy: 10),
+                                    child: ListTile(
+                                      title: Column(
+                                        crossAxisAlignment: .start,
+                                        children: [
+                                          (controller.args['payment'] == PaymentType.dinheiro)
+                                              ? Text('Troco para: ')
+                                              : SizedBox.shrink(),
+                                          Text(
+                                            controller.getType()!,
+                                            style: GalegosUiDefaut.textCardPaymentType.bodyMedium,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : SizedBox.shrink(),
                         ],
                       ),
                     ),

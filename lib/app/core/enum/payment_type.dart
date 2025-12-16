@@ -1,4 +1,4 @@
-enum PaymentType { nulo, cartao, vale, dinheiro }
+enum PaymentType { nulo, cartao, vale, dinheiro, pix }
 
 enum CardType { credito, debito }
 

@@ -177,11 +177,13 @@ class FinishOrderController extends GetxController with LoaderMixin, MessagesMix
       return 'Vale';
     } else if (args['payment'] == PaymentType.dinheiro) {
       return 'Dinheiro';
+    } else if (args['payment'] == PaymentType.pix) {
+      return 'PIX';
     }
     return 'NENHUM';
   }
 
-  String getType() {
+  String? getType() {
     if (args['payment'] == PaymentType.cartao) {
       if (args['type'] == CardType.credito) {
         return 'Crédito';
@@ -194,8 +196,9 @@ class FinishOrderController extends GetxController with LoaderMixin, MessagesMix
       } else {
         return 'Refeição';
       }
-    } else {
-      return 'oi';
+    } else if (args['payment'] == PaymentType.dinheiro) {
+      return FormatterHelper.formatCurrency(args['type']);
     }
+    return null;
   }
 }
