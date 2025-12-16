@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/modules/drawer/about_us/widget/about_us_data.dart';
 
@@ -18,8 +17,11 @@ class AboutUsPage extends StatelessWidget {
             Card(
               elevation: 5,
               borderOnForeground: true,
-              color: GalegosUiDefaut.colorScheme.secondary,
-              child: SizedBox(width: context.widthTransformer(reducedBy: 10), child: AboutUsData()),
+              color: Theme.of(context).colorScheme.secondary,
+              child: SizedBox(
+                width: context.widthTransformer(reducedBy: 10),
+                child: AboutUsData(),
+              ),
             ),
           ],
         ),

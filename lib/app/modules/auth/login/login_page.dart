@@ -1,24 +1,17 @@
-import 'dart:developer';
-
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:validatorless/validatorless.dart';
+
 import './login_controller.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends GalegosState<LoginPage, LoginController> {
-  @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -75,12 +68,20 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(height: context.heightTransformer(reducedBy: 85)),
-                        Text('Não possui cadastro?', style: TextStyle(fontSize: 15)),
+                        SizedBox(
+                          height: context.heightTransformer(reducedBy: 85),
+                        ),
+                        Text(
+                          'Não possui cadastro?',
+                          style: TextStyle(fontSize: 15),
+                        ),
                         TextButton(
-                          style: GalegosUiDefaut.theme.textButtonTheme.style,
+                          style: theme.textButtonTheme.style,
                           onPressed: () => Get.toNamed('/auth/register'),
-                          child: Text('Clique aqui', style: TextStyle(fontSize: 15)),
+                          child: Text(
+                            'Clique aqui',
+                            style: TextStyle(fontSize: 15),
+                          ),
                         ),
                       ],
                     ),
@@ -155,30 +156,21 @@ Widget _formFieldsLogin({
   );
 }
 
-class _AlertResetPassword extends StatefulWidget {
-  const _AlertResetPassword();
-
-  @override
-  State<_AlertResetPassword> createState() => _AlertResetPasswordState();
-}
-
-class _AlertResetPasswordState extends GalegosState<_AlertResetPassword, LoginController> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailEC = TextEditingController();
-
+class _AlertResetPassword extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Form(
-      key: _formKey,
+      key: controller.formKey,
       child: AlertDialog(
         contentPadding: EdgeInsets.all(30),
         icon: Align(
           alignment: .centerRight,
-          child: Icon(Icons.close, color: GalegosUiDefaut.colorScheme.tertiary),
+          child: Icon(Icons.close, color: theme.colorScheme.tertiary),
         ),
         title: Text(
           'Restaurar senha',
-          style: GalegosUiDefaut.theme.textTheme.titleLarge,
+          style: theme.textTheme.titleLarge,
           textAlign: .center,
         ),
         content: SingleChildScrollView(
@@ -188,13 +180,13 @@ class _AlertResetPasswordState extends GalegosState<_AlertResetPassword, LoginCo
               Text(
                 'Digite o e-mail referente a conta para restaurar a senha',
                 textAlign: .justify,
-                style: GalegosUiDefaut.theme.textTheme.bodyLarge,
+                style: theme.textTheme.bodyLarge,
               ),
               GalegosTextFormField(
                 floatingLabelBehavior: .auto,
                 inputType: .emailAddress,
-                controller: _emailEC,
-                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                controller: controller.emailEC,
+                colorBorder: theme.colorScheme.tertiary,
                 label: 'E-mail',
                 validator: Validatorless.multiple([
                   Validatorless.required('E-mail obrigatório'),
@@ -209,12 +201,7 @@ class _AlertResetPasswordState extends GalegosState<_AlertResetPassword, LoginCo
           GalegosButtonDefault(
             label: 'Enviar',
             onPressed: () {
-              final formValid = _formKey.currentState?.validate() ?? false;
-              if (formValid) {
-                controller.senhaNova(email: _emailEC.text);
-                log('Mensagem enviada');
-                Get.back();
-              }
+              controller.senhaNova();
             },
           ),
         ],

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/core/ui/cards/card_items.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/cards/card_items.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
 
@@ -22,7 +21,10 @@ class AlimentosWidget extends GetView<LunchboxesController> {
         final selectedSize = controller.sizeSelected.value;
 
         return controller.admin
-            ? _FoodsAdmin(alimentos: alimentos, selectedSize: selectedSize ?? '')
+            ? _FoodsAdmin(
+                alimentos: alimentos,
+                selectedSize: selectedSize ?? '',
+              )
             : _FoodClient(
                 alimentos: alimentos,
               );
@@ -34,10 +36,12 @@ class AlimentosWidget extends GetView<LunchboxesController> {
 class _FoodClient extends StatelessWidget {
   final LunchboxesController controller = Get.find<LunchboxesController>();
   final List<FoodModel> alimentos;
+
   _FoodClient({required this.alimentos});
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Obx(() {
       return SizedBox(
         width: double.infinity,
@@ -55,7 +59,9 @@ class _FoodClient extends StatelessWidget {
                 alignment: WrapAlignment.spaceAround,
                 children: alimentos
                     .where(
-                      (element) => element.dayName.contains(controller.dayNow) && element.temHoje,
+                      (element) =>
+                          element.dayName.contains(controller.dayNow) &&
+                          element.temHoje,
                     )
                     .map((alimento) {
                       return CardItems(
@@ -68,9 +74,9 @@ class _FoodClient extends StatelessWidget {
                         descricao: alimento.description,
                         onPressed: () {},
                         onTap: () {},
-                        styleTitle: GalegosUiDefaut.theme.textTheme.titleMedium,
-                        styleDescricao: GalegosUiDefaut.theme.textTheme.bodyLarge,
-                        stylePreco: GalegosUiDefaut.textLunchboxes.titleMedium,
+                        styleTitle: theme.textTheme.titleMedium,
+                        styleDescricao: theme.textTheme.bodyLarge,
+                        stylePreco: theme.textTheme.titleMedium,
                         precoMini: FormatterHelper.formatCurrency(
                           alimento.pricePerSize['mini'] ?? 0,
                         ),
@@ -82,7 +88,7 @@ class _FoodClient extends StatelessWidget {
                           children: controller.availableSizes
                               .map(
                                 (s) => ElevatedButton(
-                                  style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+                                  style: theme.elevatedButtonTheme.style,
                                   onPressed: () {
                                     controller.exibirDialogoAdicionarAoCarrinho(
                                       alimento: alimento,
@@ -94,13 +100,13 @@ class _FoodClient extends StatelessWidget {
                                     children: [
                                       Text(
                                         s[0].toUpperCase() + s.substring(1),
-                                        style: GalegosUiDefaut.textLunchboxes.titleSmall,
+                                        style: theme.textTheme.titleSmall,
                                       ),
                                       Text(
                                         FormatterHelper.formatCurrency(
                                           alimento.pricePerSize[s] ?? 0,
                                         ),
-                                        style: GalegosUiDefaut.textLunchboxes.titleMedium,
+                                        style: theme.textTheme.titleMedium,
                                       ),
                                     ],
                                   ),
@@ -132,6 +138,7 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Obx(() {
       return Column(
         children: [
@@ -152,10 +159,10 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
                     children: widget.alimentos.map((alimento) {
                       return Card(
                         elevation: 2,
-                        color: GalegosUiDefaut.theme.cardTheme.color,
+                        color: theme.cardTheme.color,
                         child: Dismissible(
                           background: Container(
-                            color: GalegosUiDefaut.colorScheme.error,
+                            color: theme.colorScheme.error,
                             alignment: Alignment.centerRight,
                             padding: EdgeInsets.all(15),
                             child: Icon(Icons.delete, color: Colors.white),
@@ -163,32 +170,45 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
                           direction: DismissDirection.endToStart,
                           key: ValueKey(alimento.id),
                           confirmDismiss: (_) async {
-                            return await controller.exibirConfirmacaoDescarte(context, alimento);
+                            return await controller.exibirConfirmacaoDescarte(
+                              context,
+                              alimento,
+                            );
                           },
                           onDismissed: (_) {
                             controller.apagarMarmita(alimento);
                             controller.refreshLunchboxes();
                           },
                           child: InkWell(
-                            splashColor: GalegosUiDefaut.theme.splashColor,
+                            splashColor: theme.splashColor,
                             onTap: () {
-                              controller.handleFoodTap(context, alimento, widget.selectedSize);
+                              controller.handleFoodTap(
+                                context,
+                                alimento,
+                                widget.selectedSize,
+                              );
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 ListTile(
                                   leading: alimento.temHoje
-                                      ? Text('Ativo', style: TextStyle(color: Colors.green))
+                                      ? Text(
+                                          'Ativo',
+                                          style: TextStyle(color: Colors.green),
+                                        )
                                       : Text(
                                           'Inativo',
                                           style: TextStyle(
-                                            color: GalegosUiDefaut.colorScheme.error,
+                                            color: theme.colorScheme.error,
                                           ),
                                         ),
                                   title: Text(
                                     alimento.name,
-                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
                                   ),
                                   subtitle: Text(alimento.description),
                                   trailing: Icon(Icons.edit_outlined),

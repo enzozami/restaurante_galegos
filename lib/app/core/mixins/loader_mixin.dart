@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 
 mixin LoaderMixin on GetxController {
   void loaderListener(RxBool rxLoading) {
@@ -14,7 +14,7 @@ mixin LoaderMixin on GetxController {
             Get.dialog(
               Center(
                 child: LoadingAnimationWidget.progressiveDots(
-                  color: GalegosUiDefaut.colorScheme.primary,
+                  color: AppColors.primary,
                   size: 65,
                 ),
               ),

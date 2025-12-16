@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/modules/drawer/profile/profile_controller.dart';
@@ -17,6 +16,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: GalegosAppBar(
         icon: Obx(() {
@@ -44,7 +44,10 @@ class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
                         child: Center(
                           child: Text(
                             'DADOS DO USUÁRIO',
-                            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -67,7 +70,10 @@ class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
                         child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 25.0,
+                                vertical: 10,
+                              ),
                               child: Align(
                                 alignment: Alignment.centerRight,
                                 child: GalegosButtonDefault(
@@ -85,15 +91,19 @@ class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
                                               right: 24,
                                               bottom: 0,
                                             ),
-                                            contentPadding: const EdgeInsets.symmetric(
-                                              horizontal: 24,
-                                              vertical: 10,
-                                            ),
-                                            actionsPadding: const EdgeInsets.all(20),
+                                            contentPadding:
+                                                const EdgeInsets.symmetric(
+                                                  horizontal: 24,
+                                                  vertical: 10,
+                                                ),
+                                            actionsPadding:
+                                                const EdgeInsets.all(20),
                                             title: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Icon(
                                                   Icons.help_outline_outlined,
@@ -102,7 +112,8 @@ class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
                                                 const SizedBox(width: 10),
                                                 Text(
                                                   'Alerta',
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   style: const TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.bold,
@@ -122,22 +133,31 @@ class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
                                                 width: 130,
                                                 child: ElevatedButton(
                                                   style: ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        GalegosUiDefaut.colorScheme.primary,
-                                                    minimumSize: Size(double.infinity, 50),
+                                                    backgroundColor: theme
+                                                        .colorScheme
+                                                        .primary,
+                                                    minimumSize: Size(
+                                                      double.infinity,
+                                                      50,
+                                                    ),
                                                     shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(10),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            10,
+                                                          ),
                                                     ),
                                                   ),
                                                   onPressed: () {
                                                     Get.back();
-                                                    controller.isSelected = false;
+                                                    controller.isSelected =
+                                                        false;
                                                   },
                                                   child: Text(
                                                     'Cancelar',
                                                     style: const TextStyle(
                                                       color: Colors.black,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontSize: 16,
                                                     ),
                                                   ),
@@ -147,22 +167,32 @@ class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
                                                 width: 130,
                                                 child: ElevatedButton(
                                                   style: ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        GalegosUiDefaut.colorScheme.primary,
-                                                    minimumSize: Size(double.infinity, 50),
+                                                    backgroundColor: theme
+                                                        .colorScheme
+                                                        .primary,
+                                                    minimumSize: Size(
+                                                      double.infinity,
+                                                      50,
+                                                    ),
                                                     shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(10),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            10,
+                                                          ),
                                                     ),
                                                   ),
                                                   onPressed: () async {
-                                                    await controller.updateName();
-                                                    controller.isSelected = false;
+                                                    await controller
+                                                        .updateName();
+                                                    controller.isSelected =
+                                                        false;
                                                     Get.snackbar(
                                                       'Sucesso',
                                                       'Dados atualizados com sucesso',
                                                       duration: 3.seconds,
-                                                      backgroundColor:
-                                                          GalegosUiDefaut.colorScheme.primary,
+                                                      backgroundColor: theme
+                                                          .colorScheme
+                                                          .primary,
                                                     );
 
                                                     Get.close(0);
@@ -171,7 +201,8 @@ class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
                                                     'Confirmar',
                                                     style: const TextStyle(
                                                       color: Colors.black,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontSize: 16,
                                                     ),
                                                   ),
@@ -186,7 +217,8 @@ class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
                                         'Erro',
                                         'Senha precisa ter no mínimo 6 caracteres',
                                         duration: 3.seconds,
-                                        backgroundColor: GalegosUiDefaut.colorScheme.primary,
+                                        backgroundColor:
+                                            theme.colorScheme.primary,
                                       );
                                     }
                                   },

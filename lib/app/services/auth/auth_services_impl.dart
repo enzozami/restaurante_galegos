@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:restaurante_galegos/app/core/constants/constants.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/models/user_model.dart';
 import 'package:restaurante_galegos/app/repositories/auth/auth_repository.dart';
 
@@ -18,7 +17,8 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   final _name = RxnString();
   final _getStorage = GetStorage();
 
-  AuthServicesImpl({required AuthRepository authRepository}) : _authRepository = authRepository;
+  AuthServicesImpl({required AuthRepository authRepository})
+    : _authRepository = authRepository;
 
   @override
   Future<UserModel> login({required String email, required String password}) =>
@@ -51,7 +51,10 @@ class AuthServicesImpl extends GetxService implements AuthServices {
     };
     final diaHoje = diasSemana[timeNow.weekday];
     final List<String> diasFuncionamento =
-        (dateApi['days'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? [];
+        (dateApi['days'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList() ??
+        [];
 
     if (!diasFuncionamento.contains(diaHoje)) {
       log('Fechado, hoje ($diaHoje) não funcionou');
@@ -106,7 +109,6 @@ class AuthServicesImpl extends GetxService implements AuthServices {
         'Fora do horário de funcionamento',
         'Nós funcionamos das 09:00 às 14:50h!',
         duration: 3.seconds,
-        backgroundColor: GalegosUiDefaut.colorScheme.primary,
       );
       return this;
     }

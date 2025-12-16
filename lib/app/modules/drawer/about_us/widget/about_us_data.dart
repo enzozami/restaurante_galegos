@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/modules/drawer/about_us/about_us_controller.dart';
 
 class AboutUsData extends GetView<AboutUsController> {
@@ -8,13 +7,14 @@ class AboutUsData extends GetView<AboutUsController> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Obx(() {
       return Column(
         children: [
           Container(
             width: context.width,
             decoration: BoxDecoration(
-              color: GalegosUiDefaut.colorScheme.tertiary,
+              color: theme.colorScheme.tertiary,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),
@@ -27,7 +27,7 @@ class AboutUsData extends GetView<AboutUsController> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 30,
-                  color: GalegosUiDefaut.colors['fundo'],
+                  color: theme.colorScheme.surface,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -37,7 +37,7 @@ class AboutUsData extends GetView<AboutUsController> {
             padding: const EdgeInsets.all(15.0),
             child: Text(
               controller.textAboutUs,
-              style: GalegosUiDefaut.textProduct.bodyLarge,
+              style: theme.textTheme.bodyLarge,
               textAlign: TextAlign.justify,
             ),
           ),

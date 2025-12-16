@@ -1,13 +1,13 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/dialogs/alert_dialog_default.dart';
 import 'package:restaurante_galegos/app/core/ui/dialogs/alert_products_lunchboxes_adm.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/models/time_model.dart';
@@ -15,11 +15,13 @@ import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
-class LunchboxesController extends GetxController with LoaderMixin, MessagesMixin {
+class LunchboxesController extends GetxController
+    with LoaderMixin, MessagesMixin {
   final LunchboxesServices _lunchboxesServices;
   final CarrinhoServices _carrinhoServices;
   final LunchboxesServices _foodService;
   final AuthServices _authServices;
+
   LunchboxesController({
     required LunchboxesServices lunchboxesServices,
     required CarrinhoServices carrinhoServices,
@@ -51,14 +53,23 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   final TextEditingController newDescriptionEC = TextEditingController();
   final TextEditingController newPriceMiniEC = TextEditingController();
   final TextEditingController newPriceMediaEC = TextEditingController();
+
   RxBool get loading => _loading;
+
   RxList<FoodModel> get alimentos => _foodService.alimentos;
+
   RxList<TimeModel> get times => _foodService.times;
+
   FoodModel? get selectedFood => foodSelect.value;
+
   int get quantity => _quantity.value;
+
   bool get alreadyAdded => _alreadyAdded.value;
+
   double get totalPrice => _totalPrice.value;
+
   bool get admin => _authServices.isAdmin();
+
   List<FoodModel> get alimentosFiltrados {
     final size = sizeSelected.value;
     final day = daysSelected.value;
@@ -67,7 +78,9 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
           final matchSize = size == null || size.isEmpty
               ? true
               : food.pricePerSize.containsKey(size);
-          final matchDay = day == null || day.isEmpty ? true : food.dayName.contains(day);
+          final matchDay = day == null || day.isEmpty
+              ? true
+              : food.dayName.contains(day);
           return matchSize && matchDay;
         })
         .toSet()
@@ -110,7 +123,9 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     try {
       _loading.value = true;
       final menuData = await _lunchboxesServices.getMenu();
-      final List<String> sizesList = List<String>.from(menuData.first.pricePerSize);
+      final List<String> sizesList = List<String>.from(
+        menuData.first.pricePerSize,
+      );
       availableSizes.assignAll(sizesList);
       _availableSizesOriginal
         ..clear()
@@ -121,7 +136,11 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       _loading.value = false;
       await 500.milliseconds.delay();
       _message(
-        MessageModel(title: 'Erro', message: 'Erro ao carregar marmitas', type: MessageType.error),
+        MessageModel(
+          title: 'Erro',
+          message: 'Erro ao carregar marmitas',
+          type: MessageType.error,
+        ),
       );
     } finally {
       _loading.value = false;
@@ -135,13 +154,18 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       log('Erro ao atualizar marmitas', error: e, stackTrace: s);
       await 500.milliseconds.delay();
       _message(
-        MessageModel(title: 'Erro', message: 'Erro ao atualizar marmitas', type: MessageType.error),
+        MessageModel(
+          title: 'Erro',
+          message: 'Erro ao atualizar marmitas',
+          type: MessageType.error,
+        ),
       );
     }
   }
 
   Future<void> atualizarMarmitasDoDia(int id, FoodModel food) =>
       _foodService.updateTemHoje(id, food);
+
   void cadastrarNovasMarmitas() {
     if (addDays.isEmpty) {
       _message(
@@ -154,10 +178,19 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       return;
     }
     if (!validateForm()) return;
-    _foodService.cadastrarMarmita(nomeMarmitaEC.text, addDays, descricaoEC.text, {
-      'mini': double.parse(precoMiniEC.text.replaceAll('.', '').replaceAll(',', '.')),
-      'media': double.parse(precoMediaEC.text.replaceAll('.', '').replaceAll(',', '.')),
-    });
+    _foodService.cadastrarMarmita(
+      nomeMarmitaEC.text,
+      addDays,
+      descricaoEC.text,
+      {
+        'mini': double.parse(
+          precoMiniEC.text.replaceAll('.', '').replaceAll(',', '.'),
+        ),
+        'media': double.parse(
+          precoMediaEC.text.replaceAll('.', '').replaceAll(',', '.'),
+        ),
+      },
+    );
     nomeMarmitaEC.clear();
     descricaoEC.clear();
     precoMiniEC.clear();
@@ -188,8 +221,12 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
           );
           return;
         }
-        final cleanedMini = newPriceMiniEC.text.replaceAll('.', '').replaceAll(',', '.');
-        final cleanedMedia = newPriceMediaEC.text.replaceAll('.', '').replaceAll(',', '.');
+        final cleanedMini = newPriceMiniEC.text
+            .replaceAll('.', '')
+            .replaceAll(',', '.');
+        final cleanedMedia = newPriceMediaEC.text
+            .replaceAll('.', '')
+            .replaceAll(',', '.');
         await _foodService.updateData(
           alimento.id,
           newNameEC.text,
@@ -209,14 +246,20 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       _loading.value = false;
       await 500.milliseconds.delay();
       _message(
-        MessageModel(title: 'Erro', message: 'Erro ao atualizar marmita', type: MessageType.error),
+        MessageModel(
+          title: 'Erro',
+          message: 'Erro ao atualizar marmita',
+          type: MessageType.error,
+        ),
       );
     } finally {
       _loading.value = false;
     }
   }
 
-  Future<void> apagarMarmita(FoodModel food) => _foodService.deletarMarmita(food);
+  Future<void> apagarMarmita(FoodModel food) =>
+      _foodService.deletarMarmita(food);
+
   void filtrarPreco(String selectedSize) {
     if (sizeSelected.value == selectedSize) {
       sizeSelected.value = '';
@@ -275,7 +318,9 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   }
 
   RxBool alimentoTemHoje(FoodModel a) => RxBool(a.temHoje);
+
   bool validateForm() => formKey.currentState?.validate() ?? false;
+
   void handleFoodTap(BuildContext context, FoodModel alimento, String size) {
     definirComidaSelecionada(alimento, size);
     final temHoje = alimentoTemHoje(alimento);
@@ -285,7 +330,10 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       Get.back();
     }
 
-    onChangedSelectionFunction(List<Object?> allSelectedItems, Object? selectedItem) {
+    onChangedSelectionFunction(
+      List<Object?> allSelectedItems,
+      Object? selectedItem,
+    ) {
       alimento.dayName = allSelectedItems.cast<String>();
       addDays.value = allSelectedItems.map((e) => e as String).toList();
     }
@@ -369,35 +417,35 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     );
   }
 
-  Future<bool> exibirConfirmacaoDescarte(BuildContext context, FoodModel alimento) async {
+  Future<bool> exibirConfirmacaoDescarte(
+    BuildContext context,
+    FoodModel alimento,
+  ) async {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) {
+        final ThemeData theme = Theme.of(context);
         return AlertDialog(
-          backgroundColor: GalegosUiDefaut.colors['fundo'],
-          titlePadding: EdgeInsets.only(top: 25, bottom: 0),
-          contentPadding: EdgeInsets.only(top: 15, bottom: 0),
-          actionsPadding: EdgeInsets.symmetric(vertical: 15),
           title: Text(
             'ATENÇÃO',
             textAlign: .center,
-            style: GalegosUiDefaut.theme.textTheme.titleMedium,
+            style: theme.textTheme.titleMedium,
           ),
           content: Text(
             'Deseja excluir essa marmita?',
             textAlign: .center,
-            style: GalegosUiDefaut.theme.textTheme.bodySmall,
+            style: theme.textTheme.bodySmall,
           ),
           actionsAlignment: .center,
           actions: [
             ElevatedButton(
               onPressed: () => Navigator.of(context).pop(false),
-              style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+              style: theme.elevatedButtonTheme.style,
               child: Text('Cancelar'),
             ),
             ElevatedButton(
               onPressed: () => Navigator.of(context).pop(true),
-              style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+              style: theme.elevatedButtonTheme.style,
               child: Text('Confirmar'),
             ),
           ],

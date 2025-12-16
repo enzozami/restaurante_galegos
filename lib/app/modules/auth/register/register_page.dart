@@ -1,21 +1,15 @@
 import 'package:fancy_password_field/fancy_password_field.dart';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:validatorless/validatorless.dart';
+
 import './register_controller.dart';
 
-class RegisterPage extends StatefulWidget {
+class RegisterPage extends GetView<RegisterController> {
   const RegisterPage({super.key});
 
-  @override
-  State<RegisterPage> createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,15 +72,19 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
   }
 }
 
-Widget _passwordValidator(BuildContext context, ValidationRule rule, String value) {
+Widget _passwordValidator(
+  BuildContext context,
+  ValidationRule rule,
+  String value,
+) {
   final bool isValid = rule.validate(value);
-
+  final ThemeData theme = Theme.of(context);
   return Row(
     spacing: 10,
     children: [
       Icon(
         isValid ? Icons.check_circle : Icons.cancel,
-        color: isValid ? const Color(0xFF36A739) : GalegosUiDefaut.colorScheme.error,
+        color: isValid ? const Color(0xFF36A739) : theme.colorScheme.error,
       ),
       Text(rule.name),
     ],

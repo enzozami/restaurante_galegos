@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/dialogs/alert_for_add_to_cart.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/filter_tag.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/text_shimmer.dart';
@@ -9,16 +7,12 @@ import 'package:restaurante_galegos/app/modules/lunchboxes/widgets/alimentos_wid
 
 import './lunchboxes_controller.dart';
 
-class LunchboxesPage extends StatefulWidget {
+class LunchboxesPage extends GetView<LunchboxesController> {
   const LunchboxesPage({super.key});
 
   @override
-  State<LunchboxesPage> createState() => _LunchboxesPageState();
-}
-
-class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesController> {
-  @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
       floatingActionButton: controller.admin
           ? _FloatingActionAdmin(
@@ -39,7 +33,12 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 30.0, bottom: 15, left: 10, right: 10),
+                      padding: const EdgeInsets.only(
+                        top: 30.0,
+                        bottom: 15,
+                        left: 10,
+                        right: 10,
+                      ),
                       child: Obx(() {
                         return Visibility(
                           visible: controller.admin != true,
@@ -50,7 +49,8 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                                   .expand((e) => e.days)
                                   .map(
                                     (d) => FilterTag(
-                                      isSelected: controller.daysSelected.value == d,
+                                      isSelected:
+                                          controller.daysSelected.value == d,
                                       onPressed: () {
                                         controller.filtrarPorDia(d);
                                       },
@@ -63,26 +63,31 @@ class _LunchboxesPageState extends GalegosState<LunchboxesPage, LunchboxesContro
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 40.0,
+                              ),
                               child: controller.loading.value
                                   ? Column(
                                       children: List.generate(
                                         1,
-                                        (_) => TextShimmer(width: 300, lines: 2),
+                                        (_) =>
+                                            TextShimmer(width: 300, lines: 2),
                                       ),
                                     )
                                   : Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'Marmitas de Hoje',
                                           textAlign: TextAlign.center,
-                                          style: GalegosUiDefaut.theme.textTheme.titleLarge,
+                                          style: theme.textTheme.titleLarge,
                                         ),
                                         Text(
                                           controller.dayNow,
-                                          style: GalegosUiDefaut.theme.textTheme.titleSmall,
+                                          style: theme.textTheme.titleSmall,
                                         ),
                                       ],
                                     ),
@@ -113,6 +118,7 @@ class _FloatingActionAdmin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Align(
       alignment: AlignmentGeometry.directional(1, 1),
       child: FloatingActionButton.extended(
@@ -130,8 +136,8 @@ class _FloatingActionAdmin extends StatelessWidget {
           );
         },
         icon: Icon(Icons.add),
-        backgroundColor: GalegosUiDefaut.theme.floatingActionButtonTheme.backgroundColor,
-        foregroundColor: GalegosUiDefaut.theme.floatingActionButtonTheme.foregroundColor,
+        backgroundColor: theme.floatingActionButtonTheme.backgroundColor,
+        foregroundColor: theme.floatingActionButtonTheme.foregroundColor,
         label: Text('Adicionar'),
       ),
     );

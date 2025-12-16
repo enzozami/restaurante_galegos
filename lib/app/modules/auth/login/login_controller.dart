@@ -20,7 +20,8 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
 
   bool get viewPassword => _viewPassword.value;
 
-  LoginController({required AuthServices authServices}) : _authServices = authServices;
+  LoginController({required AuthServices authServices})
+    : _authServices = authServices;
 
   @override
   void onInit() {
@@ -44,9 +45,12 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
     return formKey.currentState?.validate() ?? false;
   }
 
-  Future<void> senhaNova({required String email}) async {
+  Future<void> senhaNova() async {
     try {
-      await _authServices.resetPassword(email: email);
+      if (!_validateLogin()) return;
+      await _authServices.resetPassword(email: emailEC.text);
+      log('Mensagem enviada');
+      Get.back();
     } catch (e) {
       log('Erro ao resetar senha', error: e);
     }

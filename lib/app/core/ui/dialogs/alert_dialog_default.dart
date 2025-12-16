@@ -22,18 +22,16 @@ class AlertDialogDefault extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return AlertDialog(
-      backgroundColor: GalegosUiDefaut.colorScheme.onSecondary,
-      titlePadding: const EdgeInsets.only(top: 20, left: 24, right: 24, bottom: 0),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-      actionsPadding: const EdgeInsets.all(20),
       title: Text(
         item?.name ?? alimento?.name ?? '',
         textAlign: .center,
-        style: TextStyle(
-          color: GalegosUiDefaut.colorScheme.primary,
-          fontWeight: FontWeight.bold,
-        ),
+        style: theme.textTheme.titleSmall,
+        // style: TextStyle(
+        //   color: GalegosUiDefaut.colorScheme.primary,
+        //   fontWeight: FontWeight.bold,
+        // ),
       ),
       icon: IconButton(
         icon: Icon(Icons.close, color: GalegosUiDefaut.colorScheme.secondary),
@@ -66,7 +64,9 @@ class AlertDialogDefault extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: GalegosUiDefaut.colorScheme.primary,
               // minimumSize: Size(double.infinity, 50),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
             onPressed: onPressed,
             child: Text(

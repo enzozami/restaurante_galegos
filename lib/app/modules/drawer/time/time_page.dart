@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_shimmer.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/modules/drawer/time/time_controller.dart';
@@ -15,7 +14,7 @@ class TimePage extends GetView<TimeController> {
       appBar: GalegosAppBar(),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: .center,
           children: [
             controller.loading.value
                 ? Wrap(
@@ -31,7 +30,7 @@ class TimePage extends GetView<TimeController> {
                 : Card(
                     elevation: 5,
                     borderOnForeground: true,
-                    color: GalegosUiDefaut.colorScheme.secondary,
+                    color: Theme.of(context).colorScheme.secondary,
                     child: SizedBox(
                       width: context.widthTransformer(reducedBy: 10),
                       child: TimeData(),

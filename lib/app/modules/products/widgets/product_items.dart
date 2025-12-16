@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_items.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/text_shimmer.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
@@ -27,6 +25,7 @@ class _ProductsClient extends GetView<ProductsController> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Obx(() {
       return Column(
         crossAxisAlignment: .start,
@@ -39,14 +38,28 @@ class _ProductsClient extends GetView<ProductsController> {
             children: [
               controller.loading.value
                   ? Padding(
-                      padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 30.0),
+                      padding: const EdgeInsets.only(
+                        top: 20.0,
+                        bottom: 10.0,
+                        left: 30.0,
+                      ),
                       child: Column(
-                        children: List.generate(1, (index) => TextShimmer(width: 200, lines: 1)),
+                        children: List.generate(
+                          1,
+                          (index) => TextShimmer(width: 200, lines: 1),
+                        ),
                       ),
                     )
                   : Padding(
-                      padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 30.0),
-                      child: Text(c.name, style: GalegosUiDefaut.theme.textTheme.titleLarge),
+                      padding: const EdgeInsets.only(
+                        top: 20.0,
+                        bottom: 10.0,
+                        left: 30.0,
+                      ),
+                      child: Text(
+                        c.name,
+                        style: theme.textTheme.titleLarge,
+                      ),
                     ),
               Container(
                 constraints: const BoxConstraints(minHeight: 100),
@@ -56,7 +69,10 @@ class _ProductsClient extends GetView<ProductsController> {
                         alignment: .spaceAround,
                         children: List.generate(
                           10,
-                          (_) => CardShimmer(height: 310, width: 180).paddingOnly(bottom: 8),
+                          (_) => CardShimmer(
+                            height: 310,
+                            width: 180,
+                          ).paddingOnly(bottom: 8),
                         ),
                       )
                     : Wrap(
@@ -72,11 +88,13 @@ class _ProductsClient extends GetView<ProductsController> {
                                 preco: FormatterHelper.formatCurrency(e.price),
                                 descricao: e.description,
                                 image: (e.image.isNotEmpty) ? e.image : '',
-                                onPressed: () => controller.onClientProductQuickAddPressed(e),
-                                onTap: () => controller.onClientProductDetailsTapped(context, e),
-                                styleTitle: GalegosUiDefaut.theme.textTheme.titleMedium,
-                                styleDescricao: GalegosUiDefaut.theme.textTheme.bodyLarge,
-                                stylePreco: GalegosUiDefaut.textProduct.titleMedium,
+                                onPressed: () => controller
+                                    .onClientProductQuickAddPressed(e),
+                                onTap: () => controller
+                                    .onClientProductDetailsTapped(context, e),
+                                styleTitle: theme.textTheme.titleMedium,
+                                styleDescricao: theme.textTheme.bodyLarge,
+                                stylePreco: theme.textTheme.titleMedium,
                                 isProduct: true,
                               ),
                             )
@@ -93,14 +111,10 @@ class _ProductsClient extends GetView<ProductsController> {
   }
 }
 
-class _ProductsAdmin extends StatefulWidget {
-  @override
-  State<_ProductsAdmin> createState() => _ProductsAdminState();
-}
-
-class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsController> {
+class _ProductsAdmin extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Obx(() {
       final category = controller.category;
 
@@ -117,7 +131,11 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
             crossAxisAlignment: .start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 16.0),
+                padding: const EdgeInsets.only(
+                  top: 20.0,
+                  bottom: 10.0,
+                  left: 16.0,
+                ),
                 child: controller.loading.value
                     ? SizedBox(
                         child: TextShimmer(
@@ -125,7 +143,10 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
                           lines: 1,
                         ),
                       )
-                    : Text(c.name, style: GalegosUiDefaut.theme.textTheme.titleLarge),
+                    : Text(
+                        c.name,
+                        style: theme.textTheme.titleLarge,
+                      ),
               ),
               Container(
                 constraints: const BoxConstraints(minHeight: 100),
@@ -145,38 +166,51 @@ class _ProductsAdminState extends GalegosState<_ProductsAdmin, ProductsControlle
                             .map(
                               (e) => Card(
                                 elevation: 2,
-                                color: GalegosUiDefaut.theme.cardTheme.color,
+                                color: theme.cardTheme.color,
                                 clipBehavior: .hardEdge,
                                 child: Dismissible(
                                   background: Container(
-                                    color: GalegosUiDefaut.colorScheme.error,
+                                    color: theme.colorScheme.error,
                                     alignment: .centerRight,
                                     padding: EdgeInsets.all(15),
-                                    child: Icon(Icons.delete, color: Colors.white),
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                   direction: DismissDirection.endToStart,
                                   key: ValueKey(e.id),
                                   confirmDismiss: (_) async {
-                                    return await controller.exibirConfirmacaoDescarte(context, e);
+                                    return await controller
+                                        .exibirConfirmacaoDescarte(context, e);
                                   },
                                   onDismissed: (_) async {
                                     controller.apagarProduto(e);
                                     await controller.refreshProducts();
                                   },
                                   child: InkWell(
-                                    splashColor: GalegosUiDefaut.theme.splashColor,
+                                    splashColor: theme.splashColor,
                                     borderRadius: BorderRadius.circular(8),
                                     onTap: () {
-                                      controller.onAdminProductUpdateDetailsTapped(context, e);
+                                      controller
+                                          .onAdminProductUpdateDetailsTapped(
+                                            context,
+                                            e,
+                                          );
                                     },
                                     child: ListTile(
                                       textColor: Colors.black87,
                                       leading: e.temHoje
-                                          ? Text('Ativo', style: TextStyle(color: Colors.green))
+                                          ? Text(
+                                              'Ativo',
+                                              style: TextStyle(
+                                                color: Colors.green,
+                                              ),
+                                            )
                                           : Text(
                                               'Inativo',
                                               style: TextStyle(
-                                                color: GalegosUiDefaut.colorScheme.error,
+                                                color: theme.colorScheme.error,
                                               ),
                                             ),
                                       title: Text(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
 
 class CardCarrinho extends StatelessWidget {
@@ -25,14 +24,17 @@ class CardCarrinho extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return SizedBox(
       width: context.widthTransformer(reducedBy: 10),
       child: Card(
-        elevation: GalegosUiDefaut.theme.cardTheme.elevation,
-        color: GalegosUiDefaut.theme.cardTheme.color,
+        elevation: theme.cardTheme.elevation,
+        color: theme.cardTheme.color,
         shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: const Color.fromARGB(255, 190, 132, 98)),
+          borderSide: BorderSide(
+            color: const Color.fromARGB(255, 190, 132, 98),
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(5.0),
@@ -42,15 +44,15 @@ class CardCarrinho extends StatelessWidget {
                 child: ListTile(
                   title: Text(
                     title,
-                    style: GalegosUiDefaut.theme.textTheme.titleSmall,
+                    style: theme.textTheme.titleSmall,
                   ),
                   subtitle: Text(
                     description,
-                    style: GalegosUiDefaut.theme.textTheme.bodyLarge,
+                    style: theme.textTheme.bodyLarge,
                   ),
                   trailing: Text(
                     price,
-                    style: GalegosUiDefaut.textProduct.titleSmall,
+                    style: theme.textTheme.titleSmall,
                   ),
                 ),
               ),
@@ -61,15 +63,16 @@ class CardCarrinho extends StatelessWidget {
                         padding: const EdgeInsets.all(12.0),
                         child: Text(
                           'Qtd: $quantity',
-                          style: GalegosUiDefaut.theme.textTheme.bodyLarge,
+                          style: theme.textTheme.bodyLarge,
                         ),
                       ),
                     )
                   : GalegosPlusMinus(
                       color: Colors.black,
-                      addCallback: add ?? () {}, //() => controller.adicionarQuantidadeCarrinho(p),
-                      removeCallback:
-                          remove ?? () {}, // () => controller.removerQuantidadeCarrinho(p),
+                      addCallback: add ?? () {},
+                      //() => controller.adicionarQuantidadeCarrinho(p),
+                      removeCallback: remove ?? () {},
+                      // () => controller.removerQuantidadeCarrinho(p),
                       quantityUnit: int.parse(quantity),
                     ),
             ],

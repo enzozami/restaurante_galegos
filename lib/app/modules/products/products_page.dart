@@ -1,10 +1,10 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/dialogs/alert_for_add_to_cart.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/modules/products/widgets/product_header.dart';
 import 'package:restaurante_galegos/app/modules/products/widgets/product_items.dart';
+
 import './products_controller.dart';
 
 class ProductsPage extends GetView<ProductsController> {
@@ -13,7 +13,9 @@ class ProductsPage extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: controller.admin ? _FloatingActionButtonAdmin() : null,
+      floatingActionButton: controller.admin
+          ? _FloatingActionButtonAdmin()
+          : null,
       body: RefreshIndicator(
         onRefresh: controller.refreshProducts,
         child: SingleChildScrollView(
@@ -27,7 +29,10 @@ class ProductsPage extends GetView<ProductsController> {
                   : Center(
                       child: Text(
                         'Selecione algum item para adicionar ao carrinho*',
-                        style: TextStyle(fontStyle: FontStyle.italic, fontSize: 11),
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontSize: 11,
+                        ),
                       ),
                     ),
               Obx(() {
@@ -48,13 +53,15 @@ class _FloatingActionButtonAdmin extends StatefulWidget {
   const _FloatingActionButtonAdmin();
 
   @override
-  State<_FloatingActionButtonAdmin> createState() => _FloatingActionButtonAdminState();
+  State<_FloatingActionButtonAdmin> createState() =>
+      _FloatingActionButtonAdminState();
 }
 
 class _FloatingActionButtonAdminState
     extends GalegosState<_FloatingActionButtonAdmin, ProductsController> {
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return FloatingActionButton.extended(
       onPressed: () {
         showDialog(
@@ -70,8 +77,8 @@ class _FloatingActionButtonAdminState
         );
       },
       icon: Icon(Icons.add),
-      backgroundColor: GalegosUiDefaut.theme.floatingActionButtonTheme.backgroundColor,
-      foregroundColor: GalegosUiDefaut.theme.floatingActionButtonTheme.foregroundColor,
+      backgroundColor: theme.floatingActionButtonTheme.backgroundColor,
+      foregroundColor: theme.floatingActionButtonTheme.foregroundColor,
       label: Text('Adicionar'),
     );
   }

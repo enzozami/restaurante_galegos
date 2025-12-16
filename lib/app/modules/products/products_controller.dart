@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/dialogs/alert_dialog_default.dart';
 import 'package:restaurante_galegos/app/core/ui/dialogs/alert_products_lunchboxes_adm.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
@@ -16,7 +15,8 @@ import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/products/products_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
-class ProductsController extends GetxController with LoaderMixin, MessagesMixin {
+class ProductsController extends GetxController
+    with LoaderMixin, MessagesMixin {
   final AuthServices _authService;
   final CarrinhoServices _carrinhoServices;
   final ProductsServices _productsServices;
@@ -49,15 +49,25 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final TextEditingController priceEC = TextEditingController();
 
   RxBool get loading => _loading;
+
   RxList<ProductModel> get items => _productsServices.items;
+
   RxList<CategoryModel> get category => _productsServices.categories;
+
   ProductModel? get selectedItem => itemSelect.value;
+
   int get quantity => _quantity.value;
+
   bool get alreadyAdded => _alreadyAdded.value;
+
   double get totalPrice => _totalPrice.value;
+
   CarrinhoServices get carrinhoServices => _carrinhoServices;
+
   bool get isEditing => _isEditing.value;
+
   bool get admin => _authService.isAdmin();
+
   RxBool temHoje(ProductModel p) => RxBool(p.temHoje);
 
   List<ProductModel> getFilteredProducts(CategoryModel c) {
@@ -65,13 +75,15 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         ? items.where((p) {
             final matchesCategory = categorySelected.value?.name == null
                 ? p.categoryId == c.name
-                : p.categoryId == categorySelected.value?.name && p.categoryId == c.name;
+                : p.categoryId == categorySelected.value?.name &&
+                      p.categoryId == c.name;
             return matchesCategory;
           }).toList()
         : items.where((p) {
             final matchsCategory = categorySelected.value?.name == null
                 ? p.categoryId == c.name
-                : p.categoryId == categorySelected.value?.name && p.categoryId == c.name;
+                : p.categoryId == categorySelected.value?.name &&
+                      p.categoryId == c.name;
             return matchsCategory && p.temHoje;
           }).toList();
   }
@@ -136,7 +148,11 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       log('Erro ao atualizar produtos', error: e, stackTrace: s);
       await 500.milliseconds.delay();
       _message(
-        MessageModel(title: 'Erro', message: 'Erro ao atualizar produtos', type: MessageType.error),
+        MessageModel(
+          title: 'Erro',
+          message: 'Erro ao atualizar produtos',
+          type: MessageType.error,
+        ),
       );
     }
   }
@@ -166,8 +182,13 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     String newDescription,
     String newName,
     double newPrice,
-  ) async =>
-      await _productsServices.atualizarDados(id, newCategoryId, newDescription, newName, newPrice);
+  ) async => await _productsServices.atualizarDados(
+    id,
+    newCategoryId,
+    newDescription,
+    newName,
+    newPrice,
+  );
 
   Future<void> atualizarItensDoDia(int id, ProductModel item) async {
     await _productsServices.updateTemHoje(id, item);
@@ -266,7 +287,10 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
   }
 
-  void onClientProductDetailsTapped(BuildContext context, ProductModel product) {
+  void onClientProductDetailsTapped(
+    BuildContext context,
+    ProductModel product,
+  ) {
     setSelectedItem(product);
     showDialog(
       context: context,
@@ -311,7 +335,10 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     );
   }
 
-  void onAdminProductUpdateDetailsTapped(BuildContext context, ProductModel product) {
+  void onAdminProductUpdateDetailsTapped(
+    BuildContext context,
+    ProductModel product,
+  ) {
     setSelectedItem(product);
     final number = NumberFormat('#,##0.00', 'pt_BR');
     final temHoje = RxBool(product.temHoje);
@@ -337,7 +364,9 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
             price: priceEC,
             onPressed: () async {
               if (_validateForm()) {
-                final cleaned = priceEC.text.replaceAll('.', '').replaceAll(',', '.');
+                final cleaned = priceEC.text
+                    .replaceAll('.', '')
+                    .replaceAll(',', '.');
                 atualizarDadosDoProduto(
                   product.id,
                   product.categoryId,
@@ -359,35 +388,36 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     );
   }
 
-  Future<bool> exibirConfirmacaoDescarte(BuildContext context, ProductModel product) async {
+  Future<bool> exibirConfirmacaoDescarte(
+    BuildContext context,
+    ProductModel product,
+  ) async {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) {
+        final ThemeData theme = Theme.of(context);
         return AlertDialog(
-          backgroundColor: GalegosUiDefaut.colors['fundo'],
-          titlePadding: EdgeInsets.only(top: 25, bottom: 0),
-          contentPadding: EdgeInsets.only(top: 15, bottom: 0),
           actionsPadding: EdgeInsets.symmetric(vertical: 15),
           title: Text(
             'ATENÇÃO',
             textAlign: .center,
-            style: GalegosUiDefaut.theme.textTheme.titleMedium,
+            style: theme.textTheme.titleMedium,
           ),
           content: Text(
             'Deseja excluir esse produto?',
             textAlign: .center,
-            style: GalegosUiDefaut.theme.textTheme.bodySmall,
+            style: theme.textTheme.bodySmall,
           ),
           actionsAlignment: .center,
           actions: [
             ElevatedButton(
               onPressed: () => Navigator.of(context).pop(false),
-              style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+              style: theme.elevatedButtonTheme.style,
               child: Text('Cancelar'),
             ),
             ElevatedButton(
               onPressed: () => Navigator.of(context).pop(true),
-              style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+              style: theme.elevatedButtonTheme.style,
               child: Text('Confirmar'),
             ),
           ],
