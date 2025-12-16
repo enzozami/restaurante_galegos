@@ -116,32 +116,48 @@ class AddressController extends GetxController with LoaderMixin, MessagesMixin {
   }
 
   bool addressValidation() {
-    // return cepEC.text.isNotEmpty &&
-    //     cepEC.text != '' &&
-    //     cep.value != '' &&
-    //     cepInput.value.length == 9 &&
-    //     cepInput.value == cep.value;
-    return rua.value.isNotEmpty;
+    return cepEC.text.isNotEmpty &&
+        cepEC.text != '' &&
+        cep.value != '' &&
+        cepInput.value.length == 9 &&
+        cepInput.value == cep.value;
   }
 
-  Map<String, dynamic>? arguments() {
-    if (_validateForm()) {
-      final numero = int.tryParse(numeroEC.text);
+
+  Future<void> enviarDadosParaPagamento()  async {
+    final numero = int.tryParse(numeroEC.text);
+    try {
+      _loading.value = true;
       if (numero != null) {
-        return {
-          'preco': args['preco'],
-          'itens': args['itens'],
-          'cep': cepFormatter.getUnmaskedText(),
-          'rua': rua.value,
-          'bairro': bairro.value,
-          'cidade': cidade.value,
-          'estado': estado.value,
-          'numero': numero,
-          'taxa': taxa.value,
-        };
+        if (_validateForm()) {
+          _loading.value = false;
+          Get.toNamed('/payment', arguments: {
+            'preco': args['preco'],
+            'itens': args['itens'],
+            'cep': cepFormatter.getUnmaskedText(),
+            'rua': rua.value,
+            'bairro': bairro.value,
+            'cidade': cidade.value,
+            'estado': estado.value,
+            'numero': numero,
+            'taxa': taxa.value,
+          });
+        }
+      } else {
+        _loading.value = false;
+        await 50.milliseconds.delay();
+        _message(
+          MessageModel(title: 'Erro', message: 'Número inválido', type: MessageType.error,),
+        );
       }
+    } catch (e) {
+      _loading.value = false;
+      await 50.milliseconds.delay();
+      log('Erro ao obter argumentos: $e');
+      _message(
+        MessageModel(title: 'Erro', message: 'Número não informado', type: MessageType.error,),
+      );
     }
-    return null;
   }
 
   bool validationOnReplacement() {
