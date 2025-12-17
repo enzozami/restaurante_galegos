@@ -9,26 +9,27 @@ import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_car
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
 import 'package:restaurante_galegos/app/repositories/cep/cep_repository.dart';
 import 'package:restaurante_galegos/app/repositories/cep/cep_repository_impl.dart';
-import 'package:restaurante_galegos/app/repositories/products/products_repository.dart';
-import 'package:restaurante_galegos/app/repositories/products/products_repository_impl.dart';
 import 'package:restaurante_galegos/app/repositories/lunchboxes/lunchboxes_repository.dart';
 import 'package:restaurante_galegos/app/repositories/lunchboxes/lunchboxes_repository_impl.dart';
 import 'package:restaurante_galegos/app/repositories/order/order_reposiroty.dart';
 import 'package:restaurante_galegos/app/repositories/order/order_reposiroty_impl.dart';
+import 'package:restaurante_galegos/app/repositories/products/products_repository.dart';
+import 'package:restaurante_galegos/app/repositories/products/products_repository_impl.dart';
 import 'package:restaurante_galegos/app/repositories/time/time_repository.dart';
 import 'package:restaurante_galegos/app/repositories/time/time_repository_impl.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/cep/cep_services.dart';
 import 'package:restaurante_galegos/app/services/cep/cep_services_impl.dart';
-import 'package:restaurante_galegos/app/services/products/products_services.dart';
-import 'package:restaurante_galegos/app/services/products/products_services_impl.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services_impl.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services_impl.dart';
+import 'package:restaurante_galegos/app/services/products/products_services.dart';
+import 'package:restaurante_galegos/app/services/products/products_services_impl.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 import 'package:restaurante_galegos/app/services/time/time_services.dart';
 import 'package:restaurante_galegos/app/services/time/time_services_impl.dart';
+
 import './home_controller.dart';
 
 class HomeBindings implements Bindings {
@@ -39,10 +40,14 @@ class HomeBindings implements Bindings {
     Get.lazyPut<OrderReposiroty>(() => OrderReposirotyImpl());
     Get.lazyPut<LunchboxesRepository>(() => LunchboxesRepositoryImpl());
     Get.lazyPut<ProductsRepository>(() => ProductsRepositoryImpl());
-    Get.lazyPut<CepRepository>(() => CepRepositoryImpl(viaCepService: Get.find<ViaCepService>()));
+    Get.lazyPut<CepRepository>(
+      () => CepRepositoryImpl(viaCepService: Get.find<ViaCepService>()),
+    );
 
     // Services
-    Get.lazyPut<TimeServices>(() => TimeServicesImpl(timeRepository: Get.find<TimeRepository>()));
+    Get.lazyPut<TimeServices>(
+      () => TimeServicesImpl(timeRepository: Get.find<TimeRepository>()),
+    );
     Get.lazyPut<OrderServices>(
       () => OrderServicesImpl(orderRepository: Get.find<OrderReposiroty>()),
     );
@@ -53,12 +58,18 @@ class HomeBindings implements Bindings {
       ),
     );
     Get.lazyPut<ProductsServices>(
-      () => ProductsServicesImpl(productsRepository: Get.find<ProductsRepository>()),
+      () => ProductsServicesImpl(
+        productsRepository: Get.find<ProductsRepository>(),
+      ),
     );
     Get.lazyPut<ProductsServices>(
-      () => ProductsServicesImpl(productsRepository: Get.find<ProductsRepository>()),
+      () => ProductsServicesImpl(
+        productsRepository: Get.find<ProductsRepository>(),
+      ),
     );
-    Get.lazyPut<CepServices>(() => CepServicesImpl(cepRepository: Get.find<CepRepository>()));
+    Get.lazyPut<CepServices>(
+      () => CepServicesImpl(cepRepository: Get.find<CepRepository>()),
+    );
 
     // Controllers
     Get.lazyPut(
@@ -77,15 +88,19 @@ class HomeBindings implements Bindings {
         authServices: Get.find<AuthServices>(),
       ),
     );
-    Get.lazyPut(() => AllOrdersController(ordersState: Get.find<OrderServices>()));
-    Get.lazyPut(() => ForDeliveryController(ordersState: Get.find<OrderServices>()));
+    Get.lazyPut(
+      () => AllOrdersController(ordersState: Get.find<OrderServices>()),
+    );
+    Get.lazyPut(
+      () => ForDeliveryController(ordersState: Get.find<OrderServices>()),
+    );
     Get.lazyPut(
       () => ShoppingCardController(
         carrinhoServices: Get.find<CarrinhoServices>(),
       ),
     );
     Get.lazyPut(() => OrderFinishedController());
-    Get.lazyPut(
+    Get.lazyPut<HistoryController>(
       () => HistoryController(
         authServices: Get.find<AuthServices>(),
         ordersState: Get.find<OrderServices>(),

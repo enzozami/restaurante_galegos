@@ -80,7 +80,13 @@ class PaymentPage extends GetView<PaymentController> {
                   ],
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
               Divider(),
+              SizedBox(
+                height: 20,
+              ),
               Center(
                 child: GalegosButtonDefault(
                   label: 'AVANÇAR',
@@ -92,6 +98,9 @@ class PaymentPage extends GetView<PaymentController> {
                     );
                   },
                 ),
+              ),
+              SizedBox(
+                height: 50,
               ),
             ],
           );

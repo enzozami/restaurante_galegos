@@ -27,7 +27,7 @@ class CardHistory extends StatelessWidget {
         child: Card(
           elevation: 5,
           child: InkWell(
-            onTap: () {},
+            onTap: onTap,
             splashColor: theme.colorScheme.primary,
             borderRadius: BorderRadius.circular(8),
             child: ListTile(

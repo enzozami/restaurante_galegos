@@ -31,7 +31,7 @@ Widget _cardCarrinho(double preco, ThemeData theme) {
       child: Column(
         children: [
           Text(
-            'Total dos itens: ${FormatterHelper.formatCurrency(preco)}',
+            'Total: ${FormatterHelper.formatCurrency(preco)}',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ],

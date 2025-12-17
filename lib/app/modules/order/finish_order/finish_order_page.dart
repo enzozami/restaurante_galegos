@@ -114,7 +114,7 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                           ),
                         ),
                         SizedBox(
-                          width: 150,
+                          width: context.widthTransformer(reducedBy: 10),
                           child: GalegosTextFormField(
                             floatingLabelBehavior: .always,
                             enabled: false,
@@ -126,7 +126,7 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                           ),
                         ),
                         SizedBox(
-                          width: 150,
+                          width: context.widthTransformer(reducedBy: 10),
                           child: GalegosTextFormField(
                             floatingLabelBehavior: .always,
                             enabled: false,

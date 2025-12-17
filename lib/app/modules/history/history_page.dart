@@ -59,10 +59,17 @@ class HistoryPage extends GetView<HistoryController> {
                 }
                 if (snapshot.hasError) {
                   // Se tiver erro - _message
+                  return const Center(child: Text('Erro ao carregar pedidos'));
                 }
 
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                   // Se nao tiver nenhum pedido - text
+                  return const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: Text('Nenhum pedido encontrado.'),
+                    ),
+                  );
                 }
 
                 final docs = snapshot.data!.docs;
@@ -73,6 +80,19 @@ class HistoryPage extends GetView<HistoryController> {
                     )
                     .toList();
                 final Map<String, List<PedidoModel>> pedidosPorData = {};
+
+                pedidos.sort((a, b) {
+                  String dataA = a.date.split('/').reversed.join();
+                  String dataB = b.date.split('/').reversed.join();
+                  int comparacao = dataB.compareTo(dataA);
+
+                  if (comparacao != 0) {
+                    return comparacao;
+                  }
+
+                  return b.time.compareTo(a.time);
+                });
+
                 for (var pedido in pedidos) {
                   pedidosPorData.putIfAbsent(pedido.date, () => []);
                   pedidosPorData[pedido.date]!.add(pedido);

@@ -184,7 +184,7 @@ Widget _address(BuildContext context, AddressController controller) {
                   ),
                 ),
                 SizedBox(
-                  width: 150,
+                  width: context.widthTransformer(reducedBy: 10),
                   child: GalegosTextFormField(
                     floatingLabelBehavior: .never,
                     enabled: false,
@@ -193,7 +193,7 @@ Widget _address(BuildContext context, AddressController controller) {
                   ),
                 ),
                 SizedBox(
-                  width: 150,
+                  width: context.widthTransformer(reducedBy: 10),
                   child: GalegosTextFormField(
                     floatingLabelBehavior: .never,
                     enabled: false,
