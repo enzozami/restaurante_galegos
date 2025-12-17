@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurante_galegos/app/core/enum/payment_type.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_carrinho.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_valores.dart';
@@ -195,9 +194,7 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                                 ),
                                 Text(
                                   controller.getNamePaymentType(),
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.normal,
+                                  style: theme.textTheme.titleSmall?.copyWith(
                                     color: AppColors.secondary,
                                   ),
                                 ),
@@ -205,9 +202,7 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                             ),
                             subtitle: Text(
                               'Forma selecionada*',
-                              style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
+                              style: theme.textTheme.bodyLarge?.copyWith(
                                 color: AppColors.secondary,
                               ),
                             ),

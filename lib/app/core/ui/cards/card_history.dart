@@ -34,19 +34,35 @@ class CardHistory extends StatelessWidget {
               title: Row(
                 mainAxisAlignment: .spaceBetween,
                 children: [
-                  Text(id),
+                  Text(
+                    id,
+                    style: theme.textTheme.titleSmall,
+                  ),
                   status,
                 ],
               ),
               subtitle: Column(
                 crossAxisAlignment: .start,
                 children: [
-                  Text('Itens: $itens'),
+                  Text(
+                    'Itens: $itens',
+                    style: theme.textTheme.titleSmall?.copyWith(fontSize: 16),
+                  ),
                   Row(
                     mainAxisAlignment: .spaceBetween,
                     children: [
-                      Text('Horário: $horario'),
-                      Text(price),
+                      Text(
+                        'Horário: $horario',
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          fontSize: 16,
+                        ),
+                      ),
+                      Text(
+                        price,
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          fontSize: 16,
+                        ),
+                      ),
                     ],
                   ),
                 ],

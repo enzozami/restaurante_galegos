@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurante_galegos/app/core/enum/payment_type.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_valores.dart';
 import 'package:restaurante_galegos/app/core/ui/icons.dart';
@@ -140,9 +139,7 @@ Widget _cardPagamento({
                     Text(
                       title,
                       style: (isSelected)
-                          ? GoogleFonts.poppins(
-                              fontSize: 18,
-                              fontWeight: FontWeight.normal,
+                          ? theme.textTheme.titleSmall?.copyWith(
                               color: AppColors.secondary,
                             )
                           : theme.textTheme.titleSmall,
@@ -152,9 +149,7 @@ Widget _cardPagamento({
                 subtitle: Text(
                   subtitle,
                   style: (isSelected)
-                      ? GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
+                      ? theme.textTheme.bodyMedium?.copyWith(
                           color: AppColors.secondary,
                         )
                       : theme.textTheme.bodyMedium,

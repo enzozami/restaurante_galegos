@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurante_galegos/app/repositories/auth/auth_repository.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services_impl.dart';
@@ -26,10 +25,8 @@ class GalegosDrawer extends GetView<AuthServices> {
             ),
             accountName: Text(
               'Olá, ${controller.getUserName()}',
-              style: GoogleFonts.poppins(
-                fontSize: 20,
+              style: theme.textTheme.titleMedium?.copyWith(
                 color: AppColors.secondary,
-                fontWeight: FontWeight.normal,
               ),
             ),
             accountEmail: Visibility(
