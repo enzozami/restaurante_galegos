@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/modules/drawer/profile/profile_controller.dart';
 import 'package:restaurante_galegos/app/modules/drawer/profile/widget/profile_data.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends GetView<ProfileController> {
   const ProfilePage({super.key});
 
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);

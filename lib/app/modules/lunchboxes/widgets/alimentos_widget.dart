@@ -3,7 +3,6 @@ import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_items.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
 
@@ -123,17 +122,12 @@ class _FoodClient extends StatelessWidget {
   }
 }
 
-class _FoodsAdmin extends StatefulWidget {
+class _FoodsAdmin extends GetView<LunchboxesController> {
   final List<FoodModel> alimentos;
   final String selectedSize;
 
-  const _FoodsAdmin({required this.alimentos, required this.selectedSize});
+  _FoodsAdmin({required this.alimentos, required this.selectedSize});
 
-  @override
-  State<_FoodsAdmin> createState() => _FoodsAdminState();
-}
-
-class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
   final controllerCard = MultiSelectController<String>();
 
   @override
@@ -156,7 +150,7 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
                     ),
                   )
                 : Column(
-                    children: widget.alimentos.map((alimento) {
+                    children: alimentos.map((alimento) {
                       return Card(
                         elevation: 2,
                         color: theme.cardTheme.color,
@@ -185,7 +179,7 @@ class _FoodsAdminState extends GalegosState<_FoodsAdmin, LunchboxesController> {
                               controller.handleFoodTap(
                                 context,
                                 alimento,
-                                widget.selectedSize,
+                                selectedSize,
                               );
                             },
                             child: Column(
