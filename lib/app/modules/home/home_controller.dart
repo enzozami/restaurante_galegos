@@ -23,11 +23,14 @@ class HomeController extends GetxController {
 
   final _selectedIndex = 0.obs;
   final _isAdmin = false.obs;
+
   bool get isAdmin => _isAdmin.value;
 
-  HomeController({required AuthServices authServices, required CarrinhoServices carrinhoServices})
-    : _carrinhoServices = carrinhoServices,
-      _authServices = authServices;
+  HomeController({
+    required AuthServices authServices,
+    required CarrinhoServices carrinhoServices,
+  }) : _carrinhoServices = carrinhoServices,
+       _authServices = authServices;
 
   @override
   void onInit() {
@@ -57,5 +60,6 @@ class HomeController extends GetxController {
   }
 
   int get selectedIndex => _selectedIndex.value;
+
   int get totalProducts => _carrinhoServices.totalProducts;
 }

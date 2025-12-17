@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/filter_tag.dart';
+import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
 
 class ProductHeader extends GetView<ProductsController> {
   const ProductHeader({super.key});
@@ -10,7 +10,7 @@ class ProductHeader extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30.0),
+      padding: const EdgeInsets.only(top: kToolbarHeight + 60),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Obx(() {

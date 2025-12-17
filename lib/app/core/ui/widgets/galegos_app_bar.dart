@@ -23,5 +23,6 @@ class GalegosAppBar extends AppBar {
           child: Image.asset('assets/splash/splash_logo_dark.png', width: 90),
         ),
         actions: [icon ?? SizedBox.shrink()],
+        surfaceTintColor: Colors.transparent,
       );
 }

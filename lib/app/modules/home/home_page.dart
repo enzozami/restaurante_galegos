@@ -13,6 +13,7 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: GalegosAppBar(
         context: context,
       ),

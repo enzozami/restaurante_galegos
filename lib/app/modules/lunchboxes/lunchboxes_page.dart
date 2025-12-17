@@ -34,7 +34,7 @@ class LunchboxesPage extends GetView<LunchboxesController> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                        top: 30.0,
+                        top: kToolbarHeight + 70,
                         bottom: 15,
                         left: 10,
                         right: 10,

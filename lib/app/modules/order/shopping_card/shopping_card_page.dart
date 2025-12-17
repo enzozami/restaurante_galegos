@@ -37,8 +37,12 @@ class ShoppingCardPage extends GetView<ShoppingCardController> {
               ),
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
+              mainAxisAlignment: .start,
               children: [
+                SizedBox(
+                  height: 120,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
                   child: Row(
