@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 
@@ -34,7 +33,7 @@ class AlertDialogDefault extends StatelessWidget {
         // ),
       ),
       icon: IconButton(
-        icon: Icon(Icons.close, color: GalegosUiDefaut.colorScheme.secondary),
+        icon: Icon(Icons.close, color: theme.colorScheme.secondary),
         alignment: .centerRight,
         onPressed: () => Get.back(),
       ),
@@ -46,13 +45,13 @@ class AlertDialogDefault extends StatelessWidget {
             item?.description ?? alimento?.description ?? '',
             textAlign: .justify,
             style: TextStyle(
-              color: GalegosUiDefaut.colorScheme.secondary,
+              color: theme.colorScheme.secondary,
               fontSize: 14,
             ),
           ),
           const SizedBox(height: 15),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: .center,
             children: [plusMinus ?? SizedBox.shrink()],
           ),
         ],
@@ -62,8 +61,7 @@ class AlertDialogDefault extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: GalegosUiDefaut.colorScheme.primary,
-              // minimumSize: Size(double.infinity, 50),
+              backgroundColor: theme.colorScheme.primary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -72,7 +70,7 @@ class AlertDialogDefault extends StatelessWidget {
             child: Text(
               'Adicionar',
               style: TextStyle(
-                color: GalegosUiDefaut.colorScheme.onPrimary,
+                color: theme.colorScheme.onPrimary,
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),

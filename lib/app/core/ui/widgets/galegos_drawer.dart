@@ -1,29 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurante_galegos/app/repositories/auth/auth_repository.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services_impl.dart';
+
+import '../theme/app_colors.dart';
 
 class GalegosDrawer extends GetView<AuthServices> {
   const GalegosDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Drawer(
-      backgroundColor: GalegosUiDefaut.theme.drawerTheme.backgroundColor,
+      backgroundColor: theme.drawerTheme.backgroundColor,
       width: context.widthTransformer(reducedBy: 20),
       elevation: 1,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: .start,
         children: [
           UserAccountsDrawerHeader(
-            decoration: BoxDecoration(color: GalegosUiDefaut.colorScheme.tertiary),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.tertiary,
+            ),
             accountName: Text(
               'Olá, ${controller.getUserName()}',
-              style: GalegosUiDefaut.textLunchboxes.titleMedium,
+              style: GoogleFonts.poppins(
+                fontSize: 20,
+                color: AppColors.secondary,
+                fontWeight: FontWeight.normal,
+              ),
             ),
-            accountEmail: Visibility(visible: controller.isAdmin(), child: Text('Administrador')),
+            accountEmail: Visibility(
+              visible: controller.isAdmin(),
+              child: Text('Administrador'),
+            ),
           ),
           ButtonDrawer(
             title: 'Perfil',
@@ -45,7 +57,9 @@ class GalegosDrawer extends GetView<AuthServices> {
           ),
           ButtonDrawer(
             title: 'Sair',
-            onTap: AuthServicesImpl(authRepository: Get.find<AuthRepository>()).logout,
+            onTap: AuthServicesImpl(
+              authRepository: Get.find<AuthRepository>(),
+            ).logout,
           ),
         ],
       ),
@@ -61,8 +75,9 @@ class ButtonDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return InkWell(
-      splashColor: GalegosUiDefaut.theme.splashColor,
+      splashColor: theme.splashColor,
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(10),
@@ -73,7 +88,7 @@ class ButtonDrawer extends StatelessWidget {
             child: Text(
               title,
               // textAlign: TextAlign.left,
-              style: GalegosUiDefaut.theme.textTheme.titleSmall,
+              style: theme.textTheme.titleSmall,
             ),
           ),
         ),

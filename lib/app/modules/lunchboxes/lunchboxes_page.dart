@@ -83,7 +83,7 @@ class LunchboxesPage extends GetView<LunchboxesController> {
                                         Text(
                                           'Marmitas de Hoje',
                                           textAlign: TextAlign.center,
-                                          style: theme.textTheme.titleLarge,
+                                          style: theme.textTheme.headlineLarge,
                                         ),
                                         Text(
                                           controller.dayNow,

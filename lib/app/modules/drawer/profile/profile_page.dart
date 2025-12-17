@@ -25,6 +25,7 @@ class _ProfilePageState extends GalegosState<ProfilePage, ProfileController> {
             icon: controller.isSelected ? Icon(Icons.close) : Icon(Icons.edit),
           );
         }),
+        context: context,
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {

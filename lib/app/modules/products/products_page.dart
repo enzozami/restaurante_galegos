@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/dialogs/alert_for_add_to_cart.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/modules/products/widgets/product_header.dart';
 import 'package:restaurante_galegos/app/modules/products/widgets/product_items.dart';
 
@@ -49,16 +48,9 @@ class ProductsPage extends GetView<ProductsController> {
   }
 }
 
-class _FloatingActionButtonAdmin extends StatefulWidget {
+class _FloatingActionButtonAdmin extends GetView<ProductsController> {
   const _FloatingActionButtonAdmin();
 
-  @override
-  State<_FloatingActionButtonAdmin> createState() =>
-      _FloatingActionButtonAdminState();
-}
-
-class _FloatingActionButtonAdminState
-    extends GalegosState<_FloatingActionButtonAdmin, ProductsController> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);

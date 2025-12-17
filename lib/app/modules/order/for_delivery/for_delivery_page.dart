@@ -1,10 +1,9 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/masks/mask_cep.dart';
-import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/dialogs/alert_dialog_history.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_shimmer.dart';
+import 'package:restaurante_galegos/app/core/ui/dialogs/alert_dialog_history.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_controller.dart';
 
@@ -13,6 +12,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -22,7 +22,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
               padding: const EdgeInsets.all(10.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: GalegosUiDefaut.colorScheme.tertiary,
+                  color: theme.colorScheme.tertiary,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
@@ -33,7 +33,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: GalegosUiDefaut.colors['fundo'],
+                        color: theme.colorScheme.surface,
                       ),
                     ),
                   ),
@@ -65,7 +65,10 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
 
                     if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                       return Center(
-                        child: Text('Nenhum pedido encontrado', style: TextStyle(fontSize: 18)),
+                        child: Text(
+                          'Nenhum pedido encontrado',
+                          style: TextStyle(fontSize: 18),
+                        ),
                       );
                     }
 
@@ -77,16 +80,24 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                       itemCount: docs.length,
                       itemBuilder: (context, index) {
                         final data = docs[index].data();
-                        final pedido = PedidoModel.fromMap({...data, 'id': docs[index].id});
+                        final pedido = PedidoModel.fromMap({
+                          ...data,
+                          'id': docs[index].id,
+                        });
 
                         final nome = pedido.cart
-                            .map((e) => e.item.alimento?.name ?? e.item.produto?.name)
+                            .map(
+                              (e) =>
+                                  e.item.alimento?.name ?? e.item.produto?.name,
+                            )
                             .join(', ');
 
-                        final total = FormatterHelper.formatCurrency(pedido.amountToPay);
+                        final total = FormatterHelper.formatCurrency(
+                          pedido.amountToPay,
+                        );
                         return Card(
                           elevation: 5,
-                          color: GalegosUiDefaut.colorScheme.secondary,
+                          color: theme.colorScheme.secondary,
                           child: InkWell(
                             onTap: () {
                               final carrinhoName = pedido.cart
@@ -99,7 +110,11 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                                   .join(', ');
 
                               final pedidoTipo = pedido.cart
-                                  .map((e) => e.item.produto != null ? 'Produto' : 'Marmita')
+                                  .map(
+                                    (e) => e.item.produto != null
+                                        ? 'Produto'
+                                        : 'Marmita',
+                                  )
                                   .toList()
                                   .join(', ');
 
@@ -108,8 +123,12 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                               final valor = FormatterHelper.formatCurrency(
                                 pedido.amountToPay - pedido.taxa,
                               );
-                              final taxa = FormatterHelper.formatCurrency(pedido.taxa);
-                              final total = FormatterHelper.formatCurrency(pedido.amountToPay);
+                              final taxa = FormatterHelper.formatCurrency(
+                                pedido.taxa,
+                              );
+                              final total = FormatterHelper.formatCurrency(
+                                pedido.amountToPay,
+                              );
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialogHistory(
@@ -122,7 +141,10 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                                   total: total,
                                   nomeCliente: pedido.userName,
                                   rua: pedido.endereco.rua,
-                                  numeroResidencia: pedido.endereco.numeroResidencia.toString(),
+                                  numeroResidencia: pedido
+                                      .endereco
+                                      .numeroResidencia
+                                      .toString(),
                                   bairro: pedido.endereco.bairro,
                                   cidade: pedido.endereco.cidade,
                                   estado: pedido.endereco.estado,
@@ -139,13 +161,18 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                                 ),
                               );
                             },
-                            splashColor: GalegosUiDefaut.colorScheme.primary,
+                            splashColor: theme.colorScheme.primary,
                             borderRadius: BorderRadius.circular(8),
                             child: ListTile(
-                              title: Text('Carrinho: $nome', overflow: TextOverflow.ellipsis),
+                              title: Text(
+                                'Carrinho: $nome',
+                                overflow: TextOverflow.ellipsis,
+                              ),
                               trailing: Text(total),
                               // leading: Text('Pedido: ${e.id}'),
-                              subtitle: Text('Status: ${pedido.status.toUpperCase()}'),
+                              subtitle: Text(
+                                'Status: ${pedido.status.toUpperCase()}',
+                              ),
                             ),
                           ),
                         );

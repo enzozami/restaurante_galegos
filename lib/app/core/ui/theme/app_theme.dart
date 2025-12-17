@@ -29,7 +29,7 @@ class AppTheme {
     headlineLarge: GoogleFonts.poppins(
       fontSize: 32,
       fontWeight: FontWeight.normal,
-      color: AppColors.tertiary,
+      color: AppColors.title,
     ),
     // SUB TITULO
     headlineMedium: GoogleFonts.poppins(
@@ -42,6 +42,16 @@ class AppTheme {
       fontSize: 24,
       fontWeight: FontWeight.normal,
       color: AppColors.title,
+    ),
+    titleLarge: GoogleFonts.poppins(
+      fontSize: 22,
+      color: AppColors.title,
+      fontWeight: FontWeight.normal,
+    ),
+    titleMedium: GoogleFonts.poppins(
+      fontSize: 20,
+      color: AppColors.title,
+      fontWeight: FontWeight.normal,
     ),
     titleSmall: GoogleFonts.poppins(
       fontSize: 18,
@@ -117,6 +127,7 @@ class AppTheme {
     style: ElevatedButton.styleFrom(
       backgroundColor: colorScheme.primary,
       foregroundColor: colorScheme.onPrimary,
+      textStyle: textTheme.labelLarge,
       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
@@ -134,7 +145,7 @@ class AppTheme {
 
   NavigationBarThemeData get navigationbarTheme => NavigationBarThemeData(
     backgroundColor: colorScheme.tertiary,
-    indicatorColor: colorScheme.surface,
+    indicatorColor: AppColors.title,
     labelTextStyle: WidgetStateProperty.all(
       TextStyle(color: colorScheme.secondary),
     ),

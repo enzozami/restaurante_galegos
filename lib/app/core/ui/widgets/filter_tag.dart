@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/models/category_model.dart';
 
 class FilterTag extends StatelessWidget {
@@ -18,6 +17,7 @@ class FilterTag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Column(
       children: [
         InkWell(
@@ -31,8 +31,8 @@ class FilterTag extends StatelessWidget {
               border: Border.all(),
               borderRadius: BorderRadius.circular(30),
               color: isSelected
-                  ? GalegosUiDefaut.colorScheme.primary
-                  : GalegosUiDefaut.colorScheme.tertiary,
+                  ? theme.colorScheme.primary
+                  : theme.colorScheme.tertiary,
             ),
             child: Align(
               alignment: Alignment.center,
@@ -40,8 +40,8 @@ class FilterTag extends StatelessWidget {
                 category?.name ?? days ?? '',
                 style: TextStyle(
                   color: isSelected
-                      ? GalegosUiDefaut.colorScheme.tertiary
-                      : GalegosUiDefaut.colors['fundo'],
+                      ? theme.colorScheme.tertiary
+                      : theme.colorScheme.surface,
                 ),
               ),
             ),

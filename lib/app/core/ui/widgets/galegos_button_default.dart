@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 
 class GalegosButtonDefault extends StatelessWidget {
   final String label;
@@ -23,7 +22,7 @@ class GalegosButtonDefault extends StatelessWidget {
       width: width,
       height: heigth,
       child: ElevatedButton.icon(
-        style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+        style: Theme.of(context).elevatedButtonTheme.style,
         onPressed: onPressed,
         label: Text(label),
         icon: icon,

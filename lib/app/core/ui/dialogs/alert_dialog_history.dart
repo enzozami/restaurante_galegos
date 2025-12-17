@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 
 class AlertDialogHistory extends StatelessWidget {
   final String pedidoLabel;
@@ -50,9 +50,10 @@ class AlertDialogHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     Widget sectionTitle(String text) => Padding(
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-      child: Text(text, style: GalegosUiDefaut.theme.textTheme.titleSmall),
+      child: Text(text, style: theme.textTheme.titleSmall),
     );
 
     Widget infoLine(String label, String value, {bool bold = false}) => Padding(
@@ -61,26 +62,41 @@ class AlertDialogHistory extends StatelessWidget {
         '$label$value',
         style: bold
             ? TextStyle(
-                color: GalegosUiDefaut.colors['texto'],
+                color: AppColors.text,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               )
-            : GalegosUiDefaut.theme.textTheme.bodyLarge,
+            : theme.textTheme.bodyLarge,
         overflow: TextOverflow.ellipsis,
       ),
     );
     return AlertDialog(
-      backgroundColor: GalegosUiDefaut.colors['fundo'],
-      titlePadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
-      contentPadding: const EdgeInsets.only(top: 15, left: 10, right: 15, bottom: 10),
-      actionsPadding: const EdgeInsets.only(top: 20, left: 0, right: 20, bottom: 20),
+      backgroundColor: theme.colorScheme.surface,
+      titlePadding: const EdgeInsets.only(
+        top: 20,
+        left: 20,
+        right: 20,
+        bottom: 0,
+      ),
+      contentPadding: const EdgeInsets.only(
+        top: 15,
+        left: 10,
+        right: 15,
+        bottom: 10,
+      ),
+      actionsPadding: const EdgeInsets.only(
+        top: 20,
+        left: 0,
+        right: 20,
+        bottom: 20,
+      ),
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: .spaceBetween,
+        crossAxisAlignment: .start,
         children: [
           Text(
             statusPedido[0].toUpperCase() + statusPedido.substring(1),
-            style: GalegosUiDefaut.theme.textTheme.bodySmall,
+            style: theme.textTheme.bodySmall,
           ),
         ],
       ),
@@ -88,18 +104,21 @@ class AlertDialogHistory extends StatelessWidget {
         constraints: BoxConstraints(minWidth: context.width),
         child: SingleChildScrollView(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: .min,
+            crossAxisAlignment: .start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 4.0,
+                  horizontal: 10,
+                ),
                 child: sectionTitle('Dados'),
               ),
               infoLine('Nome: ', nomeCliente),
-              Divider(color: GalegosUiDefaut.colorScheme.secondary),
+              Divider(color: theme.colorScheme.secondary),
               sectionTitle('Descrição'),
               infoLine('', carrinhoName),
-              Divider(color: GalegosUiDefaut.colorScheme.secondary),
+              Divider(color: theme.colorScheme.secondary),
               sectionTitle('Detalhes'),
               infoLine('Data: ', data),
               infoLine('Horário do pedido: ', horarioInicio),
@@ -108,7 +127,7 @@ class AlertDialogHistory extends StatelessWidget {
                 child: infoLine('Horário entrega: ', horarioSairEntrega),
               ),
               infoLine('Horário entregue: ', horarioEntregue),
-              Divider(color: GalegosUiDefaut.colorScheme.secondary),
+              Divider(color: theme.colorScheme.secondary),
               sectionTitle('Endereço:'),
               infoLine('Rua: ', rua),
               infoLine('Número: ', numeroResidencia),
@@ -116,7 +135,7 @@ class AlertDialogHistory extends StatelessWidget {
               infoLine('Cidade: ', cidade),
               infoLine('Estado: ', estado),
               infoLine('CEP: ', cep),
-              Divider(color: GalegosUiDefaut.colorScheme.secondary),
+              Divider(color: theme.colorScheme.secondary),
               sectionTitle('Valores'),
               infoLine('Total dos itens: ', valor),
               infoLine('Taxa de entrega: ', taxa),
@@ -132,24 +151,28 @@ class AlertDialogHistory extends StatelessWidget {
             isAdmin
                 ? ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: GalegosUiDefaut.colorScheme.primary,
+                      backgroundColor: theme.colorScheme.primary,
                     ),
                     onPressed: onPressed,
                     child: Text(
                       titleButton ?? '',
-                      style: TextStyle(color: GalegosUiDefaut.colorScheme.onPrimary),
+                      style: TextStyle(
+                        color: theme.colorScheme.onPrimary,
+                      ),
                     ),
                   )
                 : ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: GalegosUiDefaut.colorScheme.primary,
+                      backgroundColor: theme.colorScheme.primary,
                     ),
                     onPressed: () {
                       Get.close(0);
                     },
                     child: Text(
                       'FECHAR',
-                      style: TextStyle(color: GalegosUiDefaut.colorScheme.onPrimary),
+                      style: TextStyle(
+                        color: theme.colorScheme.onPrimary,
+                      ),
                     ),
                   ),
           ],

@@ -1,14 +1,16 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurante_galegos/app/core/enum/payment_type.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_carrinho.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_valores.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 import 'package:restaurante_galegos/app/models/item_carrinho_model.dart';
+
+import '../../../core/ui/theme/app_colors.dart';
 import './finish_order_controller.dart';
 
 class FinishOrderPage extends GetView<FinishOrderController> {
@@ -17,9 +19,11 @@ class FinishOrderPage extends GetView<FinishOrderController> {
   @override
   Widget build(BuildContext context) {
     final PaymentType payment = controller.args['payment'];
-
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
-      appBar: GalegosAppBar(),
+      appBar: GalegosAppBar(
+        context: context,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -29,13 +33,16 @@ class FinishOrderPage extends GetView<FinishOrderController> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
-                child: Text('Revise seus Dados', style: GalegosUiDefaut.theme.textTheme.titleLarge),
+                child: Text(
+                  'Revise seus Dados',
+                  style: theme.textTheme.headlineLarge,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 15, left: 40),
                 child: Text(
                   'Carrinho',
-                  style: GalegosUiDefaut.theme.textTheme.titleSmall,
+                  style: theme.textTheme.titleLarge,
                 ),
               ),
               Center(
@@ -64,7 +71,7 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                 padding: const EdgeInsets.only(top: 15, left: 40),
                 child: Text(
                   'Endereço',
-                  style: GalegosUiDefaut.theme.textTheme.titleSmall,
+                  style: theme.textTheme.titleLarge,
                 ),
               ),
               Padding(
@@ -102,7 +109,9 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                             enabled: false,
                             label: 'Rua',
                             inputType: TextInputType.text,
-                            controller: TextEditingController(text: controller.args['rua']),
+                            controller: TextEditingController(
+                              text: controller.args['rua'],
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -112,7 +121,9 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                             enabled: false,
                             label: 'Bairro',
                             inputType: TextInputType.text,
-                            controller: TextEditingController(text: controller.args['bairro']),
+                            controller: TextEditingController(
+                              text: controller.args['bairro'],
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -122,7 +133,9 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                             enabled: false,
                             label: 'Cidade',
                             inputType: TextInputType.text,
-                            controller: TextEditingController(text: controller.args['cidade']),
+                            controller: TextEditingController(
+                              text: controller.args['cidade'],
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -132,7 +145,9 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                             enabled: false,
                             label: 'Estado',
                             inputType: TextInputType.text,
-                            controller: TextEditingController(text: controller.args['estado']),
+                            controller: TextEditingController(
+                              text: controller.args['estado'],
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -155,7 +170,7 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                 padding: const EdgeInsets.only(top: 15, left: 40),
                 child: Text(
                   'Forma de Pagamento',
-                  style: GalegosUiDefaut.theme.textTheme.titleSmall,
+                  style: theme.textTheme.titleLarge,
                 ),
               ),
               Center(
@@ -164,13 +179,13 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                   onChanged: (_) {},
                   child: Card(
                     elevation: 5,
-                    color: GalegosUiDefaut.colorScheme.tertiary,
+                    color: theme.colorScheme.tertiary,
                     child: SizedBox(
                       width: context.widthTransformer(reducedBy: 10),
                       child: Column(
                         children: [
                           ListTile(
-                            iconColor: GalegosUiDefaut.colorScheme.secondary,
+                            iconColor: theme.colorScheme.secondary,
                             contentPadding: const EdgeInsets.all(8.0),
                             title: Row(
                               children: [
@@ -180,34 +195,48 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                                 ),
                                 Text(
                                   controller.getNamePaymentType(),
-                                  style: GalegosUiDefaut.textCard.titleSmall,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.normal,
+                                    color: AppColors.secondary,
+                                  ),
                                 ),
                               ],
                             ),
                             subtitle: Text(
                               'Forma selecionada*',
-                              style: GalegosUiDefaut.textCard.bodyMedium,
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                                color: AppColors.secondary,
+                              ),
                             ),
                             leading: Radio<PaymentType>(value: payment),
                           ),
                           (controller.getType() != null)
                               ? Container(
                                   decoration: BoxDecoration(
-                                    color: GalegosUiDefaut.colorScheme.secondary,
-                                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(12), bottomLeft: Radius.circular(12))
+                                    color: theme.colorScheme.secondary,
+                                    borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10),
+                                    ),
                                   ),
                                   child: SizedBox(
-                                    width: context.widthTransformer(reducedBy: 10),
+                                    width: context.widthTransformer(
+                                      reducedBy: 10,
+                                    ),
                                     child: ListTile(
                                       title: Column(
                                         crossAxisAlignment: .start,
                                         children: [
-                                          (controller.args['payment'] == PaymentType.dinheiro)
+                                          (controller.args['payment'] ==
+                                                  PaymentType.dinheiro)
                                               ? Text('Troco para: ')
                                               : SizedBox.shrink(),
                                           Text(
                                             controller.getType()!,
-                                            style: GalegosUiDefaut.textCardPaymentType.bodyMedium,
+                                            style: theme.textTheme.bodyMedium,
                                           ),
                                         ],
                                       ),
@@ -225,17 +254,22 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                 height: 20,
               ),
               Divider(
-                color: GalegosUiDefaut.colorScheme.tertiary,
+                color: theme.colorScheme.tertiary,
               ),
               const SizedBox(
                 height: 20,
               ),
-              Center(child: CardValores(preco: controller.args['preco'], carrinho: false)),
+              Center(
+                child: CardValores(
+                  preco: controller.args['preco'],
+                  carrinho: false,
+                ),
+              ),
               const SizedBox(
                 height: 20,
               ),
               Divider(
-                color: GalegosUiDefaut.colorScheme.tertiary,
+                color: theme.colorScheme.tertiary,
               ),
               const SizedBox(
                 height: 20,

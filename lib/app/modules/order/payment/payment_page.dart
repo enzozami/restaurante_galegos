@@ -1,12 +1,14 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurante_galegos/app/core/enum/payment_type.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/icons.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_valores.dart';
+import 'package:restaurante_galegos/app/core/ui/icons.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
+
+import '../../../core/ui/theme/app_colors.dart';
 import './payment_controller.dart';
 
 class PaymentPage extends GetView<PaymentController> {
@@ -14,8 +16,11 @@ class PaymentPage extends GetView<PaymentController> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
-      appBar: GalegosAppBar(),
+      appBar: GalegosAppBar(
+        context: context,
+      ),
       body: SingleChildScrollView(
         child: Obx(() {
           return Column(
@@ -23,7 +28,10 @@ class PaymentPage extends GetView<PaymentController> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
-                child: Text('Pagamento', style: GalegosUiDefaut.theme.textTheme.titleLarge),
+                child: Text(
+                  'Pagamento',
+                  style: theme.textTheme.headlineLarge,
+                ),
               ),
               Center(
                 child: Column(
@@ -41,6 +49,7 @@ class PaymentPage extends GetView<PaymentController> {
                       subtitle: 'Crédito ou Débito',
                       type: PaymentType.cartao,
                       controller: controller,
+                      theme: theme,
                     ),
                     _cardPagamento(
                       context: context,
@@ -49,6 +58,7 @@ class PaymentPage extends GetView<PaymentController> {
                       subtitle: 'Alimentação ou Refeição',
                       type: PaymentType.vale,
                       controller: controller,
+                      theme: theme,
                     ),
                     _cardPagamento(
                       context: context,
@@ -57,6 +67,7 @@ class PaymentPage extends GetView<PaymentController> {
                       subtitle: 'Pagamento em espécie',
                       type: PaymentType.dinheiro,
                       controller: controller,
+                      theme: theme,
                     ),
                     _cardPagamento(
                       context: context,
@@ -65,6 +76,7 @@ class PaymentPage extends GetView<PaymentController> {
                       subtitle: '',
                       type: PaymentType.pix,
                       controller: controller,
+                      theme: theme,
                     ),
                   ],
                 ),
@@ -75,7 +87,10 @@ class PaymentPage extends GetView<PaymentController> {
                   label: 'AVANÇAR',
                   width: context.widthTransformer(reducedBy: 10),
                   onPressed: () {
-                    Get.toNamed('/order/finish', arguments: controller.arguments());
+                    Get.toNamed(
+                      '/order/finish',
+                      arguments: controller.arguments(),
+                    );
                   },
                 ),
               ),
@@ -94,28 +109,27 @@ Widget _cardPagamento({
   required String subtitle,
   required PaymentType type,
   required PaymentController controller,
+  required ThemeData theme,
 }) {
   final isSelected = controller.paymentType.value == type;
   return RadioGroup(
     groupValue: controller.paymentType.value,
     onChanged: (value) => controller.changePaymentType(value as PaymentType),
     child: Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20)
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
       child: Card(
         elevation: 5,
         color: (isSelected)
-            ? GalegosUiDefaut.colorScheme.tertiary
-            : GalegosUiDefaut.colorScheme.secondary,
+            ? theme.colorScheme.tertiary
+            : theme.colorScheme.secondary,
         child: SizedBox(
           width: context.widthTransformer(reducedBy: 10),
           child: Column(
             children: [
               ListTile(
                 iconColor: (isSelected)
-                    ? GalegosUiDefaut.colorScheme.secondary
-                    : GalegosUiDefaut.colorScheme.tertiary,
+                    ? theme.colorScheme.secondary
+                    : theme.colorScheme.tertiary,
                 contentPadding: const EdgeInsets.all(8.0),
                 title: Row(
                   children: [
@@ -126,16 +140,24 @@ Widget _cardPagamento({
                     Text(
                       title,
                       style: (isSelected)
-                          ? GalegosUiDefaut.textCard.titleSmall
-                          : GalegosUiDefaut.theme.textTheme.titleSmall,
+                          ? GoogleFonts.poppins(
+                              fontSize: 18,
+                              fontWeight: FontWeight.normal,
+                              color: AppColors.secondary,
+                            )
+                          : theme.textTheme.titleSmall,
                     ),
                   ],
                 ),
                 subtitle: Text(
                   subtitle,
                   style: (isSelected)
-                      ? GalegosUiDefaut.textCard.bodyMedium
-                      : GalegosUiDefaut.theme.textTheme.bodyMedium,
+                      ? GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: AppColors.secondary,
+                        )
+                      : theme.textTheme.bodyMedium,
                 ),
                 leading: Radio<PaymentType>(value: type),
               ),
@@ -143,8 +165,11 @@ Widget _cardPagamento({
                 (type == PaymentType.cartao)
                     ? Container(
                         decoration: BoxDecoration(
-                          color: GalegosUiDefaut.colorScheme.secondary,
-                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12))
+                          color: theme.colorScheme.secondary,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          ),
                         ),
                         child: Column(
                           children: [
@@ -154,6 +179,7 @@ Widget _cardPagamento({
                               subtitle: subtitle,
                               type: CardType.credito,
                               controller: controller,
+                              theme: theme,
                             ),
                             _cardType(
                               context: context,
@@ -161,6 +187,7 @@ Widget _cardPagamento({
                               subtitle: subtitle,
                               type: CardType.debito,
                               controller: controller,
+                              theme: theme,
                             ),
                           ],
                         ),
@@ -168,8 +195,11 @@ Widget _cardPagamento({
                     : (type == PaymentType.vale)
                     ? Container(
                         decoration: BoxDecoration(
-                          color: GalegosUiDefaut.colorScheme.secondary,
-                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12))
+                          color: theme.colorScheme.secondary,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          ),
                         ),
                         child: Column(
                           children: [
@@ -179,6 +209,7 @@ Widget _cardPagamento({
                               subtitle: subtitle,
                               type: ValeType.alimentacao,
                               controller: controller,
+                              theme: theme,
                             ),
                             _cardVale(
                               context: context,
@@ -186,6 +217,7 @@ Widget _cardPagamento({
                               subtitle: subtitle,
                               type: ValeType.refeicao,
                               controller: controller,
+                              theme: theme,
                             ),
                           ],
                         ),
@@ -194,9 +226,11 @@ Widget _cardPagamento({
                     ? SizedBox.shrink()
                     : Container(
                         decoration: BoxDecoration(
-                          color: GalegosUiDefaut.colorScheme.secondary,
-                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12))
-
+                          color: theme.colorScheme.secondary,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          ),
                         ),
                         child: _cardDinheiro(
                           context: context,
@@ -219,21 +253,20 @@ Widget _cardType({
   required String subtitle,
   required CardType type,
   required PaymentController controller,
+  required ThemeData theme,
 }) {
   return Container(
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20)
-    ),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
     child: RadioGroup(
       groupValue: controller.cardType.value,
       onChanged: (value) => controller.changeCardType(value as CardType),
       child: SizedBox(
         width: context.widthTransformer(reducedBy: 10),
         child: ListTile(
-          iconColor: GalegosUiDefaut.colorScheme.tertiary,
+          iconColor: theme.colorScheme.tertiary,
           title: Text(
             title,
-            style: GalegosUiDefaut.theme.textTheme.bodyMedium,
+            style: theme.textTheme.bodyMedium,
           ),
           leading: Radio<CardType>(value: type),
         ),
@@ -248,21 +281,20 @@ Widget _cardVale({
   required String subtitle,
   required ValeType type,
   required PaymentController controller,
+  required ThemeData theme,
 }) {
   return Container(
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20)
-    ),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
     child: RadioGroup(
       groupValue: controller.valeType.value,
       onChanged: (value) => controller.changeValeType(value as ValeType),
       child: SizedBox(
         width: context.widthTransformer(reducedBy: 10),
         child: ListTile(
-          iconColor: GalegosUiDefaut.colorScheme.tertiary,
+          iconColor: theme.colorScheme.tertiary,
           title: Text(
             title,
-            style: GalegosUiDefaut.theme.textTheme.bodyMedium,
+            style: theme.textTheme.bodyMedium,
           ),
           leading: Radio<ValeType>(value: type),
         ),
@@ -278,9 +310,7 @@ Widget _cardDinheiro({
   required String subtitle,
 }) {
   return Container(
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20)
-    ),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
     child: Form(
       key: controller.formKey,
       child: ListTile(

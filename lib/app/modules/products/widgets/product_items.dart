@@ -58,7 +58,7 @@ class _ProductsClient extends GetView<ProductsController> {
                       ),
                       child: Text(
                         c.name,
-                        style: theme.textTheme.titleLarge,
+                        style: theme.textTheme.headlineLarge,
                       ),
                     ),
               Container(

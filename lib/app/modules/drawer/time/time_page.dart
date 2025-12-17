@@ -11,7 +11,9 @@ class TimePage extends GetView<TimeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GalegosAppBar(),
+      appBar: GalegosAppBar(
+        context: context,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: .center,

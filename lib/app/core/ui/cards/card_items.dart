@@ -61,8 +61,8 @@ class CardItems extends StatelessWidget {
                 splashColor: theme.splashColor,
                 borderRadius: BorderRadius.circular(12),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: .start,
+                  crossAxisAlignment: .start,
                   spacing: 8,
                   children: [
                     (image != null && image != '')

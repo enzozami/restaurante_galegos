@@ -1,11 +1,11 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_carrinho.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_valores.dart';
+import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/models/item_carrinho_model.dart';
+
 import 'shopping_card_controller.dart';
 
 class ShoppingCardPage extends StatefulWidget {
@@ -15,7 +15,8 @@ class ShoppingCardPage extends StatefulWidget {
   State<ShoppingCardPage> createState() => _ShoppingCardPageState();
 }
 
-class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCardController> {
+class _ShoppingCardPageState
+    extends GalegosState<ShoppingCardPage, ShoppingCardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +34,10 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                   Center(
                     child: Text(
                       'Nenhum item no carrinho!',
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
@@ -47,9 +51,15 @@ class _ShoppingCardPageState extends GalegosState<ShoppingCardPage, ShoppingCard
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Carrinho', style: GalegosUiDefaut.theme.textTheme.titleLarge),
+                      Text(
+                        'Carrinho',
+                        style: Theme.of(context).textTheme.headlineLarge,
+                      ),
                       IconButton(
-                        icon: Icon(Icons.delete_outline, color: const Color.fromRGBO(177, 0, 0, 1)),
+                        icon: Icon(
+                          Icons.delete_outline,
+                          color: const Color.fromRGBO(177, 0, 0, 1),
+                        ),
                         onPressed: () => controller.clear(),
                       ),
                     ],

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 
 class GalegosAppBar extends AppBar {
-  GalegosAppBar({super.key, Widget? icon})
+  GalegosAppBar({super.key, Widget? icon, required BuildContext context})
     : super(
-        elevation: GalegosUiDefaut.theme.appBarTheme.elevation,
-        scrolledUnderElevation: GalegosUiDefaut.theme.appBarTheme.scrolledUnderElevation,
-        backgroundColor: GalegosUiDefaut.theme.appBarTheme.backgroundColor,
+        elevation: Theme.of(context).appBarTheme.elevation,
+        scrolledUnderElevation: Theme.of(
+          context,
+        ).appBarTheme.scrolledUnderElevation,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(25),
             bottomRight: Radius.circular(25),
           ),
         ),
-        foregroundColor: GalegosUiDefaut.theme.appBarTheme.foregroundColor,
-        iconTheme: GalegosUiDefaut.theme.appBarTheme.iconTheme,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+        iconTheme: Theme.of(context).appBarTheme.iconTheme,
         centerTitle: true,
         toolbarHeight: kToolbarHeight + 20,
         title: Padding(

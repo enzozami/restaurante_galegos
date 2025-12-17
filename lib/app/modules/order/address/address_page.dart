@@ -1,12 +1,12 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/cards/card_valores.dart';
+import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_shimmer.dart';
+import 'package:restaurante_galegos/app/core/ui/cards/card_valores.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:validatorless/validatorless.dart';
+
 import './address_controller.dart';
 
 class AddressPage extends GetView<AddressController> {
@@ -14,8 +14,11 @@ class AddressPage extends GetView<AddressController> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
-      appBar: GalegosAppBar(),
+      appBar: GalegosAppBar(
+        context: context,
+      ),
       body: Obx(() {
         return SingleChildScrollView(
           child: Column(
@@ -23,8 +26,10 @@ class AddressPage extends GetView<AddressController> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
-                child: Text('Endereço',
-                    style: GalegosUiDefaut.theme.textTheme.titleLarge),
+                child: Text(
+                  'Endereço',
+                  style: theme.textTheme.headlineLarge,
+                ),
               ),
               Form(
                 key: controller.formKey,
@@ -47,90 +52,94 @@ class AddressPage extends GetView<AddressController> {
                             floatingLabelBehavior: .auto,
                             label: 'CEP',
                             prefixIcon: Icon(Icons.location_on),
-                            onEditingComplete: controller
-                                .validationOnReplacement()
+                            onEditingComplete:
+                                controller.validationOnReplacement()
                                 ? () {
-                              controller.getCep();
-                            }
+                                    controller.getCep();
+                                  }
                                 : null,
                             mask: controller.cepFormatter,
                             controller: controller.cepEC,
                             validator: Validatorless.required(
-                                'CEP obrigatório'),
+                              'CEP obrigatório',
+                            ),
                             onChanged: (value) =>
-                            controller.cepInput.value = value,
+                                controller.cepInput.value = value,
                           ),
                         ),
                         controller.loading.value
                             ? Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Stack(
-                            children: List.generate(
-                              1,
-                                  (_) =>
-                                  CardShimmer(
-                                    height: 250,
-                                    width: context.widthTransformer(
-                                        reducedBy: 15),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Stack(
+                                  children: List.generate(
+                                    1,
+                                    (_) => CardShimmer(
+                                      height: 250,
+                                      width: context.widthTransformer(
+                                        reducedBy: 15,
+                                      ),
+                                    ),
                                   ),
-                            ),
-                          ),
-                        )
+                                ),
+                              )
                             : Visibility(
-                          visible: controller.addressValidation(),
-                          replacement: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                              width: context.widthTransformer(reducedBy: 10),
-                              child:GalegosButtonDefault(
-                                label: 'Consultar',
-                                icon: Icon(
-                                  Icons.search,
-                                  color: GalegosUiDefaut.colorScheme.tertiary,
+                                visible: controller.addressValidation(),
+                                replacement: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox(
+                                    width: context.widthTransformer(
+                                      reducedBy: 10,
+                                    ),
+                                    child: GalegosButtonDefault(
+                                      label: 'Consultar',
+                                      icon: Icon(
+                                        Icons.search,
+                                        color: theme.colorScheme.tertiary,
+                                      ),
+                                      onPressed:
+                                          controller.validationOnReplacement()
+                                          ? () {
+                                              controller.getCep();
+                                              controller.isOpen.value = true;
+                                            }
+                                          : null,
+                                    ),
+                                  ),
                                 ),
-                                onPressed: controller
-                                    .validationOnReplacement()
-                                    ? () {
-                                  controller.getCep();
-                                  controller.isOpen.value = true;
-                                }
-                                    : null,
+                                child: Visibility(
+                                  visible: controller.validationIsOpen(),
+                                  replacement: IconButton(
+                                    onPressed: () {
+                                      controller.closeCard();
+                                    },
+                                    icon: Align(
+                                      alignment: Alignment.center,
+                                      child: Icon(Icons.expand_more),
+                                    ),
+                                  ),
+                                  child: Column(
+                                    spacing: 20,
+                                    children: [
+                                      _address(context, controller),
+                                      CardValores(
+                                        preco: controller.args['preco'],
+                                        taxa: controller.taxa.value,
+                                        carrinho: false,
+                                      ),
+                                      Divider(),
+                                      GalegosButtonDefault(
+                                        label: 'AVANÇAR',
+                                        onPressed: () async {
+                                          controller.enviarDadosParaPagamento();
+                                        },
+                                        width: context.widthTransformer(
+                                          reducedBy: 10,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          child: Visibility(
-                            visible: controller.validationIsOpen(),
-                            replacement: IconButton(
-                              onPressed: () {
-                                controller.closeCard();
-                              },
-                              icon: Align(
-                                alignment: Alignment.center,
-                                child: Icon(Icons.expand_more),
-                              ),
-                            ),
-                            child: Column(
-                              spacing: 20,
-                              children: [
-                                _address(context, controller),
-                                CardValores(
-                                  preco: controller.args['preco'],
-                                  taxa: controller.taxa.value,
-                                  carrinho: false,
-                                ),
-                                Divider(),
-                                GalegosButtonDefault(
-                                  label: 'AVANÇAR',
-                                  onPressed: () async {
-                                    controller.enviarDadosParaPagamento();
-                                  },
-                                  width: context.widthTransformer(
-                                      reducedBy: 10),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
                         const SizedBox(height: 15),
                       ],
                     ),
@@ -146,13 +155,14 @@ class AddressPage extends GetView<AddressController> {
 }
 
 Widget _address(BuildContext context, AddressController controller) {
+  final ThemeData theme = Theme.of(context);
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Stack(
       children: [
         Card(
           elevation: 5,
-          color: GalegosUiDefaut.colors['fundo'],
+          color: theme.colorScheme.surface,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Wrap(
@@ -213,11 +223,12 @@ Widget _address(BuildContext context, AddressController controller) {
                     ),
                     maxLength: 6,
                     buildCounter:
-                        (context, {
-                      required currentLength,
-                      required isFocused,
-                      required maxLength,
-                    }) => SizedBox.shrink(),
+                        (
+                          context, {
+                          required currentLength,
+                          required isFocused,
+                          required maxLength,
+                        }) => SizedBox.shrink(),
                     maxLengthEnforcement: .enforced,
                     controller: controller.numeroEC,
                     validator: Validatorless.required('Número obrigatório'),

@@ -59,7 +59,7 @@ class TimeData extends GetView<TimeController> {
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(
             'Obs: Domingo e feriados não atendemos!',
-            style: theme.textTheme.bodyLarge,
+            style: theme.textTheme.bodyMedium,
           ),
         ),
       ],
