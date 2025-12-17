@@ -15,8 +15,10 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
 
   final ScrollController scrollController = ScrollController();
 
-  HistoryController({required AuthServices authServices, required OrderServices ordersState})
-    : _authServices = authServices;
+  HistoryController({
+    required AuthServices authServices,
+    required OrderServices ordersState,
+  }) : _authServices = authServices;
 
   @override
   void onInit() {

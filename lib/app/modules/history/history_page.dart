@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/masks/mask_cep.dart';
+import 'package:restaurante_galegos/app/core/ui/cards/card_history.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_shimmer.dart';
-import 'package:restaurante_galegos/app/core/ui/dialogs/alert_dialog_history.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
-import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/modules/history/history_controller.dart';
+
+import '../../core/masks/mask_cep.dart';
+import '../../core/ui/dialogs/alert_dialog_history.dart';
+import '../../core/ui/theme/app_colors.dart';
 
 class HistoryPage extends GetView<HistoryController> {
   const HistoryPage({super.key});
@@ -18,29 +20,18 @@ class HistoryPage extends GetView<HistoryController> {
       body: SingleChildScrollView(
         controller: controller.scrollController,
         child: Column(
-          mainAxisAlignment: .start,
           crossAxisAlignment: .start,
+          mainAxisAlignment: .start,
           children: [
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 30),
-                child: Container(
-                  width: context.widthTransformer(reducedBy: 10),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.tertiary,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        'Histórico de pedidos',
-                        style: TextStyle(
-                          color: theme.colorScheme.surface,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      'Histórico de pedidos',
+                      style: theme.textTheme.headlineLarge,
                     ),
                   ),
                 ),
@@ -67,206 +58,152 @@ class HistoryPage extends GetView<HistoryController> {
                   );
                 }
                 if (snapshot.hasError) {
-                  return Center(child: Text('Erro ao carregar pedidos'));
+                  // Se tiver erro - _message
                 }
+
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return Center(
-                    child: Text(
-                      'Nenhum pedido encontrado',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  );
+                  // Se nao tiver nenhum pedido - text
                 }
+
                 final docs = snapshot.data!.docs;
-                final pedidos = docs.map((doc) {
-                  final data = doc.data();
-                  return PedidoModel.fromMap({...data, 'id': doc.id});
-                }).toList();
-                final Map<String, Map<String, List<PedidoModel>>>
-                pedidosPorDataHora = {};
+                final pedidos = docs
+                    .map(
+                      (doc) =>
+                          PedidoModel.fromMap({...doc.data(), 'id': doc.id}),
+                    )
+                    .toList();
+                final Map<String, List<PedidoModel>> pedidosPorData = {};
                 for (var pedido in pedidos) {
-                  final String data = pedido.date;
-                  final String hora = pedido.time;
-                  pedidosPorDataHora.putIfAbsent(data, () => {});
-                  final Map<String, List<PedidoModel>> pedidosDoDia =
-                      pedidosPorDataHora[data]!;
-                  pedidosDoDia.putIfAbsent(hora, () => []);
-                  pedidosDoDia[hora]!.add(pedido);
+                  pedidosPorData.putIfAbsent(pedido.date, () => []);
+                  pedidosPorData[pedido.date]!.add(pedido);
                 }
+
                 return Column(
-                  children: pedidosPorDataHora.entries.map((dataEntry) {
-                    final data = dataEntry.key;
-                    final pedidosAgrupadosPorHora = dataEntry.value;
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 8.0,
-                              horizontal: 20,
+                  children: pedidosPorData.entries.map(
+                    (pedido) {
+                      final data = pedido.key;
+                      final listaDePedidosDoDia = pedido.value;
+                      return Center(
+                        child: Column(
+                          crossAxisAlignment: .start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 8.0,
+                                left: 15,
+                              ),
+                              child: Text(
+                                data,
+                                style: theme.textTheme.titleMedium,
+                              ),
                             ),
-                            child: Text(
-                              data,
-                              style: theme.textTheme.titleLarge,
-                            ),
-                          ),
-                          ...pedidosAgrupadosPorHora.entries.map((horaEntry) {
-                            final hora = horaEntry.key;
-                            final listaDePedidosNaHora = horaEntry.value;
-                            return Column(
-                              crossAxisAlignment: .start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 20.0,
-                                    top: 10.0,
-                                    bottom: 5.0,
-                                  ),
-                                  child: Text(
-                                    'Pedido realizado às $hora',
-                                    style: theme.textTheme.titleMedium!
-                                        .copyWith(
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                  ),
+                            ...listaDePedidosDoDia.map((pedido) {
+                              final itens = pedido.cart
+                                  .map(
+                                    (p) =>
+                                        p.item.alimento?.name ??
+                                        p.item.produto?.name,
+                                  )
+                                  .join(', ');
+
+                              return CardHistory(
+                                id: pedido.id.hashCode.toString(),
+                                itens: itens,
+                                price: FormatterHelper.formatCurrency(
+                                  pedido.amountToPay,
                                 ),
-                                ...listaDePedidosNaHora.map((pedido) {
-                                  final nome = pedido.cart
-                                      .map(
-                                        (e) =>
-                                            e.item.alimento?.name ??
-                                            e.item.produto?.name,
+                                horario: pedido.time,
+                                status: (pedido.status == 'preparando')
+                                    ? Text(
+                                        pedido.status.toUpperCase(),
+                                        style: TextStyle(
+                                          color: AppColors.preparing,
+                                        ),
                                       )
-                                      .join(', ');
-                                  final total = FormatterHelper.formatCurrency(
-                                    pedido.amountToPay,
-                                  );
-                                  return SizedBox(
-                                    width: context.widthTransformer(
-                                      reducedBy: 10,
-                                    ),
-                                    child: Card(
-                                      elevation: 5,
-                                      color: theme.colorScheme.secondary,
-                                      child: InkWell(
-                                        onTap: () {
-                                          final carrinhoName = pedido.cart
-                                              .map((item) {
-                                                return item
-                                                        .item
-                                                        .alimento
-                                                        ?.name ??
-                                                    item.item.produto?.name ??
-                                                    '';
-                                              })
-                                              .toList()
-                                              .join(', ');
-                                          final pedidoTipo = pedido.cart
-                                              .map(
-                                                (e) => e.item.produto != null
-                                                    ? 'Produto'
-                                                    : 'Marmita',
-                                              )
-                                              .toList()
-                                              .join(', ');
-                                          final cep = MaskCep();
-                                          final valor =
-                                              FormatterHelper.formatCurrency(
-                                                pedido.amountToPay -
-                                                    pedido.taxa,
-                                              );
-                                          final taxa =
-                                              FormatterHelper.formatCurrency(
-                                                pedido.taxa,
-                                              );
-                                          final totalFormatado =
-                                              FormatterHelper.formatCurrency(
-                                                pedido.amountToPay,
-                                              );
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) =>
-                                                AlertDialogHistory(
-                                                  titleButton: 'Fechar',
-                                                  isAdmin: false,
-                                                  pedidoLabel: pedidoTipo,
-                                                  carrinhoName: carrinhoName,
-                                                  valor: valor,
-                                                  taxa: taxa,
-                                                  total: totalFormatado,
-                                                  nomeCliente: pedido.userName,
-                                                  rua: pedido.endereco.rua,
-                                                  numeroResidencia: pedido
-                                                      .endereco
-                                                      .numeroResidencia
-                                                      .toString(),
-                                                  bairro:
-                                                      pedido.endereco.bairro,
-                                                  cidade:
-                                                      pedido.endereco.cidade,
-                                                  estado:
-                                                      pedido.endereco.estado,
-                                                  cep: cep.maskText(
-                                                    pedido.endereco.cep,
-                                                  ),
-                                                  horarioInicio: pedido.time,
-                                                  horarioSairEntrega:
-                                                      pedido.timePath ?? '',
-                                                  horarioEntregue:
-                                                      pedido.timeFinished ?? '',
-                                                  data: pedido.date,
-                                                  onPressed: () {},
-                                                  statusPedido: pedido.status,
-                                                ),
-                                          );
-                                        },
-                                        splashColor: theme.colorScheme.primary,
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: ListTile(
-                                          title: Text(
-                                            'Carrinho: $nome',
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          trailing: Text(total),
-                                          subtitle:
-                                              (pedido.status == 'preparando')
-                                              ? Text(
-                                                  pedido.status.toUpperCase(),
-                                                  style: TextStyle(
-                                                    color: AppColors.preparing,
-                                                  ),
-                                                )
-                                              : (pedido.status == 'a caminho')
-                                              ? Text(
-                                                  pedido.status.toUpperCase(),
-                                                  style: TextStyle(
-                                                    color: AppColors.onTheWay,
-                                                  ),
-                                                )
-                                              : Text(
-                                                  pedido.status.toUpperCase(),
-                                                  style: TextStyle(
-                                                    color: AppColors.delivered,
-                                                  ),
-                                                ),
+                                    : (pedido.status == 'a caminho')
+                                    ? Text(
+                                        pedido.status.toUpperCase(),
+                                        style: TextStyle(
+                                          color: AppColors.onTheWay,
+                                        ),
+                                      )
+                                    : Text(
+                                        pedido.status.toUpperCase(),
+                                        style: TextStyle(
+                                          color: AppColors.delivered,
                                         ),
                                       ),
+
+                                onTap: () {
+                                  final carrinhoName = pedido.cart
+                                      .map((item) {
+                                        return item.item.alimento?.name ??
+                                            item.item.produto?.name ??
+                                            '';
+                                      })
+                                      .toList()
+                                      .join(', ');
+                                  final pedidoTipo = pedido.cart
+                                      .map(
+                                        (e) => e.item.produto != null
+                                            ? 'Produto'
+                                            : 'Marmita',
+                                      )
+                                      .toList()
+                                      .join(', ');
+                                  final cep = MaskCep();
+                                  final valor = FormatterHelper.formatCurrency(
+                                    pedido.amountToPay - pedido.taxa,
+                                  );
+                                  final taxa = FormatterHelper.formatCurrency(
+                                    pedido.taxa,
+                                  );
+                                  final totalFormatado =
+                                      FormatterHelper.formatCurrency(
+                                        pedido.amountToPay,
+                                      );
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialogHistory(
+                                      titleButton: 'Fechar',
+                                      isAdmin: false,
+                                      pedidoLabel: pedidoTipo,
+                                      carrinhoName: carrinhoName,
+                                      valor: valor,
+                                      taxa: taxa,
+                                      total: totalFormatado,
+                                      nomeCliente: pedido.userName,
+                                      rua: pedido.endereco.rua,
+                                      numeroResidencia: pedido
+                                          .endereco
+                                          .numeroResidencia
+                                          .toString(),
+                                      bairro: pedido.endereco.bairro,
+                                      cidade: pedido.endereco.cidade,
+                                      estado: pedido.endereco.estado,
+                                      cep: cep.maskText(
+                                        pedido.endereco.cep,
+                                      ),
+                                      horarioInicio: pedido.time,
+                                      horarioSairEntrega: pedido.timePath ?? '',
+                                      horarioEntregue:
+                                          pedido.timeFinished ?? '',
+                                      data: pedido.date,
+                                      onPressed: () {},
+                                      statusPedido: pedido.status,
                                     ),
-                                  ).paddingOnly(bottom: 5);
-                                }),
-                              ],
-                            );
-                          }),
-                        ],
-                      ),
-                    );
-                  }).toList(),
+                                  );
+                                },
+                              );
+                            }),
+                          ],
+                        ),
+                      );
+                    },
+                  ).toList(),
                 );
               },
             ),
-            const SizedBox(height: 10),
           ],
         ),
       ),
