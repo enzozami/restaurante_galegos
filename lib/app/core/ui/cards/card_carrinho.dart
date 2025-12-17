@@ -58,7 +58,7 @@ class CardCarrinho extends StatelessWidget {
               ),
               (isViewFinish)
                   ? Container(
-                      margin: EdgeInsets.only(left: 40),
+                      margin: EdgeInsets.only(left: 25),
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Text(
