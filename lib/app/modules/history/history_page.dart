@@ -23,6 +23,9 @@ class HistoryPage extends GetView<HistoryController> {
           crossAxisAlignment: .start,
           mainAxisAlignment: .start,
           children: [
+            const SizedBox(
+              height: 120,
+            ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 30),
@@ -75,8 +78,7 @@ class HistoryPage extends GetView<HistoryController> {
                 final docs = snapshot.data!.docs;
                 final pedidos = docs
                     .map(
-                      (doc) =>
-                          PedidoModel.fromMap({...doc.data(), 'id': doc.id}),
+                      (doc) => PedidoModel.fromMap({...doc.data(), 'id': doc.id}),
                     )
                     .toList();
                 final Map<String, List<PedidoModel>> pedidosPorData = {};
@@ -120,9 +122,7 @@ class HistoryPage extends GetView<HistoryController> {
                             ...listaDePedidosDoDia.map((pedido) {
                               final itens = pedido.cart
                                   .map(
-                                    (p) =>
-                                        p.item.alimento?.name ??
-                                        p.item.produto?.name,
+                                    (p) => p.item.alimento?.name ?? p.item.produto?.name,
                                   )
                                   .join(', ');
 
@@ -165,9 +165,7 @@ class HistoryPage extends GetView<HistoryController> {
                                       .join(', ');
                                   final pedidoTipo = pedido.cart
                                       .map(
-                                        (e) => e.item.produto != null
-                                            ? 'Produto'
-                                            : 'Marmita',
+                                        (e) => e.item.produto != null ? 'Produto' : 'Marmita',
                                       )
                                       .toList()
                                       .join(', ');
@@ -178,10 +176,9 @@ class HistoryPage extends GetView<HistoryController> {
                                   final taxa = FormatterHelper.formatCurrency(
                                     pedido.taxa,
                                   );
-                                  final totalFormatado =
-                                      FormatterHelper.formatCurrency(
-                                        pedido.amountToPay,
-                                      );
+                                  final totalFormatado = FormatterHelper.formatCurrency(
+                                    pedido.amountToPay,
+                                  );
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialogHistory(
@@ -194,10 +191,7 @@ class HistoryPage extends GetView<HistoryController> {
                                       total: totalFormatado,
                                       nomeCliente: pedido.userName,
                                       rua: pedido.endereco.rua,
-                                      numeroResidencia: pedido
-                                          .endereco
-                                          .numeroResidencia
-                                          .toString(),
+                                      numeroResidencia: pedido.endereco.numeroResidencia.toString(),
                                       bairro: pedido.endereco.bairro,
                                       cidade: pedido.endereco.cidade,
                                       estado: pedido.endereco.estado,
@@ -206,8 +200,7 @@ class HistoryPage extends GetView<HistoryController> {
                                       ),
                                       horarioInicio: pedido.time,
                                       horarioSairEntrega: pedido.timePath ?? '',
-                                      horarioEntregue:
-                                          pedido.timeFinished ?? '',
+                                      horarioEntregue: pedido.timeFinished ?? '',
                                       data: pedido.date,
                                       onPressed: () {},
                                       statusPedido: pedido.status,
