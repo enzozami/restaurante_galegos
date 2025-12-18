@@ -31,6 +31,7 @@ class GalegosTextFormField extends StatelessWidget {
     required bool isFocused,
   })?
   buildCounter;
+  final List<TextInputFormatter>? inputFormatter;
 
   const GalegosTextFormField({
     super.key,
@@ -56,6 +57,7 @@ class GalegosTextFormField extends StatelessWidget {
     this.maxLengthEnforcement,
     this.buildCounter,
     this.hintText,
+    this.inputFormatter,
   });
 
   @override
@@ -72,9 +74,11 @@ class GalegosTextFormField extends StatelessWidget {
       onEditingComplete: onEditingComplete,
       validator: validator,
       onChanged: onChanged,
-      inputFormatters: [
-        if (mask != null) mask!,
-      ],
+      inputFormatters:
+          inputFormatter ??
+          [
+            if (mask != null) mask!,
+          ],
       style: TextStyle(
         color: colorText ?? Colors.black,
       ),

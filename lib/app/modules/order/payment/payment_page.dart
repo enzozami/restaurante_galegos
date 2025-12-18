@@ -1,7 +1,10 @@
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:restaurante_galegos/app/core/enum/payment_type.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_valores.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/icons.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
@@ -337,9 +340,25 @@ Widget _cardDinheiro({
             GalegosTextFormField(
               floatingLabelBehavior: .auto,
               inputType: .number,
-              prefixText: 'R\$ ',
+              // prefixText: 'R\$ ',
               controller: controller.trocoEC,
               // hintText: 'R\$ 0,00',
+              maxLength: 11,
+              buildCounter:
+                  (
+                    context, {
+                    required currentLength,
+                    required isFocused,
+                    required maxLength,
+                  }) => SizedBox.shrink(),
+              maxLengthEnforcement: .enforced,
+              inputFormatter: [
+                CurrencyTextInputFormatter.currency(
+                  locale: 'pt_BR',
+                  decimalDigits: 2,
+                  symbol: 'R\$',
+                ),
+              ],
             ),
             Text(subtitle),
           ],
