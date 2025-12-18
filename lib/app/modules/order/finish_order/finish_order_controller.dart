@@ -109,8 +109,8 @@ class FinishOrderController extends GetxController with LoaderMixin, MessagesMix
                   : 'Vale Refeição'
             : (args['payment'] == PaymentType.pix)
             ? 'Pix'
-            : (args['type'] == PaymentType.dinheiro && args['troco'] != 'R\$ 0,00')
-            ? 'Dinheiro - ${args['troco']}'
+            : (args['payment'] == PaymentType.dinheiro && args['type'] != 'R\$ 0,00')
+            ? 'Dinheiro - Troco para: ${args['type']}'
             : 'Dinheiro - Sem troco',
       );
 
