@@ -20,8 +20,8 @@ class ShoppingCardPage extends GetView<ShoppingCardController> {
             replacement: Padding(
               padding: const EdgeInsets.all(30.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: .center,
+                crossAxisAlignment: .start,
                 children: [
                   SizedBox(height: context.heightTransformer(reducedBy: 60)),
                   Center(
@@ -29,7 +29,7 @@ class ShoppingCardPage extends GetView<ShoppingCardController> {
                       'Nenhum item no carrinho!',
                       style: TextStyle(
                         fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: .bold,
                       ),
                     ),
                   ),
@@ -38,15 +38,15 @@ class ShoppingCardPage extends GetView<ShoppingCardController> {
             ),
             child: Column(
               crossAxisAlignment: .start,
-              mainAxisAlignment: .start,
+              spacing: 15,
               children: [
                 SizedBox(
                   height: 120,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
+                  padding: const EdgeInsets.only(top: 15, left: 40, right: 15),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: .spaceBetween,
                     children: [
                       Text(
                         'Carrinho',
@@ -68,6 +68,7 @@ class ShoppingCardPage extends GetView<ShoppingCardController> {
                     return ListView.builder(
                       itemCount: controller.products.length,
                       shrinkWrap: true,
+                      padding: EdgeInsets.all(0),
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
                         final p = controller.products[index];
@@ -85,16 +86,13 @@ class ShoppingCardPage extends GetView<ShoppingCardController> {
                     );
                   }),
                 ),
-                const SizedBox(height: 30),
                 Center(
                   child: CardValores(
                     preco: controller.totalPay() ?? 0,
                     carrinho: true,
                   ),
                 ),
-                const SizedBox(height: 30),
                 Divider(),
-                const SizedBox(height: 30),
                 Center(
                   child: GalegosButtonDefault(
                     label: 'AVANÇAR',

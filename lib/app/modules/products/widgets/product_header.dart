@@ -10,7 +10,7 @@ class ProductHeader extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: kToolbarHeight + 60),
+      padding: const EdgeInsets.only(top: 120),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Obx(() {
