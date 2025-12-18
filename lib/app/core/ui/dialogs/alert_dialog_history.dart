@@ -71,7 +71,6 @@ class AlertDialogHistory extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               )
             : theme.textTheme.bodyLarge,
-        overflow: TextOverflow.ellipsis,
       ),
     );
     return AlertDialog(
@@ -141,7 +140,7 @@ class AlertDialogHistory extends StatelessWidget {
               infoLine('CEP: ', cep),
               Divider(color: theme.colorScheme.secondary),
               sectionTitle('Forma de Pagamento'),
-              infoLine('Forma:', pagamento),
+              infoLine('Pagamento: ', pagamento),
               Divider(color: theme.colorScheme.secondary),
               sectionTitle('Valores'),
               infoLine('Total dos itens: ', valor),
