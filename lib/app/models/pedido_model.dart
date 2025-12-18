@@ -19,6 +19,7 @@ class PedidoModel {
   String time;
   String? timePath;
   String? timeFinished;
+  String formaPagamento;
   PedidoModel({
     required this.id,
     required this.userId,
@@ -32,6 +33,7 @@ class PedidoModel {
     required this.time,
     this.timePath,
     this.timeFinished,
+    required this.formaPagamento,
   });
 
   Map<String, dynamic> toMap() {
@@ -48,6 +50,7 @@ class PedidoModel {
       'time': time,
       'timePath': timePath,
       'timeFinished': timeFinished,
+      'formaPagamento': formaPagamento,
     };
   }
 
@@ -65,6 +68,7 @@ class PedidoModel {
       time: map['time'] ?? '',
       timePath: map['timePath'],
       timeFinished: map['timeFinished'],
+      formaPagamento: map['formaPagamento'] ?? '',
     );
   }
 
@@ -85,6 +89,7 @@ class PedidoModel {
     String? time,
     ValueGetter<String?>? timePath,
     ValueGetter<String?>? timeFinished,
+    String? formaPagamento,
   }) {
     return PedidoModel(
       id: id ?? this.id,
@@ -99,11 +104,12 @@ class PedidoModel {
       time: time ?? this.time,
       timePath: timePath != null ? timePath() : this.timePath,
       timeFinished: timeFinished != null ? timeFinished() : this.timeFinished,
+      formaPagamento: formaPagamento ?? this.formaPagamento,
     );
   }
 
   @override
   String toString() {
-    return 'PedidoModel(id: $id, userId: $userId, userName: $userName, endereco: $endereco, taxa: $taxa, cart: $cart, amountToPay: $amountToPay, status: $status, date: $date, time: $time, timePath: $timePath, timeFinished: $timeFinished)';
+    return 'PedidoModel(id: $id, userId: $userId, userName: $userName, endereco: $endereco, taxa: $taxa, cart: $cart, amountToPay: $amountToPay, status: $status, date: $date, time: $time, timePath: $timePath, timeFinished: $timeFinished, formaPagamento: $formaPagamento)';
   }
 }

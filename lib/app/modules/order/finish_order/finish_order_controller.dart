@@ -57,7 +57,6 @@ class FinishOrderController extends GetxController with LoaderMixin, MessagesMix
     final numero = args['numero'];
     if (isProcessing.value) return false;
     _loading.value = true;
-    log('Status do loading INICIAL: ${loading.value}');
     isProcessing.value = true;
     bool sucesso = false;
     try {
@@ -80,9 +79,7 @@ class FinishOrderController extends GetxController with LoaderMixin, MessagesMix
       }
 
       final total = args['preco'] + args['taxa'];
-      log('LOG - PRECO - PEDIDOMODEL - $total');
 
-      log('FORMULÁRIO VALIDADO');
       final order = PedidoModel(
         id: id,
         userId: user!,
@@ -102,6 +99,19 @@ class FinishOrderController extends GetxController with LoaderMixin, MessagesMix
         date: date,
         time: time,
         timeFinished: '',
+        formaPagamento: (args['payment'] == PaymentType.cartao)
+            ? (args['type'] == CardType.credito)
+                  ? 'Cartão de Crédito'
+                  : 'Cartão de Débito'
+            : (args['payment'] == PaymentType.vale)
+            ? (args['type'] == ValeType.alimentacao)
+                  ? 'Vale Alimentação'
+                  : 'Vale Refeição'
+            : (args['payment'] == PaymentType.pix)
+            ? 'Pix'
+            : (args['type'] == PaymentType.dinheiro && args['troco'] != 'R\$ 0,00')
+            ? 'Dinheiro - ${args['troco']}'
+            : 'Dinheiro - Sem troco',
       );
 
       log('PEDIDO - ${order.toString()}');
