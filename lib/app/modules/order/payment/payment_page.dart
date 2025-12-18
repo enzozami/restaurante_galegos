@@ -83,22 +83,28 @@ class PaymentPage extends GetView<PaymentController> {
               SizedBox(
                 height: 20,
               ),
-              Divider(),
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: GalegosButtonDefault(
-                  label: 'AVANÇAR',
-                  width: context.widthTransformer(reducedBy: 10),
-                  onPressed: () {
-                    Get.toNamed(
-                      '/order/finish',
-                      arguments: controller.arguments(),
-                    );
-                  },
-                ),
-              ),
+              (controller.paymentType.value != PaymentType.nulo)
+                  ? Column(
+                      children: [
+                        Divider(),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Center(
+                          child: GalegosButtonDefault(
+                            label: 'AVANÇAR',
+                            width: context.widthTransformer(reducedBy: 10),
+                            onPressed: () {
+                              Get.toNamed(
+                                '/order/finish',
+                                arguments: controller.arguments(),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    )
+                  : SizedBox.shrink(),
               SizedBox(
                 height: 50,
               ),
@@ -127,9 +133,7 @@ Widget _cardPagamento({
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
       child: Card(
         elevation: 5,
-        color: (isSelected)
-            ? theme.colorScheme.tertiary
-            : theme.colorScheme.secondary,
+        color: (isSelected) ? theme.colorScheme.tertiary : theme.colorScheme.secondary,
         child: GestureDetector(
           onTap: () => controller.changePaymentType(type),
           child: SizedBox(
