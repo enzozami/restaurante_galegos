@@ -89,8 +89,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
 
                         final nome = pedido.cart
                             .map(
-                              (e) =>
-                                  e.item.alimento?.name ?? e.item.produto?.name,
+                              (e) => e.item.alimento?.name ?? e.item.produto?.name,
                             )
                             .join(', ');
 
@@ -113,9 +112,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
 
                               final pedidoTipo = pedido.cart
                                   .map(
-                                    (e) => e.item.produto != null
-                                        ? 'Produto'
-                                        : 'Marmita',
+                                    (e) => e.item.produto != null ? 'Produto' : 'Marmita',
                                   )
                                   .toList()
                                   .join(', ');
@@ -143,10 +140,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                                   total: total,
                                   nomeCliente: pedido.userName,
                                   rua: pedido.endereco.rua,
-                                  numeroResidencia: pedido
-                                      .endereco
-                                      .numeroResidencia
-                                      .toString(),
+                                  numeroResidencia: pedido.endereco.numeroResidencia.toString(),
                                   bairro: pedido.endereco.bairro,
                                   cidade: pedido.endereco.cidade,
                                   estado: pedido.endereco.estado,
@@ -160,6 +154,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                                     Get.back();
                                   },
                                   statusPedido: 'Entregue',
+                                  pagamento: pedido.formaPagamento,
                                 ),
                               );
                             },

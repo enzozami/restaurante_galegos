@@ -204,6 +204,7 @@ class HistoryPage extends GetView<HistoryController> {
                                       data: pedido.date,
                                       onPressed: () {},
                                       statusPedido: pedido.status,
+                                      pagamento: pedido.formaPagamento,
                                     ),
                                   );
                                 },

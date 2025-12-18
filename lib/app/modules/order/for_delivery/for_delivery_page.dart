@@ -87,8 +87,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
 
                         final nome = pedido.cart
                             .map(
-                              (e) =>
-                                  e.item.alimento?.name ?? e.item.produto?.name,
+                              (e) => e.item.alimento?.name ?? e.item.produto?.name,
                             )
                             .join(', ');
 
@@ -111,9 +110,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
 
                               final pedidoTipo = pedido.cart
                                   .map(
-                                    (e) => e.item.produto != null
-                                        ? 'Produto'
-                                        : 'Marmita',
+                                    (e) => e.item.produto != null ? 'Produto' : 'Marmita',
                                   )
                                   .toList()
                                   .join(', ');
@@ -141,10 +138,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                                   total: total,
                                   nomeCliente: pedido.userName,
                                   rua: pedido.endereco.rua,
-                                  numeroResidencia: pedido
-                                      .endereco
-                                      .numeroResidencia
-                                      .toString(),
+                                  numeroResidencia: pedido.endereco.numeroResidencia.toString(),
                                   bairro: pedido.endereco.bairro,
                                   cidade: pedido.endereco.cidade,
                                   estado: pedido.endereco.estado,
@@ -158,6 +152,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                                     Get.back();
                                   },
                                   statusPedido: 'A caminho',
+                                  pagamento: pedido.formaPagamento,
                                 ),
                               );
                             },

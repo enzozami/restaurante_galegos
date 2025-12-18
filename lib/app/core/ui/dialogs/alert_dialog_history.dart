@@ -23,6 +23,8 @@ class AlertDialogHistory extends StatelessWidget {
   final String statusPedido;
   final bool isAdmin;
   final String? titleButton;
+  final String pagamento;
+  final double? troco;
 
   const AlertDialogHistory({
     super.key,
@@ -46,6 +48,8 @@ class AlertDialogHistory extends StatelessWidget {
     required this.statusPedido,
     required this.isAdmin,
     this.titleButton,
+    required this.pagamento,
+    this.troco,
   });
 
   @override
@@ -135,6 +139,9 @@ class AlertDialogHistory extends StatelessWidget {
               infoLine('Cidade: ', cidade),
               infoLine('Estado: ', estado),
               infoLine('CEP: ', cep),
+              Divider(color: theme.colorScheme.secondary),
+              sectionTitle('Forma de Pagamento'),
+              infoLine('Forma:', pagamento),
               Divider(color: theme.colorScheme.secondary),
               sectionTitle('Valores'),
               infoLine('Total dos itens: ', valor),
