@@ -1,5 +1,6 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/enum/payment_type.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_valores.dart';
@@ -350,7 +351,7 @@ Widget _cardDinheiro({
                     required maxLength,
                   }) => SizedBox.shrink(),
               maxLengthEnforcement: .enforced,
-              inputFormatter: [
+              inputFormatter: <TextInputFormatter>[
                 CurrencyTextInputFormatter.currency(
                   locale: 'pt_BR',
                   decimalDigits: 2,

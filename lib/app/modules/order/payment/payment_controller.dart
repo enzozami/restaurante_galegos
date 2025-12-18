@@ -25,8 +25,6 @@ class PaymentController extends GetxController {
   }
 
   Map<String, dynamic>? arguments() {
-    var troco = double.tryParse(trocoEC.text);
-    troco ??= 0.0;
     return {
       'preco': args['preco'],
       'itens': args['itens'],
@@ -43,7 +41,7 @@ class PaymentController extends GetxController {
           : (paymentType.value == PaymentType.vale)
           ? valeType
           : (_validateForm())
-          ? troco
+          ? trocoEC.text
           : null,
     };
   }

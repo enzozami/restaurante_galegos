@@ -197,7 +197,7 @@ class FinishOrderController extends GetxController with LoaderMixin, MessagesMix
         return 'Refeição';
       }
     } else if (args['payment'] == PaymentType.dinheiro) {
-      return FormatterHelper.formatCurrency(args['type']);
+      return args['type'];
     }
     return null;
   }

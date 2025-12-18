@@ -225,8 +225,7 @@ class FinishOrderPage extends GetView<FinishOrderController> {
                                       title: Column(
                                         crossAxisAlignment: .start,
                                         children: [
-                                          (controller.args['payment'] ==
-                                                  PaymentType.dinheiro)
+                                          (controller.args['payment'] == PaymentType.dinheiro)
                                               ? Text('Troco para: ')
                                               : SizedBox.shrink(),
                                           Text(
