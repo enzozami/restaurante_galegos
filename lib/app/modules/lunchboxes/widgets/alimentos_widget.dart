@@ -58,21 +58,21 @@ class _FoodClient extends StatelessWidget {
                 alignment: WrapAlignment.spaceAround,
                 children: alimentos
                     .where(
-                      (element) =>
-                          element.dayName.contains(controller.dayNow) &&
-                          element.temHoje,
+                      (element) => element.dayName.contains(controller.dayNow) && element.temHoje,
                     )
                     .map((alimento) {
                       return CardItems(
                         width: context.widthTransformer(reducedBy: 10),
-                        height: 280,
+                        height: 180,
                         isProduct: false,
                         imageHeight: alimento.description.isEmpty ? 150 : 130,
                         titulo: alimento.name,
                         image: alimento.image,
                         descricao: alimento.description,
                         onPressed: () {},
-                        onTap: () {},
+                        onTap: () {
+                          Get.toNamed('/lunchboxes/detail');
+                        },
                         styleTitle: theme.textTheme.titleMedium,
                         styleDescricao: theme.textTheme.bodyLarge,
                         stylePreco: theme.textTheme.titleMedium,
@@ -81,37 +81,6 @@ class _FoodClient extends StatelessWidget {
                         ),
                         precoMedia: FormatterHelper.formatCurrency(
                           alimento.pricePerSize['media'] ?? 0,
-                        ),
-                        elevatedButton: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: controller.availableSizes
-                              .map(
-                                (s) => ElevatedButton(
-                                  style: theme.elevatedButtonTheme.style,
-                                  onPressed: () {
-                                    controller.exibirDialogoAdicionarAoCarrinho(
-                                      alimento: alimento,
-                                      context: context,
-                                      size: s,
-                                    );
-                                  },
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        s[0].toUpperCase() + s.substring(1),
-                                        style: theme.textTheme.titleSmall,
-                                      ),
-                                      Text(
-                                        FormatterHelper.formatCurrency(
-                                          alimento.pricePerSize[s] ?? 0,
-                                        ),
-                                        style: theme.textTheme.titleMedium,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                              .toList(),
                         ),
                       );
                     })
@@ -221,3 +190,42 @@ class _FoodsAdmin extends GetView<LunchboxesController> {
     });
   }
 }
+
+
+/*
+ codigo q tava antes!
+ 
+elevatedButton: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: controller.availableSizes
+                              .map(
+                                (s) => ElevatedButton(
+                                  style: theme.elevatedButtonTheme.style,
+                                  onPressed: () {
+                                    // controller.exibirDialogoAdicionarAoCarrinho(
+                                    //   alimento: alimento,
+                                    //   context: context,
+                                    //   size: s,
+                                    // );
+                                    Get.toNamed('/lunchboxes/detail');
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        s[0].toUpperCase() + s.substring(1),
+                                        style: theme.textTheme.titleSmall,
+                                      ),
+                                      Text(
+                                        FormatterHelper.formatCurrency(
+                                          alimento.pricePerSize[s] ?? 0,
+                                        ),
+                                        style: theme.textTheme.titleMedium,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+
+ */

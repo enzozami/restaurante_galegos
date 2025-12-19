@@ -81,14 +81,13 @@ class CardItems extends StatelessWidget {
                               child: Image.network(
                                 image ?? '',
                                 fit: BoxFit.cover,
-                                loadingBuilder:
-                                    (context, child, loadingProgress) =>
-                                        loadingProgress == null
-                                        ? child
-                                        : CardShimmer(
-                                            height: imageHeight ?? 0,
-                                            width: width ?? 0,
-                                          ),
+                                loadingBuilder: (context, child, loadingProgress) =>
+                                    loadingProgress == null
+                                    ? child
+                                    : CardShimmer(
+                                        height: imageHeight ?? 0,
+                                        width: width ?? 0,
+                                      ),
                               ),
                             ),
                           )
@@ -145,89 +144,90 @@ class CardItems extends StatelessWidget {
                   color: const Color.fromARGB(255, 190, 132, 98),
                 ),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 25,
-                children: [
-                  Row(
-                    children: [
-                      (image != null && image != '')
-                          ? Padding(
-                              padding: const EdgeInsets.only(
-                                top: 20,
-                                left: 20,
-                                right: 20,
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
+              child: InkWell(
+                onTap: onTap,
+                child: Column(
+                  mainAxisAlignment: .start,
+                  crossAxisAlignment: .start,
+                  spacing: 25,
+                  children: [
+                    Row(
+                      children: [
+                        (image != null && image != '')
+                            ? Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 20,
+                                  left: 20,
+                                  right: 20,
                                 ),
-                                width: context.widthTransformer(reducedBy: 65),
-                                height: 130,
-                                child: ClipRRect(
-                                  clipBehavior: Clip.antiAlias,
-                                  borderRadius: BorderRadiusGeometry.circular(
-                                    20,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: Image.network(
-                                    image ?? '',
-                                    fit: BoxFit.cover,
-                                    loadingBuilder:
-                                        (context, child, loadingProgress) =>
-                                            loadingProgress == null
-                                            ? child
-                                            : CardShimmer(
-                                                height: imageHeight ?? 0,
-                                                width: width ?? 0,
-                                              ),
+                                  width: context.widthTransformer(reducedBy: 65),
+                                  height: 130,
+                                  child: ClipRRect(
+                                    clipBehavior: Clip.antiAlias,
+                                    borderRadius: BorderRadiusGeometry.circular(
+                                      20,
+                                    ),
+                                    child: Image.network(
+                                      image ?? '',
+                                      fit: BoxFit.cover,
+                                      loadingBuilder: (context, child, loadingProgress) =>
+                                          loadingProgress == null
+                                          ? child
+                                          : CardShimmer(
+                                              height: imageHeight ?? 0,
+                                              width: width ?? 0,
+                                            ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.only(
-                                top: 20,
-                                left: 20,
-                                right: 20,
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: theme.colorScheme.secondary,
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 20,
+                                  left: 20,
+                                  right: 20,
                                 ),
-                                width: context.widthTransformer(reducedBy: 65),
-                                height: 130,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: theme.colorScheme.secondary,
+                                  ),
+                                  width: context.widthTransformer(reducedBy: 65),
+                                  height: 130,
+                                ),
                               ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Column(
+                              mainAxisAlignment: .start,
+                              crossAxisAlignment: .start,
+                              spacing: 15,
+                              children: [
+                                Text(
+                                  titulo,
+                                  style: theme.textTheme.titleLarge,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                ),
+                                Text(
+                                  descricao ?? '',
+                                  style: theme.textTheme.bodyLarge,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                ),
+                              ],
                             ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            spacing: 15,
-                            children: [
-                              Text(
-                                titulo,
-                                style: theme.textTheme.titleLarge,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                              ),
-                              Text(
-                                descricao ?? '',
-                                style: theme.textTheme.bodyLarge,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                              ),
-                            ],
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  elevatedButton ?? SizedBox.shrink(),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
     );
