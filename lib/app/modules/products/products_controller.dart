@@ -6,8 +6,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/core/ui/dialogs/alert_dialog_default.dart';
+import 'package:restaurante_galegos/app/core/ui/bottom_sheet/galegos_bottom_sheet.dart';
 import 'package:restaurante_galegos/app/core/ui/dialogs/alert_products_lunchboxes_adm.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
 import 'package:restaurante_galegos/app/models/category_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
@@ -289,46 +290,53 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     ProductModel product,
   ) {
     setSelectedItem(product);
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialogDefault(
-          visible: quantity > 0 && alreadyAdded == true,
-          plusMinus: Obx(() {
+    Get.bottomSheet(
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+      ),
+      GalegosBottomSheet(
+        admin: admin,
+        image: product.image,
+        nameItem: product.name,
+        description: product.description ?? '',
+        price: FormatterHelper.formatCurrency(product.price),
+        plusMinus: Obx(
+          () {
             return GalegosPlusMinus(
               addCallback: addProductUnit,
               removeCallback: removeProductUnit,
               quantityUnit: quantity,
             );
-          }),
-          item: product,
-          onPressed: () {
-            final idItem = carrinhoServices.getById(product.id);
-
-            if (idItem == null) {
-              addItemsToCart();
-              Get.snackbar(
-                'Item: ${product.name}',
-                'Item adicionado ao carrinho',
-                snackPosition: SnackPosition.TOP,
-                duration: Duration(seconds: 1),
-                backgroundColor: Color(0xFFE2933C),
-                colorText: Colors.black,
-                isDismissible: true,
-                overlayBlur: 0,
-                overlayColor: Colors.transparent,
-                barBlur: 0,
-              );
-              Get.close(0);
-              log('Item clicado: ${product.name} - ${product.price}');
-            } else {
-              addItemsToCart();
-              Get.close(0);
-              log('Item clicado: ${product.name} - ${product.price}');
-            }
           },
-        );
-      },
+        ),
+        onPressed: () {
+          final idItem = carrinhoServices.getById(product.id);
+
+          if (idItem == null) {
+            addItemsToCart();
+            Get.snackbar(
+              'Item: ${product.name}',
+              'Item adicionado ao carrinho',
+              snackPosition: SnackPosition.TOP,
+              duration: Duration(seconds: 1),
+              backgroundColor: Color(0xFFE2933C),
+              colorText: Colors.black,
+              isDismissible: true,
+              overlayBlur: 0,
+              overlayColor: Colors.transparent,
+              barBlur: 0,
+            );
+            Get.close(0);
+            log('Item clicado: ${product.name} - ${product.price}');
+          } else {
+            addItemsToCart();
+            Get.close(0);
+            log('Item clicado: ${product.name} - ${product.price}');
+          }
+        },
+      ),
+      isScrollControlled: true,
     );
   }
 
