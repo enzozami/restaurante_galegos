@@ -55,7 +55,7 @@ class AlertDialogHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return AlertDialog(
+    return AlertDialog.adaptive(
       title: Row(
         mainAxisAlignment: .spaceBetween,
         crossAxisAlignment: .start,

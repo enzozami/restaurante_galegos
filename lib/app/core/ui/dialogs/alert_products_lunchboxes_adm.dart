@@ -58,8 +58,7 @@ class AlertProductsLunchboxesAdm extends StatelessWidget {
             onChanged: onChanged,
             onPressed: onPressed,
             items: items ?? [],
-            onChangedSection:
-                onChangedSection ?? (List<String> p1, String p2) {},
+            onChangedSection: onChangedSection ?? (List<String> p1, String p2) {},
           );
   }
 }
@@ -156,7 +155,7 @@ class _AlertProduct extends StatelessWidget {
                 children: [
                   Text('Ativo'),
                   Obx(() {
-                    return Switch(
+                    return Switch.adaptive(
                       value: value.value,
                       onChanged: onChanged,
                       activeThumbColor: theme.colorScheme.primary,
@@ -291,7 +290,7 @@ class _AlertFoods extends StatelessWidget {
                 children: [
                   Text('Ativo'),
                   Obx(() {
-                    return Switch(
+                    return Switch.adaptive(
                       value: value.value,
                       onChanged: onChanged,
                       activeThumbColor: theme.colorScheme.primary,

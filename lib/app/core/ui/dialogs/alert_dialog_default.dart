@@ -22,7 +22,7 @@ class AlertDialogDefault extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return AlertDialog(
+    return AlertDialog.adaptive(
       title: Text(
         item?.name ?? alimento?.name ?? '',
         textAlign: .center,

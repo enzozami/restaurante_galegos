@@ -10,8 +10,7 @@ import 'package:validatorless/validatorless.dart';
 class AlertForAddToCart extends StatelessWidget {
   final bool _isProduct;
 
-  const AlertForAddToCart({super.key, required bool isProduct})
-    : _isProduct = isProduct;
+  const AlertForAddToCart({super.key, required bool isProduct}) : _isProduct = isProduct;
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +21,16 @@ class AlertForAddToCart extends StatelessWidget {
 
 Widget _products(ThemeData theme) {
   ProductsController controller = Get.find<ProductsController>();
-  return AlertDialog(
-    backgroundColor: theme.colorScheme.surface,
-    titlePadding: const EdgeInsets.only(left: 24, right: 24, bottom: 15),
-    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-    actionsPadding: const EdgeInsets.only(
-      top: 20,
-      left: 20,
-      right: 20,
-      bottom: 15,
-    ),
+  return AlertDialog.adaptive(
+    // backgroundColor: theme.colorScheme.surface,
+    // titlePadding: const EdgeInsets.only(left: 24, right: 24, bottom: 15),
+    // contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+    // actionsPadding: const EdgeInsets.only(
+    //   top: 20,
+    //   left: 20,
+    //   right: 20,
+    //   bottom: 15,
+    // ),
     icon: Align(
       alignment: .bottomRight,
       child: IconButton(
@@ -165,7 +164,7 @@ Widget _products(ThemeData theme) {
 
 Widget _foods(ThemeData theme) {
   final LunchboxesController controller = Get.find<LunchboxesController>();
-  return AlertDialog(
+  return AlertDialog.adaptive(
     icon: Align(
       alignment: .bottomRight,
       child: IconButton(
@@ -190,9 +189,7 @@ Widget _foods(ThemeData theme) {
                 .map((day) => MultiSelectCard(value: day, label: day[0]))
                 .toList(),
             onChanged: (allSelectedItems, selectedItem) {
-              controller.addDays.value = allSelectedItems
-                  .map((e) => e)
-                  .toList();
+              controller.addDays.value = allSelectedItems.map((e) => e).toList();
             },
           ),
           GalegosTextFormField(

@@ -171,7 +171,7 @@ Widget _cardPagamento({
                           )
                         : theme.textTheme.bodyMedium,
                   ),
-                  leading: Radio<PaymentType>(value: type),
+                  leading: Radio<PaymentType>.adaptive(value: type),
                 ),
                 if (isSelected)
                   (type == PaymentType.cartao)
@@ -283,7 +283,7 @@ Widget _cardType({
               title,
               style: theme.textTheme.bodyMedium,
             ),
-            leading: Radio<CardType>(value: type),
+            leading: Radio<CardType>.adaptive(value: type),
           ),
         ),
       ),
@@ -314,7 +314,7 @@ Widget _cardVale({
               title,
               style: theme.textTheme.bodyMedium,
             ),
-            leading: Radio<ValeType>(value: type),
+            leading: Radio<ValeType>.adaptive(value: type),
           ),
         ),
       ),

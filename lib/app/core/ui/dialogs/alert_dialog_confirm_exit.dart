@@ -8,7 +8,7 @@ class AlertDialogConfirmExit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
+    return AlertDialog.adaptive(
       title: Text('Sair da conta?'),
       content: Text('Tem certeza de que deseja encerrar sua sessão atual?'),
       actionsAlignment: .spaceAround,
