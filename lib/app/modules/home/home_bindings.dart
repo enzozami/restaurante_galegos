@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import 'package:restaurante_galegos/app/core/rest_client/via_cep_service.dart';
 import 'package:restaurante_galegos/app/modules/history/history_controller.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
@@ -45,6 +46,8 @@ class HomeBindings implements Bindings {
     );
 
     // Services
+    Get.lazyPut(() => CarrinhoServices(), fenix: true);
+    Get.lazyPut(() => ViaCepService(), fenix: true);
     Get.lazyPut<TimeServices>(
       () => TimeServicesImpl(timeRepository: Get.find<TimeRepository>()),
     );
