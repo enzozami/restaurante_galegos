@@ -88,10 +88,8 @@ class _ProductsClient extends GetView<ProductsController> {
                                 preco: FormatterHelper.formatCurrency(e.price),
                                 descricao: e.description,
                                 image: (e.image.isNotEmpty) ? e.image : '',
-                                onPressed: () => controller
-                                    .onClientProductQuickAddPressed(e),
-                                onTap: () => controller
-                                    .onClientProductDetailsTapped(context, e),
+                                onPressed: () => controller.onClientProductQuickAddPressed(e),
+                                onTap: () => controller.onClientProductDetailsTapped(context, e),
                                 styleTitle: theme.textTheme.titleMedium,
                                 styleDescricao: theme.textTheme.bodyLarge,
                                 stylePreco: theme.textTheme.titleMedium,
@@ -181,8 +179,7 @@ class _ProductsAdmin extends GetView<ProductsController> {
                                   direction: DismissDirection.endToStart,
                                   key: ValueKey(e.id),
                                   confirmDismiss: (_) async {
-                                    return await controller
-                                        .exibirConfirmacaoDescarte(context, e);
+                                    return await controller.exibirConfirmacaoDescarte(context, e);
                                   },
                                   onDismissed: (_) async {
                                     controller.apagarProduto(e);
@@ -192,11 +189,10 @@ class _ProductsAdmin extends GetView<ProductsController> {
                                     splashColor: theme.splashColor,
                                     borderRadius: BorderRadius.circular(8),
                                     onTap: () {
-                                      controller
-                                          .onAdminProductUpdateDetailsTapped(
-                                            context,
-                                            e,
-                                          );
+                                      controller.onAdminProductUpdateDetailsTapped(
+                                        context,
+                                        e,
+                                      );
                                     },
                                     child: ListTile(
                                       textColor: Colors.black87,

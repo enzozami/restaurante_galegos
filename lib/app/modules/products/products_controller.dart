@@ -15,8 +15,7 @@ import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/products/products_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
-class ProductsController extends GetxController
-    with LoaderMixin, MessagesMixin {
+class ProductsController extends GetxController with LoaderMixin, MessagesMixin {
   final AuthServices _authService;
   final CarrinhoServices _carrinhoServices;
   final ProductsServices _productsServices;
@@ -75,15 +74,13 @@ class ProductsController extends GetxController
         ? items.where((p) {
             final matchesCategory = categorySelected.value?.name == null
                 ? p.categoryId == c.name
-                : p.categoryId == categorySelected.value?.name &&
-                      p.categoryId == c.name;
+                : p.categoryId == categorySelected.value?.name && p.categoryId == c.name;
             return matchesCategory;
           }).toList()
         : items.where((p) {
             final matchsCategory = categorySelected.value?.name == null
                 ? p.categoryId == c.name
-                : p.categoryId == categorySelected.value?.name &&
-                      p.categoryId == c.name;
+                : p.categoryId == categorySelected.value?.name && p.categoryId == c.name;
             return matchsCategory && p.temHoje;
           }).toList();
   }
@@ -364,9 +361,7 @@ class ProductsController extends GetxController
             price: priceEC,
             onPressed: () async {
               if (_validateForm()) {
-                final cleaned = priceEC.text
-                    .replaceAll('.', '')
-                    .replaceAll(',', '.');
+                final cleaned = priceEC.text.replaceAll('.', '').replaceAll(',', '.');
                 atualizarDadosDoProduto(
                   product.id,
                   product.categoryId,
