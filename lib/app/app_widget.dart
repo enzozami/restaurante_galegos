@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:restaurante_galegos/app/core/bindings/galegos_bindings.dart';
 import 'package:restaurante_galegos/app/routes/auth_routers.dart';
+import 'package:restaurante_galegos/app/routes/detail_routers.dart';
 import 'package:restaurante_galegos/app/routes/drawer_routers.dart';
 import 'package:restaurante_galegos/app/routes/home_routers.dart';
 import 'package:restaurante_galegos/app/routes/lunchboxes_routers.dart';
@@ -31,6 +32,7 @@ class AppWidget extends StatelessWidget {
         ...OrderRouters.routers,
         ...LunchboxesRouters.routers,
         ...ShoppginCardRouters.routers,
+        ...DetailRouters.routers,
       ],
     );
   }

@@ -6,6 +6,7 @@ class GalegosButtonDefault extends StatelessWidget {
   final double? width;
   final double? heigth;
   final Icon? icon;
+  final ButtonStyle? style;
 
   const GalegosButtonDefault({
     super.key,
@@ -14,6 +15,7 @@ class GalegosButtonDefault extends StatelessWidget {
     this.width = 200,
     this.heigth = 50,
     this.icon,
+    this.style,
   });
 
   @override
@@ -22,7 +24,7 @@ class GalegosButtonDefault extends StatelessWidget {
       width: width,
       height: heigth,
       child: ElevatedButton.icon(
-        style: Theme.of(context).elevatedButtonTheme.style,
+        style: style ?? Theme.of(context).elevatedButtonTheme.style,
         onPressed: onPressed,
         label: Text(label),
         icon: icon,

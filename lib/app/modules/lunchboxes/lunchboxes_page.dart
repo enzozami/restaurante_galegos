@@ -32,13 +32,9 @@ class LunchboxesPage extends GetView<LunchboxesController> {
                 ),
                 child: Column(
                   children: [
+                    SafeArea(child: Container()),
                     Padding(
-                      padding: const EdgeInsets.only(
-                        top: 130,
-                        bottom: 15,
-                        left: 10,
-                        right: 10,
-                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                       child: Obx(() {
                         return Visibility(
                           visible: controller.admin != true,
@@ -49,8 +45,7 @@ class LunchboxesPage extends GetView<LunchboxesController> {
                                   .expand((e) => e.days)
                                   .map(
                                     (d) => FilterTag(
-                                      isSelected:
-                                          controller.daysSelected.value == d,
+                                      isSelected: controller.daysSelected.value == d,
                                       onPressed: () {
                                         controller.filtrarPorDia(d);
                                       },
@@ -70,15 +65,12 @@ class LunchboxesPage extends GetView<LunchboxesController> {
                                   ? Column(
                                       children: List.generate(
                                         1,
-                                        (_) =>
-                                            TextShimmer(width: 300, lines: 2),
+                                        (_) => TextShimmer(width: 300, lines: 2),
                                       ),
                                     )
                                   : Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'Marmitas de Hoje',

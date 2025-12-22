@@ -5,18 +5,15 @@ import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/core/ui/dialogs/alert_dialog_default.dart';
 import 'package:restaurante_galegos/app/core/ui/dialogs/alert_products_lunchboxes_adm.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/models/time_model.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/lunchboxes/lunchboxes_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
-class LunchboxesController extends GetxController
-    with LoaderMixin, MessagesMixin {
+class LunchboxesController extends GetxController with LoaderMixin, MessagesMixin {
   final LunchboxesServices _lunchboxesServices;
   final CarrinhoServices _carrinhoServices;
   final LunchboxesServices _foodService;
@@ -78,9 +75,7 @@ class LunchboxesController extends GetxController
           final matchSize = size == null || size.isEmpty
               ? true
               : food.pricePerSize.containsKey(size);
-          final matchDay = day == null || day.isEmpty
-              ? true
-              : food.dayName.contains(day);
+          final matchDay = day == null || day.isEmpty ? true : food.dayName.contains(day);
           return matchSize && matchDay;
         })
         .toSet()
@@ -221,12 +216,8 @@ class LunchboxesController extends GetxController
           );
           return;
         }
-        final cleanedMini = newPriceMiniEC.text
-            .replaceAll('.', '')
-            .replaceAll(',', '.');
-        final cleanedMedia = newPriceMediaEC.text
-            .replaceAll('.', '')
-            .replaceAll(',', '.');
+        final cleanedMini = newPriceMiniEC.text.replaceAll('.', '').replaceAll(',', '.');
+        final cleanedMedia = newPriceMediaEC.text.replaceAll('.', '').replaceAll(',', '.');
         await _foodService.updateData(
           alimento.id,
           newNameEC.text,
@@ -257,8 +248,7 @@ class LunchboxesController extends GetxController
     }
   }
 
-  Future<void> apagarMarmita(FoodModel food) =>
-      _foodService.deletarMarmita(food);
+  Future<void> apagarMarmita(FoodModel food) => _foodService.deletarMarmita(food);
 
   void filtrarPreco(String selectedSize) {
     if (sizeSelected.value == selectedSize) {
@@ -282,14 +272,6 @@ class LunchboxesController extends GetxController
     }
   }
 
-  void adicionarQuantidade() {
-    _quantity.value++;
-  }
-
-  void removerQuantidade() {
-    if (_quantity.value > 0) _quantity.value--;
-  }
-
   void definirComidaSelecionada(FoodModel food, String size) {
     foodSelect.value = food;
     final carrinhoItem = _carrinhoServices.getByIdAndSize(food.id, size);
@@ -300,21 +282,6 @@ class LunchboxesController extends GetxController
       _quantity(1);
       _alreadyAdded(false);
     }
-  }
-
-  void adicionarMarmitaAoCarrinho() {
-    final selected = selectedFood;
-    if (selected == null) {
-      _alreadyAdded(false);
-      return;
-    }
-    _carrinhoServices.addOrUpdateFood(
-      selected,
-      quantity: _quantity.value,
-      selectedSize: sizeSelected.value ?? '',
-    );
-    sizeSelected.value = '';
-    Get.close(0);
   }
 
   RxBool alimentoTemHoje(FoodModel a) => RxBool(a.temHoje);
@@ -365,52 +332,6 @@ class LunchboxesController extends GetxController
                 )
                 .toList(),
             onChangedSection: onChangedSelectionFunction,
-          ),
-        );
-      },
-    );
-  }
-
-  void exibirDialogoAdicionarAoCarrinho({
-    required BuildContext context,
-    required FoodModel alimento,
-    required String size,
-  }) {
-    definirComidaSelecionada(alimento, size);
-    filtrarPreco(size);
-    sizeSelected.value = size;
-    void handleAddToCart() {
-      adicionarMarmitaAoCarrinho();
-      log(
-        'Item: ${alimento.name} - Valor: ${alimento.pricePerSize[size]}',
-      );
-      Get.snackbar(
-        'Item: ${alimento.name}',
-        'Item adicionado ao carrinho',
-        snackPosition: SnackPosition.TOP,
-        duration: Duration(seconds: 1),
-        backgroundColor: Color(0xFFE2933C),
-        colorText: Colors.black,
-        isDismissible: true,
-        overlayBlur: 0,
-        overlayColor: Colors.transparent,
-        barBlur: 0,
-      );
-    }
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialogDefault(
-          visible: quantity > 0,
-          onPressed: handleAddToCart,
-          alimento: alimento,
-          plusMinus: Obx(
-            () => GalegosPlusMinus(
-              addCallback: adicionarQuantidade,
-              removeCallback: removerQuantidade,
-              quantityUnit: quantity,
-            ),
           ),
         );
       },

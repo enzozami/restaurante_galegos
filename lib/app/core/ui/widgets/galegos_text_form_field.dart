@@ -32,6 +32,8 @@ class GalegosTextFormField extends StatelessWidget {
   })?
   buildCounter;
   final List<TextInputFormatter>? inputFormatter;
+  final int? maxLines;
+  final int? minLines;
 
   const GalegosTextFormField({
     super.key,
@@ -58,6 +60,8 @@ class GalegosTextFormField extends StatelessWidget {
     this.buildCounter,
     this.hintText,
     this.inputFormatter,
+    this.maxLines,
+    this.minLines,
   });
 
   @override
@@ -127,6 +131,8 @@ class GalegosTextFormField extends StatelessWidget {
         ),
       ),
       cursorColor: colorText ?? Colors.black,
+      maxLines: maxLines ?? 1,
+      minLines: minLines ?? 1,
     );
   }
 }

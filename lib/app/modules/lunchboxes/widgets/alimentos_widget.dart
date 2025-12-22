@@ -71,7 +71,7 @@ class _FoodClient extends StatelessWidget {
                         descricao: alimento.description,
                         onPressed: () {},
                         onTap: () {
-                          Get.toNamed('/lunchboxes/detail');
+                          Get.toNamed('/detail', arguments: alimento);
                         },
                         styleTitle: theme.textTheme.titleMedium,
                         styleDescricao: theme.textTheme.bodyLarge,

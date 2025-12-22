@@ -9,29 +9,31 @@ class ProductHeader extends GetView<ProductsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 120),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Obx(() {
-          final category = controller.category;
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: category
-                  .map(
-                    (c) => FilterTag(
-                      category: c,
-                      onPressed: () => controller.searchItemsByFilter(c),
-                      isSelected: controller.isProcessing.value == false
-                          ? controller.categorySelected.value?.name == c.name
-                          : false,
-                    ),
-                  )
-                  .toList(),
-            ),
-          );
-        }),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Column(
+        children: [
+          SafeArea(child: Container()),
+          Obx(() {
+            final category = controller.category;
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: category
+                    .map(
+                      (c) => FilterTag(
+                        category: c,
+                        onPressed: () => controller.searchItemsByFilter(c),
+                        isSelected: controller.isProcessing.value == false
+                            ? controller.categorySelected.value?.name == c.name
+                            : false,
+                      ),
+                    )
+                    .toList(),
+              ),
+            );
+          }),
+        ],
       ),
     );
   }
