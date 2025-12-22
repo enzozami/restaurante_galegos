@@ -23,21 +23,12 @@ class HistoryPage extends GetView<HistoryController> {
           crossAxisAlignment: .start,
           mainAxisAlignment: .start,
           children: [
-            const SizedBox(
-              height: 120,
-            ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30),
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      'Histórico de pedidos',
-                      style: theme.textTheme.headlineLarge,
-                    ),
-                  ),
-                ),
+            SafeArea(child: Container()),
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0, top: 15, bottom: 15),
+              child: Text(
+                'Histórico',
+                style: theme.textTheme.headlineLarge,
               ),
             ),
             StreamBuilder(
@@ -109,16 +100,6 @@ class HistoryPage extends GetView<HistoryController> {
                         child: Column(
                           crossAxisAlignment: .start,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: 8.0,
-                                left: 15,
-                              ),
-                              child: Text(
-                                data,
-                                style: theme.textTheme.titleMedium,
-                              ),
-                            ),
                             ...listaDePedidosDoDia.map((pedido) {
                               final itens = pedido.cart
                                   .map(
@@ -127,42 +108,54 @@ class HistoryPage extends GetView<HistoryController> {
                                   .join(', ');
 
                               return CardHistory(
+                                date: data,
                                 id: pedido.id.hashCode.toString(),
                                 itens: itens,
                                 price: FormatterHelper.formatCurrency(
                                   pedido.amountToPay,
                                 ),
                                 horario: pedido.time,
-                                status: (pedido.status == 'preparando')
-                                    ? Text(
-                                        pedido.status.toUpperCase(),
-                                        style: TextStyle(
-                                          color: AppColors.preparing,
-                                        ),
-                                      )
-                                    : (pedido.status == 'a caminho')
-                                    ? Text(
-                                        pedido.status.toUpperCase(),
-                                        style: TextStyle(
-                                          color: AppColors.onTheWay,
-                                        ),
-                                      )
-                                    : Text(
-                                        pedido.status.toUpperCase(),
-                                        style: TextStyle(
-                                          color: AppColors.delivered,
-                                        ),
-                                      ),
+                                status: Container(
+                                  decoration: BoxDecoration(
+                                    color: (pedido.status == 'preparando')
+                                        ? AppColors.containerPreparing
+                                        : (pedido.status == 'a caminho')
+                                        ? AppColors.containerOnTheWay
+                                        : AppColors.containerDelivered,
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: Text(
+                                      pedido.status.toUpperCase(),
+                                      style: (pedido.status == 'preparando')
+                                          ? theme.textTheme.labelSmall?.copyWith(
+                                              color: AppColors.preparing,
+                                            )
+                                          : (pedido.status == 'a caminho')
+                                          ? theme.textTheme.labelSmall?.copyWith(
+                                              color: AppColors.onTheWay,
+                                            )
+                                          : theme.textTheme.labelSmall?.copyWith(
+                                              color: AppColors.delivered,
+                                            ),
+                                    ),
+                                  ),
+                                ),
 
                                 onTap: () {
                                   final carrinhoName = pedido.cart
-                                      .map((item) {
-                                        return item.item.alimento?.name ??
+                                      .map(
+                                        (item) =>
+                                            item.item.alimento?.name ??
                                             item.item.produto?.name ??
-                                            '';
-                                      })
+                                            '',
+                                      )
+                                      .where(
+                                        (name) => name.isNotEmpty,
+                                      )
                                       .toList()
-                                      .join(', ');
+                                      .join('\n');
                                   final pedidoTipo = pedido.cart
                                       .map(
                                         (e) => e.item.produto != null ? 'Produto' : 'Marmita',

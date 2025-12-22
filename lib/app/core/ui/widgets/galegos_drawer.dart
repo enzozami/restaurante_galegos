@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/dialogs/alert_dialog_confirm_exit.dart';
-import 'package:restaurante_galegos/app/repositories/auth/auth_repository.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
-import 'package:restaurante_galegos/app/services/auth/auth_services_impl.dart';
 
 import '../theme/app_colors.dart';
 
@@ -60,9 +58,7 @@ class GalegosDrawer extends GetView<AuthServices> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialogConfirmExit(
-                    onPressed: () => AuthServicesImpl(
-                      authRepository: Get.find<AuthRepository>(),
-                    ).logout,
+                    onPressed: () => controller.logout(),
                   );
                 },
               );

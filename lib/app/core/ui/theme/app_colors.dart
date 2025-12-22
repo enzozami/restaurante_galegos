@@ -8,9 +8,12 @@ class AppColors {
   static final Color text = Color(0xFFA25F13);
   static final Color error = Colors.red.shade700;
   static final Color background = Color(0xFFFFFAF5);
-  static final Color preparing = Color(0xFF6894F1);
+  static final Color preparing = Color(0xFF6290F3);
+  static final Color containerPreparing = Color(0xFFDDE7FD);
   static final Color onTheWay = Color(0xFFE2943b);
-  static final Color delivered = Color(0xFF02C13B);
+  static final Color containerOnTheWay = Color(0xFFFFEAD3);
+  static final Color delivered = Color(0xFF3CA41A);
+  static final Color containerDelivered = Color(0xFFD9FFCC);
 
   static final ColorScheme mainColorScheme = ColorScheme(
     brightness: Brightness.light,

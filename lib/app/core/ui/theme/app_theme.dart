@@ -73,11 +73,13 @@ class AppTheme {
     // TEXTO - BOTÃO
     labelLarge: GoogleFonts.poppins(
       fontSize: 14,
+      color: AppColors.text,
       fontWeight: FontWeight.normal,
     ),
     // TEXTO - PARA COMPOS DE ENTRADA
     labelMedium: GoogleFonts.poppins(
       fontSize: 12,
+      color: AppColors.text,
       fontWeight: FontWeight.normal,
     ),
     // TEXTO - RÓTULOS ('EM ANDAMENTO'/'PREPARANDO')
@@ -140,11 +142,10 @@ class AppTheme {
     style: TextButton.styleFrom(foregroundColor: colorScheme.primary),
   );
 
-  FloatingActionButtonThemeData get floatingActionButtonThemeData =>
-      FloatingActionButtonThemeData(
-        backgroundColor: colorScheme.tertiary,
-        foregroundColor: Colors.white,
-      );
+  FloatingActionButtonThemeData get floatingActionButtonThemeData => FloatingActionButtonThemeData(
+    backgroundColor: colorScheme.tertiary,
+    foregroundColor: Colors.white,
+  );
 
   NavigationBarThemeData get navigationbarTheme => NavigationBarThemeData(
     backgroundColor: colorScheme.tertiary,

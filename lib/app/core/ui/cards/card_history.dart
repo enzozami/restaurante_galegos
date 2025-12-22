@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 
 class CardHistory extends StatelessWidget {
   final VoidCallback onTap;
@@ -7,6 +8,7 @@ class CardHistory extends StatelessWidget {
   final String price;
   final Widget status;
   final String horario;
+  final String date;
 
   const CardHistory({
     super.key,
@@ -16,6 +18,7 @@ class CardHistory extends StatelessWidget {
     required this.price,
     required this.status,
     required this.horario,
+    required this.date,
   });
 
   @override
@@ -32,38 +35,52 @@ class CardHistory extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             child: ListTile(
               title: Row(
-                mainAxisAlignment: .spaceBetween,
+                mainAxisAlignment: .spaceAround,
                 children: [
-                  Text(
-                    id,
-                    style: theme.textTheme.titleSmall,
+                  Row(
+                    crossAxisAlignment: .start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: .start,
+                        children: [
+                          Text(
+                            'Pedido: #$id',
+                            style: theme.textTheme.titleSmall,
+                          ),
+                          Text(
+                            '$date, $horario',
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: AppColors.title,
+                            ),
+                          ),
+                        ],
+                      ),
+                      status,
+                    ],
                   ),
-                  status,
+                  Text(
+                    price,
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      fontSize: 16,
+                    ),
+                  ),
                 ],
               ),
               subtitle: Column(
                 crossAxisAlignment: .start,
                 children: [
+                  Divider(),
                   Text(
-                    'Itens: $itens',
+                    'Carrinho:',
                     style: theme.textTheme.titleSmall?.copyWith(fontSize: 16),
+                  ),
+                  Text(
+                    '· $itens',
+                    style: theme.textTheme.labelLarge,
                   ),
                   Row(
                     mainAxisAlignment: .spaceBetween,
-                    children: [
-                      Text(
-                        'Horário: $horario',
-                        style: theme.textTheme.titleSmall?.copyWith(
-                          fontSize: 16,
-                        ),
-                      ),
-                      Text(
-                        price,
-                        style: theme.textTheme.titleSmall?.copyWith(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
+                    children: [],
                   ),
                 ],
               ),
