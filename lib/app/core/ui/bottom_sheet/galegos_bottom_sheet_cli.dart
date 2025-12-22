@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 
-class GalegosBottomSheet extends StatelessWidget {
+class GalegosBottomSheetCli extends StatelessWidget {
   final bool admin;
 
   final String image;
@@ -13,7 +13,7 @@ class GalegosBottomSheet extends StatelessWidget {
   final Widget plusMinus;
   final VoidCallback onPressed;
 
-  const GalegosBottomSheet({
+  const GalegosBottomSheetCli({
     super.key,
     required this.admin,
     required this.image,
