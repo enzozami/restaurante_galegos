@@ -6,7 +6,7 @@ import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
-class DetailsController extends GetxController {
+class DetailLunchboxesController extends GetxController {
   final CarrinhoServices _carrinhoServices;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -27,7 +27,7 @@ class DetailsController extends GetxController {
   final availableSizes = <String>[].obs;
   final _alreadyAdded = false.obs;
 
-  DetailsController({required CarrinhoServices carrinhoServices})
+  DetailLunchboxesController({required CarrinhoServices carrinhoServices})
     : _carrinhoServices = carrinhoServices;
 
   @override

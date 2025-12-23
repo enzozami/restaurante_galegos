@@ -34,50 +34,59 @@ class CardHistory extends StatelessWidget {
             splashColor: theme.colorScheme.primary,
             borderRadius: BorderRadius.circular(8),
             child: ListTile(
-              title: Row(
-                mainAxisAlignment: .spaceAround,
-                children: [
-                  Row(
-                    crossAxisAlignment: .start,
-                    children: [
-                      Column(
-                        spacing: 8,
-                        crossAxisAlignment: .start,
-                        children: [
-                          Text(
-                            'Pedido: #$id',
-                            style: theme.textTheme.titleSmall,
-                          ),
-                          Text(
-                            '$date, $horario',
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              color: AppColors.title,
+              title: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+                child: Row(
+                  mainAxisAlignment: .spaceBetween,
+                  children: [
+                    Row(
+                      crossAxisAlignment: .start,
+                      children: [
+                        Column(
+                          spacing: 8,
+                          crossAxisAlignment: .start,
+                          children: [
+                            Text(
+                              'Pedido: #$id',
+                              style: theme.textTheme.titleSmall,
                             ),
-                          ),
-                        ],
-                      ),
-                      status,
-                    ],
-                  ),
-                  Text(
-                    price,
-                    style: theme.textTheme.titleSmall?.copyWith(
-                      fontSize: 16,
+                            Text(
+                              '$date, $horario',
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: AppColors.title,
+                              ),
+                            ),
+                          ],
+                        ),
+                        status,
+                      ],
                     ),
-                  ),
-                ],
+                    Text(
+                      price,
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               subtitle: Column(
                 spacing: 8,
                 crossAxisAlignment: .start,
                 children: [
                   Divider(),
-                  Text(
-                    'Carrinho:',
-                    style: theme.textTheme.titleSmall?.copyWith(fontSize: 16),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0,
+                    ),
+
+                    child: Text(
+                      'Carrinho:',
+                      style: theme.textTheme.titleSmall?.copyWith(fontSize: 16),
+                    ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
+                    padding: const EdgeInsets.only(left: 35.0, bottom: 8),
                     child: Text(
                       itens,
                       style: theme.textTheme.labelLarge,

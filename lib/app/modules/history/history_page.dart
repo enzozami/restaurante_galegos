@@ -6,8 +6,6 @@ import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/modules/history/history_controller.dart';
 
-import '../../core/masks/mask_cep.dart';
-import '../../core/ui/dialogs/alert_dialog_history.dart';
 import '../../core/ui/theme/app_colors.dart';
 
 class HistoryPage extends GetView<HistoryController> {
@@ -109,7 +107,7 @@ class HistoryPage extends GetView<HistoryController> {
 
                               return CardHistory(
                                 date: data,
-                                id: pedido.id.hashCode.toString(),
+                                id: pedido.id.hashCode.bitLength.toString(),
                                 itens: itens,
                                 price: FormatterHelper.formatCurrency(
                                   pedido.amountToPay,
@@ -144,62 +142,63 @@ class HistoryPage extends GetView<HistoryController> {
                                 ),
 
                                 onTap: () {
-                                  final carrinhoName = pedido.cart
-                                      .map(
-                                        (item) =>
-                                            item.item.alimento?.name ??
-                                            item.item.produto?.name ??
-                                            '',
-                                      )
-                                      .where(
-                                        (name) => name.isNotEmpty,
-                                      )
-                                      .toList()
-                                      .join('\n');
-                                  final pedidoTipo = pedido.cart
-                                      .map(
-                                        (e) => e.item.produto != null ? 'Produto' : 'Marmita',
-                                      )
-                                      .toList()
-                                      .join(', ');
-                                  final cep = MaskCep();
-                                  final valor = FormatterHelper.formatCurrency(
-                                    pedido.amountToPay - pedido.taxa,
-                                  );
-                                  final taxa = FormatterHelper.formatCurrency(
-                                    pedido.taxa,
-                                  );
-                                  final totalFormatado = FormatterHelper.formatCurrency(
-                                    pedido.amountToPay,
-                                  );
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialogHistory(
-                                      titleButton: 'Fechar',
-                                      isAdmin: false,
-                                      pedidoLabel: pedidoTipo,
-                                      carrinhoName: carrinhoName,
-                                      valor: valor,
-                                      taxa: taxa,
-                                      total: totalFormatado,
-                                      nomeCliente: pedido.userName,
-                                      rua: pedido.endereco.rua,
-                                      numeroResidencia: pedido.endereco.numeroResidencia.toString(),
-                                      bairro: pedido.endereco.bairro,
-                                      cidade: pedido.endereco.cidade,
-                                      estado: pedido.endereco.estado,
-                                      cep: cep.maskText(
-                                        pedido.endereco.cep,
-                                      ),
-                                      horarioInicio: pedido.time,
-                                      horarioSairEntrega: pedido.timePath ?? '',
-                                      horarioEntregue: pedido.timeFinished ?? '',
-                                      data: pedido.date,
-                                      onPressed: () {},
-                                      statusPedido: pedido.status,
-                                      pagamento: pedido.formaPagamento,
-                                    ),
-                                  );
+                                  Get.toNamed('/detail/orders', arguments: pedido);
+                                  // final carrinhoName = pedido.cart
+                                  //     .map(
+                                  //       (item) =>
+                                  //           item.item.alimento?.name ??
+                                  //           item.item.produto?.name ??
+                                  //           '',
+                                  //     )
+                                  //     .where(
+                                  //       (name) => name.isNotEmpty,
+                                  //     )
+                                  //     .toList()
+                                  //     .join('\n');
+                                  // final pedidoTipo = pedido.cart
+                                  //     .map(
+                                  //       (e) => e.item.produto != null ? 'Produto' : 'Marmita',
+                                  //     )
+                                  //     .toList()
+                                  //     .join(', ');
+                                  // final cep = MaskCep();
+                                  // final valor = FormatterHelper.formatCurrency(
+                                  //   pedido.amountToPay - pedido.taxa,
+                                  // );
+                                  // final taxa = FormatterHelper.formatCurrency(
+                                  //   pedido.taxa,
+                                  // );
+                                  // final totalFormatado = FormatterHelper.formatCurrency(
+                                  //   pedido.amountToPay,
+                                  // );
+                                  // showDialog(
+                                  //   context: context,
+                                  //   builder: (context) => AlertDialogHistory(
+                                  //     titleButton: 'Fechar',
+                                  //     isAdmin: false,
+                                  //     pedidoLabel: pedidoTipo,
+                                  //     carrinhoName: carrinhoName,
+                                  //     valor: valor,
+                                  //     taxa: taxa,
+                                  //     total: totalFormatado,
+                                  //     nomeCliente: pedido.userName,
+                                  //     rua: pedido.endereco.rua,
+                                  //     numeroResidencia: pedido.endereco.numeroResidencia.toString(),
+                                  //     bairro: pedido.endereco.bairro,
+                                  //     cidade: pedido.endereco.cidade,
+                                  //     estado: pedido.endereco.estado,
+                                  //     cep: cep.maskText(
+                                  //       pedido.endereco.cep,
+                                  //     ),
+                                  //     horarioInicio: pedido.time,
+                                  //     horarioSairEntrega: pedido.timePath ?? '',
+                                  //     horarioEntregue: pedido.timeFinished ?? '',
+                                  //     data: pedido.date,
+                                  //     onPressed: () {},
+                                  //     statusPedido: pedido.status,
+                                  //     pagamento: pedido.formaPagamento,
+                                  //   ),
+                                  // );
                                 },
                               );
                             }),

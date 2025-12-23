@@ -161,6 +161,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  easy_stepper:
+    dependency: "direct main"
+    description:
+      name: easy_stepper
+      sha256: f8e380dd7ae8b43efbc244bed776250b01186236c5dc878a2539a7da836b7710
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.1"
   event_bus:
     dependency: transitive
     description:
@@ -432,6 +440,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.6.2"
+  lottie:
+    dependency: transitive
+    description:
+      name: lottie
+      sha256: "8ae0be46dbd9e19641791dc12ee480d34e1fd3f84c749adc05f3ad9342b71b95"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.2"
   mask_text_input_formatter:
     dependency: "direct main"
     description:
