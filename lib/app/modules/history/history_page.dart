@@ -105,7 +105,7 @@ class HistoryPage extends GetView<HistoryController> {
                                   .map(
                                     (p) => p.item.alimento?.name ?? p.item.produto?.name,
                                   )
-                                  .join(', ');
+                                  .join('\n');
 
                               return CardHistory(
                                 date: data,

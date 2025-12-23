@@ -41,6 +41,7 @@ class CardHistory extends StatelessWidget {
                     crossAxisAlignment: .start,
                     children: [
                       Column(
+                        spacing: 8,
                         crossAxisAlignment: .start,
                         children: [
                           Text(
@@ -67,6 +68,7 @@ class CardHistory extends StatelessWidget {
                 ],
               ),
               subtitle: Column(
+                spacing: 8,
                 crossAxisAlignment: .start,
                 children: [
                   Divider(),
@@ -74,13 +76,12 @@ class CardHistory extends StatelessWidget {
                     'Carrinho:',
                     style: theme.textTheme.titleSmall?.copyWith(fontSize: 16),
                   ),
-                  Text(
-                    '· $itens',
-                    style: theme.textTheme.labelLarge,
-                  ),
-                  Row(
-                    mainAxisAlignment: .spaceBetween,
-                    children: [],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: Text(
+                      itens,
+                      style: theme.textTheme.labelLarge,
+                    ),
                   ),
                 ],
               ),
