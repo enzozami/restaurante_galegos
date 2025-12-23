@@ -12,10 +12,8 @@ class ProductsPage extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: controller.admin
-          ? _FloatingActionButtonAdmin()
-          : null,
-      body: RefreshIndicator(
+      floatingActionButton: controller.admin ? _FloatingActionButtonAdmin() : null,
+      body: RefreshIndicator.noSpinner(
         onRefresh: controller.refreshProducts,
         child: SingleChildScrollView(
           controller: controller.scrollController,

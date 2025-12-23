@@ -20,7 +20,7 @@ class LunchboxesPage extends GetView<LunchboxesController> {
             )
           : null,
 
-      body: RefreshIndicator(
+      body: RefreshIndicator.noSpinner(
         onRefresh: controller.refreshLunchboxes,
         child: LayoutBuilder(
           builder: (context, constraints) {

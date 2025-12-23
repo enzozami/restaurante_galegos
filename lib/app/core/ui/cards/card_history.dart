@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 
 class CardHistory extends StatelessWidget {
@@ -27,6 +28,7 @@ class CardHistory extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
+        width: context.widthTransformer(reducedBy: 10),
         child: Card(
           elevation: 5,
           child: InkWell(

@@ -17,13 +17,13 @@ class ProductHeader extends GetView<ProductsController> {
           Obx(() {
             final category = controller.category;
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(10.0),
               child: Row(
                 children: category
                     .map(
                       (c) => FilterTag(
                         category: c,
-                        onPressed: () => controller.searchItemsByFilter(c),
+                        onPressed: () async => await controller.searchItemsByFilter(c),
                         isSelected: controller.isProcessing.value == false
                             ? controller.categorySelected.value?.name == c.name
                             : false,
