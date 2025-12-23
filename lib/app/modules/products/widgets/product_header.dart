@@ -17,7 +17,11 @@ class ProductHeader extends GetView<ProductsController> {
           Obx(() {
             final category = controller.category;
             return Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 10.0,
+                right: 10,
+              ),
               child: Row(
                 children: category
                     .map(

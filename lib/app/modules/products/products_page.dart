@@ -20,18 +20,6 @@ class ProductsPage extends GetView<ProductsController> {
           child: Column(
             children: [
               ProductHeader(),
-              const SizedBox(height: 20),
-              controller.admin
-                  ? SizedBox.shrink()
-                  : Center(
-                      child: Text(
-                        'Selecione algum item para adicionar ao carrinho*',
-                        style: TextStyle(
-                          fontStyle: FontStyle.italic,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
               Obx(() {
                 if (controller.items.isEmpty) {
                   return SizedBox.shrink();
