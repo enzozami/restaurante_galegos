@@ -49,7 +49,7 @@ class _FoodClient extends StatelessWidget {
                 children: List.generate(
                   5,
                   (_) => CardShimmer(
-                    height: 280,
+                    height: 165,
                     width: context.widthTransformer(reducedBy: 10),
                   ).paddingOnly(bottom: 10),
                 ),

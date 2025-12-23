@@ -70,7 +70,7 @@ class _ProductsClient extends GetView<ProductsController> {
                         children: List.generate(
                           10,
                           (_) => CardShimmer(
-                            height: 310,
+                            height: 277,
                             width: 180,
                           ).paddingOnly(bottom: 8),
                         ),

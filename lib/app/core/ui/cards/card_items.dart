@@ -202,7 +202,7 @@ class CardItems extends StatelessWidget {
                               ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 20),
+                            padding: const EdgeInsets.only(top: 20, right: 15),
                             child: Column(
                               mainAxisAlignment: .start,
                               crossAxisAlignment: .start,
@@ -216,7 +216,7 @@ class CardItems extends StatelessWidget {
                                 ),
                                 Text(
                                   descricao ?? '',
-                                  style: theme.textTheme.bodyLarge,
+                                  style: theme.textTheme.bodyMedium,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
                                 ),
