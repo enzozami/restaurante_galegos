@@ -296,6 +296,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
       ),
       GalegosBottomSheet(
+        ordersReceived: false,
         admin: admin,
         image: product.image,
         nameItem: product.name,

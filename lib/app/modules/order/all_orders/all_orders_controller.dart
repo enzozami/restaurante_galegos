@@ -48,10 +48,11 @@ class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin
       GalegosBottomSheet(
         admin: admin,
         pedido: pedido,
-        titleButton: 'SAIR PARA ENTREGA',
+        titleButtom: 'SAIR PARA ENTREGA',
         onPressed: () {
           orderFinished(pedido);
         },
+        ordersReceived: true,
       ),
     );
   }

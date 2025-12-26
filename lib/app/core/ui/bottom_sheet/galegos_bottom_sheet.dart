@@ -7,6 +7,7 @@ import 'package:restaurante_galegos/app/models/pedido_model.dart';
 
 class GalegosBottomSheet extends StatelessWidget {
   final bool admin;
+  final bool ordersReceived;
   final VoidCallback onPressed;
 
   final String? image;
@@ -16,7 +17,7 @@ class GalegosBottomSheet extends StatelessWidget {
   final Widget? plusMinus;
 
   final PedidoModel? pedido;
-  final String? titleButton;
+  final String? titleButtom;
 
   const GalegosBottomSheet({
     super.key,
@@ -28,18 +29,26 @@ class GalegosBottomSheet extends StatelessWidget {
     this.plusMinus,
     required this.onPressed,
     this.pedido,
-    this.titleButton,
+    this.titleButtom,
+    required this.ordersReceived,
   });
 
   @override
   Widget build(BuildContext context) {
     return admin
-        ? _adminBottomSheet(
-            titleButton: titleButton ?? '',
-            context: context,
-            pedido: pedido,
-            onPressed: () {},
-          )
+        ? (ordersReceived)
+              ? _ordersReceived(
+                  titleButtom: titleButtom ?? '',
+                  context: context,
+                  pedido: pedido,
+                  onPressed: () {},
+                )
+              : _outForDelivery(
+                  context: context,
+                  pedido: pedido,
+                  onPressed: onPressed,
+                  titleButtom: titleButtom ?? '',
+                )
         : _clientBottomSheet(
             context,
             onPressed,
@@ -120,17 +129,17 @@ Widget _clientBottomSheet(
   );
 }
 
-Widget _adminBottomSheet({
+Widget _ordersReceived({
   required BuildContext context,
   required PedidoModel? pedido,
   required VoidCallback onPressed,
-  required String titleButton,
+  required String titleButtom,
 }) {
   final ThemeData theme = Theme.of(context);
   return SingleChildScrollView(
     child: Container(
       clipBehavior: Clip.antiAlias,
-      height: Get.height * 0.55,
+      // height: Get.height * 0.55,
       decoration: BoxDecoration(
         color: AppColors.tertiary,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -264,16 +273,187 @@ Widget _adminBottomSheet({
               ),
             ),
           ),
-          Align(
-            alignment: .bottomCenter,
-            child: GalegosButtonDefault(
-              label: titleButton,
-              width: context.widthTransformer(reducedBy: 10),
-              onPressed: onPressed,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 15.0),
+            child: Align(
+              alignment: .bottomCenter,
+              child: GalegosButtonDefault(
+                label: titleButtom,
+                width: context.widthTransformer(reducedBy: 10),
+                onPressed: onPressed,
+              ),
             ),
           ),
         ],
       ),
     ),
   );
+}
+
+Widget _outForDelivery({
+  required BuildContext context,
+  required PedidoModel? pedido,
+  required VoidCallback onPressed,
+  required String titleButtom,
+}) {
+  final ThemeData theme = Theme.of(context);
+  return (pedido != null)
+      ? SingleChildScrollView(
+          child: Container(
+            clipBehavior: Clip.antiAlias,
+            // height: Get.height * 0.55,
+            decoration: BoxDecoration(
+              color: AppColors.tertiary,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            child: Column(
+              spacing: 30,
+              crossAxisAlignment: .start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, left: 25),
+                  child: Text(
+                    'Pedido: #${pedido.id.hashCode.bitLength}',
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      color: theme.colorScheme.secondary,
+                    ),
+                  ),
+                ),
+
+                Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.secondary,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    width: context.widthTransformer(reducedBy: 10),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                      child: Text(
+                        'Entrega em: ${pedido.endereco.rua}, ${pedido.endereco.numeroResidencia}',
+                        style: theme.textTheme.titleSmall,
+                      ),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.secondary,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    width: context.widthTransformer(reducedBy: 10),
+                    child: Column(
+                      crossAxisAlignment: .start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15, top: 20),
+                          child: Text(
+                            'Valores do Pedido',
+                            style: theme.textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                          child: Row(
+                            mainAxisAlignment: .spaceBetween,
+                            children: [
+                              Text(
+                                'Subtotal',
+                                style: theme.textTheme.bodyLarge?.copyWith(
+                                  color: AppColors.title,
+                                ),
+                              ),
+                              Text(
+                                FormatterHelper.formatCurrency(pedido.amountToPay - pedido.taxa),
+                                style: theme.textTheme.bodyLarge?.copyWith(
+                                  color: AppColors.title,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                          child: Row(
+                            mainAxisAlignment: .spaceBetween,
+                            children: [
+                              Text(
+                                'Taxa de entrega',
+                                style: theme.textTheme.bodyLarge?.copyWith(
+                                  color: AppColors.title,
+                                ),
+                              ),
+                              Text(
+                                FormatterHelper.formatCurrency(pedido.taxa),
+                                style: theme.textTheme.bodyLarge?.copyWith(
+                                  color: AppColors.title,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                          child: Divider(),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                          child: Row(
+                            mainAxisAlignment: .spaceBetween,
+                            children: [
+                              Text(
+                                'Total',
+                                style: theme.textTheme.bodyLarge?.copyWith(
+                                  color: AppColors.title,
+                                ),
+                              ),
+                              Text(
+                                FormatterHelper.formatCurrency(pedido.amountToPay),
+                                style: theme.textTheme.bodyLarge?.copyWith(
+                                  color: AppColors.title,
+                                  fontSize: 22,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.secondary,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    width: context.widthTransformer(reducedBy: 10),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                      child: Text(
+                        'Forma de Pagamento: ${pedido.formaPagamento}',
+                        style: theme.textTheme.titleSmall,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 15.0),
+                  child: Align(
+                    alignment: .bottomCenter,
+                    child: GalegosButtonDefault(
+                      label: titleButtom,
+                      width: context.widthTransformer(reducedBy: 10),
+                      onPressed: onPressed,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+      : SizedBox.shrink();
 }
