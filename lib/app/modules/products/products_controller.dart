@@ -36,6 +36,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final Rx<String?> categoryId = Rx(null);
   final categorySelected = Rxn<CategoryModel>();
   final itemSelect = Rxn<ProductModel>();
+  final RxnInt pressingItemId = RxnInt();
 
   final _quantity = 1.obs;
   final _alreadyAdded = false.obs;
@@ -338,7 +339,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         },
       ),
       isScrollControlled: true,
-    );
+    ).whenComplete(() => clearSelection());
   }
 
   void onAdminProductUpdateDetailsTapped(
@@ -433,5 +434,13 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   bool _validateForm() {
     return formKey.currentState?.validate() ?? false;
+  }
+
+  void clearSelection() {
+    itemSelect.value = null;
+  }
+
+  void handlePress(int? id) {
+    pressingItemId.value = id;
   }
 }

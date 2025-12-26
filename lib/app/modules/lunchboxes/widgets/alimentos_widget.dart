@@ -62,6 +62,7 @@ class _FoodClient extends StatelessWidget {
                     )
                     .map((alimento) {
                       return CardItems(
+                        id: alimento.id,
                         width: context.widthTransformer(reducedBy: 10),
                         height: 180,
                         isProduct: false,
@@ -82,6 +83,11 @@ class _FoodClient extends StatelessWidget {
                         precoMedia: FormatterHelper.formatCurrency(
                           alimento.pricePerSize['media'] ?? 0,
                         ),
+                        isSelected: controller.foodSelect.value?.id == alimento.id,
+                        onTapDown: (_) => controller.handlePress(alimento.id),
+                        onTapCancel: () => controller.handlePress(null),
+                        onTapUp: (_) => controller.handlePress(null),
+                        isPressed: controller.pressingItemId,
                       );
                     })
                     .toList(),

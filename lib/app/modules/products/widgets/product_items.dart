@@ -80,6 +80,7 @@ class _ProductsClient extends GetView<ProductsController> {
                         children: filtered
                             .map(
                               (e) => CardItems(
+                                id: e.id,
                                 // width: 175,
                                 width: context.widthTransformer(reducedBy: 55),
                                 height: 280,
@@ -94,6 +95,11 @@ class _ProductsClient extends GetView<ProductsController> {
                                 styleDescricao: theme.textTheme.bodyLarge,
                                 stylePreco: theme.textTheme.titleMedium,
                                 isProduct: true,
+                                isSelected: controller.itemSelect.value?.id == e.id,
+                                onTapDown: (_) => controller.handlePress(e.id),
+                                isPressed: controller.pressingItemId,
+                                onTapUp: (_) => controller.handlePress(null),
+                                onTapCancel: () => controller.handlePress(null),
                               ),
                             )
                             .toList(),

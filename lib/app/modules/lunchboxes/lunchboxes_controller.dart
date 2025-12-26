@@ -31,6 +31,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
   final isProcessing = false.obs;
+  final RxnInt pressingItemId = RxnInt();
   final availableSizes = <String>[].obs;
   final foodSelect = Rxn<FoodModel>();
   final sizeSelected = Rxn<String>();
@@ -374,5 +375,9 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       },
     );
     return confirm == true;
+  }
+
+  void handlePress(int? id) {
+    pressingItemId.value = id;
   }
 }
