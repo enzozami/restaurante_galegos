@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/modules/history/history_page.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_page.dart';
-import 'package:restaurante_galegos/app/modules/order/all_orders/all_orders_page.dart';
-import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_page.dart';
 import 'package:restaurante_galegos/app/modules/order/order_finished/order_finished_page.dart';
-import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_page.dart';
+import 'package:restaurante_galegos/app/modules/order/order_management/order_management_page.dart';
+import 'package:restaurante_galegos/app/modules/order/order_tracking/order_tracking_page.dart';
+import 'package:restaurante_galegos/app/modules/order/shopping_cart/shopping_cart_page.dart';
 import 'package:restaurante_galegos/app/modules/products/products_page.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
@@ -38,18 +38,18 @@ class HomeController extends GetxController {
     _isAdmin.value = _authServices.isAdmin();
     if (isAdmin) {
       _pages = [
-        AllOrdersPage(),
-        ForDeliveryPage(),
+        OrderManagementPage(),
+        OrderTrackingPage(),
         OrderFinishedPage(),
         ProductsPage(),
         LunchboxesPage(),
-        ShoppingCardPage(),
+        ShoppingCartPage(),
       ];
     } else {
       _pages = [
         ProductsPage(),
         LunchboxesPage(),
-        ShoppingCardPage(),
+        ShoppingCartPage(),
         HistoryPage(),
       ];
     }

@@ -10,10 +10,10 @@ import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 import 'package:restaurante_galegos/app/models/item_carrinho_model.dart';
 
 import '../../../core/ui/theme/app_colors.dart';
-import './finish_order_controller.dart';
+import 'checkout_controller.dart';
 
-class FinishOrderPage extends GetView<FinishOrderController> {
-  const FinishOrderPage({super.key});
+class CheckoutPage extends GetView<CheckoutController> {
+  const CheckoutPage({super.key});
 
   @override
   Widget build(BuildContext context) {

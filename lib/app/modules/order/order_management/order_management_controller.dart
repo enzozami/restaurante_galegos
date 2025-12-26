@@ -9,7 +9,7 @@ import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 
-class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin {
+class OrderManagementController extends GetxController with LoaderMixin, MessagesMixin {
   final OrderServices _ordersState;
   final AuthServices _authServices;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -17,7 +17,7 @@ class AllOrdersController extends GetxController with LoaderMixin, MessagesMixin
 
   bool get admin => _authServices.isAdmin();
 
-  AllOrdersController({
+  OrderManagementController({
     required OrderServices ordersState,
     required AuthServices authServices,
   }) : _ordersState = ordersState,

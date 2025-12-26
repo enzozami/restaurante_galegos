@@ -5,10 +5,10 @@ import 'package:restaurante_galegos/app/core/ui/cards/card_valores.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/models/item_carrinho_model.dart';
 
-import 'shopping_card_controller.dart';
+import 'shopping_cart_controller.dart';
 
-class ShoppingCardPage extends GetView<ShoppingCardController> {
-  const ShoppingCardPage({super.key});
+class ShoppingCartPage extends GetView<ShoppingCartController> {
+  const ShoppingCartPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_history.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_shimmer.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
-import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_controller.dart';
+import './order_management_controller.dart';
 
-class ForDeliveryPage extends GetView<ForDeliveryController> {
-  const ForDeliveryPage({super.key});
+class OrderManagementPage extends GetView<OrderManagementController> {
+  const OrderManagementPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +23,14 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                 child: Text(
-                  'Saiu para entrega',
+                  'Pedidos',
                   style: theme.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
               StreamBuilder(
                 stream: controller.listOrders,
                 builder: (context, snapshot) {
+                  // ESTADO: CARREGANDO (SHIMMER)
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -46,6 +47,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                     );
                   }
 
+                  // ESTADO: VAZIO
                   if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                     return const Padding(
                       padding: EdgeInsets.all(30.0),
@@ -56,6 +58,7 @@ class ForDeliveryPage extends GetView<ForDeliveryController> {
                     );
                   }
 
+                  // ESTADO: COM DADOS (LISTA)
                   final docs = snapshot.data!.docs;
 
                   return ListView.builder(

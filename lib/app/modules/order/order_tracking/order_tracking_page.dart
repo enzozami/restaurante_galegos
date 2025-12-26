@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_history.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_shimmer.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
+import './order_tracking_controller.dart';
 
-import './all_orders_controller.dart';
-
-class AllOrdersPage extends GetView<AllOrdersController> {
-  const AllOrdersPage({super.key});
+class OrderTrackingPage extends GetView<OrderTrackingController> {
+  const OrderTrackingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +23,13 @@ class AllOrdersPage extends GetView<AllOrdersController> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                 child: Text(
-                  'Pedidos',
+                  'Saiu para entrega',
                   style: theme.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
               StreamBuilder(
                 stream: controller.listOrders,
                 builder: (context, snapshot) {
-                  // ESTADO: CARREGANDO (SHIMMER)
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -48,7 +46,6 @@ class AllOrdersPage extends GetView<AllOrdersController> {
                     );
                   }
 
-                  // ESTADO: VAZIO
                   if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                     return const Padding(
                       padding: EdgeInsets.all(30.0),
@@ -59,7 +56,6 @@ class AllOrdersPage extends GetView<AllOrdersController> {
                     );
                   }
 
-                  // ESTADO: COM DADOS (LISTA)
                   final docs = snapshot.data!.docs;
 
                   return ListView.builder(

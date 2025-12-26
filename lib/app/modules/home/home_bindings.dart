@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/rest_client/via_cep_service.dart';
 import 'package:restaurante_galegos/app/modules/history/history_controller.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
-import 'package:restaurante_galegos/app/modules/order/all_orders/all_orders_controller.dart';
-import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_controller.dart';
 import 'package:restaurante_galegos/app/modules/order/order_finished/order_finished_controller.dart';
-import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_controller.dart';
+import 'package:restaurante_galegos/app/modules/order/order_management/order_management_controller.dart';
+import 'package:restaurante_galegos/app/modules/order/order_tracking/order_tracking_controller.dart';
+import 'package:restaurante_galegos/app/modules/order/shopping_cart/shopping_cart_controller.dart';
 import 'package:restaurante_galegos/app/modules/products/products_controller.dart';
 import 'package:restaurante_galegos/app/repositories/cep/cep_repository.dart';
 import 'package:restaurante_galegos/app/repositories/cep/cep_repository_impl.dart';
@@ -92,19 +92,19 @@ class HomeBindings implements Bindings {
       ),
     );
     Get.lazyPut(
-      () => AllOrdersController(
+      () => OrderManagementController(
         ordersState: Get.find<OrderServices>(),
         authServices: Get.find<AuthServices>(),
       ),
     );
     Get.lazyPut(
-      () => ForDeliveryController(
+      () => OrderTrackingController(
         ordersState: Get.find<OrderServices>(),
         authServices: Get.find<AuthServices>(),
       ),
     );
     Get.lazyPut(
-      () => ShoppingCardController(
+      () => ShoppingCartController(
         carrinhoServices: Get.find<CarrinhoServices>(),
       ),
     );

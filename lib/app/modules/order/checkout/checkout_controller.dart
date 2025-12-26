@@ -15,7 +15,7 @@ import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
-class FinishOrderController extends GetxController with LoaderMixin, MessagesMixin {
+class CheckoutController extends GetxController with LoaderMixin, MessagesMixin {
   final homeController = Get.find<HomeController>();
   final args = Get.arguments;
 
@@ -37,7 +37,7 @@ class FinishOrderController extends GetxController with LoaderMixin, MessagesMix
   int get quantity => quantityRx.value ?? 0;
   // List<CarrinhoModel> get products => _carrinhoServices.itensCarrinho;
 
-  FinishOrderController({
+  CheckoutController({
     required AuthServices authServices,
     required OrderServices orderServices,
     required CarrinhoServices carrinhoServices,

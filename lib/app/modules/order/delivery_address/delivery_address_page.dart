@@ -7,10 +7,10 @@ import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.d
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:validatorless/validatorless.dart';
 
-import './address_controller.dart';
+import 'delivery_address_controller.dart';
 
-class AddressPage extends GetView<AddressController> {
-  const AddressPage({super.key});
+class DeliveryAddressPage extends GetView<DeliveryAddressController> {
+  const DeliveryAddressPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +52,7 @@ class AddressPage extends GetView<AddressController> {
                             floatingLabelBehavior: .auto,
                             label: 'CEP',
                             prefixIcon: Icon(Icons.location_on),
-                            onEditingComplete:
-                                controller.validationOnReplacement()
+                            onEditingComplete: controller.validationOnReplacement()
                                 ? () {
                                     controller.getCep();
                                   }
@@ -63,8 +62,7 @@ class AddressPage extends GetView<AddressController> {
                             validator: Validatorless.required(
                               'CEP obrigatório',
                             ),
-                            onChanged: (value) =>
-                                controller.cepInput.value = value,
+                            onChanged: (value) => controller.cepInput.value = value,
                           ),
                         ),
                         controller.loading.value
@@ -96,8 +94,7 @@ class AddressPage extends GetView<AddressController> {
                                         Icons.search,
                                         color: theme.colorScheme.tertiary,
                                       ),
-                                      onPressed:
-                                          controller.validationOnReplacement()
+                                      onPressed: controller.validationOnReplacement()
                                           ? () {
                                               controller.getCep();
                                               controller.isOpen.value = true;
@@ -154,7 +151,7 @@ class AddressPage extends GetView<AddressController> {
   }
 }
 
-Widget _address(BuildContext context, AddressController controller) {
+Widget _address(BuildContext context, DeliveryAddressController controller) {
   final ThemeData theme = Theme.of(context);
   return Padding(
     padding: const EdgeInsets.all(8.0),

@@ -4,7 +4,7 @@ import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
-class ShoppingCardController extends GetxController with LoaderMixin, MessagesMixin {
+class ShoppingCartController extends GetxController with LoaderMixin, MessagesMixin {
   final CarrinhoServices _carrinhoServices;
 
   final _loading = false.obs;
@@ -13,7 +13,7 @@ class ShoppingCardController extends GetxController with LoaderMixin, MessagesMi
   RxBool get loading => _loading;
   List<CarrinhoModel> get products => _carrinhoServices.itensCarrinho;
 
-  ShoppingCardController({
+  ShoppingCartController({
     required CarrinhoServices carrinhoServices,
   }) : _carrinhoServices = carrinhoServices;
 

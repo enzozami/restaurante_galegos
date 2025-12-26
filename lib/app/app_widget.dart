@@ -31,7 +31,7 @@ class AppWidget extends StatelessWidget {
         ...ProductsRouters.routers,
         ...OrderRouters.routers,
         ...LunchboxesRouters.routers,
-        ...ShoppginCardRouters.routers,
+        ...ShoppginCartRouters.routers,
         ...DetailRouters.routers,
       ],
     );

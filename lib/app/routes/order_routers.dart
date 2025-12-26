@@ -1,18 +1,18 @@
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/modules/order/address/address_bindings.dart';
-import 'package:restaurante_galegos/app/modules/order/address/address_page.dart';
-import 'package:restaurante_galegos/app/modules/order/all_orders/all_orders_bindings.dart';
-import 'package:restaurante_galegos/app/modules/order/all_orders/all_orders_page.dart';
-import 'package:restaurante_galegos/app/modules/order/finish_order/finish_order_bindings.dart';
-import 'package:restaurante_galegos/app/modules/order/finish_order/finish_order_page.dart';
-import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_bindings.dart';
-import 'package:restaurante_galegos/app/modules/order/for_delivery/for_delivery_page.dart';
+import 'package:restaurante_galegos/app/modules/order/checkout/checkout_bindings.dart';
+import 'package:restaurante_galegos/app/modules/order/checkout/checkout_page.dart';
+import 'package:restaurante_galegos/app/modules/order/delivery_address/delivery_address_bindings.dart';
+import 'package:restaurante_galegos/app/modules/order/delivery_address/delivery_address_page.dart';
 import 'package:restaurante_galegos/app/modules/order/order_finished/order_finished_bindings.dart';
 import 'package:restaurante_galegos/app/modules/order/order_finished/order_finished_page.dart';
+import 'package:restaurante_galegos/app/modules/order/order_management/order_management_bindings.dart';
+import 'package:restaurante_galegos/app/modules/order/order_management/order_management_page.dart';
+import 'package:restaurante_galegos/app/modules/order/order_tracking/order_tracking_bindings.dart';
+import 'package:restaurante_galegos/app/modules/order/order_tracking/order_tracking_page.dart';
 import 'package:restaurante_galegos/app/modules/order/payment/payment_bindings.dart';
 import 'package:restaurante_galegos/app/modules/order/payment/payment_page.dart';
-import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_bindings.dart';
-import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_page.dart';
+import 'package:restaurante_galegos/app/modules/order/shopping_cart/shopping_cart_bindings.dart';
+import 'package:restaurante_galegos/app/modules/order/shopping_cart/shopping_cart_page.dart';
 
 class OrderRouters {
   OrderRouters._();
@@ -20,18 +20,18 @@ class OrderRouters {
   static final routers = <GetPage>[
     GetPage(
       name: '/order/shopping',
-      binding: ShoppingCardBindings(),
-      page: () => ShoppingCardPage(),
+      binding: ShoppingCartBindings(),
+      page: () => ShoppingCartPage(),
     ),
     GetPage(
       name: '/allOrders',
-      binding: AllOrdersBindings(),
-      page: () => AllOrdersPage(),
+      binding: OrderManagementBindings(),
+      page: () => OrderManagementPage(),
     ),
     GetPage(
       name: '/forDelivery',
-      binding: ForDeliveryBindings(),
-      page: () => ForDeliveryPage(),
+      binding: OrderTrackingBindings(),
+      page: () => OrderTrackingPage(),
     ),
     GetPage(
       name: '/order/finished',
@@ -40,8 +40,8 @@ class OrderRouters {
     ),
     GetPage(
       name: '/address',
-      binding: AddressBindings(),
-      page: () => AddressPage(),
+      binding: DeliveryAddressBindings(),
+      page: () => DeliveryAddressPage(),
     ),
     GetPage(
       name: '/payment',
@@ -50,8 +50,8 @@ class OrderRouters {
     ),
     GetPage(
       name: '/order/finish',
-      binding: FinishOrderBindings(),
-      page: () => FinishOrderPage(),
+      binding: CheckoutBindings(),
+      page: () => CheckoutPage(),
     ),
   ];
 }

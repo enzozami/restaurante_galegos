@@ -1,15 +1,15 @@
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_bindings.dart';
-import 'package:restaurante_galegos/app/modules/order/shopping_card/shopping_card_page.dart';
+import 'package:restaurante_galegos/app/modules/order/shopping_cart/shopping_cart_bindings.dart';
+import 'package:restaurante_galegos/app/modules/order/shopping_cart/shopping_cart_page.dart';
 
-class ShoppginCardRouters {
-  ShoppginCardRouters._();
+class ShoppginCartRouters {
+  ShoppginCartRouters._();
 
   static final routers = <GetPage>[
     GetPage(
       name: '/shopping_card',
-      binding: ShoppingCardBindings(),
-      page: () => ShoppingCardPage(),
+      binding: ShoppingCartBindings(),
+      page: () => ShoppingCartPage(),
     ),
   ];
 }

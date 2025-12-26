@@ -8,10 +8,10 @@ import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/models/cep_model.dart';
 import 'package:restaurante_galegos/app/services/cep/cep_services.dart';
 
-class AddressController extends GetxController with LoaderMixin, MessagesMixin {
+class DeliveryAddressController extends GetxController with LoaderMixin, MessagesMixin {
   final CepServices _cepServices;
 
-  AddressController({required CepServices cepServices}) : _cepServices = cepServices;
+  DeliveryAddressController({required CepServices cepServices}) : _cepServices = cepServices;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController cepEC = TextEditingController();
@@ -123,31 +123,37 @@ class AddressController extends GetxController with LoaderMixin, MessagesMixin {
         cepInput.value == cep.value;
   }
 
-
-  Future<void> enviarDadosParaPagamento()  async {
+  Future<void> enviarDadosParaPagamento() async {
     final numero = int.tryParse(numeroEC.text);
     try {
       _loading.value = true;
       if (numero != null) {
         if (_validateForm()) {
           _loading.value = false;
-          Get.toNamed('/payment', arguments: {
-            'preco': args['preco'],
-            'itens': args['itens'],
-            'cep': cepFormatter.getUnmaskedText(),
-            'rua': rua.value,
-            'bairro': bairro.value,
-            'cidade': cidade.value,
-            'estado': estado.value,
-            'numero': numero,
-            'taxa': taxa.value,
-          });
+          Get.toNamed(
+            '/payment',
+            arguments: {
+              'preco': args['preco'],
+              'itens': args['itens'],
+              'cep': cepFormatter.getUnmaskedText(),
+              'rua': rua.value,
+              'bairro': bairro.value,
+              'cidade': cidade.value,
+              'estado': estado.value,
+              'numero': numero,
+              'taxa': taxa.value,
+            },
+          );
         }
       } else {
         _loading.value = false;
         await 50.milliseconds.delay();
         _message(
-          MessageModel(title: 'Erro', message: 'Número inválido', type: MessageType.error,),
+          MessageModel(
+            title: 'Erro',
+            message: 'Número inválido',
+            type: MessageType.error,
+          ),
         );
       }
     } catch (e) {
@@ -155,7 +161,11 @@ class AddressController extends GetxController with LoaderMixin, MessagesMixin {
       await 50.milliseconds.delay();
       log('Erro ao obter argumentos: $e');
       _message(
-        MessageModel(title: 'Erro', message: 'Número não informado', type: MessageType.error,),
+        MessageModel(
+          title: 'Erro',
+          message: 'Número não informado',
+          type: MessageType.error,
+        ),
       );
     }
   }
