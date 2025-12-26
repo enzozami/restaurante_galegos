@@ -31,7 +31,7 @@ class LoginPage extends GetView<LoginController> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Form(
-                        key: controller.formKey,
+                        key: controller.formKeyLogin,
                         child: Obx(() {
                           return Column(
                             children: [
@@ -161,7 +161,7 @@ class _AlertResetPassword extends GetView<LoginController> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Form(
-      key: controller.formKey,
+      key: controller.formKeyReset,
       child: AlertDialog(
         contentPadding: EdgeInsets.all(30),
         icon: Align(
