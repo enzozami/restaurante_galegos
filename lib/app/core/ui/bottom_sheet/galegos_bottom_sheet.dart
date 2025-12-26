@@ -41,7 +41,7 @@ class GalegosBottomSheet extends StatelessWidget {
                   titleButtom: titleButtom ?? '',
                   context: context,
                   pedido: pedido,
-                  onPressed: () {},
+                  onPressed: onPressed,
                 )
               : _outForDelivery(
                   context: context,

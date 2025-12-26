@@ -33,9 +33,9 @@ class OrderManagementController extends GetxController with LoaderMixin, Message
         .snapshots();
   }
 
-  void orderFinished(PedidoModel pedido) async {
+  Future<void> orderFinished(PedidoModel pedido) async {
     final newTime = FormatterHelper.formatDateAndTime();
-    _ordersState.changeStatusOnTheWay(pedido, newTime);
+    await _ordersState.changeStatusOnTheWay(pedido, newTime);
   }
 
   void onAdminOrderTapped(PedidoModel pedido) {
@@ -49,8 +49,9 @@ class OrderManagementController extends GetxController with LoaderMixin, Message
         admin: admin,
         pedido: pedido,
         titleButtom: 'SAIR PARA ENTREGA',
-        onPressed: () {
-          orderFinished(pedido);
+        onPressed: () async {
+          await orderFinished(pedido);
+          Get.back();
         },
         ordersReceived: true,
       ),

@@ -28,9 +28,9 @@ class OrderTrackingController extends GetxController with LoaderMixin, MessagesM
     listOrders = firestore.collection('orders').where('status', isEqualTo: 'a caminho').snapshots();
   }
 
-  void orderFinished(PedidoModel pedido) async {
+  Future<void> orderFinished(PedidoModel pedido) async {
     final newTime = FormatterHelper.formatDateAndTime();
-    _ordersState.changeStatusFinished(pedido, newTime);
+    await _ordersState.changeStatusFinished(pedido, newTime);
   }
 
   void onAdminOrderTapped(PedidoModel pedido) {
@@ -44,8 +44,9 @@ class OrderTrackingController extends GetxController with LoaderMixin, MessagesM
         admin: admin,
         pedido: pedido,
         titleButtom: 'PEDIDO ENTREGUE',
-        onPressed: () {
-          orderFinished(pedido);
+        onPressed: () async {
+          await orderFinished(pedido);
+          Get.back();
         },
         ordersReceived: false,
       ),

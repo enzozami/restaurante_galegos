@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/enum/payment_type.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 
 class PaymentController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -41,7 +42,9 @@ class PaymentController extends GetxController {
           : (paymentType.value == PaymentType.vale)
           ? valeType
           : (_validateForm())
-          ? trocoEC.text
+          ? (trocoEC.text == '')
+                ? FormatterHelper.formatCurrency(0)
+                : trocoEC.text
           : null,
     };
   }

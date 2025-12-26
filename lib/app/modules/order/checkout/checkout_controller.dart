@@ -55,6 +55,7 @@ class CheckoutController extends GetxController with LoaderMixin, MessagesMixin 
   Future<bool> createOrder() async {
     final List<CarrinhoModel> products = args['itens'];
     final numero = args['numero'];
+    log('numero - $numero');
     if (isProcessing.value) return false;
     _loading.value = true;
     isProcessing.value = true;
@@ -114,15 +115,12 @@ class CheckoutController extends GetxController with LoaderMixin, MessagesMixin 
             : 'Dinheiro - Sem troco',
       );
 
-      log('PEDIDO - ${order.toString()}');
       await _orderServices.createOrder(order);
 
       Get.close(4);
       homeController.selectedIndex = 3;
 
       _carrinhoServices.clear();
-
-      log('Depois do reset');
 
       sucesso = true;
     } on Exception catch (e, s) {
@@ -135,16 +133,25 @@ class CheckoutController extends GetxController with LoaderMixin, MessagesMixin 
           type: MessageType.error,
         ),
       );
-
-      throw Exception('Número inválido');
-    } catch (e, s) {
-      log('PRIMEIRO SEGUNDO');
+      return false;
+    } catch (e) {
       _loading.value = false;
-      log('Erro ao carregar produtos no carrinho', error: e, stackTrace: s);
+
+      // Logue o erro real 'e' para saber o que o Firebase disse
+      log('Erro real ao criar pedido: $e');
+
+      String userMessage = 'Erro ao processar pedido';
+
+      if (e.toString().contains('permission-denied')) {
+        userMessage = 'Erro de permissão no Firebase. Verifique as Regras!';
+      } else if (e.toString().contains('invalid-argument')) {
+        userMessage = 'Dados do pedido inválidos.';
+      }
+
       _message(
         MessageModel(
           title: 'Erro',
-          message: 'Erro ao carregar produtos no carrinho',
+          message: userMessage,
           type: MessageType.error,
         ),
       );
