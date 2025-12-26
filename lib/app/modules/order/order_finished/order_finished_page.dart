@@ -24,7 +24,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                 child: Text(
-                  'Saiu para entrega',
+                  'Entregues',
                   style: theme.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
