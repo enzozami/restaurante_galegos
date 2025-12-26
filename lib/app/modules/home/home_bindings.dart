@@ -92,7 +92,10 @@ class HomeBindings implements Bindings {
       ),
     );
     Get.lazyPut(
-      () => AllOrdersController(ordersState: Get.find<OrderServices>()),
+      () => AllOrdersController(
+        ordersState: Get.find<OrderServices>(),
+        authServices: Get.find<AuthServices>(),
+      ),
     );
     Get.lazyPut(
       () => ForDeliveryController(ordersState: Get.find<OrderServices>()),
