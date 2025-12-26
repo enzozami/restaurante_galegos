@@ -82,6 +82,7 @@ class OrderFinishedPage extends GetView<OrderFinishedController> {
                       return CardHistory(
                         onTap: () {
                           // controller.onAdminOrderTapped(pedido);
+                          Get.toNamed('/detail/orders', arguments: pedido);
                         },
                         id: pedido.id.hashCode.bitLength.toString(),
                         itens: carrinho,

@@ -1,8 +1,15 @@
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/models/pedido_model.dart';
+import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 
 class DetailOrderController extends GetxController {
+  final AuthServices _authServices;
+
   final PedidoModel order = Get.arguments;
+
+  DetailOrderController({required AuthServices authServices}) : _authServices = authServices;
+
+  bool get admin => _authServices.isAdmin();
 
   int getStepIndex() {
     switch (order.status) {
