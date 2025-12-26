@@ -27,21 +27,21 @@ class HomePage extends GetView<HomeController> {
                 Icons.shopping_cart_outlined,
                 color: theme.colorScheme.primary,
               ),
-              label: 'Pedidos',
+              label: 'Painel',
             ),
             NavigationDestination(
               icon: Icon(
                 Icons.motorcycle,
                 color: theme.colorScheme.primary,
               ),
-              label: 'Entregas',
+              label: 'Despacho',
             ),
             NavigationDestination(
               icon: Icon(
                 Icons.shopping_bag_outlined,
                 color: theme.colorScheme.primary,
               ),
-              label: 'Finalizados',
+              label: 'Histórico',
             ),
             NavigationDestination(
               icon: Icon(
@@ -100,7 +100,7 @@ class HomePage extends GetView<HomeController> {
             backgroundColor: theme.navigationBarTheme.backgroundColor,
             indicatorColor: theme.navigationBarTheme.indicatorColor,
             labelTextStyle: theme.navigationBarTheme.labelTextStyle,
-            labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+            labelBehavior: .onlyShowSelected,
             selectedIndex: controller.selectedIndex,
             onDestinationSelected: (value) => controller.selectedIndex = value,
             destinations: destinations,
