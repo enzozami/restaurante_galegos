@@ -1,6 +1,7 @@
 import 'package:fancy_password_field/fancy_password_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:validatorless/validatorless.dart';
@@ -82,9 +83,12 @@ Widget _passwordValidator(
     children: [
       Icon(
         isValid ? Icons.check_circle : Icons.cancel,
-        color: isValid ? const Color(0xFF36A739) : theme.colorScheme.error,
+        color: isValid ? AppColors.delivered : theme.colorScheme.error,
       ),
-      Text(rule.name),
+      Text(
+        rule.name,
+        style: Theme.of(context).textTheme.labelMedium,
+      ),
     ],
   );
 }
@@ -104,7 +108,7 @@ Widget _formFieldsRegister({
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         controller: nameEC,
         label: 'Nome completo',
-        prefixIcon: Icon(Icons.person),
+        prefixIcon: Icons.person,
         validator: Validatorless.multiple([
           Validatorless.required('Campo obrigatório'),
         ]),
@@ -113,7 +117,7 @@ Widget _formFieldsRegister({
       GalegosTextFormField(
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         inputType: .emailAddress,
-        prefixIcon: Icon(Icons.email),
+        prefixIcon: Icons.email,
         controller: emailEC,
         label: 'E-mail',
         validator: Validatorless.multiple([
@@ -127,11 +131,9 @@ Widget _formFieldsRegister({
       GalegosTextFormField(
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         obscureText: obscureText,
-        prefixIcon: Icon(Icons.lock),
-        icon: IconButton(
-          onPressed: onPressed,
-          icon: Icon(icons),
-        ),
+        prefixIcon: Icons.lock,
+        onPressed: onPressed,
+        suffixIcon: icons,
         label: 'Confirma senha',
         validator: Validatorless.multiple([
           Validatorless.required('Campo obrigatório'),
@@ -149,30 +151,34 @@ Widget _fancyPasswordField({
   return FancyPasswordField(
     controller: passwordEC,
     keyboardType: .visiblePassword,
+    style: TextStyle(color: AppColors.title),
     decoration: InputDecoration(
       label: Text(
         'Senha',
       ),
-      prefixIcon: Icon(Icons.lock),
+      prefixIcon: Icon(
+        Icons.lock,
+        color: AppColors.title,
+      ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: BorderSide(
-          color: Colors.black,
+          color: AppColors.title,
         ),
       ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: BorderSide(
-          color: Colors.black,
+          color: AppColors.title,
         ),
       ),
       floatingLabelStyle: TextStyle(
-        color: Colors.black,
+        color: AppColors.title,
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: BorderSide(
-          color: Colors.black,
+          color: AppColors.title,
         ),
       ),
       errorBorder: OutlineInputBorder(
@@ -182,7 +188,7 @@ Widget _fancyPasswordField({
         ),
       ),
     ),
-    cursorColor: Colors.black,
+    cursorColor: AppColors.title,
     validator: Validatorless.multiple([
       Validatorless.required('Campo obrigatório'),
       Validatorless.min(8, 'Mínimo 8 caracteres'),
@@ -196,12 +202,15 @@ Widget _fancyPasswordField({
     validationRuleBuilder: (rules, value) {
       return Column(
         crossAxisAlignment: .start,
-        spacing: 10,
+        spacing: 7,
         children: [
           const SizedBox(height: 5),
           Padding(
             padding: const EdgeInsets.only(left: 25.0),
-            child: Text('A senha deve conter pelo menos: '),
+            child: Text(
+              'A senha deve conter pelo menos: ',
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
           ),
           ...rules.map(
             (rule) => Padding(

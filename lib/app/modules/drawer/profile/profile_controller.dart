@@ -51,7 +51,9 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
 
   Future<void> getUser() async {
     try {
-      _loading.value = true;
+      // _loading.value = true;
+      await 200.milliseconds.delay();
+
       final userName = _authServices.getUserName();
       if (userName != null) {
         _name.value = userName;
@@ -65,6 +67,7 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
       );
     } finally {
       _loading.value = false;
+      await 100.milliseconds.delay();
     }
   }
 

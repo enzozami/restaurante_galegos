@@ -9,7 +9,6 @@ class ProfileData extends StatelessWidget {
   final bool isSelected;
   final bool obscure;
   final FormFieldValidator<String>? validator;
-  final IconButton? icon;
 
   const ProfileData({
     this.controller,
@@ -19,7 +18,6 @@ class ProfileData extends StatelessWidget {
     required this.title,
     required this.obscure,
     this.validator,
-    this.icon,
   });
 
   @override
@@ -36,7 +34,7 @@ class ProfileData extends StatelessWidget {
           SizedBox(
             width: context.widthTransformer(reducedBy: 10),
             child: GalegosTextFormField(
-              floatingLabelBehavior: FloatingLabelBehavior.never,
+              floatingLabelBehavior: .never,
               label: label,
               controller: controller,
               enabled: isSelected,
@@ -44,7 +42,6 @@ class ProfileData extends StatelessWidget {
               maxLengthEnforcement: .none,
               obscureText: obscure,
               validator: validator,
-              icon: icon,
             ),
           ),
         ],

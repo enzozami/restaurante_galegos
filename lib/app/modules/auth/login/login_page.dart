@@ -86,7 +86,7 @@ Widget _formFieldsLogin({
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         controller: emailEC,
         inputType: .emailAddress,
-        prefixIcon: Icon(Icons.email),
+        prefixIcon: Icons.email,
         label: 'E-mail',
         validator: Validatorless.multiple([
           Validatorless.required('Campo obrigatório'),
@@ -99,14 +99,12 @@ Widget _formFieldsLogin({
         floatingLabelBehavior: .auto,
         controller: passwordEC,
         obscureText: obscureText,
-        prefixIcon: Icon(Icons.lock),
+        prefixIcon: Icons.lock,
         textInputAction: .done,
         onEditingComplete: onEditingComplete,
         inputType: .visiblePassword,
-        icon: IconButton(
-          onPressed: onPressed,
-          icon: Icon(icons),
-        ),
+        suffixIcon: icons,
+        onPressed: onPressed,
         validator: Validatorless.multiple([
           Validatorless.required('Senha obrigatória'),
           Validatorless.min(8, 'Senha deve ter 8 dígitos'),

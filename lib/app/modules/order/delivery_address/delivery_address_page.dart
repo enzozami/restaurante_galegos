@@ -42,16 +42,12 @@ class DeliveryAddressPage extends GetView<DeliveryAddressController> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: GalegosTextFormField(
-                            icon: IconButton(
-                              onPressed: () {
-                                controller.resetCepTaxa();
-                              },
-                              icon: Icon(Icons.backspace_outlined),
-                            ),
+                            suffixIcon: Icons.backspace_outlined,
+                            onPressed: () => controller.resetCepTaxa(),
                             inputType: .numberWithOptions(decimal: true),
                             floatingLabelBehavior: .auto,
                             label: 'CEP',
-                            prefixIcon: Icon(Icons.location_on),
+                            prefixIcon: Icons.location_on,
                             onEditingComplete: controller.validationOnReplacement()
                                 ? () {
                                     controller.getCep();

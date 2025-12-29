@@ -41,7 +41,7 @@ class ProfilePage extends GetView<ProfileController> {
                             'DADOS DO USUÁRIO',
                             style: TextStyle(
                               fontSize: 25,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: .bold,
                             ),
                           ),
                         ),
@@ -70,7 +70,7 @@ class ProfilePage extends GetView<ProfileController> {
                                 vertical: 10,
                               ),
                               child: Align(
-                                alignment: Alignment.centerRight,
+                                alignment: .centerRight,
                                 child: GalegosButtonDefault(
                                   label: 'Atualizar',
                                   onPressed: () {
@@ -86,19 +86,15 @@ class ProfilePage extends GetView<ProfileController> {
                                               right: 24,
                                               bottom: 0,
                                             ),
-                                            contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                  horizontal: 24,
-                                                  vertical: 10,
-                                                ),
-                                            actionsPadding:
-                                                const EdgeInsets.all(20),
+                                            contentPadding: const EdgeInsets.symmetric(
+                                              horizontal: 24,
+                                              vertical: 10,
+                                            ),
+                                            actionsPadding: const EdgeInsets.all(20),
                                             title: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
                                                 Icon(
                                                   Icons.help_outline_outlined,
@@ -107,8 +103,7 @@ class ProfilePage extends GetView<ProfileController> {
                                                 const SizedBox(width: 10),
                                                 Text(
                                                   'Alerta',
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
+                                                  overflow: TextOverflow.ellipsis,
                                                   style: const TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.bold,
@@ -128,31 +123,26 @@ class ProfilePage extends GetView<ProfileController> {
                                                 width: 130,
                                                 child: ElevatedButton(
                                                   style: ElevatedButton.styleFrom(
-                                                    backgroundColor: theme
-                                                        .colorScheme
-                                                        .primary,
+                                                    backgroundColor: theme.colorScheme.primary,
                                                     minimumSize: Size(
                                                       double.infinity,
                                                       50,
                                                     ),
                                                     shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            10,
-                                                          ),
+                                                      borderRadius: BorderRadius.circular(
+                                                        10,
+                                                      ),
                                                     ),
                                                   ),
                                                   onPressed: () {
                                                     Get.back();
-                                                    controller.isSelected =
-                                                        false;
+                                                    controller.isSelected = false;
                                                   },
                                                   child: Text(
                                                     'Cancelar',
                                                     style: const TextStyle(
                                                       color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      fontWeight: FontWeight.bold,
                                                       fontSize: 16,
                                                     ),
                                                   ),
@@ -162,32 +152,25 @@ class ProfilePage extends GetView<ProfileController> {
                                                 width: 130,
                                                 child: ElevatedButton(
                                                   style: ElevatedButton.styleFrom(
-                                                    backgroundColor: theme
-                                                        .colorScheme
-                                                        .primary,
+                                                    backgroundColor: theme.colorScheme.primary,
                                                     minimumSize: Size(
                                                       double.infinity,
                                                       50,
                                                     ),
                                                     shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            10,
-                                                          ),
+                                                      borderRadius: BorderRadius.circular(
+                                                        10,
+                                                      ),
                                                     ),
                                                   ),
                                                   onPressed: () async {
-                                                    await controller
-                                                        .updateName();
-                                                    controller.isSelected =
-                                                        false;
+                                                    await controller.updateName();
+                                                    controller.isSelected = false;
                                                     Get.snackbar(
                                                       'Sucesso',
                                                       'Dados atualizados com sucesso',
                                                       duration: 3.seconds,
-                                                      backgroundColor: theme
-                                                          .colorScheme
-                                                          .primary,
+                                                      backgroundColor: theme.colorScheme.primary,
                                                     );
 
                                                     Get.close(0);
@@ -196,8 +179,7 @@ class ProfilePage extends GetView<ProfileController> {
                                                     'Confirmar',
                                                     style: const TextStyle(
                                                       color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      fontWeight: FontWeight.bold,
                                                       fontSize: 16,
                                                     ),
                                                   ),
@@ -212,8 +194,7 @@ class ProfilePage extends GetView<ProfileController> {
                                         'Erro',
                                         'Senha precisa ter no mínimo 6 caracteres',
                                         duration: 3.seconds,
-                                        backgroundColor:
-                                            theme.colorScheme.primary,
+                                        backgroundColor: theme.colorScheme.primary,
                                       );
                                     }
                                   },

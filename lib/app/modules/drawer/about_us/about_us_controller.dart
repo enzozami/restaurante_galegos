@@ -36,7 +36,7 @@ class AboutUsController extends GetxController with LoaderMixin, MessagesMixin {
   }
 
   Future<void> getAbout() async {
-    _loading(true);
+    // _loading(true);
     try {
       final aboutUsData = await _aboutUsServices.getAboutUs();
       _titleAboutUs.value = aboutUsData.title;
