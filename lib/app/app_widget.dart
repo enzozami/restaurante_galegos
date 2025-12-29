@@ -10,6 +10,7 @@ import 'package:restaurante_galegos/app/routes/order_routers.dart';
 import 'package:restaurante_galegos/app/routes/products_routers.dart';
 import 'package:restaurante_galegos/app/routes/shoppgin_card_routers.dart';
 import 'package:restaurante_galegos/app/routes/splash_routers.dart';
+import 'package:restaurante_galegos/app/routes/welcome_routers.dart';
 
 import 'core/ui/theme/app_theme.dart';
 
@@ -24,6 +25,7 @@ class AppWidget extends StatelessWidget {
       theme: AppTheme.theme(),
       initialBinding: GalegosBindings(),
       getPages: [
+        ...WelcomeRouters.routers,
         ...DrawerRouters.routers,
         ...SplashRouters.routers,
         ...AuthRouters.routers,

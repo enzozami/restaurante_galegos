@@ -11,7 +11,6 @@ class LoginPage extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -22,12 +21,10 @@ class LoginPage extends GetView<LoginController> {
                 child: Column(
                   mainAxisAlignment: .spaceEvenly,
                   children: [
-                    const SizedBox(height: 95),
-                    Image.network(
-                      'https://restaurantegalegos.wabiz.delivery/stores/restaurantegalegos/img/homeLogo.png?vc=20250915111500&cvc=',
-                      fit: BoxFit.cover,
+                    Image.asset(
+                      'assets/splash/splash.png',
+                      height: context.heightTransformer(reducedBy: 50),
                     ),
-                    const SizedBox(height: 120),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Form(
@@ -62,28 +59,6 @@ class LoginPage extends GetView<LoginController> {
                           );
                         }),
                       ),
-                    ),
-                    Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: context.heightTransformer(reducedBy: 85),
-                        ),
-                        Text(
-                          'Não possui cadastro?',
-                          style: TextStyle(fontSize: 15),
-                        ),
-                        TextButton(
-                          style: theme.textButtonTheme.style,
-                          onPressed: () => Get.toNamed('/auth/register'),
-                          child: Text(
-                            'Clique aqui',
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),

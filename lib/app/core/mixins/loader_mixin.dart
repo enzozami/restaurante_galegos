@@ -27,7 +27,8 @@ mixin LoaderMixin on GetxController {
           }
         } else {
           if (isDialogCurrentlyOpen) {
-            Get.until((route) => !Get.isDialogOpen!);
+            // Get.until((route) => !Get.isDialogOpen!);
+            Get.back(closeOverlays: true);
           }
         }
       });

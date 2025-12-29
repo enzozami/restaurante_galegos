@@ -17,8 +17,7 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   final _name = RxnString();
   final _getStorage = GetStorage();
 
-  AuthServicesImpl({required AuthRepository authRepository})
-    : _authRepository = authRepository;
+  AuthServicesImpl({required AuthRepository authRepository}) : _authRepository = authRepository;
 
   @override
   Future<UserModel> login({required String email, required String password}) =>
@@ -51,10 +50,7 @@ class AuthServicesImpl extends GetxService implements AuthServices {
     };
     final diaHoje = diasSemana[timeNow.weekday];
     final List<String> diasFuncionamento =
-        (dateApi['days'] as List<dynamic>?)
-            ?.map((e) => e.toString())
-            .toList() ??
-        [];
+        (dateApi['days'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? [];
 
     if (!diasFuncionamento.contains(diaHoje)) {
       log('Fechado, hoje ($diaHoje) não funcionou');
@@ -95,11 +91,12 @@ class AuthServicesImpl extends GetxService implements AuthServices {
       });
 
       ever(_isLogged, (isLogged) {
-        if (isLogged == null || !isLogged) {
-          Get.offAllNamed('/auth/login');
-        } else {
+        if (isLogged == true) {
           Get.offAllNamed('/home');
         }
+        // } else {
+        //   Get.toNamed('/auth/login');
+        // }
       });
 
       _isLogged(getUserId() != null);
@@ -119,6 +116,7 @@ class AuthServicesImpl extends GetxService implements AuthServices {
     _getStorage.write(Constants.USER_KEY, null);
     _getStorage.write(Constants.ADMIN_KEY, null);
     _getStorage.write(Constants.USER_NAME, null);
+    Get.offAllNamed('/');
   }
 
   @override

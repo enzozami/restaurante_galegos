@@ -22,12 +22,10 @@ class RegisterPage extends GetView<RegisterController> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const SizedBox(height: 75),
-                    Image.network(
-                      'https://restaurantegalegos.wabiz.delivery/stores/restaurantegalegos/img/homeLogo.png?vc=20250915111500&cvc=',
-                      fit: BoxFit.cover,
+                    Image.asset(
+                      'assets/splash/splash.png',
+                      height: context.heightTransformer(reducedBy: 65),
                     ),
-                    const SizedBox(height: 30),
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Form(
@@ -106,6 +104,7 @@ Widget _formFieldsRegister({
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         controller: nameEC,
         label: 'Nome completo',
+        prefixIcon: Icon(Icons.person),
         validator: Validatorless.multiple([
           Validatorless.required('Campo obrigatório'),
         ]),
@@ -114,6 +113,7 @@ Widget _formFieldsRegister({
       GalegosTextFormField(
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         inputType: .emailAddress,
+        prefixIcon: Icon(Icons.email),
         controller: emailEC,
         label: 'E-mail',
         validator: Validatorless.multiple([
@@ -127,6 +127,7 @@ Widget _formFieldsRegister({
       GalegosTextFormField(
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         obscureText: obscureText,
+        prefixIcon: Icon(Icons.lock),
         icon: IconButton(
           onPressed: onPressed,
           icon: Icon(icons),
@@ -152,6 +153,7 @@ Widget _fancyPasswordField({
       label: Text(
         'Senha',
       ),
+      prefixIcon: Icon(Icons.lock),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: BorderSide(
@@ -197,9 +199,15 @@ Widget _fancyPasswordField({
         spacing: 10,
         children: [
           const SizedBox(height: 5),
-          Text('A senha deve conter pelo menos: '),
+          Padding(
+            padding: const EdgeInsets.only(left: 25.0),
+            child: Text('A senha deve conter pelo menos: '),
+          ),
           ...rules.map(
-            (rule) => _passwordValidator(context, rule, value),
+            (rule) => Padding(
+              padding: const EdgeInsets.only(left: 50.0),
+              child: _passwordValidator(context, rule, value),
+            ),
           ),
         ],
       );
