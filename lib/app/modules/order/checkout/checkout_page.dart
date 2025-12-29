@@ -33,7 +33,7 @@ class CheckoutPage extends GetView<CheckoutController> {
               Padding(
                 padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
                 child: Text(
-                  'Revise seus Dados',
+                  'Revisar Dados',
                   style: theme.textTheme.headlineLarge,
                 ),
               ),
