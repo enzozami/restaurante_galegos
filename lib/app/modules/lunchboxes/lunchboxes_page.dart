@@ -45,6 +45,10 @@ class LunchboxesPage extends GetView<LunchboxesController> {
                                   .expand((e) => e.days)
                                   .map(
                                     (d) => FilterTag(
+                                      isPressedDay: controller.daysPressing,
+                                      onTapCancel: () => controller.handlePressFilter(null),
+                                      onTapDown: (_) => controller.handlePressFilter(d),
+                                      onTapUp: (_) => controller.handlePressFilter(null),
                                       isSelected: controller.daysSelected.value == d,
                                       onPressed: () {
                                         controller.filtrarPorDia(d);

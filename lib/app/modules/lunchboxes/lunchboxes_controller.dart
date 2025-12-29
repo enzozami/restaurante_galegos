@@ -40,6 +40,7 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   final _totalPrice = 0.0.obs;
   final RxList<String> addDays = <String>[].obs;
   final daysSelected = Rxn<String>();
+  final daysPressing = Rxn<String>();
   final _availableSizesOriginal = <String>[];
   final dayNow = FormatterHelper.formatDate();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -379,5 +380,9 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   void handlePress(int? id) {
     pressingItemId.value = id;
+  }
+
+  void handlePressFilter(String? d) {
+    daysPressing.value = d;
   }
 }

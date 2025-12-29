@@ -26,6 +26,10 @@ class ProductHeader extends GetView<ProductsController> {
                 children: category
                     .map(
                       (c) => FilterTag(
+                        isPressedCategory: controller.categoryPressing,
+                        onTapCancel: () => controller.handlePressFilter(null),
+                        onTapDown: (_) => controller.handlePressFilter(c),
+                        onTapUp: (_) => controller.handlePressFilter(null),
                         category: c,
                         onPressed: () async => await controller.searchItemsByFilter(c),
                         isSelected: controller.isProcessing.value == false

@@ -71,6 +71,8 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   RxBool temHoje(ProductModel p) => RxBool(p.temHoje);
 
+  final categoryPressing = Rxn<CategoryModel>();
+
   List<ProductModel> getFilteredProducts(CategoryModel c) {
     return admin
         ? items.where((p) {
@@ -452,5 +454,9 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   void handlePress(int? id) {
     pressingItemId.value = id;
+  }
+
+  void handlePressFilter(CategoryModel? c) {
+    categoryPressing.value = c;
   }
 }

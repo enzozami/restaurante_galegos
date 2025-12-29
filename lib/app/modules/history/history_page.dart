@@ -46,6 +46,10 @@ class HistoryPage extends GetView<HistoryController> {
                       children: Status.values
                           .map(
                             (s) => FilterTag(
+                              onTapDown: (_) => controller.handlePressFilter(s),
+                              onTapCancel: () => controller.handlePressFilter(null),
+                              onTapUp: (_) => controller.handlePressFilter(null),
+                              isPressedStatus: controller.statusPressing,
                               onPressed: () => controller.searchOrdersByStatus(s),
                               isSelected: controller.isProcessing.value == false
                                   ? controller.statusValue.value == s

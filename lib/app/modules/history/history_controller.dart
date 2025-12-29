@@ -14,6 +14,7 @@ import 'package:restaurante_galegos/app/services/order/order_services.dart';
 class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
   final AuthServices _authServices;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final statusPressing = Rxn<String>();
   Stream<QuerySnapshot<Map<String, dynamic>>> get allOrders => (statusValue.value == Status.todos)
       ? firestore
             .collection('orders')
@@ -94,5 +95,13 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
     await 500.milliseconds.delay();
     statusValue.value = Status.todos;
     _loading.value = false;
+  }
+
+  void handlePressFilter(Status? s) {
+    if (s == null) {
+      statusPressing.value = null;
+    } else {
+      statusPressing.value = getStatusName(s);
+    }
   }
 }
