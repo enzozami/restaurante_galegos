@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 
 class CardValores extends StatelessWidget {
@@ -17,17 +18,18 @@ class CardValores extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return carrinho
-        ? _cardCarrinho(preco, theme)
-        : _cardAddress(preco, taxa ?? 0, theme);
+        ? _cardCarrinho(context, preco, theme)
+        : _cardAddress(context, preco, taxa ?? 0, theme);
   }
 }
 
-Widget _cardCarrinho(double preco, ThemeData theme) {
+Widget _cardCarrinho(BuildContext context, double preco, ThemeData theme) {
   return Card(
     elevation: 5,
     color: theme.colorScheme.secondary,
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+      width: context.widthTransformer(reducedBy: 10),
       child: Column(
         children: [
           Text(
@@ -40,12 +42,14 @@ Widget _cardCarrinho(double preco, ThemeData theme) {
   );
 }
 
-Widget _cardAddress(double preco, double taxa, ThemeData theme) {
+Widget _cardAddress(BuildContext context, double preco, double taxa, ThemeData theme) {
   return Card(
     elevation: 5,
     color: theme.colorScheme.secondary,
     child: Container(
       padding: EdgeInsets.all(10),
+      width: context.widthTransformer(reducedBy: 10),
+
       child: Column(
         children: [
           Text(
