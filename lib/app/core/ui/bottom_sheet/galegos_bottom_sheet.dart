@@ -57,6 +57,7 @@ class GalegosBottomSheet extends StatelessWidget {
             description: description ?? '',
             price: price ?? '',
             plusMinus: plusMinus ?? SizedBox.shrink(),
+            titleButtom: titleButtom ?? '',
           );
   }
 }
@@ -69,6 +70,7 @@ Widget _clientBottomSheet(
   required String description,
   required String price,
   required Widget plusMinus,
+  required String titleButtom,
 }) {
   final ThemeData theme = Theme.of(context);
   return SingleChildScrollView(
@@ -76,7 +78,7 @@ Widget _clientBottomSheet(
       clipBehavior: Clip.antiAlias,
       height: Get.height * 0.75,
       decoration: BoxDecoration(
-        color: AppColors.tertiary, // Garante que a cor acompanhe o Container
+        color: AppColors.tertiary,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
@@ -118,7 +120,8 @@ Widget _clientBottomSheet(
           ),
           Center(
             child: GalegosButtonDefault(
-              label: 'ADICIONAR NO CARRINHO',
+              // label: 'ADICIONAR NO CARRINHO',
+              label: titleButtom,
               width: context.widthTransformer(reducedBy: 10),
               onPressed: onPressed,
             ),

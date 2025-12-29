@@ -17,7 +17,7 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
-  final RxBool _viewConfirmPassword = false.obs;
+  final RxBool _viewConfirmPassword = true.obs;
 
   bool get viewConfirmPassword => _viewConfirmPassword.value;
 

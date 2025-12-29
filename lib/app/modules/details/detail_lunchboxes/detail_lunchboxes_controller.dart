@@ -1,12 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/models/carrinho_model.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 
-class DetailLunchboxesController extends GetxController {
+class DetailLunchboxesController extends GetxController with MessagesMixin {
   final CarrinhoServices _carrinhoServices;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -22,7 +21,7 @@ class DetailLunchboxesController extends GetxController {
   double get totalPrice => (food.pricePerSize[sizeSelected.value] ?? 0.0) * _quantity.value;
 
   // final _loading = false.obs;
-  // final _message = Rxn<MessageModel>();
+  final _message = Rxn<MessageModel>();
   final isProcessing = false.obs;
   final availableSizes = <String>[].obs;
   final _alreadyAdded = false.obs;
@@ -33,6 +32,8 @@ class DetailLunchboxesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    messageListener(_message);
+
     itemNoCarrinho();
 
     if (itemNoCarrinho() != null && itemNoCarrinho()?.item.tamanho != null) {
@@ -66,25 +67,30 @@ class DetailLunchboxesController extends GetxController {
     Get.back();
   }
 
-  void exibirDialogoAdicionarAoCarrinho({
+  Future<void> exibirDialogoAdicionarAoCarrinho({
     required BuildContext context,
-  }) {
+  }) async {
     _adicionarMarmitaAoCarrinho();
-    log(
-      'Item: ${food.name} - Valor: ${sizeSelected.value}',
+    // Get.snackbar(
+    //   'Item: ${food.name}',
+    //   'Item adicionado ao carrinho',
+    //   snackPosition: SnackPosition.TOP,
+    //   duration: Duration(seconds: 1),
+    //   backgroundColor: Color(0xFFE2933C),
+    //   colorText: Colors.black,
+    //   isDismissible: true,
+    //   overlayBlur: 0,
+    //   overlayColor: Colors.transparent,
+    //   barBlur: 0,
+    // );
+
+    await 50.milliseconds.delay();
+    _message.value = MessageModel(
+      title: 'Item: ${food.name}',
+      message: 'Item adicionado no carrinho',
+      type: MessageType.info,
     );
-    Get.snackbar(
-      'Item: ${food.name}',
-      'Item adicionado ao carrinho',
-      snackPosition: SnackPosition.TOP,
-      duration: Duration(seconds: 1),
-      backgroundColor: Color(0xFFE2933C),
-      colorText: Colors.black,
-      isDismissible: true,
-      overlayBlur: 0,
-      overlayColor: Colors.transparent,
-      barBlur: 0,
-    );
+    await 50.milliseconds.delay();
   }
 
   void adicionarQuantidade() {

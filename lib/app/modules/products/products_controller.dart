@@ -234,11 +234,11 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
     final carrinhoItem = _carrinhoServices.getById(item.id);
     if (carrinhoItem != null) {
-      _quantity(carrinhoItem.item.quantidade);
-      _alreadyAdded(true);
+      _quantity.value = carrinhoItem.item.quantidade;
+      _alreadyAdded.value = true;
     } else {
-      _quantity(1);
-      _alreadyAdded(false);
+      _quantity.value = 1;
+      _alreadyAdded.value = false;
     }
   }
 
@@ -246,7 +246,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     final selected = selectedItem;
 
     if (selected == null) {
-      _alreadyAdded(false);
+      _alreadyAdded.value = false;
       return;
     }
 
@@ -258,28 +258,35 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   }
 
   void removeProductUnit() {
-    if (_quantity.value > 0) {
+    if (_quantity.value > 1) {
       _quantity.value--;
     }
   }
 
-  void onClientProductQuickAddPressed(ProductModel product) {
+  Future<void> onClientProductQuickAddPressed(ProductModel product) async {
     setSelectedItem(product);
     final idItem = carrinhoServices.getById(product.id);
     if (idItem == null) {
       addItemsToCart();
-      Get.snackbar(
-        'Item: ${product.name}',
-        'Item adicionado ao carrinho',
-        snackPosition: SnackPosition.TOP,
-        duration: Duration(seconds: 1),
-        backgroundColor: Color(0xFFE2933C),
-        colorText: Colors.black,
-        isDismissible: true,
-        overlayBlur: 0,
-        overlayColor: Colors.transparent,
-        barBlur: 0,
+      // Get.snackbar(
+      //   'Item: ${product.name}',
+      //   'Item adicionado ao carrinho',
+      //   snackPosition: SnackPosition.TOP,
+      //   duration: Duration(seconds: 1),
+      //   backgroundColor: Color(0xFFE2933C),
+      //   colorText: Colors.black,
+      //   isDismissible: true,
+      //   overlayBlur: 0,
+      //   overlayColor: Colors.transparent,
+      //   barBlur: 0,
+      // );
+      await 50.milliseconds.delay();
+      _message.value = MessageModel(
+        title: 'Item: ${product.name}',
+        message: 'Item adicionado ao carrinho',
+        type: MessageType.info,
       );
+      await 50.milliseconds.delay();
     } else {
       addProductUnit();
       addItemsToCart();
@@ -302,6 +309,9 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
         image: product.image,
         nameItem: product.name,
         description: product.description ?? '',
+        titleButtom: (_carrinhoServices.getById(product.id) != null)
+            ? 'ATUALIZAR CARRINHO'
+            : 'ADICIONAR AO CARRINHO',
         price: FormatterHelper.formatCurrency(product.price),
         plusMinus: Obx(
           () {
