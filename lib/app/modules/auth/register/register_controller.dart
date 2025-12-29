@@ -60,7 +60,6 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
       log(e.toString());
       log(s.toString());
       _loading.value = false;
-      await 500.milliseconds.delay();
       _message(
         MessageModel(title: 'Erro', message: e.message, type: MessageType.error),
       );

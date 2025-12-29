@@ -68,7 +68,6 @@ class CheckoutController extends GetxController with LoaderMixin, MessagesMixin 
 
       if (numero == null) {
         _loading.value = false;
-        await 50.milliseconds.delay();
         _message(
           MessageModel(
             title: 'Erro',
@@ -164,7 +163,6 @@ class CheckoutController extends GetxController with LoaderMixin, MessagesMixin 
     }
 
     if (sucesso) {
-      await 500.milliseconds.delay();
       _message(
         MessageModel(
           title: 'Pedido feito com sucesso',

@@ -126,7 +126,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     } catch (e, s) {
       log('Erro ao carregar dados', error: e, stackTrace: s);
       _loading.value = false;
-      await 500.milliseconds.delay();
       _message(
         MessageModel(
           title: 'Erro',
@@ -147,7 +146,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       await _fetchAllProducts();
     } catch (e, s) {
       log('Erro ao atualizar produtos', error: e, stackTrace: s);
-      await 500.milliseconds.delay();
       _message(
         MessageModel(
           title: 'Erro',
@@ -202,7 +200,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     try {
       isProcessing.value = true;
       _loading.value = true;
-      await 250.milliseconds.delay();
 
       if (categoryModel == null) {
         categorySelected.value = null;
@@ -219,7 +216,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     } catch (e, s) {
       log('Erro ao filtrar', error: e, stackTrace: s);
       _loading.value = false;
-      await 500.milliseconds.delay();
       _message.value = MessageModel(
         title: 'ERRO',
         message: 'Erro ao filtrar',
@@ -270,25 +266,11 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     final idItem = carrinhoServices.getById(product.id);
     if (idItem == null) {
       addItemsToCart();
-      // Get.snackbar(
-      //   'Item: ${product.name}',
-      //   'Item adicionado ao carrinho',
-      //   snackPosition: SnackPosition.TOP,
-      //   duration: Duration(seconds: 1),
-      //   backgroundColor: Color(0xFFE2933C),
-      //   colorText: Colors.black,
-      //   isDismissible: true,
-      //   overlayBlur: 0,
-      //   overlayColor: Colors.transparent,
-      //   barBlur: 0,
-      // );
-      await 50.milliseconds.delay();
       _message.value = MessageModel(
         title: 'Item: ${product.name}',
         message: 'Item adicionado ao carrinho',
         type: MessageType.info,
       );
-      await 50.milliseconds.delay();
     } else {
       addProductUnit();
       addItemsToCart();

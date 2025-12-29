@@ -6,16 +6,19 @@ mixin MessagesMixin on GetxController {
   void messageListener(Rxn<MessageModel> message) {
     ever<MessageModel?>(
       message,
-      (model) {
+      (model) async {
         if (model != null) {
+          await 100.milliseconds.delay();
           Get.snackbar(
             model.title,
             model.message,
             backgroundColor: model.type.color(),
             colorText: model.type.textColor(),
             margin: EdgeInsets.all(20),
+            duration: const Duration(seconds: 3),
+            snackPosition: .TOP,
           );
-          message(null);
+          message.value = null;
         }
       },
     );

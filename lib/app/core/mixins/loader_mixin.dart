@@ -6,24 +6,28 @@ import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 
 mixin LoaderMixin on GetxController {
   void loaderListener(RxBool rxLoading) {
-    ever(rxLoading, (loading) {
+    ever<bool>(rxLoading, (loading) async {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         final isDialogCurrentlyOpen = Get.isDialogOpen ?? false;
         if (loading) {
           if (!isDialogCurrentlyOpen) {
             Get.dialog(
-              Center(
-                child: LoadingAnimationWidget.progressiveDots(
-                  color: AppColors.primary,
-                  size: 65,
+              PopScope(
+                canPop: false,
+                child: Center(
+                  child: LoadingAnimationWidget.progressiveDots(
+                    color: AppColors.primary,
+                    size: 65,
+                  ),
                 ),
               ),
               barrierDismissible: false,
+              name: 'loader-dialog',
             );
           }
         } else {
           if (isDialogCurrentlyOpen) {
-            Get.back();
+            Get.until((route) => !Get.isDialogOpen!);
           }
         }
       });

@@ -58,7 +58,6 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
       }
     } catch (e) {
       _loading.value = false;
-      await 500.milliseconds.delay();
       _message.value = MessageModel(
         title: 'Erro',
         message: 'Erro ao buscar dados',
@@ -87,7 +86,6 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
       }
     } catch (e) {
       _loading.value = false;
-      await 500.milliseconds.delay();
       _message.value = MessageModel(
         title: 'Erro',
         message: 'Erro ao atualizar nome',

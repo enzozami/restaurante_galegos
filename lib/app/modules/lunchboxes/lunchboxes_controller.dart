@@ -131,7 +131,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     } catch (e, s) {
       log('Erro ao carregar marmitas', error: e, stackTrace: s);
       _loading.value = false;
-      await 500.milliseconds.delay();
       _message(
         MessageModel(
           title: 'Erro',
@@ -149,7 +148,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       await _getLunchboxes();
     } catch (e, s) {
       log('Erro ao atualizar marmitas', error: e, stackTrace: s);
-      await 500.milliseconds.delay();
       _message(
         MessageModel(
           title: 'Erro',
@@ -237,7 +235,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
       }
     } catch (e) {
       _loading.value = false;
-      await 500.milliseconds.delay();
       _message(
         MessageModel(
           title: 'Erro',
@@ -263,7 +260,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   Future<void> filtrarPorDia(String? day) async {
     try {
       _loading.value = true;
-      await 250.milliseconds.delay();
       if (day == daysSelected.value) {
         daysSelected.value = null;
         return;

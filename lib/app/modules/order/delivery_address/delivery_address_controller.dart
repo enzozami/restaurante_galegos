@@ -88,7 +88,6 @@ class DeliveryAddressController extends GetxController with LoaderMixin, Message
       _loading.value = false;
       log('Erro ao buscar CEP: $e');
       log('StackTrace: $s');
-      await 500.milliseconds.delay();
       _message.value = MessageModel(
         title: 'Erro',
         message: 'Digite um CEP válido para finalizar compra!',
@@ -147,7 +146,6 @@ class DeliveryAddressController extends GetxController with LoaderMixin, Message
         }
       } else {
         _loading.value = false;
-        await 50.milliseconds.delay();
         _message(
           MessageModel(
             title: 'Erro',
@@ -158,7 +156,6 @@ class DeliveryAddressController extends GetxController with LoaderMixin, Message
       }
     } catch (e) {
       _loading.value = false;
-      await 50.milliseconds.delay();
       log('Erro ao obter argumentos: $e');
       _message(
         MessageModel(

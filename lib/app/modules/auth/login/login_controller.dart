@@ -65,7 +65,6 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
       await _authServices.login(email: emailEC.text, password: passwordEC.text);
     } on AuthException catch (e, s) {
       _loading.value = false;
-      await 500.milliseconds.delay();
       log('Falha no login', error: e, stackTrace: s);
       _message.value = MessageModel(
         title: 'Erro',

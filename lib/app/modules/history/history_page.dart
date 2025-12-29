@@ -7,7 +7,6 @@ import 'package:restaurante_galegos/app/core/ui/cards/card_history.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_shimmer.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/filter_tag.dart';
-import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/modules/history/history_controller.dart';
 
 import '../../core/ui/theme/app_colors.dart';
@@ -78,7 +77,7 @@ class HistoryPage extends GetView<HistoryController> {
                   );
                 }
                 return StreamBuilder(
-                  stream: controller.allOrders,
+                  stream: controller.groupedOrders,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Column(
@@ -99,13 +98,11 @@ class HistoryPage extends GetView<HistoryController> {
                     }
 
                     if (snapshot.hasError) {
-                      // Se tiver erro - _message
                       log(snapshot.error.toString());
                       return const Center(child: Text('Erro ao carregar pedidos'));
                     }
 
-                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                      // Se nao tiver nenhum pedido - text
+                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
                       return const Center(
                         child: Padding(
                           padding: EdgeInsets.all(20.0),
@@ -114,33 +111,10 @@ class HistoryPage extends GetView<HistoryController> {
                       );
                     }
 
-                    final docs = snapshot.data!.docs;
-                    final pedidos = docs
-                        .map(
-                          (doc) => PedidoModel.fromMap({...doc.data(), 'id': doc.id}),
-                        )
-                        .toList();
-                    final Map<String, List<PedidoModel>> pedidosPorData = {};
-
-                    pedidos.sort((a, b) {
-                      String dataA = a.date.split('/').reversed.join();
-                      String dataB = b.date.split('/').reversed.join();
-                      int comparacao = dataB.compareTo(dataA);
-
-                      if (comparacao != 0) {
-                        return comparacao;
-                      }
-
-                      return b.time.compareTo(a.time);
-                    });
-
-                    for (var pedido in pedidos) {
-                      pedidosPorData.putIfAbsent(pedido.date, () => []);
-                      pedidosPorData[pedido.date]!.add(pedido);
-                    }
+                    final pedidosAgrupados = snapshot.data!;
 
                     return Column(
-                      children: pedidosPorData.entries.map(
+                      children: pedidosAgrupados.entries.map(
                         (pedido) {
                           final data = pedido.key;
                           final listaDePedidosDoDia = pedido.value;

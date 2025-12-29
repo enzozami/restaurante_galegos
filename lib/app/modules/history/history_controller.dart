@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/enum/status.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
+import 'package:restaurante_galegos/app/models/pedido_model.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/order/order_services.dart';
 
@@ -27,6 +28,26 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
             .where('status', isEqualTo: getStatusName(statusValue.value).toLowerCase())
             .orderBy('date', descending: true)
             .snapshots();
+
+  Stream<Map<String, List<PedidoModel>>> get groupedOrders => allOrders.map((snapshot) {
+    final pedidos = snapshot.docs
+        .map((doc) => PedidoModel.fromMap({...doc.data(), 'id': doc.id}))
+        .toList();
+
+    pedidos.sort((a, b) {
+      int dateComp = b.date.split('/').reversed.join().compareTo(a.date.split('/').reversed.join());
+      if (dateComp != 0) return dateComp;
+      return b.time.compareTo(a.time);
+    });
+
+    final Map<String, List<PedidoModel>> grouped = {};
+    for (var pedido in pedidos) {
+      grouped.putIfAbsent(pedido.date, () => []);
+      grouped[pedido.date]!.add(pedido);
+    }
+
+    return grouped;
+  });
   final RxBool isSelected = false.obs;
   final RxBool isProcessing = false.obs;
   final statusValue = Rx(Status.todos);
@@ -68,7 +89,6 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
       HapticFeedback.lightImpact();
       isProcessing.value = true;
       _loading.value = true;
-      await 250.milliseconds.delay();
 
       if (statusValue.value == status) {
         statusValue.value = Status.todos;
@@ -78,7 +98,6 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
     } catch (e) {
       log('Erro ao filtrar: $e');
       _loading.value = false;
-      await 250.milliseconds.delay();
       _message.value = MessageModel(
         title: 'Erro',
         message: 'Erro ao filtrar',
@@ -92,7 +111,6 @@ class HistoryController extends GetxController with LoaderMixin, MessagesMixin {
 
   Future<void> refreshOrders() async {
     _loading.value = true;
-    await 500.milliseconds.delay();
     statusValue.value = Status.todos;
     _loading.value = false;
   }

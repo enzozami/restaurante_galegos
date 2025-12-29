@@ -71,26 +71,11 @@ class DetailLunchboxesController extends GetxController with MessagesMixin {
     required BuildContext context,
   }) async {
     _adicionarMarmitaAoCarrinho();
-    // Get.snackbar(
-    //   'Item: ${food.name}',
-    //   'Item adicionado ao carrinho',
-    //   snackPosition: SnackPosition.TOP,
-    //   duration: Duration(seconds: 1),
-    //   backgroundColor: Color(0xFFE2933C),
-    //   colorText: Colors.black,
-    //   isDismissible: true,
-    //   overlayBlur: 0,
-    //   overlayColor: Colors.transparent,
-    //   barBlur: 0,
-    // );
-
-    await 50.milliseconds.delay();
     _message.value = MessageModel(
       title: 'Item: ${food.name}',
       message: 'Item adicionado no carrinho',
       type: MessageType.info,
     );
-    await 50.milliseconds.delay();
   }
 
   void adicionarQuantidade() {
