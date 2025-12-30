@@ -25,59 +25,53 @@ class CardCarrinho extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return SizedBox(
-      width: context.widthTransformer(reducedBy: 10),
-      child: Card(
-        elevation: theme.cardTheme.elevation,
-        color: theme.cardTheme.color,
-        shape: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: const Color.fromARGB(255, 190, 132, 98),
-          ),
+    return Card(
+      elevation: theme.cardTheme.elevation,
+      color: theme.cardTheme.color,
+      shape: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(
+          color: const Color.fromARGB(255, 190, 132, 98),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: ListTile(
-                  title: Text(
-                    title,
-                    style: theme.textTheme.titleSmall,
-                  ),
-                  subtitle: Text(
-                    description,
-                    style: theme.textTheme.bodyLarge,
-                  ),
-                  trailing: Text(
-                    price,
-                    style: theme.textTheme.titleSmall,
-                  ),
-                ),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: ListTile(
+              title: Text(
+                title,
+                style: theme.textTheme.titleSmall,
               ),
-              (isViewFinish)
-                  ? Container(
-                      margin: EdgeInsets.only(left: 25),
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Text(
-                          'Qtd: $quantity',
-                          style: theme.textTheme.bodyLarge,
-                        ),
-                      ),
-                    )
-                  : GalegosPlusMinus(
-                      color: Colors.black,
-                      addCallback: add ?? () {},
-                      //() => controller.adicionarQuantidadeCarrinho(p),
-                      removeCallback: remove ?? () {},
-                      // () => controller.removerQuantidadeCarrinho(p),
-                      quantityUnit: int.parse(quantity),
-                    ),
-            ],
+              subtitle: Text(
+                description,
+                style: theme.textTheme.bodyLarge,
+              ),
+              trailing: Text(
+                price,
+                style: theme.textTheme.titleSmall,
+              ),
+            ),
           ),
-        ),
+          (isViewFinish)
+              ? Container(
+                  margin: EdgeInsets.only(left: 25),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(
+                      'Qtd: $quantity',
+                      style: theme.textTheme.bodyLarge,
+                    ),
+                  ),
+                )
+              : GalegosPlusMinus(
+                  color: Colors.black,
+                  addCallback: add ?? () {},
+                  //() => controller.adicionarQuantidadeCarrinho(p),
+                  removeCallback: remove ?? () {},
+                  // () => controller.removerQuantidadeCarrinho(p),
+                  quantityUnit: int.parse(quantity),
+                ),
+        ],
       ),
     );
   }
