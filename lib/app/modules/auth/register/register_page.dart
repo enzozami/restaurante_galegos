@@ -21,43 +21,46 @@ class RegisterPage extends GetView<RegisterController> {
             child: IntrinsicHeight(
               child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: .spaceEvenly,
                   children: [
                     Image.asset(
                       'assets/splash/splash.png',
                       height: context.heightTransformer(reducedBy: 65),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Form(
-                        key: controller.formKey,
-                        child: Obx(() {
-                          return Column(
-                            children: [
-                              _formFieldsRegister(
-                                context: context,
-                                nameEC: controller.nameEC,
-                                passwordEC: controller.passwordEC,
-                                emailEC: controller.emailEC,
-                                icons: controller.viewConfirmPassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                onPressed: () {
-                                  controller.changePasswordVisibility();
-                                },
-                                obscureText: controller.viewConfirmPassword,
-                              ),
-                              const SizedBox(height: 20),
-                              GalegosButtonDefault(
-                                label: 'Cadastrar',
-                                onPressed: () async {
-                                  await controller.register();
-                                },
-                              ),
-                              const SizedBox(height: 15),
-                            ],
-                          );
-                        }),
+                    Center(
+                      child: SizedBox(
+                        width: context.widthTransformer(reducedBy: 10),
+                        child: Form(
+                          key: controller.formKey,
+                          child: Obx(() {
+                            return Column(
+                              children: [
+                                _formFieldsRegister(
+                                  context: context,
+                                  nameEC: controller.nameEC,
+                                  passwordEC: controller.passwordEC,
+                                  emailEC: controller.emailEC,
+                                  icons: controller.viewConfirmPassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  onPressed: () {
+                                    controller.changePasswordVisibility();
+                                  },
+                                  obscureText: controller.viewConfirmPassword,
+                                ),
+                                const SizedBox(height: 30),
+                                GalegosButtonDefault(
+                                  label: 'Cadastrar',
+                                  width: double.infinity,
+                                  onPressed: () async {
+                                    await controller.register();
+                                  },
+                                ),
+                                const SizedBox(height: 15),
+                              ],
+                            );
+                          }),
+                        ),
                       ),
                     ),
                   ],

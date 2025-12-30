@@ -25,39 +25,42 @@ class LoginPage extends GetView<LoginController> {
                       'assets/splash/splash.png',
                       height: context.heightTransformer(reducedBy: 50),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Form(
-                        key: controller.formKeyLogin,
-                        child: Obx(() {
-                          return Column(
-                            children: [
-                              _formFieldsLogin(
-                                emailEC: controller.emailEC,
-                                passwordEC: controller.passwordEC,
-                                context: context,
-                                icons: controller.viewPassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                onPressed: () {
-                                  controller.changePasswordVisibility();
-                                },
-                                obscureText: controller.viewPassword,
-                                onEditingComplete: () async {
-                                  await controller.login();
-                                },
-                              ),
-                              const SizedBox(height: 25),
-                              GalegosButtonDefault(
-                                label: 'Entrar',
-                                onPressed: () async {
-                                  await controller.login();
-                                },
-                              ),
-                              const SizedBox(height: 15),
-                            ],
-                          );
-                        }),
+                    Center(
+                      child: SizedBox(
+                        width: context.widthTransformer(reducedBy: 10),
+                        child: Form(
+                          key: controller.formKeyLogin,
+                          child: Obx(() {
+                            return Column(
+                              children: [
+                                _formFieldsLogin(
+                                  emailEC: controller.emailEC,
+                                  passwordEC: controller.passwordEC,
+                                  context: context,
+                                  icons: controller.viewPassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  onPressed: () {
+                                    controller.changePasswordVisibility();
+                                  },
+                                  obscureText: controller.viewPassword,
+                                  onEditingComplete: () async {
+                                    await controller.login();
+                                  },
+                                ),
+                                const SizedBox(height: 25),
+                                GalegosButtonDefault(
+                                  label: 'Entrar',
+                                  width: double.infinity,
+                                  onPressed: () async {
+                                    await controller.login();
+                                  },
+                                ),
+                                const SizedBox(height: 15),
+                              ],
+                            );
+                          }),
+                        ),
                       ),
                     ),
                   ],
