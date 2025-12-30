@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
@@ -36,8 +37,8 @@ class DetailLunchboxesPage extends GetView<DetailLunchboxesController> {
               Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    controller.food.image,
+                  child: CachedNetworkImage(
+                    imageUrl: controller.food.image,
                     width: context.widthTransformer(reducedBy: 10),
                     height: 250,
                     fit: .cover,

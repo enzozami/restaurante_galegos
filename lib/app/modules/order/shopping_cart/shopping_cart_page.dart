@@ -23,7 +23,7 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
                 mainAxisAlignment: .center,
                 crossAxisAlignment: .start,
                 children: [
-                  SizedBox(height: context.heightTransformer(reducedBy: 60)),
+                  SizedBox(height: context.heightTransformer(reducedBy: 55)),
                   Center(
                     child: Text(
                       'Nenhum item no carrinho!',
@@ -40,9 +40,7 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
               crossAxisAlignment: .start,
               spacing: 15,
               children: [
-                SizedBox(
-                  height: 120,
-                ),
+                SafeArea(child: Container()),
                 Padding(
                   padding: const EdgeInsets.only(top: 15, left: 40, right: 15),
                   child: Row(
@@ -62,35 +60,32 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Obx(() {
-                    return Center(
-                      child: SizedBox(
-                        width: context.widthTransformer(reducedBy: 10),
-                        child: ListView.builder(
-                          itemCount: controller.products.length,
-                          shrinkWrap: true,
-                          padding: EdgeInsets.all(0),
-                          physics: NeverScrollableScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            final p = controller.products[index];
+                Obx(() {
+                  return Center(
+                    child: SizedBox(
+                      width: context.widthTransformer(reducedBy: 10),
+                      child: ListView.builder(
+                        itemCount: controller.products.length,
+                        shrinkWrap: true,
+                        padding: EdgeInsets.all(0),
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (BuildContext context, int index) {
+                          final p = controller.products[index];
 
-                            return CardCarrinho(
-                              title: p.item.nameDisplay,
-                              description: p.item.subtitleDisplay,
-                              price: p.item.priceDisplay,
-                              quantity: p.item.quantidade.toString(),
-                              isViewFinish: false,
-                              add: () => controller.adicionarQuantidadeCarrinho(p),
-                              remove: () => controller.removerQuantidadeCarrinho(p),
-                            );
-                          },
-                        ),
+                          return CardCarrinho(
+                            title: p.item.nameDisplay,
+                            description: p.item.subtitleDisplay,
+                            price: p.item.priceDisplay,
+                            quantity: p.item.quantidade.toString(),
+                            isViewFinish: false,
+                            add: () => controller.adicionarQuantidadeCarrinho(p),
+                            remove: () => controller.removerQuantidadeCarrinho(p),
+                          );
+                        },
                       ),
-                    );
-                  }),
-                ),
+                    ),
+                  );
+                }),
                 Center(
                   child: SizedBox(
                     width: context.widthTransformer(reducedBy: 10),

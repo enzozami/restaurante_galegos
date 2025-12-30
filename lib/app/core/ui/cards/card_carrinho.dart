@@ -26,6 +26,7 @@ class CardCarrinho extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return Card(
       elevation: theme.cardTheme.elevation,
+      margin: EdgeInsets.zero,
       color: theme.cardTheme.color,
       shape: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),

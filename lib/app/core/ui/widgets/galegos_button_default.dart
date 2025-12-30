@@ -12,7 +12,7 @@ class GalegosButtonDefault extends StatelessWidget {
     super.key,
     required this.label,
     required this.onPressed,
-    this.width = 200,
+    this.width,
     this.heigth = 50,
     this.icon,
     this.style,
@@ -23,12 +23,18 @@ class GalegosButtonDefault extends StatelessWidget {
     return SizedBox(
       width: width,
       height: heigth,
-      child: ElevatedButton.icon(
-        style: style ?? Theme.of(context).elevatedButtonTheme.style,
-        onPressed: onPressed,
-        label: Text(label),
-        icon: icon,
-      ),
+      child: icon != null
+          ? ElevatedButton.icon(
+              style: style,
+              onPressed: onPressed,
+              label: Text(label),
+              icon: icon!,
+            )
+          : ElevatedButton(
+              style: style,
+              onPressed: onPressed,
+              child: Text(label),
+            ),
     );
   }
 }

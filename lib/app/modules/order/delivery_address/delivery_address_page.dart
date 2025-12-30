@@ -39,8 +39,8 @@ class DeliveryAddressPage extends GetView<DeliveryAddressController> {
                     child: Column(
                       spacing: 10,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        SizedBox(
+                          width: context.widthTransformer(reducedBy: 10),
                           child: GalegosTextFormField(
                             suffixIcon: Icons.backspace_outlined,
                             onPressed: () => controller.resetCepTaxa(),
@@ -70,9 +70,9 @@ class DeliveryAddressPage extends GetView<DeliveryAddressController> {
                                   children: List.generate(
                                     1,
                                     (_) => CardShimmer(
-                                      height: 250,
+                                      height: 300,
                                       width: context.widthTransformer(
-                                        reducedBy: 15,
+                                        reducedBy: 10,
                                       ),
                                     ),
                                   ),
@@ -80,26 +80,19 @@ class DeliveryAddressPage extends GetView<DeliveryAddressController> {
                               )
                             : Visibility(
                                 visible: controller.addressValidation(),
-                                replacement: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: SizedBox(
-                                    width: context.widthTransformer(
-                                      reducedBy: 10,
-                                    ),
-                                    child: GalegosButtonDefault(
-                                      label: 'Consultar',
-                                      icon: Icon(
-                                        Icons.search,
-                                        color: theme.colorScheme.tertiary,
-                                      ),
-                                      onPressed: controller.validationOnReplacement()
-                                          ? () {
-                                              controller.getCep();
-                                              controller.isOpen.value = true;
-                                            }
-                                          : null,
-                                    ),
+                                replacement: GalegosButtonDefault(
+                                  label: 'Consultar',
+                                  width: context.widthTransformer(reducedBy: 10),
+                                  icon: Icon(
+                                    Icons.search,
+                                    color: theme.colorScheme.tertiary,
                                   ),
+                                  onPressed: controller.validationOnReplacement()
+                                      ? () {
+                                          controller.getCep();
+                                          controller.isOpen.value = true;
+                                        }
+                                      : null,
                                 ),
                                 child: Visibility(
                                   visible: controller.validationIsOpen(),

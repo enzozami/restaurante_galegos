@@ -26,10 +26,10 @@ class CardValores extends StatelessWidget {
 Widget _cardCarrinho(BuildContext context, double preco, ThemeData theme) {
   return Card(
     elevation: 5,
+    margin: EdgeInsets.zero,
     color: theme.colorScheme.secondary,
-    child: Container(
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-      width: context.widthTransformer(reducedBy: 10),
+    child: Padding(
+      padding: EdgeInsets.symmetric(vertical: 25),
       child: Column(
         children: [
           Text(
@@ -47,9 +47,8 @@ Widget _cardAddress(BuildContext context, double preco, double taxa, ThemeData t
     elevation: 5,
     color: theme.colorScheme.secondary,
     child: Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.symmetric(vertical: 10),
       width: context.widthTransformer(reducedBy: 10),
-
       child: Column(
         children: [
           Text(
