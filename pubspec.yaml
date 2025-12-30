@@ -57,6 +57,7 @@ dependencies:
   google_fonts: ^6.3.3
   currency_text_input_formatter: ^2.3.0
   easy_stepper: ^0.9.1
+  cached_network_image: ^3.4.1
 
 
 dev_dependencies:

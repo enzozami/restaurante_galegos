@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_shimmer.dart';
@@ -56,6 +57,7 @@ class CardItems extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Obx(() {
+      final String validImageUrl = image!.replaceAll(RegExp(r'(?<!https?:)//'), '/');
       return SizedBox(
         width: width,
         height: height,
@@ -97,32 +99,35 @@ class CardItems extends StatelessWidget {
                       spacing: 8,
                       children: [
                         (image != null && image != '')
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
+                            ? SizedBox(
                                 width: double.infinity,
                                 height: imageHeight ?? 150,
                                 child: ClipRRect(
-                                  clipBehavior: Clip.antiAlias,
-                                  borderRadius: BorderRadiusGeometry.only(
+                                  borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(12),
                                     topRight: Radius.circular(12),
                                   ),
-                                  child: Image.network(
-                                    image ?? '',
+                                  child: CachedNetworkImage(
+                                    imageUrl: validImageUrl,
                                     fit: BoxFit.cover,
-                                    loadingBuilder: (context, child, loadingProgress) =>
-                                        loadingProgress == null
-                                        ? child
-                                        : CardShimmer(
-                                            height: imageHeight ?? 0,
-                                            width: width ?? 0,
-                                          ),
+                                    httpHeaders: const {
+                                      'User-Agent': 'Mozilla/5.0',
+                                      'Accept': 'image/*',
+                                    },
+                                    placeholder: (context, url) => CardShimmer(
+                                      height: imageHeight ?? 150,
+                                      width: double.infinity,
+                                    ),
+                                    errorWidget: (context, url, error) {
+                                      return Container(
+                                        color: Colors.grey[200],
+                                        child: const Icon(Icons.broken_image, color: Colors.grey),
+                                      );
+                                    },
                                   ),
                                 ),
                               )
-                            : SizedBox(height: 120),
+                            : const SizedBox(height: 120),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
@@ -224,16 +229,26 @@ class CardItems extends StatelessWidget {
                                         borderRadius: BorderRadiusGeometry.circular(
                                           20,
                                         ),
-                                        child: Image.network(
-                                          image ?? '',
+                                        child: CachedNetworkImage(
+                                          imageUrl: validImageUrl,
                                           fit: BoxFit.cover,
-                                          loadingBuilder: (context, child, loadingProgress) =>
-                                              loadingProgress == null
-                                              ? child
-                                              : CardShimmer(
-                                                  height: imageHeight ?? 0,
-                                                  width: width ?? 0,
-                                                ),
+                                          httpHeaders: const {
+                                            'User-Agent': 'Mozilla/5.0',
+                                            'Accept': 'image/*',
+                                          },
+                                          placeholder: (context, url) => CardShimmer(
+                                            height: 130,
+                                            width: context.widthTransformer(reducedBy: 65),
+                                          ),
+                                          errorWidget: (context, url, error) {
+                                            return Container(
+                                              color: Colors.grey[200],
+                                              child: Icon(
+                                                Icons.broken_image,
+                                                color: Colors.grey,
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
                                     ),
