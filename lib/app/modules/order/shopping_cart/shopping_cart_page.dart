@@ -53,7 +53,7 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
                       IconButton(
                         icon: Icon(
                           Icons.delete_outline,
-                          color: const Color.fromRGBO(177, 0, 0, 1),
+                          color: const Color(0xFFB10000),
                         ),
                         onPressed: () => showDialog(
                           context: context,
