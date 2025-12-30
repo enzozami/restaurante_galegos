@@ -133,7 +133,7 @@ class AppTheme {
       backgroundColor: colorScheme.primary,
       foregroundColor: colorScheme.onPrimary,
       textStyle: textTheme.labelLarge,
-      padding: EdgeInsets.symmetric(vertical: 12),
+      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       minimumSize: Size.zero,
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
