@@ -55,7 +55,33 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
                           Icons.delete_outline,
                           color: const Color.fromRGBO(177, 0, 0, 1),
                         ),
-                        onPressed: () => controller.clear(),
+                        onPressed: () => showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog.adaptive(
+                            title: Text('Remover todos itens?'),
+                            content: Text(
+                              'Tem certeza de que deseja remover todos os itens do carrinho?',
+                            ),
+                            actionsAlignment: .spaceAround,
+                            actions: [
+                              GalegosButtonDefault(
+                                label: 'Cancelar',
+                                width: context.widthTransformer(reducedBy: 70),
+                                onPressed: () {
+                                  Get.back();
+                                },
+                              ),
+                              GalegosButtonDefault(
+                                label: 'Remover',
+                                onPressed: () {
+                                  controller.clear();
+                                  Get.back();
+                                },
+                                width: context.widthTransformer(reducedBy: 70),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ],
                   ),
