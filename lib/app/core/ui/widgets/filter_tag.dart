@@ -48,28 +48,31 @@ class FilterTag extends StatelessWidget {
           scale: (pressed) ? 0.95 : (isSelected ? 1.05 : 1.0),
           duration: const Duration(milliseconds: 80),
           curve: Curves.easeInOut,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            margin: const EdgeInsets.symmetric(horizontal: 4),
-            decoration: BoxDecoration(
-              color: isSelected ? theme.colorScheme.primary : theme.colorScheme.tertiary,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: isSelected
-                  ? [
-                      BoxShadow(
-                        // ignore: deprecated_member_use
-                        color: theme.colorScheme.tertiary.withOpacity(0.3),
-                        blurRadius: 8,
-                        offset: const Offset(0, 4),
-                      ),
-                    ]
-                  : [],
-            ),
-            child: Text(
-              category?.name ?? days ?? status ?? '',
-              style: TextStyle(
-                color: isSelected ? theme.colorScheme.tertiary : theme.colorScheme.surface,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              decoration: BoxDecoration(
+                color: isSelected ? theme.colorScheme.primary : theme.colorScheme.tertiary,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: isSelected
+                    ? [
+                        BoxShadow(
+                          // ignore: deprecated_member_use
+                          color: theme.colorScheme.tertiary.withOpacity(0.3),
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
+                        ),
+                      ]
+                    : [],
+              ),
+              child: Text(
+                category?.name ?? days ?? status ?? '',
+                style: TextStyle(
+                  color: isSelected ? theme.colorScheme.tertiary : theme.colorScheme.surface,
+                ),
               ),
             ),
           ),
