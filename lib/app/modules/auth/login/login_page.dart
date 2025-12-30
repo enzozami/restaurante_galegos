@@ -92,6 +92,8 @@ Widget _formFieldsLogin({
           Validatorless.required('Campo obrigatório'),
           Validatorless.email('E-mail inválido'),
         ]),
+        prefix: true,
+        suffix: false,
       ),
       const SizedBox(height: 25),
 
@@ -110,6 +112,8 @@ Widget _formFieldsLogin({
           Validatorless.min(8, 'Senha deve ter 8 dígitos'),
         ]),
         label: 'Senha',
+        prefix: true,
+        suffix: true,
       ),
       Align(
         alignment: .centerRight,
@@ -165,6 +169,8 @@ class _AlertResetPassword extends GetView<LoginController> {
                   Validatorless.required('E-mail obrigatório'),
                   Validatorless.email('E-mail inválido'),
                 ]),
+                prefix: true,
+                suffix: false,
               ),
             ],
           ),

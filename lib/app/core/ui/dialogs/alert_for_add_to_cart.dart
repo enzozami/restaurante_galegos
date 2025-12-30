@@ -124,6 +124,8 @@ Widget _products(ThemeData theme) {
             label: 'Nome do Produto',
             validator: Validatorless.required('Nome inválido'),
             controller: controller.nameProductEC,
+            prefix: false,
+            suffix: false,
           ),
           GalegosTextFormField(
             colorText: theme.colorScheme.tertiary,
@@ -132,6 +134,8 @@ Widget _products(ThemeData theme) {
             enabled: true,
             label: 'Descrição',
             controller: controller.descriptionEC,
+            prefix: false,
+            suffix: false,
           ),
           GalegosTextFormField(
             colorText: theme.colorScheme.tertiary,
@@ -145,6 +149,8 @@ Widget _products(ThemeData theme) {
             ]),
             label: 'Preço',
             controller: controller.priceEC,
+            prefix: false,
+            suffix: false,
           ),
         ],
       ),
@@ -200,6 +206,8 @@ Widget _foods(ThemeData theme) {
             label: 'Nome da Marmita',
             validator: Validatorless.required('Nome inválido'),
             controller: controller.nomeMarmitaEC,
+            prefix: false,
+            suffix: false,
           ),
           GalegosTextFormField(
             colorText: theme.colorScheme.tertiary,
@@ -208,6 +216,8 @@ Widget _foods(ThemeData theme) {
             enabled: true,
             label: 'Descrição',
             controller: controller.descricaoEC,
+            prefix: false,
+            suffix: false,
           ),
           GalegosTextFormField(
             colorText: theme.colorScheme.tertiary,
@@ -221,6 +231,8 @@ Widget _foods(ThemeData theme) {
             ]),
             label: 'Preço Marmita Mini',
             controller: controller.precoMiniEC,
+            prefix: false,
+            suffix: false,
           ),
           GalegosTextFormField(
             colorText: theme.colorScheme.tertiary,
@@ -234,6 +246,8 @@ Widget _foods(ThemeData theme) {
             ]),
             label: 'Preço Marmita Média',
             controller: controller.precoMediaEC,
+            prefix: false,
+            suffix: false,
           ),
         ],
       ),

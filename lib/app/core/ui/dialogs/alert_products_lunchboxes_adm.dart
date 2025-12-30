@@ -126,12 +126,16 @@ class _AlertProduct extends StatelessWidget {
                 label: 'Nome',
                 controller: nameProduct,
                 colorBorder: theme.colorScheme.tertiary,
+                prefix: false,
+                suffix: false,
               ),
               GalegosTextFormField(
                 floatingLabelBehavior: .auto,
                 label: 'Descrição',
                 controller: description,
                 colorBorder: theme.colorScheme.tertiary,
+                prefix: false,
+                suffix: false,
               ),
               GalegosTextFormField(
                 floatingLabelBehavior: .auto,
@@ -140,6 +144,8 @@ class _AlertProduct extends StatelessWidget {
                 controller: price,
                 colorBorder: theme.colorScheme.tertiary,
                 prefixText: 'R\$ ',
+                prefix: false,
+                suffix: false,
               ),
 
               GalegosTextFormField(
@@ -148,6 +154,8 @@ class _AlertProduct extends StatelessWidget {
                 enabled: false,
                 controller: category,
                 colorBorder: theme.colorScheme.tertiary,
+                prefix: false,
+                suffix: false,
               ),
               Divider(),
               Row(
@@ -261,12 +269,16 @@ class _AlertFoods extends StatelessWidget {
                 label: 'Nome',
                 controller: nameFood,
                 colorBorder: theme.colorScheme.tertiary,
+                prefix: false,
+                suffix: false,
               ),
               GalegosTextFormField(
                 floatingLabelBehavior: .auto,
                 label: 'Descrição',
                 controller: description,
                 colorBorder: theme.colorScheme.tertiary,
+                prefix: false,
+                suffix: false,
               ),
               GalegosTextFormField(
                 floatingLabelBehavior: .auto,
@@ -275,6 +287,8 @@ class _AlertFoods extends StatelessWidget {
                 controller: priceMini,
                 colorBorder: theme.colorScheme.tertiary,
                 prefixText: 'R\$ ',
+                prefix: false,
+                suffix: false,
               ),
               GalegosTextFormField(
                 floatingLabelBehavior: .auto,
@@ -283,6 +297,8 @@ class _AlertFoods extends StatelessWidget {
                 controller: priceMedia,
                 colorBorder: theme.colorScheme.tertiary,
                 prefixText: 'R\$ ',
+                prefix: false,
+                suffix: false,
               ),
               Divider(),
               Row(

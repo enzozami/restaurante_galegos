@@ -59,6 +59,8 @@ class DeliveryAddressPage extends GetView<DeliveryAddressController> {
                               'CEP obrigatório',
                             ),
                             onChanged: (value) => controller.cepInput.value = value,
+                            prefix: true,
+                            suffix: true,
                           ),
                         ),
                         controller.loading.value
@@ -173,6 +175,8 @@ Widget _address(BuildContext context, DeliveryAddressController controller) {
                       enabled: false,
                       label: controller.rua.value,
                       inputType: TextInputType.text,
+                      prefix: false,
+                      suffix: false,
                     ),
                   ),
                 ),
@@ -183,6 +187,8 @@ Widget _address(BuildContext context, DeliveryAddressController controller) {
                     enabled: false,
                     label: controller.bairro.value,
                     inputType: TextInputType.text,
+                    prefix: false,
+                    suffix: false,
                   ),
                 ),
                 SizedBox(
@@ -192,6 +198,8 @@ Widget _address(BuildContext context, DeliveryAddressController controller) {
                     enabled: false,
                     label: controller.cidade.value,
                     inputType: TextInputType.text,
+                    prefix: false,
+                    suffix: false,
                   ),
                 ),
                 SizedBox(
@@ -201,6 +209,8 @@ Widget _address(BuildContext context, DeliveryAddressController controller) {
                     enabled: false,
                     label: controller.estado.value,
                     inputType: TextInputType.text,
+                    prefix: false,
+                    suffix: false,
                   ),
                 ),
                 SizedBox(
@@ -208,6 +218,8 @@ Widget _address(BuildContext context, DeliveryAddressController controller) {
                   child: GalegosTextFormField(
                     floatingLabelBehavior: .auto,
                     enabled: true,
+                    prefix: false,
+                    suffix: false,
                     label: 'Número*',
                     focusNode: controller.numeroFocus,
                     inputType: .numberWithOptions(

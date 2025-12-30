@@ -36,6 +36,8 @@ class GalegosTextFormField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatter;
   final int? maxLines;
   final int? minLines;
+  final bool prefix;
+  final bool suffix;
 
   const GalegosTextFormField({
     super.key,
@@ -65,6 +67,8 @@ class GalegosTextFormField extends StatelessWidget {
     this.maxLines,
     this.minLines,
     this.onPressed,
+    required this.prefix,
+    required this.suffix,
   });
 
   @override
@@ -93,17 +97,21 @@ class GalegosTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         hintText: hintText,
-        prefixIcon: Icon(
-          prefixIcon,
-          color: AppColors.title,
-        ),
-        suffixIcon: IconButton(
-          onPressed: onPressed,
-          icon: Icon(
-            suffixIcon,
-            color: AppColors.title,
-          ),
-        ),
+        prefixIcon: prefix
+            ? Icon(
+                prefixIcon,
+                color: AppColors.title,
+              )
+            : null,
+        suffixIcon: suffix
+            ? IconButton(
+                onPressed: onPressed,
+                icon: Icon(
+                  suffixIcon,
+                  color: AppColors.title,
+                ),
+              )
+            : null,
         prefixText: prefixText,
         suffixText: suffixText,
         floatingLabelBehavior: floatingLabelBehavior,

@@ -98,6 +98,8 @@ class CheckoutPage extends GetView<CheckoutController> {
                               controller: TextEditingController(
                                 text: controller.args['cep'],
                               ),
+                              prefix: false,
+                              suffix: false,
                             ),
                           ),
                         ),
@@ -111,6 +113,8 @@ class CheckoutPage extends GetView<CheckoutController> {
                             controller: TextEditingController(
                               text: controller.args['rua'],
                             ),
+                            prefix: false,
+                            suffix: false,
                           ),
                         ),
                         SizedBox(
@@ -123,6 +127,8 @@ class CheckoutPage extends GetView<CheckoutController> {
                             controller: TextEditingController(
                               text: controller.args['bairro'],
                             ),
+                            prefix: false,
+                            suffix: false,
                           ),
                         ),
                         SizedBox(
@@ -135,6 +141,8 @@ class CheckoutPage extends GetView<CheckoutController> {
                             controller: TextEditingController(
                               text: controller.args['cidade'],
                             ),
+                            prefix: false,
+                            suffix: false,
                           ),
                         ),
                         SizedBox(
@@ -147,6 +155,8 @@ class CheckoutPage extends GetView<CheckoutController> {
                             controller: TextEditingController(
                               text: controller.args['estado'],
                             ),
+                            prefix: false,
+                            suffix: false,
                           ),
                         ),
                         SizedBox(
@@ -158,6 +168,8 @@ class CheckoutPage extends GetView<CheckoutController> {
                             controller: TextEditingController(
                               text: controller.args['numero'].toString(),
                             ),
+                            prefix: false,
+                            suffix: false,
                           ),
                         ),
                       ],

@@ -112,6 +112,8 @@ Widget _formFieldsRegister({
         validator: Validatorless.multiple([
           Validatorless.required('Campo obrigatório'),
         ]),
+        prefix: true,
+        suffix: false,
       ),
       const SizedBox(height: 15),
       GalegosTextFormField(
@@ -124,6 +126,8 @@ Widget _formFieldsRegister({
           Validatorless.required('Campo obrigatório'),
           Validatorless.email('E-mail inválido'),
         ]),
+        prefix: true,
+        suffix: false,
       ),
       const SizedBox(height: 15),
       _fancyPasswordField(context: context, passwordEC: passwordEC),
@@ -139,6 +143,8 @@ Widget _formFieldsRegister({
           Validatorless.required('Campo obrigatório'),
           Validatorless.compare(passwordEC, 'Senhas diferentes'),
         ]),
+        prefix: true,
+        suffix: true,
       ),
     ],
   );

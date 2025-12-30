@@ -42,6 +42,8 @@ class ProfileData extends StatelessWidget {
               maxLengthEnforcement: .none,
               obscureText: obscure,
               validator: validator,
+              prefix: false,
+              suffix: true,
             ),
           ),
         ],

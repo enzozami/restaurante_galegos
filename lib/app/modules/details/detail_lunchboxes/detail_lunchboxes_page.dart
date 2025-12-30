@@ -180,6 +180,8 @@ Widget _foodDetailsBySelectedSize(
         minLines: 3,
         inputType: .multiline,
         controller: controller.observacoes,
+        prefix: false,
+        suffix: false,
       ),
       Divider(
         color: AppColors.tertiary,

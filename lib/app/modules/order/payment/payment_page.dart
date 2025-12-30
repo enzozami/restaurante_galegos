@@ -358,6 +358,8 @@ Widget _cardDinheiro({
                   symbol: 'R\$',
                 ),
               ],
+              prefix: false,
+              suffix: false,
             ),
             Text(subtitle),
           ],
