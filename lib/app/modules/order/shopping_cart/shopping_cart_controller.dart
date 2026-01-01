@@ -58,7 +58,10 @@ class ShoppingCartController extends GetxController with LoaderMixin, MessagesMi
     return _carrinhoServices.amountToPay ?? 0;
   }
 
-  void clear() => _carrinhoServices.clear();
+  void clear() {
+    _carrinhoServices.clear();
+    Get.back();
+  }
 
   void adicionarQuantidadeCarrinho(CarrinhoModel p) {
     if (p.item.alimento != null) {

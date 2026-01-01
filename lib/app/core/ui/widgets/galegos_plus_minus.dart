@@ -18,10 +18,14 @@ class GalegosPlusMinus extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Row(
+      mainAxisSize: .min,
       spacing: 15,
       children: [
         IconButton(
           onPressed: removeCallback,
+          padding: .zero,
+          constraints: const BoxConstraints(),
+          visualDensity: VisualDensity.compact,
           icon: Icon(
             Icons.remove,
             color: theme.colorScheme.primary,
@@ -35,6 +39,9 @@ class GalegosPlusMinus extends StatelessWidget {
         ),
         IconButton(
           onPressed: addCallback,
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
+          visualDensity: VisualDensity.compact,
           icon: Icon(
             Icons.add,
             color: theme.colorScheme.primary,

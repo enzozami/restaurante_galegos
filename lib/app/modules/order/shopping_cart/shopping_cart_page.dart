@@ -73,10 +73,7 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
                               ),
                               GalegosButtonDefault(
                                 label: 'Remover',
-                                onPressed: () {
-                                  controller.clear();
-                                  Get.back();
-                                },
+                                onPressed: () => controller.clear(),
                                 width: context.widthTransformer(reducedBy: 70),
                               ),
                             ],
