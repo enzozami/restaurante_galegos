@@ -11,4 +11,5 @@ abstract interface class AuthRepository {
 
   Future<void> resetPassword({required String email});
   Future<void> updateUserName({required String newName});
+  Future<UserModel> getUser();
 }

@@ -136,4 +136,9 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   @override
   Future<void> updateUserName({required String newName}) =>
       _authRepository.updateUserName(newName: newName);
+
+  @override
+  Future<UserModel> getUser() {
+    return _authRepository.getUser();
+  }
 }

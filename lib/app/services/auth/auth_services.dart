@@ -5,6 +5,7 @@ abstract interface class AuthServices {
   void logout();
   String? getUserId();
   String? getUserName();
+  Future<UserModel> getUser();
   bool isAdmin();
   Future<UserModel> login({required String email, required String password});
   Future<UserModel> register({

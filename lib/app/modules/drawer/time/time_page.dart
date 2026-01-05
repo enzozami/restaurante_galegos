@@ -101,14 +101,21 @@ class TimePage extends GetView<TimeController> {
                                         style: theme.textTheme.bodyLarge,
                                       ),
                                     ),
-                                    trailing: (days == controller.dayNow)
+                                    trailing:
+                                        (days == controller.dayNow &&
+                                            controller.restauranteAberto.value)
                                         ? Text(
                                             'Aberto',
                                             style: theme.textTheme.labelSmall?.copyWith(
                                               color: AppColors.delivered,
                                             ),
                                           )
-                                        : null,
+                                        : Text(
+                                            'Fechado',
+                                            style: theme.textTheme.labelSmall?.copyWith(
+                                              color: AppColors.error,
+                                            ),
+                                          ),
                                   ),
                                 ),
                               ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
@@ -10,14 +12,11 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
   final formKey = GlobalKey<FormState>();
   final TextEditingController newNameEC = TextEditingController();
 
-  final _name = ''.obs;
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
-  final _isSelected = false.obs;
-
-  bool get isSelected => _isSelected.value;
-  set isSelected(bool value) => _isSelected.value = value;
-  String? get nameClient => _authServices.getUserName();
+  final RxString nameClient = ''.obs;
+  final RxString phoneClient = ''.obs;
+  final RxString emailClient = ''.obs;
 
   ProfileController({required AuthServices authServices}) : _authServices = authServices;
 
@@ -29,9 +28,13 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
   }
 
   @override
-  void onReady() {
+  Future<void> onReady() async {
     super.onReady();
-    getUser();
+    final user = await _authServices.getUser();
+    log('user - $user');
+    nameClient.value = user.nome;
+    phoneClient.value = user.phone;
+    emailClient.value = user.email;
   }
 
   @override
@@ -42,33 +45,6 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
 
   bool validateForm() {
     return formKey.currentState?.validate() ?? false;
-  }
-
-  void isSelect() {
-    _isSelected.toggle();
-    if (_isSelected.value == true) {}
-  }
-
-  Future<void> getUser() async {
-    try {
-      // _loading.value = true;
-      await 200.milliseconds.delay();
-
-      final userName = _authServices.getUserName();
-      if (userName != null) {
-        _name.value = userName;
-      }
-    } catch (e) {
-      _loading.value = false;
-      _message.value = MessageModel(
-        title: 'Erro',
-        message: 'Erro ao buscar dados',
-        type: MessageType.error,
-      );
-    } finally {
-      _loading.value = false;
-      await 100.milliseconds.delay();
-    }
   }
 
   Future<void> updateName() async {

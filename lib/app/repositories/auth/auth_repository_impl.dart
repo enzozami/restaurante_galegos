@@ -33,16 +33,14 @@ class AuthRepositoryImpl implements AuthRepository {
       final data = userDoc.data()!;
       final bool isAdmin = data['isAdmin'] ?? false;
 
-      log('Usuário é administrador: $isAdmin - (AUTHREPOSITORY)');
-
       final storage = GetStorage();
       storage.write(Constants.USER_KEY, firebaseUser.uid);
       storage.write(Constants.ADMIN_KEY, isAdmin);
-      storage.write(Constants.USER_NAME, firebaseUser.displayName);
+      storage.write(Constants.USER_NAME, data['nome']);
 
       return UserModel(
         uid: firebaseUser.uid,
-        name: data['nome'] ?? '',
+        nome: data['nome'] ?? '',
         email: data['email'] ?? '',
         password: password,
         phone: data['phone'],
@@ -169,6 +167,22 @@ class AuthRepositoryImpl implements AuthRepository {
       final storage = GetStorage();
       storage.write(Constants.USER_NAME, newName);
     }
+  }
+
+  @override
+  Future<UserModel> getUser() async {
+    final userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(_firebase.currentUser?.uid)
+        .get();
+    if (!userDoc.exists) {
+      throw Exception("Usuário não encontrado");
+    }
+    final data = userDoc.data()!;
+
+    data['uid'] = userDoc.id;
+
+    return UserModel.fromMap(data);
   }
 }
 

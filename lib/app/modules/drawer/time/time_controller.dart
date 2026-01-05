@@ -24,6 +24,7 @@ class TimeController extends GetxController with LoaderMixin, MessagesMixin {
   List<String> get dateTime => _dateTime.value;
   String get inicioTime => _inicioTime.value;
   String get fimTime => _fimTime.value;
+  RxBool restauranteAberto = false.obs;
 
   TimeController({required TimeServices timeServices}) : _timeServices = timeServices;
 
@@ -38,6 +39,7 @@ class TimeController extends GetxController with LoaderMixin, MessagesMixin {
   Future<void> onReady() async {
     super.onReady();
     await time();
+    restauranteAberto.value = await _timeServices.openOrClosedRestaurant();
   }
 
   Future<void> time() async {
@@ -51,6 +53,7 @@ class TimeController extends GetxController with LoaderMixin, MessagesMixin {
 
       _inicioTime.value = data.first.inicio;
       _fimTime.value = data.first.fim;
+      _timeServices.openOrClosedRestaurant();
     } catch (e, s) {
       _loading.value = false;
       log('Erro ao carregar horário de funcionamento', error: e, stackTrace: s);
