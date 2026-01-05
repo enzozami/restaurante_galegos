@@ -45,6 +45,7 @@ class AuthRepositoryImpl implements AuthRepository {
         name: data['nome'] ?? '',
         email: data['email'] ?? '',
         password: password,
+        phone: data['phone'],
         isAdmin: isAdmin,
       );
     } on FirebaseAuthException catch (e) {
@@ -85,6 +86,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String name,
     required String email,
     required String password,
+    required String phone,
   }) async {
     try {
       final result = await _firebase.createUserWithEmailAndPassword(
@@ -103,6 +105,7 @@ class AuthRepositoryImpl implements AuthRepository {
       await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).set({
         'nome': name,
         'email': email,
+        'phone': phone,
         'isAdmin': false,
         'createdAt': FieldValue.serverTimestamp(),
       });

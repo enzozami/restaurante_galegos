@@ -28,7 +28,8 @@ class AuthServicesImpl extends GetxService implements AuthServices {
     required String name,
     required String email,
     required String password,
-  }) => _authRepository.register(name: name, email: email, password: password);
+    required String phone,
+  }) => _authRepository.register(name: name, email: email, password: password, phone: phone);
 
   Future<bool> canUseApp() async {
     if (kDebugMode) return true;

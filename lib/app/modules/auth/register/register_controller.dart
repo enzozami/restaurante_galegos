@@ -14,6 +14,7 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
   final TextEditingController nameEC = TextEditingController();
   final TextEditingController passwordEC = TextEditingController();
   final TextEditingController emailEC = TextEditingController();
+  final TextEditingController phoneEC = TextEditingController();
 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
@@ -55,6 +56,7 @@ class RegisterController extends GetxController with LoaderMixin, MessagesMixin 
         name: nameEC.text,
         email: emailEC.text,
         password: passwordEC.text,
+        phone: phoneEC.text,
       );
     } on AuthException catch (e, s) {
       log(e.toString());

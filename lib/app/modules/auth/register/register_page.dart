@@ -1,6 +1,7 @@
 import 'package:fancy_password_field/fancy_password_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/core/masks/galegos_mask.dart';
 import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
@@ -36,6 +37,7 @@ class RegisterPage extends GetView<RegisterController> {
                             return Column(
                               children: [
                                 _formFieldsRegister(
+                                  phoneEC: controller.phoneEC,
                                   context: context,
                                   nameEC: controller.nameEC,
                                   passwordEC: controller.passwordEC,
@@ -101,6 +103,7 @@ Widget _formFieldsRegister({
   required TextEditingController nameEC,
   required TextEditingController passwordEC,
   required TextEditingController emailEC,
+  required TextEditingController phoneEC,
   required IconData icons,
   required VoidCallback onPressed,
   required bool obscureText,
@@ -128,6 +131,21 @@ Widget _formFieldsRegister({
         validator: Validatorless.multiple([
           Validatorless.required('Campo obrigatório'),
           Validatorless.email('E-mail inválido'),
+        ]),
+        prefix: true,
+        suffix: false,
+      ),
+      const SizedBox(height: 15),
+      GalegosTextFormField(
+        floatingLabelBehavior: .auto,
+        inputType: .phone,
+        prefixIcon: Icons.phone,
+        controller: phoneEC,
+        label: 'Celular',
+        mask: GalegosMask(),
+        validator: Validatorless.multiple([
+          Validatorless.required('Campo obrigatório'),
+          Validatorless.phone('Número inválido'),
         ]),
         prefix: true,
         suffix: false,
