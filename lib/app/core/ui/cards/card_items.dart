@@ -1,0 +1,309 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/core/ui/cards/card_shimmer.dart';
+
+class CardItems extends StatelessWidget {
+  final String titulo;
+  final int id;
+  final String? descricao;
+  final String? preco;
+  final String? precoMini;
+  final String? precoMedia;
+  final String? image;
+  final VoidCallback onPressed;
+  final VoidCallback onTap;
+  final double? width;
+  final double? height;
+  final double? imageHeight;
+  final TextStyle? styleTitle;
+  final TextStyle? styleDescricao;
+  final TextStyle? stylePreco;
+  final bool isProduct;
+  final Widget? elevatedButton;
+  final bool isSelected;
+  final Function(TapDownDetails) onTapDown;
+  final Function(TapUpDetails) onTapUp;
+  final Function() onTapCancel;
+  final RxnInt isPressed;
+
+  const CardItems({
+    super.key,
+    required this.titulo,
+    this.descricao,
+    this.preco,
+    this.precoMini,
+    this.precoMedia,
+    required this.onPressed,
+    required this.onTap,
+    this.image,
+    required this.styleTitle,
+    required this.styleDescricao,
+    required this.stylePreco,
+    required this.isProduct,
+    this.width,
+    this.height,
+    this.imageHeight,
+    this.elevatedButton,
+    required this.isSelected,
+    required this.onTapDown,
+    required this.isPressed,
+    required this.onTapUp,
+    required this.onTapCancel,
+    required this.id,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return Obx(() {
+      final String validImageUrl = image!.replaceAll(RegExp(r'(?<!https?:)//'), '/');
+      return SizedBox(
+        width: width,
+        height: height,
+        child: (isProduct)
+            ? GestureDetector(
+                onTapDown: onTapDown,
+                onTapCancel: onTapCancel,
+                onTapUp: onTapUp,
+                onTap: onTap,
+                child: AnimatedScale(
+                  scale: isPressed.value == id ? 0.97 : (isSelected ? 1.03 : 1),
+                  duration: const Duration(milliseconds: 200),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    margin: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(13),
+                      border: Border.all(
+                        color: const Color.fromARGB(255, 190, 132, 98),
+                      ),
+                      boxShadow: isSelected
+                          ? [
+                              BoxShadow(
+                                color: isSelected
+                                    // ignore: deprecated_member_use
+                                    ? theme.colorScheme.primary.withOpacity(0.2)
+                                    // ignore: deprecated_member_use
+                                    : Colors.black.withOpacity(0.05),
+                                blurRadius: isSelected ? 12 : 6,
+                                offset: const Offset(0, 4),
+                              ),
+                            ]
+                          : [],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: .start,
+                      crossAxisAlignment: .start,
+                      spacing: 8,
+                      children: [
+                        (image != null && image != '')
+                            ? SizedBox(
+                                width: double.infinity,
+                                height: imageHeight ?? 150,
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(12),
+                                    topRight: Radius.circular(12),
+                                  ),
+                                  child: CachedNetworkImage(
+                                    imageUrl: validImageUrl,
+                                    fit: BoxFit.cover,
+                                    /*
+                                    breve explicação: ele vai usar o httpHeaders para ser interpretado como um navegador da internet e não como um robo (comportamento dele padrao)
+                                    no main.dart foi impleemntado o HttpOverrides que serve para autorizar o download das imagens em qualquer site mesmo que nao seja seguro (nao usar em prod)
+                                    */
+                                    httpHeaders: const {
+                                      'User-Agent': 'Mozilla/5.0',
+                                      'Accept': 'image/*',
+                                    },
+                                    placeholder: (context, url) => CardShimmer(
+                                      height: imageHeight ?? 150,
+                                      width: double.infinity,
+                                    ),
+                                    errorWidget: (context, url, error) {
+                                      return Container(
+                                        color: Colors.grey[200],
+                                        child: const Icon(Icons.broken_image, color: Colors.grey),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(height: 120),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
+                            titulo,
+                            style: styleTitle,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
+                            descricao ?? '',
+                            style: styleDescricao,
+                            textAlign: TextAlign.start,
+
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(preco ?? '', style: stylePreco),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: theme.colorScheme.primary,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: IconButton(
+                                onPressed: onPressed,
+                                icon: Icon(
+                                  Icons.add,
+                                  color: theme.colorScheme.surface,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            : GestureDetector(
+                onTapDown: onTapDown,
+                onTapUp: onTapUp,
+                onTapCancel: onTapCancel,
+                onTap: onTap,
+                child: AnimatedScale(
+                  scale: isPressed.value == id ? 0.97 : (isSelected ? 1.03 : 1),
+                  duration: const Duration(milliseconds: 200),
+
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    margin: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(13),
+                      border: Border.all(
+                        color: const Color.fromARGB(255, 190, 132, 98),
+                      ),
+                      boxShadow: isSelected
+                          ? [
+                              BoxShadow(
+                                color: isSelected
+                                    // ignore: deprecated_member_use
+                                    ? theme.colorScheme.primary.withOpacity(0.2)
+                                    // ignore: deprecated_member_use
+                                    : Colors.black.withOpacity(0.05),
+                                blurRadius: isSelected ? 12 : 6,
+                                offset: const Offset(0, 4),
+                              ),
+                            ]
+                          : [],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: .start,
+                      crossAxisAlignment: .start,
+                      spacing: 25,
+                      children: [
+                        Row(
+                          children: [
+                            (image != null && image != '')
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                      top: 20,
+                                      left: 20,
+                                      right: 20,
+                                    ),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      width: context.widthTransformer(reducedBy: 65),
+                                      height: 130,
+                                      child: ClipRRect(
+                                        clipBehavior: Clip.antiAlias,
+                                        borderRadius: BorderRadiusGeometry.circular(
+                                          20,
+                                        ),
+                                        child: CachedNetworkImage(
+                                          imageUrl: validImageUrl,
+                                          fit: BoxFit.cover,
+                                          httpHeaders: const {
+                                            'User-Agent': 'Mozilla/5.0',
+                                            'Accept': 'image/*',
+                                          },
+                                          placeholder: (context, url) => CardShimmer(
+                                            height: 130,
+                                            width: context.widthTransformer(reducedBy: 65),
+                                          ),
+                                          errorWidget: (context, url, error) {
+                                            return Container(
+                                              color: Colors.grey[200],
+                                              child: Icon(
+                                                Icons.broken_image,
+                                                color: Colors.grey,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Padding(
+                                    padding: const EdgeInsets.only(
+                                      top: 20,
+                                      left: 20,
+                                      right: 20,
+                                    ),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: theme.colorScheme.secondary,
+                                      ),
+                                      width: context.widthTransformer(reducedBy: 65),
+                                      height: 130,
+                                    ),
+                                  ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 20, right: 15),
+                                child: Column(
+                                  mainAxisAlignment: .start,
+                                  crossAxisAlignment: .start,
+                                  spacing: 15,
+                                  children: [
+                                    Text(
+                                      titulo,
+                                      style: theme.textTheme.titleLarge,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                    ),
+                                    Text(
+                                      descricao ?? '',
+                                      style: theme.textTheme.bodyMedium,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+      );
+    });
+  }
+}

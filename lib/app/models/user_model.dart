@@ -5,12 +5,14 @@ class UserModel {
   String name;
   bool isAdmin;
   String email;
+  String phone;
   String password;
   UserModel({
     required this.uid,
     required this.name,
     required this.isAdmin,
     required this.email,
+    required this.phone,
     required this.password,
   });
 
@@ -19,6 +21,7 @@ class UserModel {
     String? name,
     bool? isAdmin,
     String? email,
+    String? phone,
     String? password,
   }) {
     return UserModel(
@@ -26,6 +29,7 @@ class UserModel {
       name: name ?? this.name,
       isAdmin: isAdmin ?? this.isAdmin,
       email: email ?? this.email,
+      phone: phone ?? this.phone,
       password: password ?? this.password,
     );
   }
@@ -36,6 +40,7 @@ class UserModel {
       'name': name,
       'isAdmin': isAdmin,
       'email': email,
+      'phone': phone,
       'password': password,
     };
   }
@@ -46,6 +51,7 @@ class UserModel {
       name: map['name'] ?? '',
       isAdmin: map['isAdmin'] ?? false,
       email: map['email'] ?? '',
+      phone: map['phone'] ?? '',
       password: map['password'] ?? '',
     );
   }
@@ -53,4 +59,9 @@ class UserModel {
   String toJson() => json.encode(toMap());
 
   factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'UserModel(uid: $uid, name: $name, isAdmin: $isAdmin, email: $email, phone: $phone, password: $password)';
+  }
 }

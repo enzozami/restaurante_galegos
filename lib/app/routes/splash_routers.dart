@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/modules/splash/splash_bindings.dart';
 import 'package:restaurante_galegos/app/modules/splash/splash_page.dart';
 
 class SplashRouters {
@@ -7,8 +6,7 @@ class SplashRouters {
 
   static final routers = <GetPage>[
     GetPage(
-      name: '/',
-      binding: SplashBindings(),
+      name: '/splash',
       page: () => SplashPage(),
     ),
   ];

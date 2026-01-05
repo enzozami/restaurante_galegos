@@ -1,29 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/repositories/auth/auth_repository.dart';
+import 'package:restaurante_galegos/app/core/ui/dialogs/alert_dialog_confirm_exit.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
-import 'package:restaurante_galegos/app/services/auth/auth_services_impl.dart';
+
+import '../theme/app_colors.dart';
 
 class GalegosDrawer extends GetView<AuthServices> {
   const GalegosDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Drawer(
-      backgroundColor: GalegosUiDefaut.theme.drawerTheme.backgroundColor,
+      backgroundColor: theme.drawerTheme.backgroundColor,
       width: context.widthTransformer(reducedBy: 20),
       elevation: 1,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: .start,
         children: [
-          UserAccountsDrawerHeader(
-            decoration: BoxDecoration(color: GalegosUiDefaut.colorScheme.tertiary),
-            accountName: Text(
-              'Olá, ${controller.getUserName()}',
-              style: GalegosUiDefaut.textLunchboxes.titleMedium,
+          SizedBox(
+            height: context.heightTransformer(reducedBy: 70),
+            child: UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: theme.colorScheme.tertiary,
+              ),
+              accountName: Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Text(
+                  'Olá, ${controller.getUserName()}',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: AppColors.secondary,
+                  ),
+                ),
+              ),
+              accountEmail: Visibility(
+                visible: controller.isAdmin(),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text('Administrador'),
+                ),
+              ),
             ),
-            accountEmail: Visibility(visible: controller.isAdmin(), child: Text('Administrador')),
           ),
           ButtonDrawer(
             title: 'Perfil',
@@ -43,9 +60,20 @@ class GalegosDrawer extends GetView<AuthServices> {
               Get.toNamed('/about_us');
             },
           ),
+          Spacer(),
           ButtonDrawer(
             title: 'Sair',
-            onTap: AuthServicesImpl(authRepository: Get.find<AuthRepository>()).logout,
+            icon: Icons.logout,
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialogConfirmExit(
+                    onPressed: () => controller.logout(),
+                  );
+                },
+              );
+            },
           ),
         ],
       ),
@@ -56,13 +84,20 @@ class GalegosDrawer extends GetView<AuthServices> {
 class ButtonDrawer extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
+  final IconData? icon;
 
-  const ButtonDrawer({super.key, required this.title, required this.onTap});
+  const ButtonDrawer({
+    super.key,
+    required this.title,
+    required this.onTap,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return InkWell(
-      splashColor: GalegosUiDefaut.theme.splashColor,
+      splashColor: theme.splashColor,
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(10),
@@ -70,14 +105,49 @@ class ButtonDrawer extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text(
-              title,
-              // textAlign: TextAlign.left,
-              style: GalegosUiDefaut.theme.textTheme.titleSmall,
-            ),
+            child: (icon != null)
+                ? buttonDrawer(context, title, icon!, theme)
+                : Text(
+                    title,
+                    style: theme.textTheme.titleSmall,
+                  ),
           ),
         ),
       ),
     );
   }
+}
+
+Widget buttonDrawer(
+  BuildContext context,
+  String title,
+  IconData icon,
+  ThemeData theme,
+) {
+  return Container(
+    decoration: BoxDecoration(
+      color: const Color(0xFFFFC4C4),
+      borderRadius: BorderRadius.circular(5),
+    ),
+    width: context.widthTransformer(reducedBy: 10),
+    child: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        spacing: 10,
+        mainAxisAlignment: .center,
+        children: [
+          Icon(
+            icon,
+            color: theme.colorScheme.error,
+          ),
+          Text(
+            title,
+            style: theme.textTheme.titleSmall!.copyWith(
+              color: theme.colorScheme.error,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }

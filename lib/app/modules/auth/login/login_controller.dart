@@ -10,7 +10,8 @@ import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 class LoginController extends GetxController with LoaderMixin, MessagesMixin {
   final AuthServices _authServices;
 
-  final formKey = GlobalKey<FormState>();
+  final formKeyLogin = GlobalKey<FormState>();
+  final formKeyReset = GlobalKey<FormState>();
   final emailEC = TextEditingController();
   final passwordEC = TextEditingController();
 
@@ -41,12 +42,16 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
   }
 
   bool _validateLogin() {
-    return formKey.currentState?.validate() ?? false;
+    return formKeyLogin.currentState?.validate() ?? false;
   }
 
-  Future<void> senhaNova({required String email}) async {
+  Future<void> senhaNova() async {
     try {
-      await _authServices.resetPassword(email: email);
+      final teste = formKeyReset.currentState?.validate() ?? false;
+      if (!teste) return;
+      await _authServices.resetPassword(email: emailEC.text);
+      log('Mensagem enviada');
+      Get.back();
     } catch (e) {
       log('Erro ao resetar senha', error: e);
     }
@@ -60,7 +65,6 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
       await _authServices.login(email: emailEC.text, password: passwordEC.text);
     } on AuthException catch (e, s) {
       _loading.value = false;
-      await 500.milliseconds.delay();
       log('Falha no login', error: e, stackTrace: s);
       _message.value = MessageModel(
         title: 'Erro',

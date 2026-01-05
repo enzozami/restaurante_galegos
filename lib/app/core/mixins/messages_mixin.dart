@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 
 mixin MessagesMixin on GetxController {
   void messageListener(Rxn<MessageModel> message) {
     ever<MessageModel?>(
       message,
-      (model) {
+      (model) async {
         if (model != null) {
+          await 100.milliseconds.delay();
           Get.snackbar(
             model.title,
             model.message,
             backgroundColor: model.type.color(),
             colorText: model.type.textColor(),
             margin: EdgeInsets.all(20),
+            duration: const Duration(seconds: 3),
+            snackPosition: .TOP,
           );
-          message(null);
+          message.value = null;
         }
       },
     );
@@ -42,7 +45,7 @@ extension MessageTypeColorExt on MessageType {
       case MessageType.error:
         return Colors.red[800]!;
       case MessageType.info:
-        return GalegosUiDefaut.colorScheme.primary;
+        return AppColors.primary;
     }
   }
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/section_header.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
@@ -15,30 +14,36 @@ class AlertForAddToCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _isProduct ? _products() : _foods();
+    final ThemeData theme = Theme.of(context);
+    return _isProduct ? _products(theme) : _foods(theme);
   }
 }
 
-Widget _products() {
+Widget _products(ThemeData theme) {
   ProductsController controller = Get.find<ProductsController>();
-  return AlertDialog(
-    backgroundColor: GalegosUiDefaut.colors['fundo'],
-    titlePadding: const EdgeInsets.only(left: 24, right: 24, bottom: 15),
-    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-    actionsPadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 15),
+  return AlertDialog.adaptive(
+    // backgroundColor: theme.colorScheme.surface,
+    // titlePadding: const EdgeInsets.only(left: 24, right: 24, bottom: 15),
+    // contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+    // actionsPadding: const EdgeInsets.only(
+    //   top: 20,
+    //   left: 20,
+    //   right: 20,
+    //   bottom: 15,
+    // ),
     icon: Align(
       alignment: .bottomRight,
       child: IconButton(
         onPressed: () => Get.back(),
         icon: Icon(Icons.close),
-        color: GalegosUiDefaut.colorScheme.tertiary,
+        color: theme.colorScheme.tertiary,
       ),
     ),
     title: Text(
       'Adiciona Produto',
       overflow: .ellipsis,
       textAlign: .center,
-      style: GalegosUiDefaut.theme.textTheme.titleMedium,
+      style: theme.textTheme.titleMedium,
     ),
     content: SingleChildScrollView(
       child: Column(
@@ -46,34 +51,44 @@ Widget _products() {
         children: [
           Obx(() {
             return DropdownButtonFormField<String>(
-              dropdownColor: GalegosUiDefaut.colorScheme.secondary,
+              dropdownColor: theme.colorScheme.secondary,
               borderRadius: BorderRadius.circular(5),
               decoration: InputDecoration(
                 labelText: 'Categoria',
-                labelStyle: TextStyle(color: GalegosUiDefaut.colorScheme.tertiary),
+                labelStyle: TextStyle(
+                  color: theme.colorScheme.tertiary,
+                ),
                 hint: Text(
                   'Selecione',
-                  style: TextStyle(color: GalegosUiDefaut.colorScheme.tertiary),
+                  style: TextStyle(color: theme.colorScheme.tertiary),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5),
-                  borderSide: BorderSide(color: GalegosUiDefaut.colorScheme.tertiary),
+                  borderSide: BorderSide(
+                    color: theme.colorScheme.tertiary,
+                  ),
                 ),
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: GalegosUiDefaut.colorScheme.tertiary),
+                  borderSide: BorderSide(
+                    color: theme.colorScheme.tertiary,
+                  ),
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5),
-                  borderSide: BorderSide(color: GalegosUiDefaut.colorScheme.tertiary),
+                  borderSide: BorderSide(
+                    color: theme.colorScheme.tertiary,
+                  ),
                 ),
               ),
-              style: TextStyle(color: GalegosUiDefaut.colorScheme.tertiary),
+              style: TextStyle(color: theme.colorScheme.tertiary),
               selectedItemBuilder: (context) {
                 return controller.category.map((c) {
                   return Text(
                     c.name,
-                    style: TextStyle(color: GalegosUiDefaut.colorScheme.tertiary),
+                    style: TextStyle(
+                      color: theme.colorScheme.tertiary,
+                    ),
                   );
                 }).toList();
               },
@@ -86,7 +101,9 @@ Widget _products() {
                       value: c.name,
                       child: Text(
                         c.name,
-                        style: TextStyle(color: GalegosUiDefaut.colorScheme.tertiary),
+                        style: TextStyle(
+                          color: theme.colorScheme.tertiary,
+                        ),
                       ),
                     ),
                   )
@@ -100,41 +117,47 @@ Widget _products() {
             );
           }),
           GalegosTextFormField(
-            colorText: GalegosUiDefaut.colorScheme.tertiary,
-            colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+            colorText: theme.colorScheme.tertiary,
+            colorBorder: theme.colorScheme.tertiary,
             floatingLabelBehavior: .auto,
             enabled: true,
             label: 'Nome do Produto',
             validator: Validatorless.required('Nome inválido'),
             controller: controller.nameProductEC,
+            prefix: false,
+            suffix: false,
           ),
           GalegosTextFormField(
-            colorText: GalegosUiDefaut.colorScheme.tertiary,
-            colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+            colorText: theme.colorScheme.tertiary,
+            colorBorder: theme.colorScheme.tertiary,
             floatingLabelBehavior: .auto,
             enabled: true,
             label: 'Descrição',
             controller: controller.descriptionEC,
+            prefix: false,
+            suffix: false,
           ),
           GalegosTextFormField(
-            colorText: GalegosUiDefaut.colorScheme.tertiary,
-            colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+            colorText: theme.colorScheme.tertiary,
+            colorBorder: theme.colorScheme.tertiary,
             floatingLabelBehavior: .auto,
             enabled: true,
-            inputType: TextInputType.number,
+            inputType: .number,
             prefixText: 'R\$ ',
             validator: Validatorless.multiple([
               Validatorless.required('Nome inválido'),
             ]),
             label: 'Preço',
             controller: controller.priceEC,
+            prefix: false,
+            suffix: false,
           ),
         ],
       ),
     ),
     actions: [
       ElevatedButton(
-        style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+        style: theme.elevatedButtonTheme.style,
         onPressed: () {
           controller.cadastrarNovosProdutos();
           Get.back();
@@ -145,26 +168,22 @@ Widget _products() {
   );
 }
 
-Widget _foods() {
+Widget _foods(ThemeData theme) {
   final LunchboxesController controller = Get.find<LunchboxesController>();
-  return AlertDialog(
-    backgroundColor: GalegosUiDefaut.colors['fundo'],
-    titlePadding: const EdgeInsets.only(left: 24, right: 24, bottom: 15),
-    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-    actionsPadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 15),
+  return AlertDialog.adaptive(
     icon: Align(
       alignment: .bottomRight,
       child: IconButton(
         onPressed: () => Get.back(),
         icon: Icon(Icons.close),
-        color: GalegosUiDefaut.colorScheme.tertiary,
+        color: theme.colorScheme.tertiary,
       ),
     ),
     title: Text(
       'Adiciona Marmita',
       overflow: .ellipsis,
       textAlign: .center,
-      style: GalegosUiDefaut.theme.textTheme.titleMedium,
+      style: theme.textTheme.titleMedium,
     ),
     content: SingleChildScrollView(
       child: Column(
@@ -180,25 +199,29 @@ Widget _foods() {
             },
           ),
           GalegosTextFormField(
-            colorText: GalegosUiDefaut.colorScheme.tertiary,
-            colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+            colorText: theme.colorScheme.tertiary,
+            colorBorder: theme.colorScheme.tertiary,
             floatingLabelBehavior: .auto,
             enabled: true,
             label: 'Nome da Marmita',
             validator: Validatorless.required('Nome inválido'),
             controller: controller.nomeMarmitaEC,
+            prefix: false,
+            suffix: false,
           ),
           GalegosTextFormField(
-            colorText: GalegosUiDefaut.colorScheme.tertiary,
-            colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+            colorText: theme.colorScheme.tertiary,
+            colorBorder: theme.colorScheme.tertiary,
             floatingLabelBehavior: .auto,
             enabled: true,
             label: 'Descrição',
             controller: controller.descricaoEC,
+            prefix: false,
+            suffix: false,
           ),
           GalegosTextFormField(
-            colorText: GalegosUiDefaut.colorScheme.tertiary,
-            colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+            colorText: theme.colorScheme.tertiary,
+            colorBorder: theme.colorScheme.tertiary,
             floatingLabelBehavior: .auto,
             enabled: true,
             inputType: .number,
@@ -208,10 +231,12 @@ Widget _foods() {
             ]),
             label: 'Preço Marmita Mini',
             controller: controller.precoMiniEC,
+            prefix: false,
+            suffix: false,
           ),
           GalegosTextFormField(
-            colorText: GalegosUiDefaut.colorScheme.tertiary,
-            colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+            colorText: theme.colorScheme.tertiary,
+            colorBorder: theme.colorScheme.tertiary,
             floatingLabelBehavior: .auto,
             enabled: true,
             inputType: .number,
@@ -221,6 +246,8 @@ Widget _foods() {
             ]),
             label: 'Preço Marmita Média',
             controller: controller.precoMediaEC,
+            prefix: false,
+            suffix: false,
           ),
         ],
       ),
@@ -228,8 +255,8 @@ Widget _foods() {
     actions: [
       ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: GalegosUiDefaut.colorScheme.primary,
-          foregroundColor: GalegosUiDefaut.colorScheme.onPrimary,
+          backgroundColor: theme.colorScheme.primary,
+          foregroundColor: theme.colorScheme.onPrimary,
         ),
         onPressed: () async {
           controller.cadastrarNovasMarmitas();

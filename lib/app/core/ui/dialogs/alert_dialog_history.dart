@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 
 class AlertDialogHistory extends StatelessWidget {
   final String pedidoLabel;
@@ -23,6 +23,8 @@ class AlertDialogHistory extends StatelessWidget {
   final String statusPedido;
   final bool isAdmin;
   final String? titleButton;
+  final String pagamento;
+  final double? troco;
 
   const AlertDialogHistory({
     super.key,
@@ -46,41 +48,21 @@ class AlertDialogHistory extends StatelessWidget {
     required this.statusPedido,
     required this.isAdmin,
     this.titleButton,
+    required this.pagamento,
+    this.troco,
   });
 
   @override
   Widget build(BuildContext context) {
-    Widget sectionTitle(String text) => Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-      child: Text(text, style: GalegosUiDefaut.theme.textTheme.titleSmall),
-    );
-
-    Widget infoLine(String label, String value, {bool bold = false}) => Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-      child: Text(
-        '$label$value',
-        style: bold
-            ? TextStyle(
-                color: GalegosUiDefaut.colors['texto'],
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              )
-            : GalegosUiDefaut.theme.textTheme.bodyLarge,
-        overflow: TextOverflow.ellipsis,
-      ),
-    );
-    return AlertDialog(
-      backgroundColor: GalegosUiDefaut.colors['fundo'],
-      titlePadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
-      contentPadding: const EdgeInsets.only(top: 15, left: 10, right: 15, bottom: 10),
-      actionsPadding: const EdgeInsets.only(top: 20, left: 0, right: 20, bottom: 20),
+    final ThemeData theme = Theme.of(context);
+    return AlertDialog.adaptive(
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: .spaceBetween,
+        crossAxisAlignment: .start,
         children: [
           Text(
             statusPedido[0].toUpperCase() + statusPedido.substring(1),
-            style: GalegosUiDefaut.theme.textTheme.bodySmall,
+            style: theme.textTheme.bodySmall,
           ),
         ],
       ),
@@ -88,39 +70,45 @@ class AlertDialogHistory extends StatelessWidget {
         constraints: BoxConstraints(minWidth: context.width),
         child: SingleChildScrollView(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: .min,
+            crossAxisAlignment: .start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10),
-                child: sectionTitle('Dados'),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 4.0,
+                  horizontal: 10,
+                ),
+                child: _sectionTitle(context, 'Dados'),
               ),
-              infoLine('Nome: ', nomeCliente),
-              Divider(color: GalegosUiDefaut.colorScheme.secondary),
-              sectionTitle('Descrição'),
-              infoLine('', carrinhoName),
-              Divider(color: GalegosUiDefaut.colorScheme.secondary),
-              sectionTitle('Detalhes'),
-              infoLine('Data: ', data),
-              infoLine('Horário do pedido: ', horarioInicio),
+              _infoLine(context, 'Nome: ', nomeCliente),
+              Divider(color: theme.colorScheme.secondary),
+              _sectionTitle(context, 'Descrição'),
+              _infoLine(context, '', carrinhoName),
+              Divider(color: theme.colorScheme.secondary),
+              _sectionTitle(context, 'Detalhes'),
+              _infoLine(context, 'Data: ', data),
+              _infoLine(context, 'Horário do pedido: ', horarioInicio),
               Visibility(
                 visible: isAdmin,
-                child: infoLine('Horário entrega: ', horarioSairEntrega),
+                child: _infoLine(context, 'Horário entrega: ', horarioSairEntrega),
               ),
-              infoLine('Horário entregue: ', horarioEntregue),
-              Divider(color: GalegosUiDefaut.colorScheme.secondary),
-              sectionTitle('Endereço:'),
-              infoLine('Rua: ', rua),
-              infoLine('Número: ', numeroResidencia),
-              infoLine('Bairro: ', bairro),
-              infoLine('Cidade: ', cidade),
-              infoLine('Estado: ', estado),
-              infoLine('CEP: ', cep),
-              Divider(color: GalegosUiDefaut.colorScheme.secondary),
-              sectionTitle('Valores'),
-              infoLine('Total dos itens: ', valor),
-              infoLine('Taxa de entrega: ', taxa),
-              infoLine('Valor final: ', total, bold: true),
+              _infoLine(context, 'Horário entregue: ', horarioEntregue),
+              Divider(color: theme.colorScheme.secondary),
+              _sectionTitle(context, 'Endereço:'),
+              _infoLine(context, 'Rua: ', rua),
+              _infoLine(context, 'Número: ', numeroResidencia),
+              _infoLine(context, 'Bairro: ', bairro),
+              _infoLine(context, 'Cidade: ', cidade),
+              _infoLine(context, 'Estado: ', estado),
+              _infoLine(context, 'CEP: ', cep),
+              Divider(color: theme.colorScheme.secondary),
+              _sectionTitle(context, 'Forma de Pagamento'),
+              _infoLine(context, 'Pagamento: ', pagamento),
+              Divider(color: theme.colorScheme.secondary),
+              _sectionTitle(context, 'Valores'),
+              _infoLine(context, 'Total dos itens: ', valor),
+              _infoLine(context, 'Taxa de entrega: ', taxa),
+              _infoLine(context, 'Valor final: ', total, bold: true),
             ],
           ),
         ),
@@ -132,24 +120,28 @@ class AlertDialogHistory extends StatelessWidget {
             isAdmin
                 ? ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: GalegosUiDefaut.colorScheme.primary,
+                      backgroundColor: theme.colorScheme.primary,
                     ),
                     onPressed: onPressed,
                     child: Text(
                       titleButton ?? '',
-                      style: TextStyle(color: GalegosUiDefaut.colorScheme.onPrimary),
+                      style: TextStyle(
+                        color: theme.colorScheme.onPrimary,
+                      ),
                     ),
                   )
                 : ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: GalegosUiDefaut.colorScheme.primary,
+                      backgroundColor: theme.colorScheme.primary,
                     ),
                     onPressed: () {
                       Get.close(0);
                     },
                     child: Text(
                       'FECHAR',
-                      style: TextStyle(color: GalegosUiDefaut.colorScheme.onPrimary),
+                      style: TextStyle(
+                        color: theme.colorScheme.onPrimary,
+                      ),
                     ),
                   ),
           ],
@@ -158,3 +150,47 @@ class AlertDialogHistory extends StatelessWidget {
     );
   }
 }
+
+Widget _sectionTitle(BuildContext context, String text) => Padding(
+  padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+  child: Text(text, style: Theme.of(context).textTheme.titleSmall),
+);
+
+Widget _infoLine(BuildContext context, String label, String value, {bool bold = false}) => Padding(
+  padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+  child: Text(
+    '$label$value',
+    style: bold
+        ? TextStyle(
+            color: AppColors.text,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          )
+        : Theme.of(context).textTheme.bodyLarge,
+  ),
+);
+
+
+/* 
+
+    backgroundColor: theme.colorScheme.surface,
+      titlePadding: const EdgeInsets.only(
+        top: 20,
+        left: 20,
+        right: 20,
+        bottom: 0,
+      ),
+      contentPadding: const EdgeInsets.only(
+        top: 15,
+        left: 10,
+        right: 15,
+        bottom: 10,
+      ),
+      actionsPadding: const EdgeInsets.only(
+        top: 20,
+        left: 0,
+        right: 20,
+        bottom: 20,
+      ),
+
+*/

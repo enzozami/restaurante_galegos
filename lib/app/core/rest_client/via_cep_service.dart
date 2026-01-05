@@ -1,11 +1,13 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:get/get_connect/connect.dart';
+import 'package:get/get.dart';
 
 class ViaCepService extends GetConnect {
   final _viaCepBaseUrl = dotenv.env['VIA_CEP_BASE_URL'];
 
   ViaCepService() {
-    httpClient.baseUrl = _viaCepBaseUrl;
+    httpClient
+      ..baseUrl = _viaCepBaseUrl
+      ..timeout = 30.seconds;
   }
 
   Future<Map<String, dynamic>> buscarCep(String cep) async {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 
 class GalegosCheckBox extends StatelessWidget {
   final bool isChecked;
@@ -14,7 +13,7 @@ class GalegosCheckBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Checkbox(
-      checkColor: GalegosUiDefaut.colorScheme.onPrimary,
+      checkColor: Theme.of(context).colorScheme.onPrimary,
       side: BorderSide(
         color: Colors.black,
       ),

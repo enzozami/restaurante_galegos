@@ -1,22 +1,14 @@
-import 'dart:developer';
-
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:validatorless/validatorless.dart';
+
 import './login_controller.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
 
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends GalegosState<LoginPage, LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,60 +21,47 @@ class _LoginPageState extends GalegosState<LoginPage, LoginController> {
                 child: Column(
                   mainAxisAlignment: .spaceEvenly,
                   children: [
-                    const SizedBox(height: 95),
-                    Image.network(
-                      'https://restaurantegalegos.wabiz.delivery/stores/restaurantegalegos/img/homeLogo.png?vc=20250915111500&cvc=',
-                      fit: BoxFit.cover,
+                    Image.asset(
+                      'assets/splash/splash.png',
+                      height: context.heightTransformer(reducedBy: 50),
                     ),
-                    const SizedBox(height: 120),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Form(
-                        key: controller.formKey,
-                        child: Obx(() {
-                          return Column(
-                            children: [
-                              _formFieldsLogin(
-                                emailEC: controller.emailEC,
-                                passwordEC: controller.passwordEC,
-                                context: context,
-                                icons: controller.viewPassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                onPressed: () {
-                                  controller.changePasswordVisibility();
-                                },
-                                obscureText: controller.viewPassword,
-                                onEditingComplete: () async {
-                                  await controller.login();
-                                },
-                              ),
-                              const SizedBox(height: 25),
-                              GalegosButtonDefault(
-                                label: 'Entrar',
-                                onPressed: () async {
-                                  await controller.login();
-                                },
-                              ),
-                              const SizedBox(height: 15),
-                            ],
-                          );
-                        }),
-                      ),
-                    ),
-                    Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: context.heightTransformer(reducedBy: 85)),
-                        Text('Não possui cadastro?', style: TextStyle(fontSize: 15)),
-                        TextButton(
-                          style: GalegosUiDefaut.theme.textButtonTheme.style,
-                          onPressed: () => Get.toNamed('/auth/register'),
-                          child: Text('Clique aqui', style: TextStyle(fontSize: 15)),
+                    Center(
+                      child: SizedBox(
+                        width: context.widthTransformer(reducedBy: 10),
+                        child: Form(
+                          key: controller.formKeyLogin,
+                          child: Obx(() {
+                            return Column(
+                              children: [
+                                _formFieldsLogin(
+                                  emailEC: controller.emailEC,
+                                  passwordEC: controller.passwordEC,
+                                  context: context,
+                                  icons: controller.viewPassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  onPressed: () {
+                                    controller.changePasswordVisibility();
+                                  },
+                                  obscureText: controller.viewPassword,
+                                  onEditingComplete: () async {
+                                    await controller.login();
+                                  },
+                                ),
+                                const SizedBox(height: 25),
+                                GalegosButtonDefault(
+                                  label: 'Entrar',
+                                  width: double.infinity,
+                                  onPressed: () async {
+                                    await controller.login();
+                                  },
+                                ),
+                                const SizedBox(height: 15),
+                              ],
+                            );
+                          }),
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
@@ -110,12 +89,14 @@ Widget _formFieldsLogin({
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         controller: emailEC,
         inputType: .emailAddress,
-        prefixIcon: Icon(Icons.email),
+        prefixIcon: Icons.email,
         label: 'E-mail',
         validator: Validatorless.multiple([
           Validatorless.required('Campo obrigatório'),
           Validatorless.email('E-mail inválido'),
         ]),
+        prefix: true,
+        suffix: false,
       ),
       const SizedBox(height: 25),
 
@@ -123,19 +104,19 @@ Widget _formFieldsLogin({
         floatingLabelBehavior: .auto,
         controller: passwordEC,
         obscureText: obscureText,
-        prefixIcon: Icon(Icons.lock),
+        prefixIcon: Icons.lock,
         textInputAction: .done,
         onEditingComplete: onEditingComplete,
         inputType: .visiblePassword,
-        icon: IconButton(
-          onPressed: onPressed,
-          icon: Icon(icons),
-        ),
+        suffixIcon: icons,
+        onPressed: onPressed,
         validator: Validatorless.multiple([
           Validatorless.required('Senha obrigatória'),
           Validatorless.min(8, 'Senha deve ter 8 dígitos'),
         ]),
         label: 'Senha',
+        prefix: true,
+        suffix: true,
       ),
       Align(
         alignment: .centerRight,
@@ -155,30 +136,21 @@ Widget _formFieldsLogin({
   );
 }
 
-class _AlertResetPassword extends StatefulWidget {
-  const _AlertResetPassword();
-
-  @override
-  State<_AlertResetPassword> createState() => _AlertResetPasswordState();
-}
-
-class _AlertResetPasswordState extends GalegosState<_AlertResetPassword, LoginController> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailEC = TextEditingController();
-
+class _AlertResetPassword extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Form(
-      key: _formKey,
+      key: controller.formKeyReset,
       child: AlertDialog(
         contentPadding: EdgeInsets.all(30),
         icon: Align(
           alignment: .centerRight,
-          child: Icon(Icons.close, color: GalegosUiDefaut.colorScheme.tertiary),
+          child: Icon(Icons.close, color: theme.colorScheme.tertiary),
         ),
         title: Text(
           'Restaurar senha',
-          style: GalegosUiDefaut.theme.textTheme.titleLarge,
+          style: theme.textTheme.titleLarge,
           textAlign: .center,
         ),
         content: SingleChildScrollView(
@@ -188,18 +160,20 @@ class _AlertResetPasswordState extends GalegosState<_AlertResetPassword, LoginCo
               Text(
                 'Digite o e-mail referente a conta para restaurar a senha',
                 textAlign: .justify,
-                style: GalegosUiDefaut.theme.textTheme.bodyLarge,
+                style: theme.textTheme.bodyLarge,
               ),
               GalegosTextFormField(
                 floatingLabelBehavior: .auto,
                 inputType: .emailAddress,
-                controller: _emailEC,
-                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                controller: controller.emailEC,
+                colorBorder: theme.colorScheme.tertiary,
                 label: 'E-mail',
                 validator: Validatorless.multiple([
                   Validatorless.required('E-mail obrigatório'),
                   Validatorless.email('E-mail inválido'),
                 ]),
+                prefix: true,
+                suffix: false,
               ),
             ],
           ),
@@ -209,12 +183,7 @@ class _AlertResetPasswordState extends GalegosState<_AlertResetPassword, LoginCo
           GalegosButtonDefault(
             label: 'Enviar',
             onPressed: () {
-              final formValid = _formKey.currentState?.validate() ?? false;
-              if (formValid) {
-                controller.senhaNova(email: _emailEC.text);
-                log('Mensagem enviada');
-                Get.back();
-              }
+              controller.senhaNova();
             },
           ),
         ],

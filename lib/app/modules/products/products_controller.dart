@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
-import 'package:restaurante_galegos/app/core/ui/dialogs/alert_dialog_default.dart';
+import 'package:restaurante_galegos/app/core/ui/bottom_sheet/galegos_bottom_sheet.dart';
 import 'package:restaurante_galegos/app/core/ui/dialogs/alert_products_lunchboxes_adm.dart';
+import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
 import 'package:restaurante_galegos/app/models/category_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
@@ -36,6 +36,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final Rx<String?> categoryId = Rx(null);
   final categorySelected = Rxn<CategoryModel>();
   final itemSelect = Rxn<ProductModel>();
+  final RxnInt pressingItemId = RxnInt();
 
   final _quantity = 1.obs;
   final _alreadyAdded = false.obs;
@@ -49,16 +50,28 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   final TextEditingController priceEC = TextEditingController();
 
   RxBool get loading => _loading;
+
   RxList<ProductModel> get items => _productsServices.items;
+
   RxList<CategoryModel> get category => _productsServices.categories;
+
   ProductModel? get selectedItem => itemSelect.value;
+
   int get quantity => _quantity.value;
+
   bool get alreadyAdded => _alreadyAdded.value;
+
   double get totalPrice => _totalPrice.value;
+
   CarrinhoServices get carrinhoServices => _carrinhoServices;
+
   bool get isEditing => _isEditing.value;
+
   bool get admin => _authService.isAdmin();
+
   RxBool temHoje(ProductModel p) => RxBool(p.temHoje);
+
+  final categoryPressing = Rxn<CategoryModel>();
 
   List<ProductModel> getFilteredProducts(CategoryModel c) {
     return admin
@@ -113,7 +126,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     } catch (e, s) {
       log('Erro ao carregar dados', error: e, stackTrace: s);
       _loading.value = false;
-      await 500.milliseconds.delay();
       _message(
         MessageModel(
           title: 'Erro',
@@ -134,9 +146,12 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
       await _fetchAllProducts();
     } catch (e, s) {
       log('Erro ao atualizar produtos', error: e, stackTrace: s);
-      await 500.milliseconds.delay();
       _message(
-        MessageModel(title: 'Erro', message: 'Erro ao atualizar produtos', type: MessageType.error),
+        MessageModel(
+          title: 'Erro',
+          message: 'Erro ao atualizar produtos',
+          type: MessageType.error,
+        ),
       );
     }
   }
@@ -166,8 +181,13 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     String newDescription,
     String newName,
     double newPrice,
-  ) async =>
-      await _productsServices.atualizarDados(id, newCategoryId, newDescription, newName, newPrice);
+  ) async => await _productsServices.atualizarDados(
+    id,
+    newCategoryId,
+    newDescription,
+    newName,
+    newPrice,
+  );
 
   Future<void> atualizarItensDoDia(int id, ProductModel item) async {
     await _productsServices.updateTemHoje(id, item);
@@ -180,7 +200,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     try {
       isProcessing.value = true;
       _loading.value = true;
-      await 250.milliseconds.delay();
 
       if (categoryModel == null) {
         categorySelected.value = null;
@@ -197,7 +216,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     } catch (e, s) {
       log('Erro ao filtrar', error: e, stackTrace: s);
       _loading.value = false;
-      await 500.milliseconds.delay();
       _message.value = MessageModel(
         title: 'ERRO',
         message: 'Erro ao filtrar',
@@ -214,11 +232,11 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
     final carrinhoItem = _carrinhoServices.getById(item.id);
     if (carrinhoItem != null) {
-      _quantity(carrinhoItem.item.quantidade);
-      _alreadyAdded(true);
+      _quantity.value = carrinhoItem.item.quantidade;
+      _alreadyAdded.value = true;
     } else {
-      _quantity(1);
-      _alreadyAdded(false);
+      _quantity.value = 1;
+      _alreadyAdded.value = false;
     }
   }
 
@@ -226,7 +244,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     final selected = selectedItem;
 
     if (selected == null) {
-      _alreadyAdded(false);
+      _alreadyAdded.value = false;
       return;
     }
 
@@ -238,27 +256,20 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   }
 
   void removeProductUnit() {
-    if (_quantity.value > 0) {
+    if (_quantity.value > 1) {
       _quantity.value--;
     }
   }
 
-  void onClientProductQuickAddPressed(ProductModel product) {
+  Future<void> onClientProductQuickAddPressed(ProductModel product) async {
     setSelectedItem(product);
     final idItem = carrinhoServices.getById(product.id);
     if (idItem == null) {
       addItemsToCart();
-      Get.snackbar(
-        'Item: ${product.name}',
-        'Item adicionado ao carrinho',
-        snackPosition: SnackPosition.TOP,
-        duration: Duration(seconds: 1),
-        backgroundColor: Color(0xFFE2933C),
-        colorText: Colors.black,
-        isDismissible: true,
-        overlayBlur: 0,
-        overlayColor: Colors.transparent,
-        barBlur: 0,
+      _message.value = MessageModel(
+        title: 'Item: ${product.name}',
+        message: 'Item adicionado ao carrinho',
+        type: MessageType.info,
       );
     } else {
       addProductUnit();
@@ -266,52 +277,69 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
   }
 
-  void onClientProductDetailsTapped(BuildContext context, ProductModel product) {
+  void onClientProductDetailsTapped(
+    BuildContext context,
+    ProductModel product,
+  ) {
     setSelectedItem(product);
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialogDefault(
-          visible: quantity > 0 && alreadyAdded == true,
-          plusMinus: Obx(() {
+    Get.bottomSheet(
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+      ),
+      GalegosBottomSheet(
+        ordersReceived: false,
+        admin: admin,
+        image: product.image,
+        nameItem: product.name,
+        description: product.description ?? '',
+        titleButtom: (_carrinhoServices.getById(product.id) != null)
+            ? 'ATUALIZAR CARRINHO'
+            : 'ADICIONAR AO CARRINHO',
+        price: FormatterHelper.formatCurrency(product.price),
+        plusMinus: Obx(
+          () {
             return GalegosPlusMinus(
               addCallback: addProductUnit,
               removeCallback: removeProductUnit,
               quantityUnit: quantity,
             );
-          }),
-          item: product,
-          onPressed: () {
-            final idItem = carrinhoServices.getById(product.id);
-
-            if (idItem == null) {
-              addItemsToCart();
-              Get.snackbar(
-                'Item: ${product.name}',
-                'Item adicionado ao carrinho',
-                snackPosition: SnackPosition.TOP,
-                duration: Duration(seconds: 1),
-                backgroundColor: Color(0xFFE2933C),
-                colorText: Colors.black,
-                isDismissible: true,
-                overlayBlur: 0,
-                overlayColor: Colors.transparent,
-                barBlur: 0,
-              );
-              Get.close(0);
-              log('Item clicado: ${product.name} - ${product.price}');
-            } else {
-              addItemsToCart();
-              Get.close(0);
-              log('Item clicado: ${product.name} - ${product.price}');
-            }
           },
-        );
-      },
-    );
+        ),
+        onPressed: () {
+          final idItem = carrinhoServices.getById(product.id);
+
+          if (idItem == null) {
+            addItemsToCart();
+            Get.snackbar(
+              'Item: ${product.name}',
+              'Item adicionado ao carrinho',
+              snackPosition: SnackPosition.TOP,
+              duration: Duration(seconds: 1),
+              backgroundColor: Color(0xFFE2933C),
+              colorText: Colors.black,
+              isDismissible: true,
+              overlayBlur: 0,
+              overlayColor: Colors.transparent,
+              barBlur: 0,
+            );
+            Get.close(0);
+            log('Item clicado: ${product.name} - ${product.price}');
+          } else {
+            addItemsToCart();
+            Get.close(0);
+            log('Item clicado: ${product.name} - ${product.price}');
+          }
+        },
+      ),
+      isScrollControlled: true,
+    ).whenComplete(() => clearSelection());
   }
 
-  void onAdminProductUpdateDetailsTapped(BuildContext context, ProductModel product) {
+  void onAdminProductUpdateDetailsTapped(
+    BuildContext context,
+    ProductModel product,
+  ) {
     setSelectedItem(product);
     final number = NumberFormat('#,##0.00', 'pt_BR');
     final temHoje = RxBool(product.temHoje);
@@ -359,35 +387,36 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     );
   }
 
-  Future<bool> exibirConfirmacaoDescarte(BuildContext context, ProductModel product) async {
+  Future<bool> exibirConfirmacaoDescarte(
+    BuildContext context,
+    ProductModel product,
+  ) async {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) {
+        final ThemeData theme = Theme.of(context);
         return AlertDialog(
-          backgroundColor: GalegosUiDefaut.colors['fundo'],
-          titlePadding: EdgeInsets.only(top: 25, bottom: 0),
-          contentPadding: EdgeInsets.only(top: 15, bottom: 0),
           actionsPadding: EdgeInsets.symmetric(vertical: 15),
           title: Text(
             'ATENÇÃO',
             textAlign: .center,
-            style: GalegosUiDefaut.theme.textTheme.titleMedium,
+            style: theme.textTheme.titleMedium,
           ),
           content: Text(
             'Deseja excluir esse produto?',
             textAlign: .center,
-            style: GalegosUiDefaut.theme.textTheme.bodySmall,
+            style: theme.textTheme.bodySmall,
           ),
           actionsAlignment: .center,
           actions: [
             ElevatedButton(
               onPressed: () => Navigator.of(context).pop(false),
-              style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+              style: theme.elevatedButtonTheme.style,
               child: Text('Cancelar'),
             ),
             ElevatedButton(
               onPressed: () => Navigator.of(context).pop(true),
-              style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+              style: theme.elevatedButtonTheme.style,
               child: Text('Confirmar'),
             ),
           ],
@@ -399,5 +428,17 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
   bool _validateForm() {
     return formKey.currentState?.validate() ?? false;
+  }
+
+  void clearSelection() {
+    itemSelect.value = null;
+  }
+
+  void handlePress(int? id) {
+    pressingItemId.value = id;
+  }
+
+  void handlePressFilter(CategoryModel? c) {
+    categoryPressing.value = c;
   }
 }

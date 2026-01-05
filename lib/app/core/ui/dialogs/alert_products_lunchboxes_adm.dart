@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:get/get.dart';
-
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/section_header.dart';
 
@@ -86,11 +84,22 @@ class _AlertProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return AlertDialog(
-      backgroundColor: GalegosUiDefaut.colors['fundo'],
-      titlePadding: const EdgeInsets.only(left: 20, right: 20, bottom: 0),
-      contentPadding: const EdgeInsets.only(top: 15, left: 10, right: 15, bottom: 10),
-      actionsPadding: const EdgeInsets.only(top: 20, left: 0, right: 20, bottom: 20),
+      // backgroundColor: theme.colors['fundo'],
+      // titlePadding: const EdgeInsets.only(left: 20, right: 20, bottom: 0),
+      // contentPadding: const EdgeInsets.only(
+      //   top: 15,
+      //   left: 10,
+      //   right: 15,
+      //   bottom: 10,
+      // ),
+      // actionsPadding: const EdgeInsets.only(
+      //   top: 20,
+      //   left: 0,
+      //   right: 20,
+      //   bottom: 20,
+      // ),
       icon: Align(
         alignment: .centerRight,
         child: IconButton(
@@ -103,7 +112,7 @@ class _AlertProduct extends StatelessWidget {
           ),
         ),
       ),
-      title: sectionTitle('Editar Produto'),
+      title: sectionTitle('Editar Produto', theme),
       content: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -116,21 +125,27 @@ class _AlertProduct extends StatelessWidget {
                 floatingLabelBehavior: .auto,
                 label: 'Nome',
                 controller: nameProduct,
-                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                colorBorder: theme.colorScheme.tertiary,
+                prefix: false,
+                suffix: false,
               ),
               GalegosTextFormField(
                 floatingLabelBehavior: .auto,
                 label: 'Descrição',
                 controller: description,
-                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                colorBorder: theme.colorScheme.tertiary,
+                prefix: false,
+                suffix: false,
               ),
               GalegosTextFormField(
                 floatingLabelBehavior: .auto,
                 label: 'Preço',
                 inputType: .number,
                 controller: price,
-                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                colorBorder: theme.colorScheme.tertiary,
                 prefixText: 'R\$ ',
+                prefix: false,
+                suffix: false,
               ),
 
               GalegosTextFormField(
@@ -138,7 +153,9 @@ class _AlertProduct extends StatelessWidget {
                 label: 'Categoria',
                 enabled: false,
                 controller: category,
-                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                colorBorder: theme.colorScheme.tertiary,
+                prefix: false,
+                suffix: false,
               ),
               Divider(),
               Row(
@@ -146,10 +163,10 @@ class _AlertProduct extends StatelessWidget {
                 children: [
                   Text('Ativo'),
                   Obx(() {
-                    return Switch(
+                    return Switch.adaptive(
                       value: value.value,
                       onChanged: onChanged,
-                      activeThumbColor: GalegosUiDefaut.colors['primaria'],
+                      activeThumbColor: theme.colorScheme.primary,
                     );
                   }),
                 ],
@@ -161,7 +178,7 @@ class _AlertProduct extends StatelessWidget {
       actions: [
         ElevatedButton(
           onPressed: onPressed,
-          style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+          style: theme.elevatedButtonTheme.style,
           child: Text('Salvar'),
         ),
       ],
@@ -169,11 +186,11 @@ class _AlertProduct extends StatelessWidget {
   }
 }
 
-Widget sectionTitle(String text) => Padding(
+Widget sectionTitle(String text, ThemeData theme) => Padding(
   padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
   child: Text(
     text,
-    style: GalegosUiDefaut.theme.textTheme.titleMedium,
+    style: theme.textTheme.titleMedium,
     textAlign: .center,
   ),
 );
@@ -190,6 +207,7 @@ class _AlertFoods extends StatelessWidget {
     required this.items,
     required this.onChangedSection,
   });
+
   final TextEditingController nameFood;
   final TextEditingController description;
   final TextEditingController priceMini;
@@ -203,11 +221,27 @@ class _AlertFoods extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return AlertDialog(
-      backgroundColor: GalegosUiDefaut.colors['fundo'],
-      titlePadding: const EdgeInsets.only(top: 0, left: 20, right: 20, bottom: 0),
-      contentPadding: const EdgeInsets.only(top: 15, left: 10, right: 15, bottom: 10),
-      actionsPadding: const EdgeInsets.only(top: 20, left: 0, right: 20, bottom: 20),
+      // backgroundColor: theme.colorScheme.surface,
+      // titlePadding: const EdgeInsets.only(
+      //   top: 0,
+      //   left: 20,
+      //   right: 20,
+      //   bottom: 0,
+      // ),
+      // contentPadding: const EdgeInsets.only(
+      //   top: 15,
+      //   left: 10,
+      //   right: 15,
+      //   bottom: 10,
+      // ),
+      // actionsPadding: const EdgeInsets.only(
+      //   top: 20,
+      //   left: 0,
+      //   right: 20,
+      //   bottom: 20,
+      // ),
       icon: Align(
         alignment: .centerRight,
         child: IconButton(
@@ -220,7 +254,7 @@ class _AlertFoods extends StatelessWidget {
           ),
         ),
       ),
-      title: sectionTitle('Editar Marmita'),
+      title: sectionTitle('Editar Marmita', theme),
       content: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -234,29 +268,37 @@ class _AlertFoods extends StatelessWidget {
                 floatingLabelBehavior: .auto,
                 label: 'Nome',
                 controller: nameFood,
-                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                colorBorder: theme.colorScheme.tertiary,
+                prefix: false,
+                suffix: false,
               ),
               GalegosTextFormField(
                 floatingLabelBehavior: .auto,
                 label: 'Descrição',
                 controller: description,
-                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                colorBorder: theme.colorScheme.tertiary,
+                prefix: false,
+                suffix: false,
               ),
               GalegosTextFormField(
                 floatingLabelBehavior: .auto,
                 label: 'Preço (Mini)',
                 inputType: .number,
                 controller: priceMini,
-                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                colorBorder: theme.colorScheme.tertiary,
                 prefixText: 'R\$ ',
+                prefix: false,
+                suffix: false,
               ),
               GalegosTextFormField(
                 floatingLabelBehavior: .auto,
                 label: 'Preço (Media)',
                 inputType: .number,
                 controller: priceMedia,
-                colorBorder: GalegosUiDefaut.colorScheme.tertiary,
+                colorBorder: theme.colorScheme.tertiary,
                 prefixText: 'R\$ ',
+                prefix: false,
+                suffix: false,
               ),
               Divider(),
               Row(
@@ -264,10 +306,10 @@ class _AlertFoods extends StatelessWidget {
                 children: [
                   Text('Ativo'),
                   Obx(() {
-                    return Switch(
+                    return Switch.adaptive(
                       value: value.value,
                       onChanged: onChanged,
-                      activeThumbColor: GalegosUiDefaut.colors['primaria'],
+                      activeThumbColor: theme.colorScheme.primary,
                     );
                   }),
                 ],
@@ -279,7 +321,7 @@ class _AlertFoods extends StatelessWidget {
       actions: [
         ElevatedButton(
           onPressed: onPressed,
-          style: GalegosUiDefaut.theme.elevatedButtonTheme.style,
+          style: theme.elevatedButtonTheme.style,
           child: Text('Salvar'),
         ),
       ],

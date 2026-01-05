@@ -10,6 +10,6 @@ class LunchboxesRouters {
       name: '/lunchboxes',
       binding: LunchboxesBindings(),
       page: () => LunchboxesPage(),
-    )
+    ),
   ];
 }

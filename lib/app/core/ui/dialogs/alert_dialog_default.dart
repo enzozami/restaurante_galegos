@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/models/food_model.dart';
 import 'package:restaurante_galegos/app/models/product_model.dart';
 
@@ -22,21 +21,19 @@ class AlertDialogDefault extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      backgroundColor: GalegosUiDefaut.colorScheme.onSecondary,
-      titlePadding: const EdgeInsets.only(top: 20, left: 24, right: 24, bottom: 0),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-      actionsPadding: const EdgeInsets.all(20),
+    final ThemeData theme = Theme.of(context);
+    return AlertDialog.adaptive(
       title: Text(
         item?.name ?? alimento?.name ?? '',
         textAlign: .center,
-        style: TextStyle(
-          color: GalegosUiDefaut.colorScheme.primary,
-          fontWeight: FontWeight.bold,
-        ),
+        style: theme.textTheme.titleSmall,
+        // style: TextStyle(
+        //   color: GalegosUiDefaut.colorScheme.primary,
+        //   fontWeight: FontWeight.bold,
+        // ),
       ),
       icon: IconButton(
-        icon: Icon(Icons.close, color: GalegosUiDefaut.colorScheme.secondary),
+        icon: Icon(Icons.close, color: theme.colorScheme.secondary),
         alignment: .centerRight,
         onPressed: () => Get.back(),
       ),
@@ -48,13 +45,13 @@ class AlertDialogDefault extends StatelessWidget {
             item?.description ?? alimento?.description ?? '',
             textAlign: .justify,
             style: TextStyle(
-              color: GalegosUiDefaut.colorScheme.secondary,
+              color: theme.colorScheme.secondary,
               fontSize: 14,
             ),
           ),
           const SizedBox(height: 15),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: .center,
             children: [plusMinus ?? SizedBox.shrink()],
           ),
         ],
@@ -64,15 +61,16 @@ class AlertDialogDefault extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: GalegosUiDefaut.colorScheme.primary,
-              // minimumSize: Size(double.infinity, 50),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              backgroundColor: theme.colorScheme.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
             onPressed: onPressed,
             child: Text(
               'Adicionar',
               style: TextStyle(
-                color: GalegosUiDefaut.colorScheme.onPrimary,
+                color: theme.colorScheme.onPrimary,
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),

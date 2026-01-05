@@ -17,7 +17,7 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
 
   bool get isSelected => _isSelected.value;
   set isSelected(bool value) => _isSelected.value = value;
-  String get name => _name.value;
+  String? get nameClient => _authServices.getUserName();
 
   ProfileController({required AuthServices authServices}) : _authServices = authServices;
 
@@ -51,14 +51,15 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
 
   Future<void> getUser() async {
     try {
-      _loading.value = true;
+      // _loading.value = true;
+      await 200.milliseconds.delay();
+
       final userName = _authServices.getUserName();
       if (userName != null) {
         _name.value = userName;
       }
     } catch (e) {
       _loading.value = false;
-      await 500.milliseconds.delay();
       _message.value = MessageModel(
         title: 'Erro',
         message: 'Erro ao buscar dados',
@@ -66,6 +67,7 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
       );
     } finally {
       _loading.value = false;
+      await 100.milliseconds.delay();
     }
   }
 
@@ -87,7 +89,6 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
       }
     } catch (e) {
       _loading.value = false;
-      await 500.milliseconds.delay();
       _message.value = MessageModel(
         title: 'Erro',
         message: 'Erro ao atualizar nome',

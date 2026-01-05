@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:restaurante_galegos/app/core/bindings/galegos_bindings.dart';
-import 'package:restaurante_galegos/app/core/ui/app_theme.dart';
 import 'package:restaurante_galegos/app/routes/auth_routers.dart';
+import 'package:restaurante_galegos/app/routes/detail_routers.dart';
 import 'package:restaurante_galegos/app/routes/drawer_routers.dart';
-import 'package:restaurante_galegos/app/routes/lunchboxes_routers.dart';
 import 'package:restaurante_galegos/app/routes/home_routers.dart';
+import 'package:restaurante_galegos/app/routes/lunchboxes_routers.dart';
 import 'package:restaurante_galegos/app/routes/order_routers.dart';
 import 'package:restaurante_galegos/app/routes/products_routers.dart';
 import 'package:restaurante_galegos/app/routes/shoppgin_card_routers.dart';
 import 'package:restaurante_galegos/app/routes/splash_routers.dart';
+import 'package:restaurante_galegos/app/routes/welcome_routers.dart';
+
+import 'core/ui/theme/app_theme.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -19,9 +22,10 @@ class AppWidget extends StatelessWidget {
     return GetMaterialApp(
       title: 'Restaurante Galegos',
       initialRoute: '/',
-      theme: AppTheme.galegosUiDefault(),
+      theme: AppTheme.theme(),
       initialBinding: GalegosBindings(),
       getPages: [
+        ...WelcomeRouters.routers,
         ...DrawerRouters.routers,
         ...SplashRouters.routers,
         ...AuthRouters.routers,
@@ -29,7 +33,8 @@ class AppWidget extends StatelessWidget {
         ...ProductsRouters.routers,
         ...OrderRouters.routers,
         ...LunchboxesRouters.routers,
-        ...ShoppginCardRouters.routers,
+        ...ShoppginCartRouters.routers,
+        ...DetailRouters.routers,
       ],
     );
   }

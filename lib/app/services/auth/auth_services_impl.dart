@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:restaurante_galegos/app/core/constants/constants.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
 import 'package:restaurante_galegos/app/models/user_model.dart';
 import 'package:restaurante_galegos/app/repositories/auth/auth_repository.dart';
 
@@ -29,7 +28,8 @@ class AuthServicesImpl extends GetxService implements AuthServices {
     required String name,
     required String email,
     required String password,
-  }) => _authRepository.register(name: name, email: email, password: password);
+    required String phone,
+  }) => _authRepository.register(name: name, email: email, password: password, phone: phone);
 
   Future<bool> canUseApp() async {
     if (kDebugMode) return true;
@@ -92,11 +92,12 @@ class AuthServicesImpl extends GetxService implements AuthServices {
       });
 
       ever(_isLogged, (isLogged) {
-        if (isLogged == null || !isLogged) {
-          Get.offAllNamed('/auth/login');
-        } else {
+        if (isLogged == true) {
           Get.offAllNamed('/home');
         }
+        // } else {
+        //   Get.toNamed('/auth/login');
+        // }
       });
 
       _isLogged(getUserId() != null);
@@ -106,7 +107,6 @@ class AuthServicesImpl extends GetxService implements AuthServices {
         'Fora do horário de funcionamento',
         'Nós funcionamos das 09:00 às 14:50h!',
         duration: 3.seconds,
-        backgroundColor: GalegosUiDefaut.colorScheme.primary,
       );
       return this;
     }
@@ -117,6 +117,7 @@ class AuthServicesImpl extends GetxService implements AuthServices {
     _getStorage.write(Constants.USER_KEY, null);
     _getStorage.write(Constants.ADMIN_KEY, null);
     _getStorage.write(Constants.USER_NAME, null);
+    Get.offAllNamed('/');
   }
 
   @override

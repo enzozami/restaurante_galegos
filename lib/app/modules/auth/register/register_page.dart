@@ -1,21 +1,17 @@
 import 'package:fancy_password_field/fancy_password_field.dart';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_state.dart';
-import 'package:restaurante_galegos/app/core/ui/galegos_ui_defaut.dart';
+import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/core/masks/galegos_mask.dart';
+import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:validatorless/validatorless.dart';
+
 import './register_controller.dart';
 
-class RegisterPage extends StatefulWidget {
+class RegisterPage extends GetView<RegisterController> {
   const RegisterPage({super.key});
 
-  @override
-  State<RegisterPage> createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,45 +22,47 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
             child: IntrinsicHeight(
               child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: .spaceEvenly,
                   children: [
-                    const SizedBox(height: 75),
-                    Image.network(
-                      'https://restaurantegalegos.wabiz.delivery/stores/restaurantegalegos/img/homeLogo.png?vc=20250915111500&cvc=',
-                      fit: BoxFit.cover,
+                    Image.asset(
+                      'assets/splash/splash.png',
+                      height: context.heightTransformer(reducedBy: 65),
                     ),
-                    const SizedBox(height: 30),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Form(
-                        key: controller.formKey,
-                        child: Obx(() {
-                          return Column(
-                            children: [
-                              _formFieldsRegister(
-                                context: context,
-                                nameEC: controller.nameEC,
-                                passwordEC: controller.passwordEC,
-                                emailEC: controller.emailEC,
-                                icons: controller.viewConfirmPassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                onPressed: () {
-                                  controller.changePasswordVisibility();
-                                },
-                                obscureText: controller.viewConfirmPassword,
-                              ),
-                              const SizedBox(height: 20),
-                              GalegosButtonDefault(
-                                label: 'Cadastrar',
-                                onPressed: () async {
-                                  await controller.register();
-                                },
-                              ),
-                              const SizedBox(height: 15),
-                            ],
-                          );
-                        }),
+                    Center(
+                      child: SizedBox(
+                        width: context.widthTransformer(reducedBy: 10),
+                        child: Form(
+                          key: controller.formKey,
+                          child: Obx(() {
+                            return Column(
+                              children: [
+                                _formFieldsRegister(
+                                  phoneEC: controller.phoneEC,
+                                  context: context,
+                                  nameEC: controller.nameEC,
+                                  passwordEC: controller.passwordEC,
+                                  emailEC: controller.emailEC,
+                                  icons: controller.viewConfirmPassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  onPressed: () {
+                                    controller.changePasswordVisibility();
+                                  },
+                                  obscureText: controller.viewConfirmPassword,
+                                ),
+                                const SizedBox(height: 30),
+                                GalegosButtonDefault(
+                                  label: 'Cadastrar',
+                                  width: double.infinity,
+                                  onPressed: () async {
+                                    await controller.register();
+                                  },
+                                ),
+                                const SizedBox(height: 15),
+                              ],
+                            );
+                          }),
+                        ),
                       ),
                     ),
                   ],
@@ -78,17 +76,24 @@ class _RegisterPageState extends GalegosState<RegisterPage, RegisterController> 
   }
 }
 
-Widget _passwordValidator(BuildContext context, ValidationRule rule, String value) {
+Widget _passwordValidator(
+  BuildContext context,
+  ValidationRule rule,
+  String value,
+) {
   final bool isValid = rule.validate(value);
-
+  final ThemeData theme = Theme.of(context);
   return Row(
     spacing: 10,
     children: [
       Icon(
         isValid ? Icons.check_circle : Icons.cancel,
-        color: isValid ? const Color(0xFF36A739) : GalegosUiDefaut.colorScheme.error,
+        color: isValid ? AppColors.delivered : theme.colorScheme.error,
       ),
-      Text(rule.name),
+      Text(
+        rule.name,
+        style: Theme.of(context).textTheme.labelMedium,
+      ),
     ],
   );
 }
@@ -98,6 +103,7 @@ Widget _formFieldsRegister({
   required TextEditingController nameEC,
   required TextEditingController passwordEC,
   required TextEditingController emailEC,
+  required TextEditingController phoneEC,
   required IconData icons,
   required VoidCallback onPressed,
   required bool obscureText,
@@ -108,20 +114,41 @@ Widget _formFieldsRegister({
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         controller: nameEC,
         label: 'Nome completo',
+        prefixIcon: Icons.person,
         validator: Validatorless.multiple([
           Validatorless.required('Campo obrigatório'),
         ]),
+        prefix: true,
+        suffix: false,
       ),
       const SizedBox(height: 15),
       GalegosTextFormField(
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         inputType: .emailAddress,
+        prefixIcon: Icons.email,
         controller: emailEC,
         label: 'E-mail',
         validator: Validatorless.multiple([
           Validatorless.required('Campo obrigatório'),
           Validatorless.email('E-mail inválido'),
         ]),
+        prefix: true,
+        suffix: false,
+      ),
+      const SizedBox(height: 15),
+      GalegosTextFormField(
+        floatingLabelBehavior: .auto,
+        inputType: .phone,
+        prefixIcon: Icons.phone,
+        controller: phoneEC,
+        label: 'Celular',
+        mask: GalegosMask(),
+        validator: Validatorless.multiple([
+          Validatorless.required('Campo obrigatório'),
+          Validatorless.phone('Número inválido'),
+        ]),
+        prefix: true,
+        suffix: false,
       ),
       const SizedBox(height: 15),
       _fancyPasswordField(context: context, passwordEC: passwordEC),
@@ -129,15 +156,16 @@ Widget _formFieldsRegister({
       GalegosTextFormField(
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         obscureText: obscureText,
-        icon: IconButton(
-          onPressed: onPressed,
-          icon: Icon(icons),
-        ),
+        prefixIcon: Icons.lock,
+        onPressed: onPressed,
+        suffixIcon: icons,
         label: 'Confirma senha',
         validator: Validatorless.multiple([
           Validatorless.required('Campo obrigatório'),
           Validatorless.compare(passwordEC, 'Senhas diferentes'),
         ]),
+        prefix: true,
+        suffix: true,
       ),
     ],
   );
@@ -150,29 +178,34 @@ Widget _fancyPasswordField({
   return FancyPasswordField(
     controller: passwordEC,
     keyboardType: .visiblePassword,
+    style: TextStyle(color: AppColors.title),
     decoration: InputDecoration(
       label: Text(
         'Senha',
       ),
+      prefixIcon: Icon(
+        Icons.lock,
+        color: AppColors.title,
+      ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: BorderSide(
-          color: Colors.black,
+          color: AppColors.title,
         ),
       ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: BorderSide(
-          color: Colors.black,
+          color: AppColors.title,
         ),
       ),
       floatingLabelStyle: TextStyle(
-        color: Colors.black,
+        color: AppColors.title,
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: BorderSide(
-          color: Colors.black,
+          color: AppColors.title,
         ),
       ),
       errorBorder: OutlineInputBorder(
@@ -182,7 +215,7 @@ Widget _fancyPasswordField({
         ),
       ),
     ),
-    cursorColor: Colors.black,
+    cursorColor: AppColors.title,
     validator: Validatorless.multiple([
       Validatorless.required('Campo obrigatório'),
       Validatorless.min(8, 'Mínimo 8 caracteres'),
@@ -196,12 +229,21 @@ Widget _fancyPasswordField({
     validationRuleBuilder: (rules, value) {
       return Column(
         crossAxisAlignment: .start,
-        spacing: 10,
+        spacing: 7,
         children: [
           const SizedBox(height: 5),
-          Text('A senha deve conter pelo menos: '),
+          Padding(
+            padding: const EdgeInsets.only(left: 25.0),
+            child: Text(
+              'A senha deve conter pelo menos: ',
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+          ),
           ...rules.map(
-            (rule) => _passwordValidator(context, rule, value),
+            (rule) => Padding(
+              padding: const EdgeInsets.only(left: 50.0),
+              child: _passwordValidator(context, rule, value),
+            ),
           ),
         ],
       );

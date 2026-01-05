@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 
 class GalegosTextFormField extends StatelessWidget {
   final String? label;
@@ -11,8 +12,9 @@ class GalegosTextFormField extends StatelessWidget {
   final TextInputType inputType;
   final FloatingLabelBehavior floatingLabelBehavior;
   final bool? enabled;
-  final IconButton? icon;
-  final Icon? prefixIcon;
+  final IconData? suffixIcon;
+  final VoidCallback? onPressed;
+  final IconData? prefixIcon;
   final ValueChanged<String>? onChanged;
   final Color? colorText;
   final Color? colorBorder;
@@ -23,6 +25,7 @@ class GalegosTextFormField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final int? maxLength;
   final MaxLengthEnforcement? maxLengthEnforcement;
+  final String? hintText;
   final Widget Function(
     BuildContext context, {
     required int currentLength,
@@ -30,6 +33,11 @@ class GalegosTextFormField extends StatelessWidget {
     required bool isFocused,
   })?
   buildCounter;
+  final List<TextInputFormatter>? inputFormatter;
+  final int? maxLines;
+  final int? minLines;
+  final bool prefix;
+  final bool suffix;
 
   const GalegosTextFormField({
     super.key,
@@ -41,7 +49,7 @@ class GalegosTextFormField extends StatelessWidget {
     this.inputType = TextInputType.text,
     required this.floatingLabelBehavior,
     this.enabled,
-    this.icon,
+    this.suffixIcon,
     this.prefixIcon,
     this.onChanged,
     this.colorText,
@@ -54,6 +62,13 @@ class GalegosTextFormField extends StatelessWidget {
     this.maxLength,
     this.maxLengthEnforcement,
     this.buildCounter,
+    this.hintText,
+    this.inputFormatter,
+    this.maxLines,
+    this.minLines,
+    this.onPressed,
+    required this.prefix,
+    required this.suffix,
   });
 
   @override
@@ -70,46 +85,62 @@ class GalegosTextFormField extends StatelessWidget {
       onEditingComplete: onEditingComplete,
       validator: validator,
       onChanged: onChanged,
-      inputFormatters: [
-        if (mask != null) mask!,
-      ],
+      inputFormatters:
+          inputFormatter ??
+          [
+            if (mask != null) mask!,
+          ],
       style: TextStyle(
-        color: colorText ?? Colors.black,
+        color: colorText ?? AppColors.title,
       ),
       focusNode: focusNode,
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: prefixIcon,
-        suffixIcon: icon,
+        hintText: hintText,
+        prefixIcon: prefix
+            ? Icon(
+                prefixIcon,
+                color: AppColors.title,
+              )
+            : null,
+        suffixIcon: suffix
+            ? IconButton(
+                onPressed: onPressed,
+                icon: Icon(
+                  suffixIcon,
+                  color: AppColors.title,
+                ),
+              )
+            : null,
         prefixText: prefixText,
         suffixText: suffixText,
         floatingLabelBehavior: floatingLabelBehavior,
         hintStyle: TextStyle(
-          color: colorText ?? Colors.black,
+          color: colorText ?? AppColors.title,
         ),
         labelStyle: TextStyle(
-          color: colorBorder ?? Colors.black,
+          color: colorBorder ?? AppColors.title,
         ),
         enabled: enabled ?? true,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(
-            color: colorBorder ?? Colors.black,
+            color: colorBorder ?? AppColors.title,
           ),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(
-            color: colorBorder ?? Colors.black,
+            color: colorBorder ?? AppColors.title,
           ),
         ),
         floatingLabelStyle: TextStyle(
-          color: colorText ?? Colors.black,
+          color: colorText ?? AppColors.title,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(
-            color: colorBorder ?? Colors.black,
+            color: colorBorder ?? AppColors.title,
           ),
         ),
         errorBorder: OutlineInputBorder(
@@ -119,7 +150,9 @@ class GalegosTextFormField extends StatelessWidget {
           ),
         ),
       ),
-      cursorColor: colorText ?? Colors.black,
+      cursorColor: colorText ?? AppColors.title,
+      maxLines: maxLines ?? 1,
+      minLines: minLines ?? 1,
     );
   }
 }

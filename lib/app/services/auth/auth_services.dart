@@ -11,6 +11,7 @@ abstract interface class AuthServices {
     required String name,
     required String email,
     required String password,
+    required String phone,
   });
   Future<void> resetPassword({required String email});
   Future<void> updateUserName({required String newName});
