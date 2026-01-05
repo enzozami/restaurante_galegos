@@ -16,8 +16,6 @@ import 'package:restaurante_galegos/app/repositories/order/order_reposiroty.dart
 import 'package:restaurante_galegos/app/repositories/order/order_reposiroty_impl.dart';
 import 'package:restaurante_galegos/app/repositories/products/products_repository.dart';
 import 'package:restaurante_galegos/app/repositories/products/products_repository_impl.dart';
-import 'package:restaurante_galegos/app/repositories/time/time_repository.dart';
-import 'package:restaurante_galegos/app/repositories/time/time_repository_impl.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 import 'package:restaurante_galegos/app/services/cep/cep_services.dart';
 import 'package:restaurante_galegos/app/services/cep/cep_services_impl.dart';
@@ -29,7 +27,6 @@ import 'package:restaurante_galegos/app/services/products/products_services.dart
 import 'package:restaurante_galegos/app/services/products/products_services_impl.dart';
 import 'package:restaurante_galegos/app/services/shopping/carrinho_services.dart';
 import 'package:restaurante_galegos/app/services/time/time_services.dart';
-import 'package:restaurante_galegos/app/services/time/time_services_impl.dart';
 
 import './home_controller.dart';
 
@@ -37,7 +34,6 @@ class HomeBindings implements Bindings {
   @override
   Future<void> dependencies() async {
     // Repositories
-    Get.lazyPut<TimeRepository>(() => TimeRepositoryImpl());
     Get.lazyPut<OrderReposiroty>(() => OrderReposirotyImpl());
     Get.lazyPut<LunchboxesRepository>(() => LunchboxesRepositoryImpl());
     Get.lazyPut<ProductsRepository>(() => ProductsRepositoryImpl());
@@ -48,9 +44,6 @@ class HomeBindings implements Bindings {
     // Services
     Get.lazyPut(() => CarrinhoServices(), fenix: true);
     Get.lazyPut(() => ViaCepService(), fenix: true);
-    Get.lazyPut<TimeServices>(
-      () => TimeServicesImpl(timeRepository: Get.find<TimeRepository>()),
-    );
     Get.lazyPut<OrderServices>(
       () => OrderServicesImpl(orderRepository: Get.find<OrderReposiroty>()),
     );

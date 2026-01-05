@@ -70,6 +70,11 @@ class AppTheme {
       fontWeight: FontWeight.normal,
       color: AppColors.text,
     ),
+    bodySmall: GoogleFonts.poppins(
+      fontSize: 12,
+      color: AppColors.text,
+      fontWeight: FontWeight.normal,
+    ),
     // TEXTO - BOTÃO
     labelLarge: GoogleFonts.poppins(
       fontSize: 14,
