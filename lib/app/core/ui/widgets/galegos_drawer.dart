@@ -18,19 +18,28 @@ class GalegosDrawer extends GetView<AuthServices> {
       child: Column(
         mainAxisAlignment: .start,
         children: [
-          UserAccountsDrawerHeader(
-            decoration: BoxDecoration(
-              color: theme.colorScheme.tertiary,
-            ),
-            accountName: Text(
-              'Olá, ${controller.getUserName()}',
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: AppColors.secondary,
+          SizedBox(
+            height: context.heightTransformer(reducedBy: 70),
+            child: UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: theme.colorScheme.tertiary,
               ),
-            ),
-            accountEmail: Visibility(
-              visible: controller.isAdmin(),
-              child: Text('Administrador'),
+              accountName: Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Text(
+                  'Olá, ${controller.getUserName()}',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: AppColors.secondary,
+                  ),
+                ),
+              ),
+              accountEmail: Visibility(
+                visible: controller.isAdmin(),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text('Administrador'),
+                ),
+              ),
             ),
           ),
           ButtonDrawer(
@@ -51,8 +60,10 @@ class GalegosDrawer extends GetView<AuthServices> {
               Get.toNamed('/about_us');
             },
           ),
+          Spacer(),
           ButtonDrawer(
             title: 'Sair',
+            icon: Icons.logout,
             onTap: () {
               showDialog(
                 context: context,
@@ -73,8 +84,14 @@ class GalegosDrawer extends GetView<AuthServices> {
 class ButtonDrawer extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
+  final IconData? icon;
 
-  const ButtonDrawer({super.key, required this.title, required this.onTap});
+  const ButtonDrawer({
+    super.key,
+    required this.title,
+    required this.onTap,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -88,14 +105,49 @@ class ButtonDrawer extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text(
-              title,
-              // textAlign: TextAlign.left,
-              style: theme.textTheme.titleSmall,
-            ),
+            child: (icon != null)
+                ? buttonDrawer(context, title, icon!, theme)
+                : Text(
+                    title,
+                    style: theme.textTheme.titleSmall,
+                  ),
           ),
         ),
       ),
     );
   }
+}
+
+Widget buttonDrawer(
+  BuildContext context,
+  String title,
+  IconData icon,
+  ThemeData theme,
+) {
+  return Container(
+    decoration: BoxDecoration(
+      color: const Color(0xFFFFC4C4),
+      borderRadius: BorderRadius.circular(5),
+    ),
+    width: context.widthTransformer(reducedBy: 10),
+    child: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        spacing: 10,
+        mainAxisAlignment: .center,
+        children: [
+          Icon(
+            icon,
+            color: theme.colorScheme.error,
+          ),
+          Text(
+            title,
+            style: theme.textTheme.titleSmall!.copyWith(
+              color: theme.colorScheme.error,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }
