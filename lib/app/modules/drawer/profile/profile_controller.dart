@@ -17,7 +17,7 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
 
   bool get isSelected => _isSelected.value;
   set isSelected(bool value) => _isSelected.value = value;
-  String get name => _name.value;
+  String? get nameClient => _authServices.getUserName();
 
   ProfileController({required AuthServices authServices}) : _authServices = authServices;
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GalegosAppBar extends AppBar {
-  GalegosAppBar({super.key, Widget? icon, required BuildContext context})
+  GalegosAppBar({super.key, required BuildContext context})
     : super(
         elevation: Theme.of(context).appBarTheme.elevation,
         scrolledUnderElevation: Theme.of(
@@ -22,7 +22,7 @@ class GalegosAppBar extends AppBar {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Image.asset('assets/splash/splash_logo_dark.png', width: 90),
         ),
-        actions: [icon ?? SizedBox.shrink()],
+        // actions: [icon ?? SizedBox.shrink()],
         surfaceTintColor: Colors.transparent,
       );
 }
