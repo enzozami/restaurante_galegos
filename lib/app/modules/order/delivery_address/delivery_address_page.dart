@@ -16,9 +16,7 @@ class DeliveryAddressPage extends GetView<DeliveryAddressController> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      appBar: GalegosAppBar(
-        context: context,
-      ),
+      appBar: GalegosAppBar(context: context),
       body: Obx(() {
         return SingleChildScrollView(
           child: Column(
@@ -48,10 +46,8 @@ class DeliveryAddressPage extends GetView<DeliveryAddressController> {
                             floatingLabelBehavior: .auto,
                             label: 'CEP',
                             prefixIcon: Icons.location_on,
-                            onEditingComplete: controller.validationOnReplacement()
-                                ? () {
-                                    controller.getCep();
-                                  }
+                            onEditingComplete: controller.canConsultCep
+                                ? () => controller.getCep()
                                 : null,
                             mask: controller.cepFormatter,
                             controller: controller.cepEC,
@@ -63,71 +59,64 @@ class DeliveryAddressPage extends GetView<DeliveryAddressController> {
                             suffix: true,
                           ),
                         ),
-                        controller.loading.value
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Stack(
-                                  children: List.generate(
-                                    1,
-                                    (_) => CardShimmer(
-                                      height: 300,
-                                      width: context.widthTransformer(
-                                        reducedBy: 10,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            : Visibility(
-                                visible: controller.addressValidation(),
-                                replacement: GalegosButtonDefault(
-                                  label: 'Consultar',
-                                  width: context.widthTransformer(reducedBy: 10),
-                                  icon: Icon(
-                                    Icons.search,
-                                    color: theme.colorScheme.tertiary,
-                                  ),
-                                  onPressed: controller.validationOnReplacement()
-                                      ? () {
-                                          controller.getCep();
-                                          controller.isOpen.value = true;
-                                        }
-                                      : null,
-                                ),
-                                child: Visibility(
-                                  visible: controller.validationIsOpen(),
-                                  replacement: IconButton(
-                                    onPressed: () {
-                                      controller.closeCard();
-                                    },
-                                    icon: Align(
-                                      alignment: Alignment.center,
-                                      child: Icon(Icons.expand_more),
-                                    ),
-                                  ),
-                                  child: Column(
-                                    spacing: 20,
-                                    children: [
-                                      _address(context, controller),
-                                      CardValores(
-                                        preco: controller.args['preco'],
-                                        taxa: controller.taxa.value,
-                                        carrinho: false,
-                                      ),
-                                      Divider(),
-                                      GalegosButtonDefault(
-                                        label: 'AVANÇAR',
-                                        onPressed: () async {
-                                          controller.enviarDadosParaPagamento();
-                                        },
+                        if (!controller.addressValidation())
+                          GalegosButtonDefault(
+                            label: 'Consultar',
+                            width: context.widthTransformer(reducedBy: 10),
+                            icon: Icon(
+                              Icons.search,
+                              color: theme.colorScheme.tertiary,
+                            ),
+                            onPressed: controller.canConsultCep ? () => controller.getCep() : null,
+                          )
+                        else if (!controller.isOpen.value)
+                          Align(
+                            alignment: .center,
+                            child: IconButton(
+                              onPressed: controller.closeCard,
+                              icon: const Icon(
+                                Icons.expand_more,
+                              ),
+                            ),
+                          )
+                        else
+                          (controller.loading.value)
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Stack(
+                                    children: List.generate(
+                                      1,
+                                      (_) => CardShimmer(
+                                        height: 300,
                                         width: context.widthTransformer(
                                           reducedBy: 10,
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
+                                )
+                              : Column(
+                                  spacing: 20,
+                                  children: [
+                                    _address(context, controller),
+                                    CardValores(
+                                      preco: controller.args['preco'],
+                                      taxa: controller.taxa.value,
+                                      carrinho: false,
+                                    ),
+                                    Divider(),
+                                    GalegosButtonDefault(
+                                      label: 'AVANÇAR',
+                                      onPressed: () async {
+                                        controller.enviarDadosParaPagamento();
+                                      },
+                                      width: context.widthTransformer(
+                                        reducedBy: 10,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
+
                         const SizedBox(height: 15),
                       ],
                     ),
@@ -196,7 +185,8 @@ Widget _address(BuildContext context, DeliveryAddressController controller) {
                   ),
                 ),
                 SizedBox(
-                  width: 150,
+                  // width: 150,
+                  width: context.widthTransformer(reducedBy: 60),
                   child: GalegosTextFormField(
                     floatingLabelBehavior: .never,
                     enabled: false,
@@ -207,7 +197,8 @@ Widget _address(BuildContext context, DeliveryAddressController controller) {
                   ),
                 ),
                 SizedBox(
-                  width: 150,
+                  // width: 150,
+                  width: context.widthTransformer(reducedBy: 60),
                   child: GalegosTextFormField(
                     floatingLabelBehavior: .auto,
                     enabled: true,
