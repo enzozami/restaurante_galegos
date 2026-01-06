@@ -23,7 +23,7 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
                 mainAxisAlignment: .center,
                 crossAxisAlignment: .start,
                 children: [
-                  SizedBox(height: context.heightTransformer(reducedBy: 55)),
+                  SizedBox(height: context.heightTransformer(reducedBy: 50)),
                   Center(
                     child: Text(
                       'Nenhum item no carrinho!',
@@ -42,7 +42,7 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
               children: [
                 SafeArea(child: Container()),
                 Padding(
-                  padding: const EdgeInsets.only(top: 15, left: 40, right: 15),
+                  padding: const EdgeInsets.only(left: 40, right: 15),
                   child: Row(
                     mainAxisAlignment: .spaceBetween,
                     children: [

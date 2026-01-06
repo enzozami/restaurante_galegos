@@ -27,26 +27,27 @@ class CheckoutPage extends GetView<CheckoutController> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            spacing: 15,
             crossAxisAlignment: .start,
             mainAxisAlignment: .start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
+                padding: const EdgeInsets.only(top: 15, left: 40),
                 child: Text(
                   'Revisar Dados',
                   style: theme.textTheme.headlineLarge,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 15, left: 40),
+                padding: const EdgeInsets.only(top: 10, left: 40),
                 child: Text(
                   'Carrinho',
                   style: theme.textTheme.titleLarge,
                 ),
               ),
               Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: context.widthTransformer(reducedBy: 10),
                   child: Obx(() {
                     return ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
@@ -67,14 +68,17 @@ class CheckoutPage extends GetView<CheckoutController> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 15, left: 40),
+                padding: const EdgeInsets.only(top: 10, left: 40),
                 child: Text(
                   'Endereço',
                   style: theme.textTheme.titleLarge,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(
+                  left: 8,
+                  right: 8,
+                ),
                 child: Card(
                   elevation: 5,
                   color: Colors.white,
@@ -94,10 +98,8 @@ class CheckoutPage extends GetView<CheckoutController> {
                               floatingLabelBehavior: .always,
                               enabled: false,
                               label: 'CEP',
-                              inputType: TextInputType.text,
-                              controller: TextEditingController(
-                                text: controller.args['cep'],
-                              ),
+                              inputType: .text,
+                              controller: controller.cepFormatado,
                               prefix: false,
                               suffix: false,
                             ),
@@ -146,7 +148,8 @@ class CheckoutPage extends GetView<CheckoutController> {
                           ),
                         ),
                         SizedBox(
-                          width: 150,
+                          // width: 150,
+                          width: context.widthTransformer(reducedBy: 60),
                           child: GalegosTextFormField(
                             floatingLabelBehavior: .always,
                             enabled: false,
@@ -160,7 +163,8 @@ class CheckoutPage extends GetView<CheckoutController> {
                           ),
                         ),
                         SizedBox(
-                          width: 150,
+                          // width: 150,
+                          width: context.widthTransformer(reducedBy: 60),
                           child: GalegosTextFormField(
                             floatingLabelBehavior: .auto,
                             enabled: false,
@@ -178,7 +182,7 @@ class CheckoutPage extends GetView<CheckoutController> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 15, left: 40),
+                padding: const EdgeInsets.only(top: 10, left: 40),
                 child: Text(
                   'Forma de Pagamento',
                   style: theme.textTheme.titleLarge,
@@ -256,30 +260,22 @@ class CheckoutPage extends GetView<CheckoutController> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+
               Divider(
                 color: theme.colorScheme.tertiary,
               ),
-              const SizedBox(
-                height: 20,
-              ),
+
               Center(
                 child: CardValores(
                   preco: controller.args['preco'],
                   carrinho: false,
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+
               Divider(
                 color: theme.colorScheme.tertiary,
               ),
-              const SizedBox(
-                height: 20,
-              ),
+
               Center(
                 child: GalegosButtonDefault(
                   label: 'FINALIZAR',
@@ -288,7 +284,7 @@ class CheckoutPage extends GetView<CheckoutController> {
                 ),
               ),
               const SizedBox(
-                height: 30,
+                height: 10,
               ),
             ],
           ),
