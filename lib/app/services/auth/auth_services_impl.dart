@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -17,6 +15,16 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   final _name = RxnString();
   final _getStorage = GetStorage();
 
+  static const diasSemana = {
+    1: "Segunda-feira",
+    2: "Terça-feira",
+    3: "Quarta-feira",
+    4: "Quinta-feira",
+    5: "Sexta-feira",
+    6: "Sábado",
+    7: "Domingo",
+  };
+
   AuthServicesImpl({required AuthRepository authRepository}) : _authRepository = authRepository;
 
   @override
@@ -31,56 +39,39 @@ class AuthServicesImpl extends GetxService implements AuthServices {
     required String phone,
   }) => _authRepository.register(name: name, email: email, password: password, phone: phone);
 
-  Future<bool> canUseApp() async {
+  Future<bool> openOrClosedRestaurant() async {
     if (kDebugMode) return true;
-    var timeNow = DateTime.now();
+    final now = DateTime.now();
 
-    final firestore = FirebaseFirestore.instance;
+    final snapshot = await FirebaseFirestore.instance.collection('horario_funcionamento').get();
+    if (snapshot.docs.isEmpty) return false;
+    final dataApi = snapshot.docs.first.data(); // PEGANDO DADOS QUE VEM DA API SE NAO TIVER VAZIO
 
-    final snapshot = await firestore.collection('horario_funcionamento').get();
-    final dateApi = snapshot.docs.first.data();
+    final hoje = diasSemana[now.weekday];
+    final List<String> diasFuncionamentoApi =
+        (dataApi['days'] as List<String>?)?.map((day) => day.toString()).toList() ??
+        []; // pega os dias que está registrado na api
 
-    const diasSemana = {
-      1: "Segunda-feira",
-      2: "Terça-feira",
-      3: "Quarta-feira",
-      4: "Quinta-feira",
-      5: "Sexta-feira",
-      6: "Sábado",
-      7: "Domingo",
-    };
-    final diaHoje = diasSemana[timeNow.weekday];
-    final List<String> diasFuncionamento =
-        (dateApi['days'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? [];
+    if (!diasFuncionamentoApi.contains(hoje)) return false;
 
-    if (!diasFuncionamento.contains(diaHoje)) {
-      log('Fechado, hoje ($diaHoje) não funcionou');
-      return false;
-    }
+    final horasCelular =
+        (now.hour * 100) +
+        now.minute; // horario do celular - transformando em numero para comparar exemplo 09:00 = 900
 
-    if (dateApi['inicio'] == null || dateApi['fim'] == null) {
-      log('Fechado, horário de início ou fim ausente.');
-      return false;
-    }
+    final horaInicialFuncionamento = formatarHorarioApi(dataApi['inicio']);
+    final horaFimFuncionamento = formatarHorarioApi(dataApi['fim']);
 
-    DateTime montarHorario(DateTime base, String hhmm) {
-      final partes = hhmm.split(':');
-      final hora = int.parse(partes[0]);
-      final minuto = int.parse(partes[1]);
-      return DateTime(base.year, base.month, base.day, hora, minuto);
-    }
+    return horasCelular >= horaInicialFuncionamento && horasCelular <= horaFimFuncionamento;
+  }
 
-    final inicio = montarHorario(timeNow, dateApi['inicio']);
-    final fim = montarHorario(timeNow, dateApi['fim']);
-
-    final aberto = timeNow.isAfter(inicio) && timeNow.isBefore(fim);
-
-    return aberto;
+  int formatarHorarioApi(String? hhmm) {
+    if (hhmm == null) return 0;
+    return int.parse(hhmm.replaceAll(':', ''));
   }
 
   @override
   Future<AuthServices> init() async {
-    if (await canUseApp()) {
+    if (await openOrClosedRestaurant()) {
       _getStorage.listenKey(Constants.USER_KEY, (value) {
         _isLogged(value != null);
       });
@@ -103,9 +94,13 @@ class AuthServicesImpl extends GetxService implements AuthServices {
       _isLogged(getUserId() != null);
       return this;
     } else {
+      Get.toNamed('/time');
+      final snapshot = await FirebaseFirestore.instance.collection('horario_funcionamento').get();
+      final horariosApi = snapshot.docs.first.data();
+
       Get.snackbar(
         'Fora do horário de funcionamento',
-        'Nós funcionamos das 09:00 às 14:50h!',
+        'Nós funcionamos das ${horariosApi['inicio']}h às ${horariosApi['fim']}h!',
         duration: 3.seconds,
       );
       return this;

@@ -49,12 +49,15 @@ class AboutUsPage extends GetView<AboutUsController> {
                         _cards(
                           context: context,
                           title: 'Quem somos',
+                          image:
+                              'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/b0/67/9c/photo1jpg.jpg?w=900&h=500&s=1',
                           text: controller.quemSomos.value,
                           theme: theme,
                         ),
                         _cards(
                           context: context,
                           title: 'Nossa filosofia',
+
                           text: controller.filosofia.value,
                           theme: theme,
                         ),
@@ -85,6 +88,7 @@ Widget _cards({
   required String title,
   required String text,
   required ThemeData theme,
+  String? image,
 }) {
   return Center(
     child: SizedBox(
@@ -94,12 +98,17 @@ Widget _cards({
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: .start,
-            spacing: 25,
+            spacing: 15,
             children: [
               Text(
                 title,
                 style: theme.textTheme.titleSmall,
               ),
+              image != null
+                  ? Image.network(
+                      image,
+                    )
+                  : SizedBox.shrink(),
               Text(
                 text,
                 textAlign: .justify,
@@ -142,7 +151,7 @@ Widget _cardForChooseUs({
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Column(
-                  spacing: 20,
+                  spacing: 10,
                   crossAxisAlignment: .start,
                   children: [
                     Text(

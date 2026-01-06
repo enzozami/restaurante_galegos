@@ -58,11 +58,6 @@ class HomeBindings implements Bindings {
         productsRepository: Get.find<ProductsRepository>(),
       ),
     );
-    Get.lazyPut<ProductsServices>(
-      () => ProductsServicesImpl(
-        productsRepository: Get.find<ProductsRepository>(),
-      ),
-    );
     Get.lazyPut<CepServices>(
       () => CepServicesImpl(cepRepository: Get.find<CepRepository>()),
     );

@@ -15,6 +15,7 @@ class GalegosBindings implements Bindings {
     Get.lazyPut<TimeRepository>(() => TimeRepositoryImpl(), fenix: true);
     Get.lazyPut<TimeServices>(
       () => TimeServicesImpl(timeRepository: Get.find<TimeRepository>()),
+      fenix: true,
     );
     Get.lazyPut<AuthRepository>(() => AuthRepositoryImpl(), fenix: true);
     Get.lazyPut<AuthServices>(
