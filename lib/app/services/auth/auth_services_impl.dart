@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -14,6 +15,13 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   final _isAdmin = RxnBool();
   final _name = RxnString();
   final _getStorage = GetStorage();
+  final RxString _userName = ''.obs;
+  final RxString _userEmail = ''.obs;
+
+  @override
+  RxString get nome => _userName;
+  @override
+  RxString get email => _userEmail;
 
   static const diasSemana = {
     1: "Segunda-feira",
@@ -26,6 +34,12 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   };
 
   AuthServicesImpl({required AuthRepository authRepository}) : _authRepository = authRepository;
+
+  @override
+  Future<void> onReady() async {
+    super.onReady();
+    await getUser();
+  }
 
   @override
   Future<UserModel> login({required String email, required String password}) =>
@@ -49,8 +63,8 @@ class AuthServicesImpl extends GetxService implements AuthServices {
 
     final hoje = diasSemana[now.weekday];
     final List<String> diasFuncionamentoApi =
-        (dataApi['days'] as List<String>?)?.map((day) => day.toString()).toList() ??
-        []; // pega os dias que está registrado na api
+        (dataApi['days'] as List<dynamic>?)?.map((day) => day.toString()).toList() ??
+        <String>[]; // pega os dias que está registrado na api
 
     if (!diasFuncionamentoApi.contains(hoje)) return false;
 
@@ -94,7 +108,7 @@ class AuthServicesImpl extends GetxService implements AuthServices {
       _isLogged(getUserId() != null);
       return this;
     } else {
-      Get.toNamed('/time');
+      // Get.toNamed('/time');
       final snapshot = await FirebaseFirestore.instance.collection('horario_funcionamento').get();
       final horariosApi = snapshot.docs.first.data();
 
@@ -119,9 +133,6 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   String? getUserId() => _getStorage.read(Constants.USER_KEY);
 
   @override
-  String? getUserName() => _getStorage.read(Constants.USER_NAME);
-
-  @override
   bool isAdmin() => _getStorage.read(Constants.ADMIN_KEY) ?? false;
 
   @override
@@ -129,11 +140,17 @@ class AuthServicesImpl extends GetxService implements AuthServices {
       _authRepository.resetPassword(email: email);
 
   @override
-  Future<void> updateUserName({required String newName}) =>
-      _authRepository.updateUserName(newName: newName);
+  Future<void> updateData(String? newName, String? newEmail, PhoneAuthCredential? newPhone) =>
+      _authRepository.updateData(newName, newEmail, newPhone);
 
   @override
-  Future<UserModel> getUser() {
-    return _authRepository.getUser();
+  Future<UserModel> getUser() async {
+    final user = await _authRepository.getUser();
+    _userName.value = user.nome;
+    _userEmail.value = user.email;
+    return user;
   }
+
+  @override
+  Future<void> reauthenticate(String password) => _authRepository.reauthenticate(password);
 }

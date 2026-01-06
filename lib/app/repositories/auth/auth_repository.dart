@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:restaurante_galegos/app/models/user_model.dart';
 
 abstract interface class AuthRepository {
@@ -10,6 +11,7 @@ abstract interface class AuthRepository {
   });
 
   Future<void> resetPassword({required String email});
-  Future<void> updateUserName({required String newName});
+  Future<void> updateData(String? newName, String? newEmail, PhoneAuthCredential? newPhone);
   Future<UserModel> getUser();
+  Future<void> reauthenticate(String password);
 }

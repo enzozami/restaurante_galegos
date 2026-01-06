@@ -67,7 +67,7 @@ class CheckoutController extends GetxController with LoaderMixin, MessagesMixin 
     bool sucesso = false;
     try {
       final user = _authServices.getUserId();
-      final name = _authServices.getUserName();
+      final name = _authServices.nome;
       final id = await _orderServices.generateSequentialOrderId();
       quantityRx.value = products.fold<int>(0, (sum, e) => sum + e.item.quantidade);
 
@@ -100,7 +100,7 @@ class CheckoutController extends GetxController with LoaderMixin, MessagesMixin 
         amountToPay: total,
         taxa: args['taxa'],
         status: 'preparando',
-        userName: name ?? '',
+        userName: name.value,
         date: date,
         time: time,
         timeFinished: '',

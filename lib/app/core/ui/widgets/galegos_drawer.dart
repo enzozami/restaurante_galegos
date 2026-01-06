@@ -20,27 +20,29 @@ class GalegosDrawer extends GetView<AuthServices> {
         children: [
           SizedBox(
             height: context.heightTransformer(reducedBy: 70),
-            child: UserAccountsDrawerHeader(
-              decoration: BoxDecoration(
-                color: theme.colorScheme.tertiary,
-              ),
-              accountName: Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Text(
-                  'Olá, ${controller.getUserName()}',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: AppColors.secondary,
+            child: Obx(() {
+              return UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.tertiary,
+                ),
+                accountName: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    'Olá, ${controller.nome.value}',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: AppColors.secondary,
+                    ),
                   ),
                 ),
-              ),
-              accountEmail: Visibility(
-                visible: controller.isAdmin(),
-                child: Padding(
+                accountEmail: Padding(
                   padding: const EdgeInsets.only(left: 10.0),
-                  child: Text('Administrador'),
+                  child: Text(
+                    controller.isAdmin() ? 'Administrador' : controller.email.value,
+                    style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.secondary),
+                  ),
                 ),
-              ),
-            ),
+              );
+            }),
           ),
           ButtonDrawer(
             title: 'Perfil',

@@ -60,7 +60,6 @@ class TimePage extends GetView<TimeController> {
                               (days) => SizedBox(
                                 width: context.widthTransformer(reducedBy: 10),
                                 child: Card(
-                                  //! TODO - ARRUMAR TAMANHO DO CARD
                                   child: ListTile(
                                     title: Padding(
                                       padding: const EdgeInsets.all(8.0),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
@@ -39,8 +41,10 @@ class WelcomeController extends GetxController with LoaderMixin, MessagesMixin {
       if (Get.currentRoute == '/' && Get.find<AuthServices>().getUserId() == null) {
         goToLogin();
       }
-    } catch (e) {
+    } catch (e, s) {
       _loading.value = false;
+      log(e.toString());
+      log(s.toString());
       _message.value = MessageModel(
         title: 'Erro',
         message: 'Erro ao inicializar AuthServices',

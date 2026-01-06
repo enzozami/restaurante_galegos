@@ -38,6 +38,8 @@ class GalegosTextFormField extends StatelessWidget {
   final int? minLines;
   final bool prefix;
   final bool suffix;
+  final bool? filled;
+  final Color? fillColor;
 
   const GalegosTextFormField({
     super.key,
@@ -69,6 +71,8 @@ class GalegosTextFormField extends StatelessWidget {
     this.onPressed,
     required this.prefix,
     required this.suffix,
+    this.filled,
+    this.fillColor,
   });
 
   @override
@@ -95,6 +99,8 @@ class GalegosTextFormField extends StatelessWidget {
       ),
       focusNode: focusNode,
       decoration: InputDecoration(
+        filled: filled,
+        fillColor: fillColor,
         labelText: label,
         hintText: hintText,
         prefixIcon: prefix

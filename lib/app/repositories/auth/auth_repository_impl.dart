@@ -155,21 +155,6 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> updateUserName({required String newName}) async {
-    if (_firebase.currentUser != null) {
-      await _firebase.currentUser?.updateDisplayName(newName);
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(_firebase.currentUser?.uid.toString())
-          .update(
-            {'nome': newName},
-          );
-      final storage = GetStorage();
-      storage.write(Constants.USER_NAME, newName);
-    }
-  }
-
-  @override
   Future<UserModel> getUser() async {
     final userDoc = await FirebaseFirestore.instance
         .collection('users')
@@ -183,6 +168,46 @@ class AuthRepositoryImpl implements AuthRepository {
     data['uid'] = userDoc.id;
 
     return UserModel.fromMap(data);
+  }
+
+  @override
+  Future<void> updateData(String? newName, String? newEmail, PhoneAuthCredential? newPhone) async {
+    final route = FirebaseFirestore.instance
+        .collection('users')
+        .doc(_firebase.currentUser?.uid.toString());
+
+    if (_firebase.currentUser != null) {
+      if (newName != null) {
+        await _firebase.currentUser?.updateDisplayName(newName);
+        route.update(
+          {'nome': newName},
+        );
+        final storage = GetStorage();
+        storage.write(Constants.USER_NAME, newName);
+      }
+
+      if (newEmail != null) {
+        await _firebase.currentUser?.verifyBeforeUpdateEmail(newEmail);
+        route.update({'email': newEmail});
+      }
+
+      if (newPhone != null) {
+        await _firebase.currentUser?.updatePhoneNumber(newPhone);
+        route.update({'phone': newPhone});
+      }
+    }
+  }
+
+  @override
+  Future<void> reauthenticate(String password) async {
+    final user = _firebase.currentUser;
+    if (user != null && user.email != null) {
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: password,
+      );
+      await user.reauthenticateWithCredential(credential);
+    }
   }
 }
 
