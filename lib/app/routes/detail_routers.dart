@@ -3,6 +3,8 @@ import 'package:restaurante_galegos/app/modules/details/detail_lunchboxes/detail
 import 'package:restaurante_galegos/app/modules/details/detail_lunchboxes/detail_lunchboxes_page.dart';
 import 'package:restaurante_galegos/app/modules/details/detail_order/detail_order_bindings.dart';
 import 'package:restaurante_galegos/app/modules/details/detail_order/detail_order_page.dart';
+import 'package:restaurante_galegos/app/modules/details/detail_product/detail_product_bindings.dart';
+import 'package:restaurante_galegos/app/modules/details/detail_product/detail_product_page.dart';
 
 class DetailRouters {
   DetailRouters._();
@@ -17,6 +19,11 @@ class DetailRouters {
       name: '/detail/orders',
       binding: DetailOrderBindings(),
       page: () => DetailOrderPage(),
+    ),
+    GetPage(
+      name: '/detail/product',
+      binding: DetailProductBindings(),
+      page: () => DetailProductPage(),
     ),
   ];
 }

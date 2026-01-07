@@ -175,25 +175,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
   Future<void> apagarProduto(ProductModel item) async =>
       await _productsServices.deletarProdutos(item);
 
-  Future<void> atualizarDadosDoProduto(
-    int id,
-    String newCategoryId,
-    String newDescription,
-    String newName,
-    double newPrice,
-  ) async => await _productsServices.atualizarDados(
-    id,
-    newCategoryId,
-    newDescription,
-    newName,
-    newPrice,
-  );
-
-  Future<void> atualizarItensDoDia(int id, ProductModel item) async {
-    await _productsServices.updateTemHoje(id, item);
-    await refreshProducts();
-  }
-
   Future<void> searchItemsByFilter(CategoryModel? categoryModel) async {
     if (isProcessing.value) return;
 
@@ -343,48 +324,48 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     setSelectedItem(product);
     final number = NumberFormat('#,##0.00', 'pt_BR');
     final temHoje = RxBool(product.temHoje);
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        final nameEC = TextEditingController(text: product.name);
-        final descriptionEC = TextEditingController(
-          text: product.description,
-        );
-        final categoryEC = TextEditingController(text: product.categoryId);
-        final priceEC = TextEditingController(
-          text: number.format(product.price),
-        );
-        return Form(
-          key: formKey,
-          child: AlertProductsLunchboxesAdm(
-            isProduct: true,
-            category: categoryEC,
-            nameProduct: nameEC,
-            description: descriptionEC,
-            price: priceEC,
-            onPressed: () async {
-              if (_validateForm()) {
-                final cleaned = priceEC.text.replaceAll('.', '').replaceAll(',', '.');
-                atualizarDadosDoProduto(
-                  product.id,
-                  product.categoryId,
-                  descriptionEC.text,
-                  nameEC.text,
-                  double.parse(cleaned),
-                );
-                Get.close(0);
-              }
-            },
-            value: temHoje,
-            onChanged: (value) async {
-              temHoje.value = value;
-              await atualizarItensDoDia(product.id, product);
-            },
-          ),
-        );
-      },
-    );
+    // showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     final nameEC = TextEditingController(text: product.name);
+    //     final descriptionEC = TextEditingController(
+    //       text: product.description,
+    //     );
+    //     final categoryEC = TextEditingController(text: product.categoryId);
+    //     final priceEC = TextEditingController(
+    //       text: number.format(product.price),
+    //     );
+    //     return Form(
+    //       key: formKey,
+    //       child: AlertProductsLunchboxesAdm(
+    //         isProduct: true,
+    //         category: categoryEC,
+    //         nameProduct: nameEC,
+    //         description: descriptionEC,
+    //         price: priceEC,
+    //         onPressed: () async {
+    //           if (_validateForm()) {
+    //             final cleaned = priceEC.text.replaceAll('.', '').replaceAll(',', '.');
+    //             atualizarDadosDoProduto(
+    //               product.id,
+    //               product.categoryId,
+    //               descriptionEC.text,
+    //               nameEC.text,
+    //               double.parse(cleaned),
+    //             );
+    //             Get.close(0);
+    //           }
+    //         },
+    //         value: temHoje,
+    //         onChanged: (value) async {
+    //           temHoje.value = value;
+    //           await atualizarItensDoDia(product.id, product);
+    //         },
+    //       ),
+    //     );
+    //   },
+    // );
+    Get.toNamed('/detail/product', arguments: product);
   }
 
   Future<bool> exibirConfirmacaoDescarte(

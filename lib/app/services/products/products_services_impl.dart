@@ -27,16 +27,16 @@ class ProductsServicesImpl extends GetxService implements ProductsServices {
   @override
   Future<List<CategoryModel>> getCategories() => _productsRepository.getCategories();
 
-  @override
-  Future<void> updateTemHoje(int id, ProductModel item) async {
-    final novoValor = !item.temHoje;
-    await _productsRepository.updateTemHoje(id, item, novoValor);
+  // @override
+  // Future<void> updateTemHoje(int id, ProductModel item) async {
+  //   final novoValor = !item.temHoje;
+  //   await _productsRepository.updateTemHoje(id, item, novoValor);
 
-    final index = _items.indexWhere((e) => e.id == item.id);
-    if (index != -1) {
-      _items.value[index] = items[index].copyWith(temHoje: novoValor);
-    }
-  }
+  //   final index = _items.indexWhere((e) => e.id == item.id);
+  //   if (index != -1) {
+  //     _items.value[index] = items[index].copyWith(temHoje: novoValor);
+  //   }
+  // }
 
   @override
   Future<ProductModel> cadastrarProdutos(
@@ -52,18 +52,6 @@ class ProductsServicesImpl extends GetxService implements ProductsServices {
   @override
   Future<void> deletarProdutos(ProductModel item) async {
     await _productsRepository.deletarProdutos(item);
-    await refreshItens();
-  }
-
-  @override
-  Future<void> atualizarDados(
-    int id,
-    String newCategoryId,
-    String newDescription,
-    String newName,
-    double newPrice,
-  ) async {
-    await _productsRepository.atualizarDados(id, newCategoryId, newDescription, newName, newPrice);
     await refreshItens();
   }
 
@@ -91,5 +79,23 @@ class ProductsServicesImpl extends GetxService implements ProductsServices {
       description: description,
       image: '',
     );
+  }
+
+  @override
+  Future<void> atualizarDados({
+    required ProductModel product,
+    required String? newDescription,
+    required String? newName,
+    required double? newPrice,
+    required bool? newTemHoje,
+  }) async {
+    await _productsRepository.atualizarDados(
+      product,
+      newDescription,
+      newName,
+      newPrice,
+      newTemHoje,
+    );
+    await refreshItens();
   }
 }

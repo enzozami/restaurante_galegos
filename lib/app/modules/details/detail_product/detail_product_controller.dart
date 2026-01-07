@@ -1,0 +1,79 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
+import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
+import 'package:restaurante_galegos/app/models/product_model.dart';
+import 'package:restaurante_galegos/app/services/products/products_services.dart';
+
+class DetailProductController extends GetxController with LoaderMixin, MessagesMixin {
+  final ProductsServices _productsServices;
+
+  final ProductModel? productSelected = Get.arguments;
+
+  final _loading = false.obs;
+  final _message = Rxn<MessageModel>();
+  final _editing = false.obs;
+  final RxBool _valueTemHoje = false.obs;
+
+  RxBool get loading => _loading;
+  RxBool get editing => _editing;
+  RxBool get valueTemHoje => _valueTemHoje;
+  // RxBool get valueTemHoje => productSelected!.temHoje.obs;
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController newName = TextEditingController();
+  final TextEditingController newDescription = TextEditingController();
+  final TextEditingController newPrice = TextEditingController();
+
+  DetailProductController({required ProductsServices productsServices})
+    : _productsServices = productsServices;
+
+  @override
+  void onInit() {
+    super.onInit();
+    loaderListener(_loading);
+    messageListener(_message);
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    if (productSelected != null) {
+      valueTemHoje.value = productSelected!.temHoje;
+    }
+  }
+
+  void pressForEditOrCancel() {
+    if (_editing.value) {
+      _editing.value = false;
+      _clear();
+    } else {
+      _editing.value = true;
+    }
+  }
+
+  void _clear() {
+    newName.clear();
+    newDescription.clear();
+    newPrice.clear();
+    valueTemHoje.value = productSelected!.temHoje;
+  }
+
+  void changeValueTemHoje(bool value) {
+    if (productSelected != null) {
+      valueTemHoje.value = value;
+      // productSelected!.temHoje = value;
+    }
+  }
+
+  Future<void> atualizarDados() async {
+    await _productsServices.atualizarDados(
+      product: productSelected!,
+      newName: newName.text.isNotEmpty ? newName.text : null,
+      newDescription: newDescription.text.isNotEmpty ? newDescription.text : null,
+      newPrice: newPrice.text.isNotEmpty ? double.parse(newPrice.text) : null,
+      newTemHoje: valueTemHoje.value,
+    );
+    pressForEditOrCancel();
+  }
+}

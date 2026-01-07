@@ -23,16 +23,6 @@ class ProductsRepositoryImpl implements ProductsRepository {
   }
 
   @override
-  Future<void> updateTemHoje(int id, ProductModel item, bool novoValor) async {
-    try {
-      await firestore.collection('products').doc(id.toString()).update({'temHoje': novoValor});
-    } catch (e, s) {
-      log('Erro ao atualizar temHoje [produtos]', error: e, stackTrace: s);
-      throw Exception('Erro ao atualizar temHoje [produtos]');
-    }
-  }
-
-  @override
   Future<List<CategoryModel>> getCategories() async {
     try {
       final snapshot = await firestore.collection('categories').get();
@@ -91,19 +81,35 @@ class ProductsRepositoryImpl implements ProductsRepository {
 
   @override
   Future<void> atualizarDados(
-    int id,
-    String newCategoryId,
-    String newDescription,
-    String newName,
-    double newPrice,
+    ProductModel product,
+    String? newDescription,
+    String? newName,
+    double? newPrice,
+    bool? newTemHoje,
   ) async {
     try {
-      await firestore.collection('products').doc(id.toString()).update({
-        'categoryId': newCategoryId,
-        'description': newDescription,
-        'name': newName,
-        'price': newPrice,
-      });
+      final route = firestore.collection('products').doc('${product.id}');
+
+      if (newName != null) {
+        await route.update({
+          'name': newName,
+        });
+      }
+      if (newDescription != null) {
+        await route.update({
+          'description': newDescription,
+        });
+      }
+      if (newPrice != null) {
+        await route.update({
+          'price': newPrice,
+        });
+      }
+      if (newTemHoje != null) {
+        await route.update({
+          'temHoje': newTemHoje,
+        });
+      }
     } catch (e, s) {
       log('Erro ao atualizar dados do produto', error: e, stackTrace: s);
       throw Exception('Erro ao atualizar dados do produto');

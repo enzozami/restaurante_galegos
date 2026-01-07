@@ -9,7 +9,6 @@ abstract interface class ProductsServices {
   Future<ProductsServices> init();
   Future<List<CategoryModel>> getCategories();
   Future<List<ProductModel>> getProducts();
-  Future<void> updateTemHoje(int id, ProductModel item);
   Future<ProductModel> cadastrarProdutos(
     String category,
     String name,
@@ -17,11 +16,11 @@ abstract interface class ProductsServices {
     String? description,
   );
   Future<void> deletarProdutos(ProductModel item);
-  Future<void> atualizarDados(
-    int id,
-    String newCategoryId,
-    String newDescription,
-    String newName,
-    double newPrice,
-  );
+  Future<void> atualizarDados({
+    required ProductModel product,
+    required String? newDescription,
+    required String? newName,
+    required double? newPrice,
+    required bool? newTemHoje,
+  });
 }

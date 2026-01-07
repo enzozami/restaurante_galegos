@@ -61,11 +61,18 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
     if (edit.value) {
       // cancelar
       edit.value = false;
+      _clear();
       log('CANCELANDO');
     } else {
       edit.value = true;
       log('EDITANDO');
     }
+  }
+
+  void _clear() {
+    newPhoneEC.clear();
+    newNameEC.clear();
+    newEmailEC.clear();
   }
 
   Future<void> updateData() async {
