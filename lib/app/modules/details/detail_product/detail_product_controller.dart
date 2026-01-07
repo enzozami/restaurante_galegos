@@ -67,6 +67,13 @@ class DetailProductController extends GetxController with LoaderMixin, MessagesM
   }
 
   Future<void> atualizarDados() async {
+    if (!validateForm()) {
+      _message.value = MessageModel(
+        title: 'Erro',
+        message: 'Erro ao validar formulário',
+        type: MessageType.error,
+      );
+    }
     await _productsServices.atualizarDados(
       product: productSelected!,
       newName: newName.text.isNotEmpty ? newName.text : null,
@@ -75,5 +82,9 @@ class DetailProductController extends GetxController with LoaderMixin, MessagesM
       newTemHoje: valueTemHoje.value,
     );
     pressForEditOrCancel();
+  }
+
+  bool validateForm() {
+    return formKey.currentState?.validate() ?? false;
   }
 }

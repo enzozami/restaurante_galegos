@@ -158,9 +158,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     }
   }
 
-  Future<void> atualizarMarmitasDoDia(int id, FoodModel food) =>
-      _foodService.updateTemHoje(id, food);
-
   void cadastrarNovasMarmitas() {
     if (addDays.isEmpty) {
       _message(
@@ -193,58 +190,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     addDays.clear();
     refreshLunchboxes();
     Get.back();
-  }
-
-  Future<void> atualizarDadosDaMarmita(FoodModel alimento) async {
-    try {
-      _loading.value = true;
-      final temHoje = alimentoTemHoje(alimento);
-      final RxBool novoTemHoje = temHoje.value.obs;
-      if (novoTemHoje.value != temHoje.value) {
-        temHoje.value = novoTemHoje.value;
-        await atualizarMarmitasDoDia(alimento.id, alimento);
-        await refreshLunchboxes();
-      }
-      if (validateForm()) {
-        if (addDays.isEmpty) {
-          _message(
-            MessageModel(
-              title: 'Atenção',
-              message: 'Selecione ao menos um dia para cadastrar.',
-              type: MessageType.error,
-            ),
-          );
-          return;
-        }
-        final cleanedMini = newPriceMiniEC.text.replaceAll('.', '').replaceAll(',', '.');
-        final cleanedMedia = newPriceMediaEC.text.replaceAll('.', '').replaceAll(',', '.');
-        await _foodService.updateData(
-          alimento.id,
-          newNameEC.text,
-          newDescriptionEC.text,
-          addDays,
-          {
-            'mini': double.parse(cleanedMini),
-            'media': double.parse(cleanedMedia),
-          },
-        );
-        await refreshLunchboxes();
-        Get.back();
-      } else if (novoTemHoje.value != temHoje.value) {
-        Get.back();
-      }
-    } catch (e) {
-      _loading.value = false;
-      _message(
-        MessageModel(
-          title: 'Erro',
-          message: 'Erro ao atualizar marmita',
-          type: MessageType.error,
-        ),
-      );
-    } finally {
-      _loading.value = false;
-    }
   }
 
   Future<void> apagarMarmita(FoodModel food) => _foodService.deletarMarmita(food);
@@ -288,52 +233,39 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
 
   void handleFoodTap(BuildContext context, FoodModel alimento, String size) {
     definirComidaSelecionada(alimento, size);
-    final temHoje = alimentoTemHoje(alimento);
-    final RxBool novoTemHoje = temHoje.value.obs;
-    Future<void> onPressedFunction() async {
-      await atualizarDadosDaMarmita(alimento);
-      Get.back();
-    }
 
-    onChangedSelectionFunction(
-      List<Object?> allSelectedItems,
-      Object? selectedItem,
-    ) {
-      alimento.dayName = allSelectedItems.cast<String>();
-      addDays.value = allSelectedItems.map((e) => e as String).toList();
-    }
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Form(
-          key: formKey,
-          child: AlertProductsLunchboxesAdm(
-            isProduct: false,
-            onPressed: onPressedFunction,
-            description: newDescriptionEC,
-            value: novoTemHoje,
-            onChanged: (bool value) async {
-              novoTemHoje.value = value;
-            },
-            nameFood: newNameEC,
-            priceMini: newPriceMiniEC,
-            priceMedia: newPriceMediaEC,
-            items: times
-                .expand((d) => d.days)
-                .map(
-                  (e) => MultiSelectCard<String>(
-                    value: e,
-                    label: e[0],
-                    selected: alimento.dayName.contains(e),
-                  ),
-                )
-                .toList(),
-            onChangedSection: onChangedSelectionFunction,
-          ),
-        );
-      },
-    );
+    // showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return Form(
+    //       key: formKey,
+    //       child: AlertProductsLunchboxesAdm(
+    //         isProduct: false,
+    //         onPressed: onPressedFunction,
+    //         description: newDescriptionEC,
+    //         value: novoTemHoje,
+    //         onChanged: (bool value) async {
+    //           novoTemHoje.value = value;
+    //         },
+    //         nameFood: newNameEC,
+    //         priceMini: newPriceMiniEC,
+    //         priceMedia: newPriceMediaEC,
+    // items: times
+    //     .expand((d) => d.days)
+    //     .map(
+    //       (e) => MultiSelectCard<String>(
+    //         value: e,
+    //         label: e[0],
+    //         selected: alimento.dayName.contains(e),
+    //       ),
+    //     )
+    //     .toList(),
+    // onChangedSection: onChangedSelectionFunction,
+    //       ),
+    //     );
+    //   },
+    // );
+    Get.toNamed('/admin/detail/lunchboxes', arguments: alimento);
   }
 
   Future<bool> exibirConfirmacaoDescarte(

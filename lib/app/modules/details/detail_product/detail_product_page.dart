@@ -117,6 +117,7 @@ Widget _edit({
   return (controller.productSelected != null)
       ? SingleChildScrollView(
           child: Form(
+            key: controller.formKey,
             child: Column(
               crossAxisAlignment: .start,
               spacing: 20,

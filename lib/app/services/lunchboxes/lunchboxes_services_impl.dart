@@ -58,16 +58,16 @@ class LunchboxesServicesImpl extends GetxService implements LunchboxesServices {
     await refreshFood();
   }
 
-  @override
-  Future<void> updateTemHoje(int id, FoodModel food) async {
-    final novoValor = !food.temHoje;
-    await _lunchboxesRepository.updateTemHoje(id, food, novoValor);
+  // @override
+  // Future<void> updateTemHoje(int id, FoodModel food) async {
+  //   final novoValor = !food.temHoje;
+  //   await _lunchboxesRepository.updateTemHoje(id, food, novoValor);
 
-    final index = _alimentos.indexWhere((e) => e.id == id);
-    if (index != -1) {
-      _alimentos.value[index] = alimentos[index].copyWith(temHoje: novoValor);
-    }
-  }
+  //   final index = _alimentos.indexWhere((e) => e.id == id);
+  //   if (index != -1) {
+  //     _alimentos.value[index] = alimentos[index].copyWith(temHoje: novoValor);
+  //   }
+  // }
 
   FoodModel _criarFood(
     String name,
@@ -95,14 +95,22 @@ class LunchboxesServicesImpl extends GetxService implements LunchboxesServices {
   }
 
   @override
-  Future<void> updateData(
-    int id,
-    String newName,
-    String? newDescription,
-    List<String> newDays,
-    Map<String, double> newPrices,
-  ) async {
-    await _lunchboxesRepository.updateData(id, newName, newDescription, newDays, newPrices);
+  Future<void> updateData({
+    required FoodModel food,
+    required String? newName,
+    required String? newDescription,
+    required List<String>? newDays,
+    required Map<String, double>? newPrices,
+    required bool? newTemHoje,
+  }) async {
+    await _lunchboxesRepository.updateData(
+      food,
+      newName,
+      newDescription,
+      newDays,
+      newPrices,
+      newTemHoje,
+    );
     await refreshFood();
   }
 }

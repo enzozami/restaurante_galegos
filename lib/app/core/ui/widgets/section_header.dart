@@ -5,8 +5,6 @@ class SectionHeader extends StatelessWidget {
   final List<MultiSelectCard<String>> items;
   final void Function(List<String>, String) onChanged;
 
-  // final MultiSelectController<String> controller;
-
   const SectionHeader({
     super.key,
     required this.items,
@@ -17,7 +15,6 @@ class SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return MultiSelectContainer<String>(
-      // controller: controller,
       items: items,
       onChange: onChanged,
       itemsDecoration: MultiSelectDecorations(

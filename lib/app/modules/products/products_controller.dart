@@ -3,11 +3,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/ui/bottom_sheet/galegos_bottom_sheet.dart';
-import 'package:restaurante_galegos/app/core/ui/dialogs/alert_products_lunchboxes_adm.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_plus_minus.dart';
 import 'package:restaurante_galegos/app/models/category_model.dart';
@@ -322,8 +320,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     ProductModel product,
   ) {
     setSelectedItem(product);
-    final number = NumberFormat('#,##0.00', 'pt_BR');
-    final temHoje = RxBool(product.temHoje);
     // showDialog(
     //   context: context,
     //   builder: (context) {
@@ -365,7 +361,7 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     //     );
     //   },
     // );
-    Get.toNamed('/detail/product', arguments: product);
+    Get.toNamed('/admin/detail/product', arguments: product);
   }
 
   Future<bool> exibirConfirmacaoDescarte(

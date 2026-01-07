@@ -33,16 +33,6 @@ class LunchboxesRepositoryImpl implements LunchboxesRepository {
   }
 
   @override
-  Future<void> updateTemHoje(int id, FoodModel food, bool novoValor) async {
-    try {
-      await firestore.collection('foods').doc(id.toString()).update({'temHoje': novoValor});
-    } catch (e, s) {
-      log('Erro ao atualizar temHoje [alimentos]', error: e, stackTrace: s);
-      throw Exception('Erro ao atualizar temHoje [alimentos]');
-    }
-  }
-
-  @override
   Future<FoodModel> cadastrarMarmita(FoodModel food) async {
     try {
       final query = await firestore
@@ -87,19 +77,41 @@ class LunchboxesRepositoryImpl implements LunchboxesRepository {
 
   @override
   Future<void> updateData(
-    int id,
-    String newName,
+    FoodModel food,
+    String? newName,
     String? newDescription,
-    List<String> newDays,
-    Map<String, double> newPrices,
+    List<String>? newDays,
+    Map<String, double>? newPrices,
+    bool? newTemHoje,
   ) async {
     try {
-      await firestore.collection('foods').doc(id.toString()).update({
-        'name': newName,
-        'description': newDescription,
-        'dayName': newDays,
-        'pricePerSize': newPrices,
-      });
+      final route = FirebaseFirestore.instance.collection('foods').doc(food.id.toString());
+
+      if (newName != null) {
+        await route.update({
+          'name': newName,
+        });
+      }
+      if (newDescription != null) {
+        await route.update({
+          'description': newDescription,
+        });
+      }
+      if (newPrices != null) {
+        await route.update({
+          'pricePerSize': newPrices,
+        });
+      }
+      if (newDays != null) {
+        await route.update({
+          'dayName': newDays,
+        });
+      }
+      if (newTemHoje != null) {
+        await route.update({
+          'temHoje': newTemHoje,
+        });
+      }
     } catch (e, s) {
       log('Erro ao atualizar dados da marmita', error: e, stackTrace: s);
       throw Exception('Erro ao atualizar dados da marmita');

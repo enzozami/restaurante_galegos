@@ -17,12 +17,12 @@ abstract interface class LunchboxesServices {
     Map<String, double> prices,
   );
   Future<void> deletarMarmita(FoodModel food);
-  Future<void> updateTemHoje(int id, FoodModel food);
-  Future<void> updateData(
-    int id,
-    String newName,
-    String? newDescription,
-    List<String> newDays,
-    Map<String, double> newPrices,
-  );
+  Future<void> updateData({
+    required FoodModel food,
+    required String? newName,
+    required String? newDescription,
+    required List<String>? newDays,
+    required Map<String, double>? newPrices,
+    required bool? newTemHoje,
+  });
 }
