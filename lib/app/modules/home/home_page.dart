@@ -97,6 +97,8 @@ class HomePage extends GetView<HomeController> {
             topRight: Radius.circular(35),
           ),
           child: NavigationBar(
+            surfaceTintColor: theme.navigationBarTheme.surfaceTintColor,
+            elevation: theme.navigationBarTheme.elevation,
             backgroundColor: theme.navigationBarTheme.backgroundColor,
             indicatorColor: theme.navigationBarTheme.indicatorColor,
             labelTextStyle: theme.navigationBarTheme.labelTextStyle,

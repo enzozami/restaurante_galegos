@@ -156,10 +156,12 @@ class AppTheme {
 
   NavigationBarThemeData get navigationbarTheme => NavigationBarThemeData(
     backgroundColor: colorScheme.tertiary,
+    elevation: 0,
     indicatorColor: AppColors.title,
     labelTextStyle: WidgetStateProperty.all(
       TextStyle(color: colorScheme.secondary),
     ),
+    surfaceTintColor: Colors.transparent,
   );
 
   AlertDialog get dialog => AlertDialog(
