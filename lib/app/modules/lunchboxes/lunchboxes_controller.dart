@@ -156,40 +156,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
     }
   }
 
-  void cadastrarNovasMarmitas() {
-    if (addDays.isEmpty) {
-      _message(
-        MessageModel(
-          title: 'Atenção',
-          message: 'Selecione ao menos um dia para cadastrar.',
-          type: MessageType.error,
-        ),
-      );
-      return;
-    }
-    if (!validateForm()) return;
-    _foodService.cadastrarMarmita(
-      nomeMarmitaEC.text,
-      addDays,
-      descricaoEC.text,
-      {
-        'mini': double.parse(
-          precoMiniEC.text.replaceAll('.', '').replaceAll(',', '.'),
-        ),
-        'media': double.parse(
-          precoMediaEC.text.replaceAll('.', '').replaceAll(',', '.'),
-        ),
-      },
-    );
-    nomeMarmitaEC.clear();
-    descricaoEC.clear();
-    precoMiniEC.clear();
-    precoMediaEC.clear();
-    addDays.clear();
-    refreshLunchboxes();
-    Get.back();
-  }
-
   Future<void> apagarMarmita(FoodModel food) => _foodService.deletarMarmita(food);
 
   void filtrarPreco(String selectedSize) {
