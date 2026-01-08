@@ -19,100 +19,102 @@ class PaymentPage extends GetView<PaymentController> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      appBar: GalegosAppBar(
-        context: context,
-      ),
-      body: SingleChildScrollView(
-        child: Obx(() {
-          return Column(
-            crossAxisAlignment: .start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
-                child: Text(
-                  'Pagamento',
-                  style: theme.textTheme.headlineLarge,
+      appBar: GalegosAppBar(context: context),
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Obx(() {
+            return Column(
+              crossAxisAlignment: .start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
+                  child: Text(
+                    'Pagamento',
+                    style: theme.textTheme.headlineLarge,
+                  ),
                 ),
-              ),
-              Center(
-                child: Column(
-                  spacing: 15,
-                  children: [
-                    CardValores(
-                      preco: controller.args['preco'],
-                      taxa: controller.args['taxa'],
-                      carrinho: false,
-                    ),
-                    _cardPagamento(
-                      context: context,
-                      title: 'Cartão',
-                      icon: Restaurante.credit_card,
-                      subtitle: 'Crédito ou Débito',
-                      type: PaymentType.cartao,
-                      controller: controller,
-                      theme: theme,
-                    ),
-                    _cardPagamento(
-                      context: context,
-                      title: 'Vale (VA/VR)',
-                      icon: Restaurante.ticket_alt,
-                      subtitle: 'Alimentação ou Refeição',
-                      type: PaymentType.vale,
-                      controller: controller,
-                      theme: theme,
-                    ),
-                    _cardPagamento(
-                      context: context,
-                      title: 'Dinheiro',
-                      icon: Restaurante.money_bill_wave,
-                      subtitle: 'Pagamento em espécie',
-                      type: PaymentType.dinheiro,
-                      controller: controller,
-                      theme: theme,
-                    ),
-                    _cardPagamento(
-                      context: context,
-                      title: 'PIX',
-                      icon: Icons.qr_code_2,
-                      subtitle: '',
-                      type: PaymentType.pix,
-                      controller: controller,
-                      theme: theme,
-                    ),
-                  ],
+                Center(
+                  child: Column(
+                    spacing: 15,
+                    children: [
+                      CardValores(
+                        preco: controller.args['preco'],
+                        taxa: controller.args['taxa'],
+                        carrinho: false,
+                      ),
+                      _cardPagamento(
+                        context: context,
+                        title: 'Cartão',
+                        icon: Restaurante.credit_card,
+                        subtitle: 'Crédito ou Débito',
+                        type: PaymentType.cartao,
+                        controller: controller,
+                        theme: theme,
+                      ),
+                      _cardPagamento(
+                        context: context,
+                        title: 'Vale (VA/VR)',
+                        icon: Restaurante.ticket_alt,
+                        subtitle: 'Alimentação ou Refeição',
+                        type: PaymentType.vale,
+                        controller: controller,
+                        theme: theme,
+                      ),
+                      _cardPagamento(
+                        context: context,
+                        title: 'Dinheiro',
+                        icon: Restaurante.money_bill_wave,
+                        subtitle: 'Pagamento em espécie',
+                        type: PaymentType.dinheiro,
+                        controller: controller,
+                        theme: theme,
+                      ),
+                      _cardPagamento(
+                        context: context,
+                        title: 'PIX',
+                        icon: Icons.qr_code_2,
+                        subtitle: '',
+                        type: PaymentType.pix,
+                        controller: controller,
+                        theme: theme,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              (controller.paymentType.value != PaymentType.nulo)
-                  ? Column(
-                      children: [
-                        Divider(),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Center(
-                          child: GalegosButtonDefault(
-                            label: 'AVANÇAR',
-                            width: context.widthTransformer(reducedBy: 10),
-                            onPressed: () {
-                              Get.toNamed(
-                                '/order/finish',
-                                arguments: controller.arguments(),
-                              );
-                            },
+                SizedBox(
+                  height: 20,
+                ),
+                (controller.paymentType.value != PaymentType.nulo)
+                    ? Column(
+                        children: [
+                          Divider(),
+                          SizedBox(
+                            height: 20,
                           ),
-                        ),
-                      ],
-                    )
-                  : SizedBox.shrink(),
-              SizedBox(
-                height: 50,
-              ),
-            ],
-          );
-        }),
+                          Center(
+                            child: GalegosButtonDefault(
+                              label: 'AVANÇAR',
+                              width: context.widthTransformer(reducedBy: 10),
+                              onPressed: () {
+                                Get.toNamed(
+                                  '/order/finish',
+                                  arguments: controller.arguments(),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    : SizedBox.shrink(),
+                SizedBox(
+                  height: 50,
+                ),
+              ],
+            );
+          }),
+        ),
       ),
     );
   }

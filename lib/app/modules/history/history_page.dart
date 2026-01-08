@@ -17,225 +17,227 @@ class HistoryPage extends GetView<HistoryController> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return Scaffold(
-      body: RefreshIndicator.noSpinner(
-        onRefresh: controller.refreshOrders,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          controller: controller.scrollController,
-          child: Column(
-            crossAxisAlignment: .start,
-            mainAxisAlignment: .start,
-            children: [
-              SafeArea(child: Container()),
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0, top: 15, bottom: 15),
-                child: Text(
-                  'Histórico',
-                  style: theme.textTheme.headlineLarge,
+    return SafeArea(
+      child: Scaffold(
+        body: RefreshIndicator.noSpinner(
+          onRefresh: controller.refreshOrders,
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            controller: controller.scrollController,
+            child: Column(
+              crossAxisAlignment: .start,
+              mainAxisAlignment: .start,
+              children: [
+                SafeArea(child: Container()),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0, top: 15, bottom: 15),
+                  child: Text(
+                    'Histórico',
+                    style: theme.textTheme.headlineLarge,
+                  ),
                 ),
-              ),
 
-              Obx(
-                () => SingleChildScrollView(
-                  scrollDirection: .horizontal,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10, bottom: 10),
-                    child: Row(
-                      children: Status.values
-                          .map(
-                            (s) => FilterTag(
-                              onTapDown: (_) => controller.handlePressFilter(s),
-                              onTapCancel: () => controller.handlePressFilter(null),
-                              onTapUp: (_) => controller.handlePressFilter(null),
-                              isPressedStatus: controller.statusPressing,
-                              onPressed: () => controller.searchOrdersByStatus(s),
-                              isSelected: controller.isProcessing.value == false
-                                  ? controller.statusValue.value == s
-                                  : false,
-                              status: controller.getStatusName(s),
-                            ),
-                          )
-                          .toList(),
+                Obx(
+                  () => SingleChildScrollView(
+                    scrollDirection: .horizontal,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10.0, right: 10, bottom: 10),
+                      child: Row(
+                        children: Status.values
+                            .map(
+                              (s) => FilterTag(
+                                onTapDown: (_) => controller.handlePressFilter(s),
+                                onTapCancel: () => controller.handlePressFilter(null),
+                                onTapUp: (_) => controller.handlePressFilter(null),
+                                isPressedStatus: controller.statusPressing,
+                                onPressed: () => controller.searchOrdersByStatus(s),
+                                isSelected: controller.isProcessing.value == false
+                                    ? controller.statusValue.value == s
+                                    : false,
+                                status: controller.getStatusName(s),
+                              ),
+                            )
+                            .toList(),
+                      ),
                     ),
                   ),
                 ),
-              ),
 
-              Obx(() {
-                if (controller.loading.value) {
-                  return Column(
-                    children: List.generate(
-                      7,
-                      (_) => Center(
-                        child: CardShimmer(
-                          height: 200,
-                          width: context.widthTransformer(reducedBy: 10),
-                        ).paddingOnly(bottom: 15),
-                      ),
-                    ),
-                  );
-                }
-                return StreamBuilder(
-                  stream: controller.groupedOrders,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Column(
-                        children: List.generate(
-                          10,
-                          (_) =>
-                              CardShimmer(
-                                height: 80,
-                                width: context.width,
-                              ).paddingOnly(
-                                bottom: 10,
-                                left: 20.0,
-                                right: 20.0,
-                                top: 10.0,
-                              ),
-                        ),
-                      );
-                    }
-
-                    if (snapshot.hasError) {
-                      log(snapshot.error.toString());
-                      return const Center(child: Text('Erro ao carregar pedidos'));
-                    }
-
-                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return const Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(20.0),
-                          child: Text('Nenhum pedido encontrado.'),
-                        ),
-                      );
-                    }
-
-                    final pedidosAgrupados = snapshot.data!;
-
+                Obx(() {
+                  if (controller.loading.value) {
                     return Column(
-                      children: pedidosAgrupados.entries.map(
-                        (pedido) {
-                          final data = pedido.key;
-                          final listaDePedidosDoDia = pedido.value;
-                          return Center(
-                            child: Column(
-                              crossAxisAlignment: .start,
-                              children: [
-                                ...listaDePedidosDoDia.map((pedido) {
-                                  final itens = pedido.cart
-                                      .map(
-                                        (p) => p.item.alimento?.name ?? p.item.produto?.name,
-                                      )
-                                      .join('\n');
+                      children: List.generate(
+                        7,
+                        (_) => Center(
+                          child: CardShimmer(
+                            height: 200,
+                            width: context.widthTransformer(reducedBy: 10),
+                          ).paddingOnly(bottom: 15),
+                        ),
+                      ),
+                    );
+                  }
+                  return StreamBuilder(
+                    stream: controller.groupedOrders,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Column(
+                          children: List.generate(
+                            10,
+                            (_) =>
+                                CardShimmer(
+                                  height: 80,
+                                  width: context.width,
+                                ).paddingOnly(
+                                  bottom: 10,
+                                  left: 20.0,
+                                  right: 20.0,
+                                  top: 10.0,
+                                ),
+                          ),
+                        );
+                      }
 
-                                  return CardHistory(
-                                    date: data,
-                                    id: pedido.id.hashCode.bitLength.toString(),
-                                    itens: itens,
-                                    price: FormatterHelper.formatCurrency(
-                                      pedido.amountToPay,
-                                    ),
-                                    horario: pedido.time,
-                                    status: Container(
-                                      decoration: BoxDecoration(
-                                        color: (pedido.status == 'preparando')
-                                            ? AppColors.containerPreparing
-                                            : (pedido.status == 'a caminho')
-                                            ? AppColors.containerOnTheWay
-                                            : AppColors.containerDelivered,
-                                        borderRadius: BorderRadius.circular(50),
+                      if (snapshot.hasError) {
+                        log(snapshot.error.toString());
+                        return const Center(child: Text('Erro ao carregar pedidos'));
+                      }
+
+                      if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return const Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text('Nenhum pedido encontrado.'),
+                          ),
+                        );
+                      }
+
+                      final pedidosAgrupados = snapshot.data!;
+
+                      return Column(
+                        children: pedidosAgrupados.entries.map(
+                          (pedido) {
+                            final data = pedido.key;
+                            final listaDePedidosDoDia = pedido.value;
+                            return Center(
+                              child: Column(
+                                crossAxisAlignment: .start,
+                                children: [
+                                  ...listaDePedidosDoDia.map((pedido) {
+                                    final itens = pedido.cart
+                                        .map(
+                                          (p) => p.item.alimento?.name ?? p.item.produto?.name,
+                                        )
+                                        .join('\n');
+
+                                    return CardHistory(
+                                      date: data,
+                                      id: pedido.id.hashCode.bitLength.toString(),
+                                      itens: itens,
+                                      price: FormatterHelper.formatCurrency(
+                                        pedido.amountToPay,
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(3.0),
-                                        child: Text(
-                                          pedido.status.toUpperCase(),
-                                          style: (pedido.status == 'preparando')
-                                              ? theme.textTheme.labelSmall?.copyWith(
-                                                  color: AppColors.preparing,
-                                                )
+                                      horario: pedido.time,
+                                      status: Container(
+                                        decoration: BoxDecoration(
+                                          color: (pedido.status == 'preparando')
+                                              ? AppColors.containerPreparing
                                               : (pedido.status == 'a caminho')
-                                              ? theme.textTheme.labelSmall?.copyWith(
-                                                  color: AppColors.onTheWay,
-                                                )
-                                              : theme.textTheme.labelSmall?.copyWith(
-                                                  color: AppColors.delivered,
-                                                ),
+                                              ? AppColors.containerOnTheWay
+                                              : AppColors.containerDelivered,
+                                          borderRadius: BorderRadius.circular(50),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(3.0),
+                                          child: Text(
+                                            pedido.status.toUpperCase(),
+                                            style: (pedido.status == 'preparando')
+                                                ? theme.textTheme.labelSmall?.copyWith(
+                                                    color: AppColors.preparing,
+                                                  )
+                                                : (pedido.status == 'a caminho')
+                                                ? theme.textTheme.labelSmall?.copyWith(
+                                                    color: AppColors.onTheWay,
+                                                  )
+                                                : theme.textTheme.labelSmall?.copyWith(
+                                                    color: AppColors.delivered,
+                                                  ),
+                                          ),
                                         ),
                                       ),
-                                    ),
 
-                                    onTap: () {
-                                      Get.toNamed('/detail/orders', arguments: pedido);
-                                      // final carrinhoName = pedido.cart
-                                      //     .map(
-                                      //       (item) =>
-                                      //           item.item.alimento?.name ??
-                                      //           item.item.produto?.name ??
-                                      //           '',
-                                      //     )
-                                      //     .where(
-                                      //       (name) => name.isNotEmpty,
-                                      //     )
-                                      //     .toList()
-                                      //     .join('\n');
-                                      // final pedidoTipo = pedido.cart
-                                      //     .map(
-                                      //       (e) => e.item.produto != null ? 'Produto' : 'Marmita',
-                                      //     )
-                                      //     .toList()
-                                      //     .join(', ');
-                                      // final cep = MaskCep();
-                                      // final valor = FormatterHelper.formatCurrency(
-                                      //   pedido.amountToPay - pedido.taxa,
-                                      // );
-                                      // final taxa = FormatterHelper.formatCurrency(
-                                      //   pedido.taxa,
-                                      // );
-                                      // final totalFormatado = FormatterHelper.formatCurrency(
-                                      //   pedido.amountToPay,
-                                      // );
-                                      // showDialog(
-                                      //   context: context,
-                                      //   builder: (context) => AlertDialogHistory(
-                                      //     titleButton: 'Fechar',
-                                      //     isAdmin: false,
-                                      //     pedidoLabel: pedidoTipo,
-                                      //     carrinhoName: carrinhoName,
-                                      //     valor: valor,
-                                      //     taxa: taxa,
-                                      //     total: totalFormatado,
-                                      //     nomeCliente: pedido.userName,
-                                      //     rua: pedido.endereco.rua,
-                                      //     numeroResidencia: pedido.endereco.numeroResidencia.toString(),
-                                      //     bairro: pedido.endereco.bairro,
-                                      //     cidade: pedido.endereco.cidade,
-                                      //     estado: pedido.endereco.estado,
-                                      //     cep: cep.maskText(
-                                      //       pedido.endereco.cep,
-                                      //     ),
-                                      //     horarioInicio: pedido.time,
-                                      //     horarioSairEntrega: pedido.timePath ?? '',
-                                      //     horarioEntregue: pedido.timeFinished ?? '',
-                                      //     data: pedido.date,
-                                      //     onPressed: () {},
-                                      //     statusPedido: pedido.status,
-                                      //     pagamento: pedido.formaPagamento,
-                                      //   ),
-                                      // );
-                                    },
-                                  );
-                                }),
-                              ],
-                            ),
-                          );
-                        },
-                      ).toList(),
-                    );
-                  },
-                );
-              }),
-            ],
+                                      onTap: () {
+                                        Get.toNamed('/detail/orders', arguments: pedido);
+                                        // final carrinhoName = pedido.cart
+                                        //     .map(
+                                        //       (item) =>
+                                        //           item.item.alimento?.name ??
+                                        //           item.item.produto?.name ??
+                                        //           '',
+                                        //     )
+                                        //     .where(
+                                        //       (name) => name.isNotEmpty,
+                                        //     )
+                                        //     .toList()
+                                        //     .join('\n');
+                                        // final pedidoTipo = pedido.cart
+                                        //     .map(
+                                        //       (e) => e.item.produto != null ? 'Produto' : 'Marmita',
+                                        //     )
+                                        //     .toList()
+                                        //     .join(', ');
+                                        // final cep = MaskCep();
+                                        // final valor = FormatterHelper.formatCurrency(
+                                        //   pedido.amountToPay - pedido.taxa,
+                                        // );
+                                        // final taxa = FormatterHelper.formatCurrency(
+                                        //   pedido.taxa,
+                                        // );
+                                        // final totalFormatado = FormatterHelper.formatCurrency(
+                                        //   pedido.amountToPay,
+                                        // );
+                                        // showDialog(
+                                        //   context: context,
+                                        //   builder: (context) => AlertDialogHistory(
+                                        //     titleButton: 'Fechar',
+                                        //     isAdmin: false,
+                                        //     pedidoLabel: pedidoTipo,
+                                        //     carrinhoName: carrinhoName,
+                                        //     valor: valor,
+                                        //     taxa: taxa,
+                                        //     total: totalFormatado,
+                                        //     nomeCliente: pedido.userName,
+                                        //     rua: pedido.endereco.rua,
+                                        //     numeroResidencia: pedido.endereco.numeroResidencia.toString(),
+                                        //     bairro: pedido.endereco.bairro,
+                                        //     cidade: pedido.endereco.cidade,
+                                        //     estado: pedido.endereco.estado,
+                                        //     cep: cep.maskText(
+                                        //       pedido.endereco.cep,
+                                        //     ),
+                                        //     horarioInicio: pedido.time,
+                                        //     horarioSairEntrega: pedido.timePath ?? '',
+                                        //     horarioEntregue: pedido.timeFinished ?? '',
+                                        //     data: pedido.date,
+                                        //     onPressed: () {},
+                                        //     statusPedido: pedido.status,
+                                        //     pagamento: pedido.formaPagamento,
+                                        //   ),
+                                        // );
+                                      },
+                                    );
+                                  }),
+                                ],
+                              ),
+                            );
+                          },
+                        ).toList(),
+                      );
+                    },
+                  );
+                }),
+              ],
+            ),
           ),
         ),
       ),

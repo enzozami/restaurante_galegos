@@ -14,6 +14,7 @@ class HomePage extends GetView<HomeController> {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
+      extendBody: true,
       appBar: GalegosAppBar(
         context: context,
       ),

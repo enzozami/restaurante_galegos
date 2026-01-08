@@ -16,117 +16,123 @@ class DeliveryAddressPage extends GetView<DeliveryAddressController> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
       appBar: GalegosAppBar(context: context),
-      body: Obx(() {
-        return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: .start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
-                child: Text(
-                  'Endereço',
-                  style: theme.textTheme.headlineLarge,
+      body: SafeArea(
+        child: Obx(() {
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: .start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
+                  child: Text(
+                    'Endereço',
+                    style: theme.textTheme.headlineLarge,
+                  ),
                 ),
-              ),
-              Form(
-                key: controller.formKey,
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      spacing: 10,
-                      children: [
-                        SizedBox(
-                          width: context.widthTransformer(reducedBy: 10),
-                          child: GalegosTextFormField(
-                            suffixIcon: Icons.backspace_outlined,
-                            onPressed: () => controller.resetCepTaxa(),
-                            inputType: .numberWithOptions(decimal: true),
-                            floatingLabelBehavior: .auto,
-                            label: 'CEP',
-                            prefixIcon: Icons.location_on,
-                            onEditingComplete: controller.canConsultCep
-                                ? () => controller.getCep()
-                                : null,
-                            mask: controller.cepFormatter,
-                            controller: controller.cepEC,
-                            validator: Validatorless.required(
-                              'CEP obrigatório',
-                            ),
-                            onChanged: (value) => controller.cepInput.value = value,
-                            prefix: true,
-                            suffix: true,
-                          ),
-                        ),
-                        if (!controller.addressValidation())
-                          GalegosButtonDefault(
-                            label: 'Consultar',
+                Form(
+                  key: controller.formKey,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        spacing: 10,
+                        children: [
+                          SizedBox(
                             width: context.widthTransformer(reducedBy: 10),
-                            icon: Icon(
-                              Icons.search,
-                              color: theme.colorScheme.tertiary,
-                            ),
-                            onPressed: controller.canConsultCep ? () => controller.getCep() : null,
-                          )
-                        else if (!controller.isOpen.value)
-                          Align(
-                            alignment: .center,
-                            child: IconButton(
-                              onPressed: controller.closeCard,
-                              icon: const Icon(
-                                Icons.expand_more,
+                            child: GalegosTextFormField(
+                              suffixIcon: Icons.backspace_outlined,
+                              onPressed: () => controller.resetCepTaxa(),
+                              inputType: .numberWithOptions(decimal: true),
+                              floatingLabelBehavior: .auto,
+                              label: 'CEP',
+                              prefixIcon: Icons.location_on,
+                              onEditingComplete: controller.canConsultCep
+                                  ? () => controller.getCep()
+                                  : null,
+                              mask: controller.cepFormatter,
+                              controller: controller.cepEC,
+                              validator: Validatorless.required(
+                                'CEP obrigatório',
                               ),
+                              onChanged: (value) => controller.cepInput.value = value,
+                              prefix: true,
+                              suffix: true,
                             ),
-                          )
-                        else
-                          (controller.loading.value)
-                              ? Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Stack(
-                                    children: List.generate(
-                                      1,
-                                      (_) => CardShimmer(
-                                        height: 300,
+                          ),
+                          if (!controller.addressValidation())
+                            GalegosButtonDefault(
+                              label: 'Consultar',
+                              width: context.widthTransformer(reducedBy: 10),
+                              icon: Icon(
+                                Icons.search,
+                                color: theme.colorScheme.tertiary,
+                              ),
+                              onPressed: controller.canConsultCep
+                                  ? () => controller.getCep()
+                                  : null,
+                            )
+                          else if (!controller.isOpen.value)
+                            Align(
+                              alignment: .center,
+                              child: IconButton(
+                                onPressed: controller.closeCard,
+                                icon: const Icon(
+                                  Icons.expand_more,
+                                ),
+                              ),
+                            )
+                          else
+                            (controller.loading.value)
+                                ? Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Stack(
+                                      children: List.generate(
+                                        1,
+                                        (_) => CardShimmer(
+                                          height: 300,
+                                          width: context.widthTransformer(
+                                            reducedBy: 10,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Column(
+                                    spacing: 20,
+                                    children: [
+                                      _address(context, controller),
+                                      CardValores(
+                                        preco: controller.args['preco'],
+                                        taxa: controller.taxa.value,
+                                        carrinho: false,
+                                      ),
+                                      Divider(),
+                                      GalegosButtonDefault(
+                                        label: 'AVANÇAR',
+                                        onPressed: () async {
+                                          controller.enviarDadosParaPagamento();
+                                        },
                                         width: context.widthTransformer(
                                           reducedBy: 10,
                                         ),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                )
-                              : Column(
-                                  spacing: 20,
-                                  children: [
-                                    _address(context, controller),
-                                    CardValores(
-                                      preco: controller.args['preco'],
-                                      taxa: controller.taxa.value,
-                                      carrinho: false,
-                                    ),
-                                    Divider(),
-                                    GalegosButtonDefault(
-                                      label: 'AVANÇAR',
-                                      onPressed: () async {
-                                        controller.enviarDadosParaPagamento();
-                                      },
-                                      width: context.widthTransformer(
-                                        reducedBy: 10,
-                                      ),
-                                    ),
-                                  ],
-                                ),
 
-                        const SizedBox(height: 15),
-                      ],
+                          const SizedBox(height: 15),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
-      }),
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 }
