@@ -42,17 +42,18 @@ class _FloatingActionButtonAdmin extends GetView<ProductsController> {
     final ThemeData theme = Theme.of(context);
     return FloatingActionButton.extended(
       onPressed: () {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Form(
-              key: controller.formKey,
-              child: AlertForAddToCart(
-                isProduct: true,
-              ),
-            );
-          },
-        );
+        // showDialog(
+        //   context: context,
+        //   builder: (context) {
+        //     return Form(
+        //       key: controller.formKey,
+        //       child: AlertForAddToCart(
+        //         isProduct: true,
+        //       ),
+        //     );
+        //   },
+        // );
+        Get.toNamed('/admin/products');
       },
       icon: Icon(Icons.add),
       backgroundColor: theme.floatingActionButtonTheme.backgroundColor,

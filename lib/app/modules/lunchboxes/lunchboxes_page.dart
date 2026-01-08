@@ -119,17 +119,18 @@ class _FloatingActionAdmin extends StatelessWidget {
       alignment: AlignmentGeometry.directional(1, 1),
       child: FloatingActionButton.extended(
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return Form(
-                key: controller.formKey,
-                child: AlertForAddToCart(
-                  isProduct: false,
-                ),
-              );
-            },
-          );
+          // showDialog(
+          //   context: context,
+          //   builder: (context) {
+          //     return Form(
+          //       key: controller.formKey,
+          //       child: AlertForAddToCart(
+          //         isProduct: false,
+          //       ),
+          //     );
+          //   },
+          // );
+          Get.toNamed('/admin/lunchboxes');
         },
         icon: Icon(Icons.add),
         backgroundColor: theme.floatingActionButtonTheme.backgroundColor,
