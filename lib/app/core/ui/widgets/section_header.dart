@@ -19,19 +19,18 @@ class SectionHeader extends StatelessWidget {
       onChange: onChanged,
       wrapSettings: WrapSettings(
         spacing: 10,
-        // runAlignment: .start,
-        alignment: .spaceBetween,
+        alignment: .start,
       ),
       itemsDecoration: MultiSelectDecorations(
         selectedDecoration: BoxDecoration(
           color: theme.colorScheme.primary,
           shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(50),
         ),
         decoration: BoxDecoration(
           color: theme.colorScheme.secondary,
           shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(50),
         ),
       ),
     );

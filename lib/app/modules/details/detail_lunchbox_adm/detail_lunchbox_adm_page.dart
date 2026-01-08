@@ -55,24 +55,31 @@ Widget _detail({
                   ),
                 )
               : SizedBox.shrink(),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 15,
+              left: 40,
+            ),
+            child: Text(
+              'Dias da semana:',
+              style: theme.textTheme.titleSmall,
+            ),
+          ),
           Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IgnorePointer(
-                ignoring: true,
-                child: SectionHeader(
-                  items: controller.foodSelected.value.dayName
-                      .map(
-                        (d) => MultiSelectCard<String>(
-                          value: d,
-                          label: d,
-                          selected: controller.foodSelected.value.dayName.contains(d),
-                          contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                        ),
-                      )
-                      .toList(),
-                  onChanged: (_, _) {},
-                ),
+            child: IgnorePointer(
+              ignoring: true,
+              child: SectionHeader(
+                items: controller.foodSelected.value.dayName
+                    .map(
+                      (d) => MultiSelectCard<String>(
+                        value: d,
+                        label: d,
+                        selected: controller.foodSelected.value.dayName.contains(d),
+                        contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (_, _) {},
               ),
             ),
           ),
