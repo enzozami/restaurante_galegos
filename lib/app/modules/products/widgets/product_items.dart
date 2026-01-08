@@ -149,7 +149,7 @@ class _ProductsAdmin extends GetView<ProductsController> {
                       )
                     : Text(
                         c.name,
-                        style: theme.textTheme.titleLarge,
+                        style: theme.textTheme.headlineLarge,
                       ),
               ),
               Container(
