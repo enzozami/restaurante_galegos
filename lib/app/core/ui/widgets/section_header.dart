@@ -17,6 +17,11 @@ class SectionHeader extends StatelessWidget {
     return MultiSelectContainer<String>(
       items: items,
       onChange: onChanged,
+      wrapSettings: WrapSettings(
+        spacing: 10,
+        // runAlignment: .start,
+        alignment: .spaceBetween,
+      ),
       itemsDecoration: MultiSelectDecorations(
         selectedDecoration: BoxDecoration(
           color: theme.colorScheme.primary,
