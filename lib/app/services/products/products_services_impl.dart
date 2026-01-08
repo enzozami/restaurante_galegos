@@ -55,6 +55,7 @@ class ProductsServicesImpl extends GetxService implements ProductsServices {
     await refreshItens();
   }
 
+  @override
   Future<void> refreshItens() async {
     _items.assignAll(await getProducts());
   }

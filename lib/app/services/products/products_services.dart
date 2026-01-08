@@ -23,4 +23,5 @@ abstract interface class ProductsServices {
     required double? newPrice,
     required bool? newTemHoje,
   });
+  void refreshItens();
 }

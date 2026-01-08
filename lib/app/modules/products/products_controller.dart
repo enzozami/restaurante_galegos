@@ -154,22 +154,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     }
   }
 
-  Future<void> cadastrarNovosProdutos() async {
-    if (!_validateForm()) return;
-
-    if (categoryId.value != null) {
-      final category = categoryId.value!;
-
-      await _productsServices.cadastrarProdutos(
-        category,
-        nameProductEC.text,
-        double.parse(priceEC.text),
-        descriptionEC.text,
-      );
-    }
-    await refreshProducts();
-  }
-
   Future<void> apagarProduto(ProductModel item) async =>
       await _productsServices.deletarProdutos(item);
 
