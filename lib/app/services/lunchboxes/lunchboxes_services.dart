@@ -10,12 +10,12 @@ abstract interface class LunchboxesServices {
 
   Future<List<FoodModel>> getFood();
   Future<List<MenuModel>> getMenu();
-  Future<FoodModel> cadastrarMarmita(
-    String name,
-    List<String> days,
-    String? description,
-    Map<String, double> prices,
-  );
+  Future<FoodModel> cadastrarMarmita({
+    required String name,
+    required List<String> days,
+    required String? description,
+    required Map<String, double> prices,
+  });
   Future<void> deletarMarmita(FoodModel food);
   Future<void> updateData({
     required FoodModel food,
@@ -25,4 +25,5 @@ abstract interface class LunchboxesServices {
     required Map<String, double>? newPrices,
     required bool? newTemHoje,
   });
+  Future<void> refreshData();
 }

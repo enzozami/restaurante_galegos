@@ -19,6 +19,7 @@ mixin MessagesMixin on GetxController {
             snackPosition: .TOP,
           );
           message.value = null;
+          await 100.milliseconds.delay();
         }
       },
     );
