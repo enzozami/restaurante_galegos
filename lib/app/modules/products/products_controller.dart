@@ -387,10 +387,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     return confirm == true;
   }
 
-  bool _validateForm() {
-    return formKey.currentState?.validate() ?? false;
-  }
-
   void clearSelection() {
     itemSelect.value = null;
   }
