@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:restaurante_galegos/app/core/constants/constants.dart';
+import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 import 'package:restaurante_galegos/app/models/user_model.dart';
 import 'package:restaurante_galegos/app/repositories/auth/auth_repository.dart';
 
@@ -100,21 +102,23 @@ class AuthServicesImpl extends GetxService implements AuthServices {
         if (isLogged == true) {
           Get.offAllNamed('/home');
         }
-        // } else {
-        //   Get.toNamed('/auth/login');
-        // }
       });
 
       _isLogged(getUserId() != null);
       return this;
     } else {
+      Get.toNamed('/horarioFuncionamento');
       final snapshot = await FirebaseFirestore.instance.collection('horario_funcionamento').get();
       final horariosApi = snapshot.docs.first.data();
 
       Get.snackbar(
         'Fora do horário de funcionamento',
         'Nós funcionamos das ${horariosApi['inicio']}h às ${horariosApi['fim']}h!',
-        duration: 3.seconds,
+        backgroundColor: AppColors.primary,
+        colorText: Colors.black,
+        margin: EdgeInsets.all(20),
+        duration: const Duration(seconds: 3),
+        snackPosition: .TOP,
       );
       return this;
     }
