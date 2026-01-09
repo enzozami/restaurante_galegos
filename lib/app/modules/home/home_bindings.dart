@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import 'package:restaurante_galegos/app/core/rest_client/via_cep_service.dart';
+import 'package:restaurante_galegos/app/modules/drawer/drawer_galegos/drawer_galegos_controller.dart';
 import 'package:restaurante_galegos/app/modules/history/history_controller.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/lunchboxes_controller.dart';
 import 'package:restaurante_galegos/app/modules/order/order_finished/order_finished_controller.dart';
@@ -108,6 +109,9 @@ class HomeBindings implements Bindings {
         carrinhoServices: Get.find<CarrinhoServices>(),
         authServices: Get.find<AuthServices>(),
       ),
+    );
+    Get.lazyPut<DrawerGalegosController>(
+      () => DrawerGalegosController(authServices: Get.find<AuthServices>()),
     );
   }
 }

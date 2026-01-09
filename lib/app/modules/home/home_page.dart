@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/galegos_drawer.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/icon_badge.dart';
+import 'package:restaurante_galegos/app/modules/drawer/drawer_galegos/drawer_galegos_page.dart';
 
 import './home_controller.dart';
 
@@ -18,7 +18,7 @@ class HomePage extends GetView<HomeController> {
       appBar: GalegosAppBar(
         context: context,
       ),
-      drawer: GalegosDrawer(),
+      drawer: DrawerGalegosPage(),
       bottomNavigationBar: Obx(() {
         List<NavigationDestination> destinations;
         if (controller.isAdmin) {

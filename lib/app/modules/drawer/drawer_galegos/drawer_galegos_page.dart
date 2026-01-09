@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/dialogs/alert_dialog_confirm_exit.dart';
-import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
+import './drawer_galegos_controller.dart';
 
-import '../theme/app_colors.dart';
-
-class GalegosDrawer extends GetView<AuthServices> {
-  const GalegosDrawer({super.key});
+class DrawerGalegosPage extends GetView<DrawerGalegosController> {
+  const DrawerGalegosPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +28,14 @@ class GalegosDrawer extends GetView<AuthServices> {
                   child: Text(
                     'Olá, ${controller.nome.value}',
                     style: theme.textTheme.titleMedium?.copyWith(
-                      color: AppColors.secondary,
+                      color: theme.colorScheme.secondary,
                     ),
                   ),
                 ),
                 accountEmail: Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: Text(
-                    controller.isAdmin() ? 'Administrador' : controller.email.value,
+                    controller.isAdmin.value ? 'Administrador' : controller.email.value,
                     style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.secondary),
                   ),
                 ),
