@@ -249,11 +249,3 @@ Widget _detailOrder({
     ),
   );
 }
-
-Widget _detailAdmin({
-  required BuildContext context,
-  required ThemeData theme,
-  required DetailLunchboxesController controller,
-}) {
-  return Container();
-}
