@@ -24,7 +24,7 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
                   mainAxisAlignment: .center,
                   crossAxisAlignment: .start,
                   children: [
-                    SizedBox(height: context.heightTransformer(reducedBy: 50)),
+                    SizedBox(height: context.heightTransformer(reducedBy: 60)),
                     Center(
                       child: Text(
                         'Nenhum item no carrinho!',
