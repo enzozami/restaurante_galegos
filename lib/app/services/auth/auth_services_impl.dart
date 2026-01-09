@@ -15,13 +15,13 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   final AuthRepository _authRepository;
   final _isLogged = RxnBool();
   final _isAdmin = RxnBool();
-  final _name = RxnString();
   final _getStorage = GetStorage();
-  final RxString _userName = ''.obs;
   final RxString _userEmail = ''.obs;
+  final _name = ''.obs;
 
   @override
-  RxString get nome => _userName;
+  RxString get nome => _name;
+
   @override
   RxString get email => _userEmail;
 
@@ -87,6 +87,9 @@ class AuthServicesImpl extends GetxService implements AuthServices {
 
   @override
   Future<AuthServices> init() async {
+    _name.value = _getStorage.read(Constants.USER_NAME) ?? '';
+    _userEmail.value = _getStorage.read(Constants.USER_KEY) ?? '';
+
     if (await openOrClosedRestaurant()) {
       _getStorage.listenKey(Constants.USER_KEY, (value) {
         _isLogged(value != null);
@@ -95,7 +98,7 @@ class AuthServicesImpl extends GetxService implements AuthServices {
         _isAdmin((value is bool) ? value : false);
       });
       _getStorage.listenKey(Constants.USER_NAME, (value) {
-        _name(value ?? '');
+        _name.value = value ?? '';
       });
 
       ever(_isLogged, (isLogged) {
@@ -149,8 +152,10 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   @override
   Future<UserModel> getUser() async {
     final user = await _authRepository.getUser();
-    _userName.value = user.nome;
+    _name.value = user.nome;
     _userEmail.value = user.email;
+
+    await _getStorage.write(Constants.USER_NAME, user.nome);
     return user;
   }
 

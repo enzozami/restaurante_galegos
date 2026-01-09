@@ -26,7 +26,7 @@ class DrawerGalegosPage extends GetView<DrawerGalegosController> {
                 accountName: Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: Text(
-                    'Olá, ${controller.nome.value}',
+                    'Olá, ${controller.nome}',
                     style: theme.textTheme.titleMedium?.copyWith(
                       color: theme.colorScheme.secondary,
                     ),
@@ -35,7 +35,7 @@ class DrawerGalegosPage extends GetView<DrawerGalegosController> {
                 accountEmail: Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: Text(
-                    controller.isAdmin ? 'Administrador' : controller.email.value,
+                    controller.isAdmin ? 'Administrador' : controller.email,
                     style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.secondary),
                   ),
                 ),
