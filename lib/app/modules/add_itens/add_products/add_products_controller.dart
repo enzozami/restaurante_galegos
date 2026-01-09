@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
@@ -10,6 +12,8 @@ class AddProductsController extends GetxController with LoaderMixin, MessagesMix
 
   final RxList<CategoryModel> categoryList = <CategoryModel>[].obs;
   final RxString category = ''.obs;
+  final RxBool _loading = false.obs;
+  final Rxn<MessageModel> _message = Rxn<MessageModel>();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController nameEC = TextEditingController();
@@ -22,6 +26,8 @@ class AddProductsController extends GetxController with LoaderMixin, MessagesMix
   @override
   void onInit() {
     super.onInit();
+    loaderListener(_loading);
+    messageListener(_message);
 
     categoryList.value = _productsServices.categories;
   }
@@ -31,17 +37,34 @@ class AddProductsController extends GetxController with LoaderMixin, MessagesMix
   }
 
   Future<void> cadastrarNovosProdutos() async {
-    if (!_validateForm()) return;
+    try {
+      _loading.value = true;
+      if (!_validateForm()) return;
 
-    await _productsServices.cadastrarProdutos(
-      category.value,
-      nameEC.text,
-      _formatValue(),
-      descriptionEC.text,
-    );
-    _clear();
-    _productsServices.refreshItens();
-    Get.back();
+      await _productsServices.cadastrarProdutos(
+        category.value,
+        nameEC.text,
+        _formatValue(),
+        descriptionEC.text,
+      );
+      _clear();
+      _productsServices.refreshItens();
+
+      if (Get.isDialogOpen ?? false) {
+        Get.back();
+      }
+      Get.back();
+    } catch (e) {
+      log(e.toString());
+      _loading.value = false;
+      _message.value = MessageModel(
+        title: 'Erro',
+        message: 'Erro ao cadastrar novo produto',
+        type: MessageType.error,
+      );
+    } finally {
+      _loading.value = false;
+    }
   }
 
   void _clear() {
@@ -52,7 +75,7 @@ class AddProductsController extends GetxController with LoaderMixin, MessagesMix
   }
 
   double _formatValue() {
-    return double.parse(priceEC.text.replaceAll(r'R$ ', ''));
+    return double.parse(priceEC.text.replaceAll(r'R$ ', '').replaceAll(',', '.'));
   }
 
   bool _validateForm() {
