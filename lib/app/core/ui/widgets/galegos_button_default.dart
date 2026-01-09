@@ -21,13 +21,22 @@ class GalegosButtonDefault extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RxBool isPressed = false.obs;
+    // com o Get.put, variável NÃO é resetada quando o build rodar
+    final RxBool isPressed = Get.put(false.obs, tag: label);
+
     return Obx(() {
       final scale = isPressed.value ? 0.97 : 1.00;
       return GestureDetector(
+        onTap: () async {
+          isPressed.value = true;
+          await 80.milliseconds.delay();
+          isPressed.value = false;
+          onPressed!();
+        },
         onTapDown: (_) => isPressed.value = true,
         onTapUp: (_) => isPressed.value = false,
         onTapCancel: () => isPressed.value = false,
+        behavior: .opaque,
         child: AnimatedScale(
           scale: scale,
           duration: const Duration(milliseconds: 80),
@@ -35,18 +44,22 @@ class GalegosButtonDefault extends StatelessWidget {
           child: SizedBox(
             width: width,
             height: heigth,
-            child: icon != null
-                ? ElevatedButton.icon(
-                    style: style,
-                    onPressed: onPressed,
-                    label: Text(label),
-                    icon: icon!,
-                  )
-                : ElevatedButton(
-                    style: style,
-                    onPressed: onPressed,
-                    child: Text(label),
-                  ),
+            child: IgnorePointer(
+              child: icon != null
+                  ? ElevatedButton.icon(
+                      style: style,
+                      // onPressed: onPressed,
+                      onPressed: () {},
+                      label: Text(label),
+                      icon: icon!,
+                    )
+                  : ElevatedButton(
+                      style: style,
+                      // onPressed: onPressed,
+                      onPressed: () {},
+                      child: Text(label),
+                    ),
+            ),
           ),
         ),
       );
