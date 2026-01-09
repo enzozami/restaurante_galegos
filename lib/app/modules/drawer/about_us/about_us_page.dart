@@ -11,73 +11,73 @@ class AboutUsPage extends GetView<AboutUsController> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      appBar: GalegosAppBar(
-        context: context,
-      ),
+      appBar: GalegosAppBar(context: context),
       extendBodyBehindAppBar: true,
-      body: SingleChildScrollView(
-        child: Obx(() {
-          return Column(
-            spacing: 20,
-            crossAxisAlignment: .start,
-            children: [
-              SafeArea(child: Container()),
-              Padding(
-                padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
-                child: Text(
-                  'Sobre nós',
-                  style: theme.textTheme.headlineLarge,
+      extendBody: true,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Obx(() {
+            return Column(
+              spacing: 20,
+              crossAxisAlignment: .start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
+                  child: Text(
+                    'Sobre nós',
+                    style: theme.textTheme.headlineLarge,
+                  ),
                 ),
-              ),
 
-              controller.loading.value
-                  ? Center(
-                      child: Column(
-                        spacing: 20,
-                        children: List.generate(
-                          3,
-                          (_) => CardShimmer(
-                            height: 300,
-                            width: context.widthTransformer(reducedBy: 10),
+                controller.loading.value
+                    ? Center(
+                        child: Column(
+                          spacing: 20,
+                          children: List.generate(
+                            3,
+                            (_) => CardShimmer(
+                              height: 300,
+                              width: context.widthTransformer(reducedBy: 10),
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  : Column(
-                      spacing: 20,
-                      children: [
-                        _cards(
-                          context: context,
-                          title: 'Quem somos',
-                          image:
-                              'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/b0/67/9c/photo1jpg.jpg?w=900&h=500&s=1',
-                          text: controller.quemSomos.value,
-                          theme: theme,
-                        ),
-                        _cards(
-                          context: context,
-                          title: 'Nossa filosofia',
+                      )
+                    : Column(
+                        spacing: 20,
+                        children: [
+                          _cards(
+                            context: context,
+                            title: 'Quem somos',
+                            image:
+                                'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/b0/67/9c/photo1jpg.jpg?w=900&h=500&s=1',
+                            text: controller.quemSomos.value,
+                            theme: theme,
+                          ),
+                          _cards(
+                            context: context,
+                            title: 'Nossa filosofia',
 
-                          text: controller.filosofia.value,
-                          theme: theme,
-                        ),
-                        _cardForChooseUs(
-                          context: context,
-                          title: 'Por que escolher nós?',
-                          text: controller.porqueNos.value,
-                          buffet: controller.buffet.value,
-                          service: controller.servicos.value,
-                          lunchboxes: controller.marmitas.value,
-                          theme: theme,
-                        ),
-                      ],
-                    ),
-              const SizedBox(
-                height: 25,
-              ),
-            ],
-          );
-        }),
+                            text: controller.filosofia.value,
+                            theme: theme,
+                          ),
+                          _cardForChooseUs(
+                            context: context,
+                            title: 'Por que escolher nós?',
+                            text: controller.porqueNos.value,
+                            buffet: controller.buffet.value,
+                            service: controller.servicos.value,
+                            lunchboxes: controller.marmitas.value,
+                            theme: theme,
+                          ),
+                        ],
+                      ),
+                const SizedBox(
+                  height: 25,
+                ),
+              ],
+            );
+          }),
+        ),
       ),
     );
   }

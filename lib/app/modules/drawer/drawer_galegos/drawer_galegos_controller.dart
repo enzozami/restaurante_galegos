@@ -1,14 +1,9 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
-import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 
-class DrawerGalegosController extends GetxController with LoaderMixin, MessagesMixin {
+class DrawerGalegosController extends GetxController {
   final AuthServices _authServices;
 
-  final Rxn<MessageModel> _message = Rxn<MessageModel>();
   RxString nome = ''.obs;
   RxString email = ''.obs;
   RxBool isAdmin = false.obs;
@@ -18,20 +13,11 @@ class DrawerGalegosController extends GetxController with LoaderMixin, MessagesM
   DrawerGalegosController({required AuthServices authServices}) : _authServices = authServices;
 
   @override
-  void onReady() {
-    super.onReady();
-    try {
-      nome = _authServices.nome;
-      email = _authServices.email;
-      isAdmin.value = _authServices.isAdmin();
-    } catch (e) {
-      log(e.toString());
-      _message.value = MessageModel(
-        title: 'Erro',
-        message: 'Erro ao puxar dados do usuário',
-        type: MessageType.error,
-      );
-    }
+  void onInit() {
+    super.onInit();
+    nome = _authServices.nome;
+    email = _authServices.email;
+    isAdmin.value = _authServices.isAdmin();
   }
 
   void logout() => _authServices.logout();

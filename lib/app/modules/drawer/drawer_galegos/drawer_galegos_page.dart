@@ -96,25 +96,41 @@ class ButtonDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return InkWell(
-      splashColor: theme.splashColor,
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: (icon != null)
-                ? buttonDrawer(context, title, icon!, theme)
-                : Text(
-                    title,
-                    style: theme.textTheme.titleSmall,
-                  ),
+    final isPressed = false.obs;
+    return Obx(() {
+      final scale = isPressed.value ? 0.97 : 1.0;
+      return GestureDetector(
+        onTap: onTap,
+        onTapUp: (_) => isPressed.value = false,
+        onTapCancel: () => isPressed.value = false,
+        onTapDown: (_) => isPressed.value = true,
+        child: AnimatedScale(
+          scale: scale,
+          duration: const Duration(milliseconds: 80),
+          child: Container(
+            padding: EdgeInsets.only(top: 10, left: 15, right: 15),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: (icon != null)
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                      child: buttonDrawer(context, title, icon!, theme),
+                    )
+                  : SizedBox(
+                      width: context.widthTransformer(reducedBy: 10),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Text(
+                          title,
+                          style: theme.textTheme.titleSmall,
+                        ),
+                      ),
+                    ),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 
@@ -77,6 +78,7 @@ class GalegosTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isPressed = false.obs;
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
@@ -110,13 +112,25 @@ class GalegosTextFormField extends StatelessWidget {
               )
             : null,
         suffixIcon: suffix
-            ? IconButton(
-                onPressed: onPressed,
-                icon: Icon(
-                  suffixIcon,
-                  color: AppColors.title,
-                ),
-              )
+            ? Obx(() {
+                final scale = isPressed.value ? 0.97 : 1.0;
+                return GestureDetector(
+                  onTapDown: (_) => isPressed.value = true,
+                  onTapUp: (_) => isPressed.value = false,
+                  onTapCancel: () => isPressed.value = false,
+                  child: AnimatedScale(
+                    scale: scale,
+                    duration: const Duration(milliseconds: 80),
+                    child: IconButton(
+                      onPressed: onPressed,
+                      icon: Icon(
+                        suffixIcon,
+                        color: AppColors.title,
+                      ),
+                    ),
+                  ),
+                );
+              })
             : null,
         prefixText: prefixText,
         suffixText: suffixText,

@@ -144,27 +144,40 @@ Widget _adicionarNaMarmita(
   DetailLunchboxesController controller,
 ) {
   final ThemeData theme = Theme.of(context);
-  return FloatingActionButton.extended(
-    backgroundColor: theme.primaryColor,
-    onPressed: () => controller.exibirDialogoAdicionarAoCarrinho(
-      context: context,
-    ),
-    label: (controller.itemNoCarrinho() != null)
-        ? Text(
-            "ATUALIZAR CARRINHO - ${FormatterHelper.formatCurrency(controller.totalPrice)}",
-            style: theme.textTheme.labelLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: AppColors.title,
-            ),
-          )
-        : Text(
-            "ADICIONAR AO CARRINHO - ${FormatterHelper.formatCurrency(controller.totalPrice)}",
-            style: theme.textTheme.labelLarge?.copyWith(
-              color: AppColors.title,
-              fontWeight: FontWeight.bold,
-            ),
+  final isPressed = false.obs;
+  return Obx(() {
+    final scale = isPressed.value ? 0.97 : 1.0;
+    return GestureDetector(
+      onTapDown: (_) => isPressed.value = true,
+      onTapUp: (_) => isPressed.value = false,
+      onTapCancel: () => isPressed.value = false,
+      child: AnimatedScale(
+        scale: scale,
+        duration: const Duration(milliseconds: 80),
+        child: FloatingActionButton.extended(
+          backgroundColor: theme.primaryColor,
+          onPressed: () => controller.exibirDialogoAdicionarAoCarrinho(
+            context: context,
           ),
-  );
+          label: (controller.itemNoCarrinho() != null)
+              ? Text(
+                  "ATUALIZAR CARRINHO - ${FormatterHelper.formatCurrency(controller.totalPrice)}",
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.title,
+                  ),
+                )
+              : Text(
+                  "ADICIONAR AO CARRINHO - ${FormatterHelper.formatCurrency(controller.totalPrice)}",
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    color: AppColors.title,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+        ),
+      ),
+    );
+  });
 }
 
 Widget _detailOrder({
