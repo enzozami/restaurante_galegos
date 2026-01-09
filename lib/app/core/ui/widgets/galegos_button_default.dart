@@ -31,6 +31,7 @@ class GalegosButtonDefault extends StatelessWidget {
           isPressed.value = true;
           await 80.milliseconds.delay();
           isPressed.value = false;
+          await 30.milliseconds.delay();
           onPressed!();
         },
         onTapDown: (_) => isPressed.value = true,

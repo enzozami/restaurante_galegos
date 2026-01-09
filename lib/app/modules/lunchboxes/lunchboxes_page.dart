@@ -120,23 +120,26 @@ class _FloatingActionAdmin extends StatelessWidget {
     return Obx(() {
       final scale = isPressed.value ? 0.97 : 1.0;
       return GestureDetector(
+        onTap: () async {
+          isPressed.value = true;
+          await 50.milliseconds.delay();
+          isPressed.value = false;
+          await 50.milliseconds.delay();
+          Get.toNamed('/admin/lunchboxes');
+        },
         onTapDown: (_) => isPressed.value = true,
         onTapUp: (_) => isPressed.value = false,
         onTapCancel: () => isPressed.value = false,
+        behavior: .opaque,
         child: AnimatedScale(
           scale: scale,
           duration: const Duration(milliseconds: 80),
-          child: Align(
-            alignment: AlignmentGeometry.directional(1, 1),
-            child: FloatingActionButton.extended(
-              onPressed: () {
-                Get.toNamed('/admin/lunchboxes');
-              },
-              icon: Icon(Icons.add),
-              backgroundColor: theme.floatingActionButtonTheme.backgroundColor,
-              foregroundColor: theme.floatingActionButtonTheme.foregroundColor,
-              label: Text('Adicionar'),
-            ),
+          child: FloatingActionButton.extended(
+            onPressed: null,
+            icon: Icon(Icons.add),
+            backgroundColor: theme.floatingActionButtonTheme.backgroundColor,
+            foregroundColor: theme.floatingActionButtonTheme.foregroundColor,
+            label: Text('Adicionar'),
           ),
         ),
       );
