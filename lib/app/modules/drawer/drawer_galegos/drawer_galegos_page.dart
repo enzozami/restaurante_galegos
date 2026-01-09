@@ -35,7 +35,7 @@ class DrawerGalegosPage extends GetView<DrawerGalegosController> {
                 accountEmail: Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: Text(
-                    controller.isAdmin.value ? 'Administrador' : controller.email.value,
+                    controller.isAdmin ? 'Administrador' : controller.email.value,
                     style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.secondary),
                   ),
                 ),
