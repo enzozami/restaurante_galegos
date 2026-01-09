@@ -12,9 +12,11 @@ import 'package:restaurante_galegos/app/services/time/time_services.dart';
 class WelcomeController extends GetxController with LoaderMixin, MessagesMixin {
   final TimeServices _authServices = Get.find<TimeServices>();
 
+  // TODO - CONTINUAR ARRUMANDO AQUI
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
   final dayNow = FormatterHelper.formatDate();
+  final open = false.obs;
 
   RxBool get loading => _loading;
 
@@ -27,6 +29,8 @@ class WelcomeController extends GetxController with LoaderMixin, MessagesMixin {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
+    horarioFuncionamento();
+    _openOrClose();
   }
 
   void goToLogin() => Get.toNamed('/auth/login');
@@ -50,7 +54,7 @@ class WelcomeController extends GetxController with LoaderMixin, MessagesMixin {
       _loading.value = false;
       await 100.milliseconds.delay();
       if (Get.currentRoute == '/' && Get.find<AuthServices>().getUserId() == null) {
-        goToLogin();
+        Get.toNamed('/horarioFuncionamento');
       }
     } catch (e, s) {
       _loading.value = false;
@@ -89,5 +93,10 @@ class WelcomeController extends GetxController with LoaderMixin, MessagesMixin {
     } finally {
       _loading.value = false;
     }
+  }
+
+  Future<void> _openOrClose() async {
+    final value = await _authServices.openOrClosedRestaurant();
+    open.value = value;
   }
 }
