@@ -6,7 +6,7 @@ import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/services/time/time_services.dart';
 
-class TimeController extends GetxController with LoaderMixin, MessagesMixin {
+class HorarioFuncionamentoController extends GetxController with LoaderMixin, MessagesMixin {
   final TimeServices _timeServices;
 
   final _loading = false.obs;
@@ -26,7 +26,8 @@ class TimeController extends GetxController with LoaderMixin, MessagesMixin {
   String get fimTime => _fimTime.value;
   RxBool restauranteAberto = false.obs;
 
-  TimeController({required TimeServices timeServices}) : _timeServices = timeServices;
+  HorarioFuncionamentoController({required TimeServices timeServices})
+    : _timeServices = timeServices;
 
   @override
   void onInit() {

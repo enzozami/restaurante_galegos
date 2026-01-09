@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/ui/cards/card_shimmer.dart';
 import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_app_bar.dart';
-import 'package:restaurante_galegos/app/modules/drawer/time/time_controller.dart';
+import 'package:restaurante_galegos/app/modules/drawer/horario_funcionamento/horario_funcionamento_controller.dart';
 
-class TimePage extends GetView<TimeController> {
-  const TimePage({super.key});
+class HorarioFuncionamentoPage extends GetView<HorarioFuncionamentoController> {
+  const HorarioFuncionamentoPage({super.key});
 
   @override
   Widget build(BuildContext context) {

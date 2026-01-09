@@ -51,7 +51,7 @@ class DrawerGalegosPage extends GetView<DrawerGalegosController> {
           ButtonDrawer(
             title: 'Horário de funcionamento',
             onTap: () {
-              Get.toNamed('/time');
+              Get.toNamed('/horario_funcionamento');
             },
           ),
           ButtonDrawer(

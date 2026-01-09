@@ -56,9 +56,8 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
                             Icons.delete_outline,
                             color: const Color(0xFFB10000),
                           ),
-                          onPressed: () => showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog.adaptive(
+                          onPressed: () => Get.dialog(
+                            AlertDialog.adaptive(
                               title: Text('Remover todos itens?'),
                               content: Text(
                                 'Tem certeza de que deseja remover todos os itens do carrinho?',
@@ -69,6 +68,9 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
                                   label: 'Cancelar',
                                   width: context.widthTransformer(reducedBy: 70),
                                   onPressed: () {
+                                    if (Get.isSnackbarOpen) {
+                                      Get.closeAllSnackbars();
+                                    }
                                     Get.back();
                                   },
                                 ),

@@ -108,7 +108,6 @@ class AuthServicesImpl extends GetxService implements AuthServices {
       _isLogged(getUserId() != null);
       return this;
     } else {
-      // Get.toNamed('/time');
       final snapshot = await FirebaseFirestore.instance.collection('horario_funcionamento').get();
       final horariosApi = snapshot.docs.first.data();
 

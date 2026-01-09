@@ -274,24 +274,15 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
 
           if (idItem == null) {
             addItemsToCart();
-            Get.snackbar(
-              'Item: ${product.name}',
-              'Item adicionado ao carrinho',
-              snackPosition: SnackPosition.TOP,
-              duration: Duration(seconds: 1),
-              backgroundColor: Color(0xFFE2933C),
-              colorText: Colors.black,
-              isDismissible: true,
-              overlayBlur: 0,
-              overlayColor: Colors.transparent,
-              barBlur: 0,
+            _message.value = MessageModel(
+              title: 'Item: ${product.name}',
+              message: 'Item adicionado ao carrinho',
+              type: MessageType.info,
             );
             Get.close(0);
-            log('Item clicado: ${product.name} - ${product.price}');
           } else {
             addItemsToCart();
             Get.close(0);
-            log('Item clicado: ${product.name} - ${product.price}');
           }
         },
       ),
@@ -304,47 +295,6 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     ProductModel product,
   ) {
     setSelectedItem(product);
-    // showDialog(
-    //   context: context,
-    //   builder: (context) {
-    //     final nameEC = TextEditingController(text: product.name);
-    //     final descriptionEC = TextEditingController(
-    //       text: product.description,
-    //     );
-    //     final categoryEC = TextEditingController(text: product.categoryId);
-    //     final priceEC = TextEditingController(
-    //       text: number.format(product.price),
-    //     );
-    //     return Form(
-    //       key: formKey,
-    //       child: AlertProductsLunchboxesAdm(
-    //         isProduct: true,
-    //         category: categoryEC,
-    //         nameProduct: nameEC,
-    //         description: descriptionEC,
-    //         price: priceEC,
-    //         onPressed: () async {
-    //           if (_validateForm()) {
-    //             final cleaned = priceEC.text.replaceAll('.', '').replaceAll(',', '.');
-    //             atualizarDadosDoProduto(
-    //               product.id,
-    //               product.categoryId,
-    //               descriptionEC.text,
-    //               nameEC.text,
-    //               double.parse(cleaned),
-    //             );
-    //             Get.close(0);
-    //           }
-    //         },
-    //         value: temHoje,
-    //         onChanged: (value) async {
-    //           temHoje.value = value;
-    //           await atualizarItensDoDia(product.id, product);
-    //         },
-    //       ),
-    //     );
-    //   },
-    // );
     Get.toNamed('/admin/detail/product', arguments: product);
   }
 

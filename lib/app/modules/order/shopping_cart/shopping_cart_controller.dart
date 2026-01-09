@@ -59,8 +59,15 @@ class ShoppingCartController extends GetxController with LoaderMixin, MessagesMi
   }
 
   void clear() {
+    if (Get.isSnackbarOpen) {
+      Get.closeAllSnackbars();
+    }
     _carrinhoServices.clear();
-    Get.back();
+    if (Get.isDialogOpen ?? false) {
+      Get.close(0);
+    } else if (Get.isOverlaysOpen) {
+      Get.back();
+    }
   }
 
   void adicionarQuantidadeCarrinho(CarrinhoModel p) {

@@ -198,37 +198,6 @@ class LunchboxesController extends GetxController with LoaderMixin, MessagesMixi
   void handleFoodTap(BuildContext context, FoodModel alimento, String size) {
     definirComidaSelecionada(alimento, size);
 
-    // showDialog(
-    //   context: context,
-    //   builder: (context) {
-    //     return Form(
-    //       key: formKey,
-    //       child: AlertProductsLunchboxesAdm(
-    //         isProduct: false,
-    //         onPressed: onPressedFunction,
-    //         description: newDescriptionEC,
-    //         value: novoTemHoje,
-    //         onChanged: (bool value) async {
-    //           novoTemHoje.value = value;
-    //         },
-    //         nameFood: newNameEC,
-    //         priceMini: newPriceMiniEC,
-    //         priceMedia: newPriceMediaEC,
-    // items: times
-    //     .expand((d) => d.days)
-    //     .map(
-    //       (e) => MultiSelectCard<String>(
-    //         value: e,
-    //         label: e[0],
-    //         selected: alimento.dayName.contains(e),
-    //       ),
-    //     )
-    //     .toList(),
-    // onChangedSection: onChangedSelectionFunction,
-    //       ),
-    //     );
-    //   },
-    // );
     Get.toNamed('/admin/detail/lunchboxes', arguments: alimento);
   }
 
