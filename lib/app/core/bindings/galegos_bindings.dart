@@ -18,9 +18,8 @@ class GalegosBindings implements Bindings {
       fenix: true,
     );
     Get.lazyPut<AuthRepository>(() => AuthRepositoryImpl(), fenix: true);
-    Get.lazyPut<AuthServices>(
-      () => AuthServicesImpl(authRepository: Get.find<AuthRepository>()),
-      fenix: true,
+    Get.putAsync<AuthServices>(
+      () async => AuthServicesImpl(authRepository: Get.find<AuthRepository>()),
     );
   }
 }

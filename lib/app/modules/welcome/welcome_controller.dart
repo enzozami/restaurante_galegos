@@ -10,9 +10,9 @@ import 'package:restaurante_galegos/app/services/auth/auth_services_impl.dart';
 import 'package:restaurante_galegos/app/services/time/time_services.dart';
 
 class WelcomeController extends GetxController with LoaderMixin, MessagesMixin {
-  final TimeServices _authServices = Get.find<TimeServices>();
+  final TimeServices _timeServices = Get.find<TimeServices>();
+  AuthServices get _authServices => Get.find<AuthServices>();
 
-  // TODO - CONTINUAR ARRUMANDO AQUI
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
   final dayNow = FormatterHelper.formatDate();
@@ -25,12 +25,17 @@ class WelcomeController extends GetxController with LoaderMixin, MessagesMixin {
   final fimTime = ''.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     loaderListener(_loading);
     messageListener(_message);
     horarioFuncionamento();
-    _openOrClose();
+  }
+
+  @override
+  Future<void> onReady() async {
+    super.onReady();
+    await _isOpenOrClosed();
   }
 
   void goToLogin() => Get.toNamed('/auth/login');
@@ -43,9 +48,17 @@ class WelcomeController extends GetxController with LoaderMixin, MessagesMixin {
   }
 
   Future<void> accessApp() async {
+    if (_loading.value) return;
     try {
       _loading.value = true;
       await 1.seconds.delay();
+
+      if (!open.value) {
+        _loading.value = false;
+        await Future.delayed(Duration(milliseconds: 100));
+        Get.toNamed('horarioFuncionamento');
+        return;
+      }
       if (!Get.isRegistered<AuthServicesImpl>()) {
         await Get.putAsync(() async {
           return await AuthServicesImpl(authRepository: Get.find<AuthRepository>()).init();
@@ -53,8 +66,8 @@ class WelcomeController extends GetxController with LoaderMixin, MessagesMixin {
       }
       _loading.value = false;
       await 100.milliseconds.delay();
-      if (Get.currentRoute == '/' && Get.find<AuthServices>().getUserId() == null) {
-        Get.toNamed('/horarioFuncionamento');
+      if (Get.currentRoute == '/' && _authServices.getUserId() == null) {
+        goToLogin();
       }
     } catch (e, s) {
       _loading.value = false;
@@ -72,7 +85,7 @@ class WelcomeController extends GetxController with LoaderMixin, MessagesMixin {
 
   Future<void> horarioFuncionamento() async {
     try {
-      final timeData = await _authServices.getTime();
+      final timeData = await _timeServices.getTime();
 
       final data = timeData.where((e) => e.days.contains(dayNow));
 
@@ -95,7 +108,7 @@ class WelcomeController extends GetxController with LoaderMixin, MessagesMixin {
     }
   }
 
-  Future<void> _openOrClose() async {
+  Future<void> _isOpenOrClosed() async {
     final value = await _authServices.openOrClosedRestaurant();
     open.value = value;
   }

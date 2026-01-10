@@ -37,6 +37,7 @@ class AuthRepositoryImpl implements AuthRepository {
       storage.write(Constants.USER_KEY, firebaseUser.uid);
       storage.write(Constants.ADMIN_KEY, isAdmin);
       storage.write(Constants.USER_NAME, data['nome']);
+      storage.write(Constants.USER_EMAIL, data['email']);
 
       return UserModel(
         uid: firebaseUser.uid,
@@ -112,6 +113,8 @@ class AuthRepositoryImpl implements AuthRepository {
       storage.write(Constants.USER_KEY, result.user?.uid);
       storage.write(Constants.ADMIN_KEY, false);
       storage.write(Constants.USER_NAME, result.user?.displayName);
+      storage.write(Constants.USER_EMAIL, result.user?.email);
+
       return login(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       late String mensagem;
@@ -189,6 +192,8 @@ class AuthRepositoryImpl implements AuthRepository {
       if (newEmail != null) {
         await _firebase.currentUser?.verifyBeforeUpdateEmail(newEmail);
         route.update({'email': newEmail});
+        final storage = GetStorage();
+        storage.write(Constants.USER_NAME, newName);
       }
 
       if (newPhone != null) {

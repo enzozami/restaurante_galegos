@@ -60,8 +60,10 @@ class ProfilePage extends GetView<ProfileController> {
                           child: Card(
                             margin: EdgeInsets.zero,
                             child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.grey[300],
+                              leading: Icon(
+                                Icons.person,
+                                size: 30,
+                                color: AppColors.title,
                               ),
                               title: Text(
                                 controller.nameClient.value,

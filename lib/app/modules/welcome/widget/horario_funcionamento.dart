@@ -28,7 +28,7 @@ class HorarioFuncionamento extends GetView<WelcomeController> {
                     left: 40,
                   ),
                   child: Text(
-                    'Horário de Funcionamento',
+                    'Estamos Fechados',
                     style: theme.textTheme.headlineLarge,
                   ),
                 ),

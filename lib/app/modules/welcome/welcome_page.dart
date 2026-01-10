@@ -28,17 +28,28 @@ class WelcomePage extends GetView<WelcomeController> {
                       SizedBox(
                         height: context.heightTransformer(reducedBy: 85),
                       ),
-                      controller.open.value
-                          ? GalegosButtonDefault(
-                              label: 'CADASTRAR',
-                              onPressed: () => controller.goToRegister(),
-                              width: context.widthTransformer(reducedBy: 10),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).colorScheme.secondary,
-                                foregroundColor: Theme.of(context).colorScheme.tertiary,
-                              ),
-                            )
-                          : SizedBox.shrink(),
+                      Obx(() {
+                        return controller.open.value
+                            ? GalegosButtonDefault(
+                                label: 'CADASTRAR',
+                                onPressed: () => controller.goToRegister(),
+                                width: context.widthTransformer(reducedBy: 10),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                                  foregroundColor: Theme.of(context).colorScheme.tertiary,
+                                ),
+                              )
+                            : SizedBox.shrink();
+                      }),
+                      // GalegosButtonDefault(
+                      //   label: 'CADASTRAR',
+                      //   onPressed: () => controller.goToRegister(),
+                      //   width: context.widthTransformer(reducedBy: 10),
+                      //   style: ElevatedButton.styleFrom(
+                      //     backgroundColor: Theme.of(context).colorScheme.secondary,
+                      //     foregroundColor: Theme.of(context).colorScheme.tertiary,
+                      //   ),
+                      // ),
                       GalegosButtonDefault(
                         label: 'ACESSAR',
                         width: context.widthTransformer(reducedBy: 10),

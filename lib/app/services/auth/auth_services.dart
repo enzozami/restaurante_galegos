@@ -4,6 +4,7 @@ import 'package:restaurante_galegos/app/models/user_model.dart';
 
 abstract interface class AuthServices {
   Future<AuthServices> init();
+  Future<bool> openOrClosedRestaurant();
   void logout();
   String? getUserId();
   Future<UserModel> getUser();

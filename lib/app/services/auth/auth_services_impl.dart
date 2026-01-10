@@ -40,7 +40,9 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   @override
   Future<void> onReady() async {
     super.onReady();
-    await getUser();
+    if (getUserId() != null) {
+      await getUser();
+    }
   }
 
   @override
@@ -53,8 +55,14 @@ class AuthServicesImpl extends GetxService implements AuthServices {
     required String email,
     required String password,
     required String phone,
-  }) => _authRepository.register(name: name, email: email, password: password, phone: phone);
+  }) => _authRepository.register(
+    name: name,
+    email: email,
+    password: password,
+    phone: phone,
+  );
 
+  @override
   Future<bool> openOrClosedRestaurant() async {
     if (kDebugMode) return true;
     final now = DateTime.now();
@@ -88,7 +96,7 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   @override
   Future<AuthServices> init() async {
     _name.value = _getStorage.read(Constants.USER_NAME) ?? '';
-    _userEmail.value = _getStorage.read(Constants.USER_KEY) ?? '';
+    _userEmail.value = _getStorage.read(Constants.USER_EMAIL) ?? '';
 
     if (await openOrClosedRestaurant()) {
       _getStorage.listenKey(Constants.USER_KEY, (value) {
@@ -99,6 +107,9 @@ class AuthServicesImpl extends GetxService implements AuthServices {
       });
       _getStorage.listenKey(Constants.USER_NAME, (value) {
         _name.value = value ?? '';
+      });
+      _getStorage.listenKey(Constants.USER_EMAIL, (value) {
+        _userEmail.value = value ?? '';
       });
 
       ever(_isLogged, (isLogged) {
@@ -131,6 +142,7 @@ class AuthServicesImpl extends GetxService implements AuthServices {
     _getStorage.write(Constants.USER_KEY, null);
     _getStorage.write(Constants.ADMIN_KEY, null);
     _getStorage.write(Constants.USER_NAME, null);
+    _getStorage.write(Constants.USER_EMAIL, null);
     Get.offAllNamed('/');
   }
 
@@ -155,6 +167,7 @@ class AuthServicesImpl extends GetxService implements AuthServices {
     _userEmail.value = user.email;
 
     await _getStorage.write(Constants.USER_NAME, user.nome);
+    await _getStorage.write(Constants.USER_EMAIL, user.email);
     return user;
   }
 
