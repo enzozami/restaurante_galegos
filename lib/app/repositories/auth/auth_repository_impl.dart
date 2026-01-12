@@ -34,10 +34,10 @@ class AuthRepositoryImpl implements AuthRepository {
       final bool isAdmin = data['isAdmin'] ?? false;
 
       final storage = GetStorage();
-      storage.write(Constants.USER_KEY, firebaseUser.uid);
-      storage.write(Constants.ADMIN_KEY, isAdmin);
-      storage.write(Constants.USER_NAME, data['nome']);
-      storage.write(Constants.USER_EMAIL, data['email']);
+      await storage.write(Constants.USER_KEY, firebaseUser.uid);
+      await storage.write(Constants.ADMIN_KEY, isAdmin);
+      await storage.write(Constants.USER_NAME, data['nome']);
+      await storage.write(Constants.USER_EMAIL, data['email']);
 
       return UserModel(
         uid: firebaseUser.uid,
@@ -110,12 +110,19 @@ class AuthRepositoryImpl implements AuthRepository {
       });
 
       final storage = GetStorage();
-      storage.write(Constants.USER_KEY, result.user?.uid);
-      storage.write(Constants.ADMIN_KEY, false);
-      storage.write(Constants.USER_NAME, result.user?.displayName);
-      storage.write(Constants.USER_EMAIL, result.user?.email);
+      await storage.write(Constants.USER_KEY, result.user?.uid);
+      await storage.write(Constants.ADMIN_KEY, false);
+      await storage.write(Constants.USER_NAME, name);
+      await storage.write(Constants.USER_EMAIL, email);
 
-      return login(email: email, password: password);
+      return UserModel(
+        uid: firebaseUser.uid,
+        nome: name,
+        email: email,
+        password: password,
+        phone: phone,
+        isAdmin: false,
+      );
     } on FirebaseAuthException catch (e) {
       late String mensagem;
 

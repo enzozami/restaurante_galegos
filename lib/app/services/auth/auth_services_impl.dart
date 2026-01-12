@@ -98,43 +98,49 @@ class AuthServicesImpl extends GetxService implements AuthServices {
     _name.value = _getStorage.read(Constants.USER_NAME) ?? '';
     _userEmail.value = _getStorage.read(Constants.USER_EMAIL) ?? '';
 
-    if (await openOrClosedRestaurant()) {
-      _getStorage.listenKey(Constants.USER_KEY, (value) {
-        _isLogged(value != null);
-      });
-      _getStorage.listenKey(Constants.ADMIN_KEY, (value) {
-        _isAdmin((value is bool) ? value : false);
-      });
-      _getStorage.listenKey(Constants.USER_NAME, (value) {
-        _name.value = value ?? '';
-      });
-      _getStorage.listenKey(Constants.USER_EMAIL, (value) {
-        _userEmail.value = value ?? '';
-      });
+    _getStorage.listenKey(Constants.USER_KEY, (value) {
+      _isLogged(value != null);
+    });
+    _getStorage.listenKey(Constants.ADMIN_KEY, (value) {
+      _isAdmin((value is bool) ? value : false);
+    });
+    _getStorage.listenKey(Constants.USER_NAME, (value) {
+      _name.value = value ?? '';
+    });
+    _getStorage.listenKey(Constants.USER_EMAIL, (value) {
+      _userEmail.value = value ?? '';
+    });
 
-      ever(_isLogged, (isLogged) {
-        if (isLogged == true) {
+    ever(_isLogged, (isLogged) async {
+      if (isLogged == true) {
+        if (await openOrClosedRestaurant()) {
           Get.offAllNamed('/home');
+        } else {
+          logout();
+          _showClosedSnackbar();
         }
-      });
+      } else if (isLogged == false) {
+        Get.offAllNamed('/');
+      }
+    });
 
-      _isLogged(getUserId() != null);
-      return this;
-    } else {
-      final snapshot = await FirebaseFirestore.instance.collection('horario_funcionamento').get();
-      final horariosApi = snapshot.docs.first.data();
+    _isLogged(getUserId() != null);
+    return this;
+  }
 
-      Get.snackbar(
-        'Fora do horário de funcionamento',
-        'Nós funcionamos das ${horariosApi['inicio']}h às ${horariosApi['fim']}h!',
-        backgroundColor: AppColors.primary,
-        colorText: Colors.black,
-        margin: EdgeInsets.all(20),
-        duration: const Duration(seconds: 3),
-        snackPosition: .TOP,
-      );
-      return this;
-    }
+  Future<void> _showClosedSnackbar() async {
+    final snapshot = await FirebaseFirestore.instance.collection('horario_funcionamento').get();
+    final horariosApi = snapshot.docs.first.data();
+
+    Get.snackbar(
+      'Fora do horário de funcionamento',
+      'Nós funcionamos das ${horariosApi['inicio']}h às ${horariosApi['fim']}h!',
+      backgroundColor: AppColors.primary,
+      colorText: Colors.black,
+      margin: EdgeInsets.all(20),
+      duration: const Duration(seconds: 3),
+      snackPosition: .TOP,
+    );
   }
 
   @override
