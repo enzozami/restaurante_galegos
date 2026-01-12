@@ -99,33 +99,35 @@ class AboutUsPage extends GetView<AboutUsController> {
                           ],
                         ),
 
-                  Row(
-                    mainAxisAlignment: .spaceAround,
-                    children: [
-                      Center(
-                        child: GalegosButtonDefault(
-                          width: context.widthTransformer(reducedBy: 60),
-                          style: theme.elevatedButtonTheme.style?.copyWith(
-                            backgroundColor: WidgetStatePropertyAll<Color>(
-                              theme.colorScheme.error,
+                  controller.admin
+                      ? Row(
+                          mainAxisAlignment: .spaceAround,
+                          children: [
+                            Center(
+                              child: GalegosButtonDefault(
+                                width: context.widthTransformer(reducedBy: 60),
+                                style: theme.elevatedButtonTheme.style?.copyWith(
+                                  backgroundColor: WidgetStatePropertyAll<Color>(
+                                    theme.colorScheme.error,
+                                  ),
+                                  foregroundColor: WidgetStatePropertyAll<Color>(
+                                    theme.colorScheme.onError,
+                                  ),
+                                ),
+                                label: 'Cancelar',
+                                onPressed: () => controller.desfazerAlteracoes(),
+                              ),
                             ),
-                            foregroundColor: WidgetStatePropertyAll<Color>(
-                              theme.colorScheme.onError,
+                            Center(
+                              child: GalegosButtonDefault(
+                                width: context.widthTransformer(reducedBy: 60),
+                                label: 'Salvar',
+                                onPressed: () async => await controller.atualizarDados(),
+                              ),
                             ),
-                          ),
-                          label: 'Cancelar',
-                          onPressed: () => controller.desfazerAlteracoes(),
-                        ),
-                      ),
-                      Center(
-                        child: GalegosButtonDefault(
-                          width: context.widthTransformer(reducedBy: 60),
-                          label: 'Salvar',
-                          onPressed: () async => await controller.atualizarDados(),
-                        ),
-                      ),
-                    ],
-                  ),
+                          ],
+                        )
+                      : SizedBox.shrink(),
                   const SizedBox(
                     height: 25,
                   ),

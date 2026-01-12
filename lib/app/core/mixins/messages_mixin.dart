@@ -8,18 +8,29 @@ mixin MessagesMixin on GetxController {
       message,
       (model) async {
         if (model != null) {
-          await 100.milliseconds.delay();
-          Get.snackbar(
-            model.title,
-            model.message,
-            backgroundColor: model.type.color(),
-            colorText: model.type.textColor(),
-            margin: EdgeInsets.all(20),
-            duration: const Duration(seconds: 3),
-            snackPosition: .TOP,
+          // await 100.milliseconds.delay();
+          Get.rawSnackbar(
+            titleText: Text(
+              model.title,
+              style: TextStyle(
+                color: model.type.textColor(),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            messageText: Text(
+              model.message,
+              style: TextStyle(color: model.type.textColor()),
+            ),
+            backgroundColor: model.type.color() ?? Colors.grey,
+            margin: const EdgeInsets.all(20),
+            borderRadius: 10,
+            snackPosition: SnackPosition.TOP,
+            duration: const Duration(seconds: 1),
+            isDismissible: true,
+            overlayBlur: 0,
           );
           message.value = null;
-          await 100.milliseconds.delay();
+          // await 100.milliseconds.delay();
         }
       },
     );

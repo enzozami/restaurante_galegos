@@ -43,6 +43,12 @@ class DetailLunchboxesController extends GetxController with MessagesMixin {
     }
   }
 
+  @override
+  void onClose() {
+    observacoes.dispose();
+    super.onClose();
+  }
+
   CarrinhoModel? itemNoCarrinho() {
     return _carrinhoServices.itensCarrinho.firstWhereOrNull((p) => p.item.alimento?.id == food.id);
   }
@@ -57,20 +63,19 @@ class DetailLunchboxesController extends GetxController with MessagesMixin {
     }
   }
 
-  void _adicionarMarmitaAoCarrinho() {
+  Future<void> exibirDialogoAdicionarAoCarrinho({
+    required BuildContext context,
+  }) async {
     _carrinhoServices.addOrUpdateFood(
       food,
       quantity: _quantity.value,
       selectedSize: sizeSelected.value,
     );
-    sizeSelected.value = '';
-    Get.back();
-  }
 
-  Future<void> exibirDialogoAdicionarAoCarrinho({
-    required BuildContext context,
-  }) async {
-    _adicionarMarmitaAoCarrinho();
+    Get.back(closeOverlays: false);
+
+    sizeSelected.value = '';
+
     _message.value = MessageModel(
       title: 'Item: ${food.name}',
       message: 'Item adicionado no carrinho',
