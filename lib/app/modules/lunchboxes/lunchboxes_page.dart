@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/dialogs/alert_for_add_to_cart.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/filter_tag.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/text_shimmer.dart';
 import 'package:restaurante_galegos/app/modules/lunchboxes/widgets/alimentos_widget.dart';
@@ -13,92 +12,94 @@ class LunchboxesPage extends GetView<LunchboxesController> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return Scaffold(
-      floatingActionButton: controller.admin
-          ? _FloatingActionAdmin(
-              controller: controller,
-            )
-          : null,
+    return SafeArea(
+      child: Scaffold(
+        floatingActionButton: controller.admin
+            ? _FloatingActionAdmin(
+                controller: controller,
+              )
+            : null,
 
-      body: RefreshIndicator.noSpinner(
-        onRefresh: controller.refreshLunchboxes,
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minWidth: constraints.maxWidth,
-                  minHeight: constraints.maxHeight,
-                ),
-                child: Column(
-                  children: [
-                    SafeArea(child: Container()),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                      child: Obx(() {
-                        return Visibility(
-                          visible: controller.admin != true,
-                          replacement: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: controller.times
-                                  .expand((e) => e.days)
-                                  .map(
-                                    (d) => FilterTag(
-                                      isPressedDay: controller.daysPressing,
-                                      onTapCancel: () => controller.handlePressFilter(null),
-                                      onTapDown: (_) => controller.handlePressFilter(d),
-                                      onTapUp: (_) => controller.handlePressFilter(null),
-                                      isSelected: controller.daysSelected.value == d,
-                                      onPressed: () {
-                                        controller.filtrarPorDia(d);
-                                      },
-                                      days: d,
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          ),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 40.0,
-                              ),
-                              child: controller.loading.value
-                                  ? Column(
-                                      children: List.generate(
-                                        1,
-                                        (_) => TextShimmer(width: 300, lines: 2),
+        body: RefreshIndicator.noSpinner(
+          onRefresh: controller.refreshLunchboxes,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minWidth: constraints.maxWidth,
+                    minHeight: constraints.maxHeight,
+                  ),
+                  child: Column(
+                    children: [
+                      SafeArea(child: Container()),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                        child: Obx(() {
+                          return Visibility(
+                            visible: controller.admin != true,
+                            replacement: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: controller.times
+                                    .expand((e) => e.days)
+                                    .map(
+                                      (d) => FilterTag(
+                                        isPressedDay: controller.daysPressing,
+                                        onTapCancel: () => controller.handlePressFilter(null),
+                                        onTapDown: (_) => controller.handlePressFilter(d),
+                                        onTapUp: (_) => controller.handlePressFilter(null),
+                                        isSelected: controller.daysSelected.value == d,
+                                        onPressed: () {
+                                          controller.filtrarPorDia(d);
+                                        },
+                                        days: d,
                                       ),
                                     )
-                                  : Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Marmitas de Hoje',
-                                          textAlign: TextAlign.center,
-                                          style: theme.textTheme.headlineLarge,
-                                        ),
-                                        Text(
-                                          controller.dayNow,
-                                          style: theme.textTheme.titleSmall,
-                                        ),
-                                      ],
-                                    ),
+                                    .toList(),
+                              ),
                             ),
-                          ),
-                        );
-                      }),
-                    ),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 40.0,
+                                ),
+                                child: controller.loading.value
+                                    ? Column(
+                                        children: List.generate(
+                                          1,
+                                          (_) => TextShimmer(width: 300, lines: 2),
+                                        ),
+                                      )
+                                    : Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Marmitas de Hoje',
+                                            textAlign: TextAlign.center,
+                                            style: theme.textTheme.headlineLarge,
+                                          ),
+                                          Text(
+                                            controller.dayNow,
+                                            style: theme.textTheme.titleSmall,
+                                          ),
+                                        ],
+                                      ),
+                              ),
+                            ),
+                          );
+                        }),
+                      ),
 
-                    AlimentosWidget(),
-                  ],
+                      AlimentosWidget(),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );
@@ -115,27 +116,33 @@ class _FloatingActionAdmin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return Align(
-      alignment: AlignmentGeometry.directional(1, 1),
-      child: FloatingActionButton.extended(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return Form(
-                key: controller.formKey,
-                child: AlertForAddToCart(
-                  isProduct: false,
-                ),
-              );
-            },
-          );
+    final isPressed = false.obs;
+    return Obx(() {
+      final scale = isPressed.value ? 0.97 : 1.0;
+      return GestureDetector(
+        onTap: () async {
+          isPressed.value = true;
+          await 50.milliseconds.delay();
+          isPressed.value = false;
+          await 50.milliseconds.delay();
+          Get.toNamed('/admin/lunchboxes');
         },
-        icon: Icon(Icons.add),
-        backgroundColor: theme.floatingActionButtonTheme.backgroundColor,
-        foregroundColor: theme.floatingActionButtonTheme.foregroundColor,
-        label: Text('Adicionar'),
-      ),
-    );
+        onTapDown: (_) => isPressed.value = true,
+        onTapUp: (_) => isPressed.value = false,
+        onTapCancel: () => isPressed.value = false,
+        behavior: .opaque,
+        child: AnimatedScale(
+          scale: scale,
+          duration: const Duration(milliseconds: 80),
+          child: FloatingActionButton.extended(
+            onPressed: null,
+            icon: Icon(Icons.add),
+            backgroundColor: theme.floatingActionButtonTheme.backgroundColor,
+            foregroundColor: theme.floatingActionButtonTheme.foregroundColor,
+            label: Text('Adicionar'),
+          ),
+        ),
+      );
+    });
   }
 }

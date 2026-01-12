@@ -112,14 +112,7 @@ class DeliveryAddressController extends GetxController with LoaderMixin, Message
     numero.value = '';
     numeroEC.text = '';
     cepEC.text = '';
-  }
-
-  bool addressValidation() {
-    return cepEC.text.isNotEmpty &&
-        cepEC.text != '' &&
-        cep.value != '' &&
-        cepInput.value.length == 9 &&
-        cepInput.value == cep.value;
+    cepInput.value = '';
   }
 
   Future<void> enviarDadosParaPagamento() async {
@@ -167,9 +160,8 @@ class DeliveryAddressController extends GetxController with LoaderMixin, Message
     }
   }
 
-  bool validationOnReplacement() {
-    return cepEC.text.isNotEmpty && cepInput.value.length == 9;
-  }
+  bool get _isCepFormatValid => cepEC.text.isNotEmpty;
+  bool get canConsultCep => cepInput.value.length == 9;
 
   bool validationIsOpen() {
     return isOpen.value == true;
@@ -177,5 +169,12 @@ class DeliveryAddressController extends GetxController with LoaderMixin, Message
 
   void closeCard() {
     isOpen.value = !isOpen.value;
+  }
+
+  bool addressValidation() {
+    return _isCepFormatValid &&
+        canConsultCep &&
+        cep.value.isNotEmpty &&
+        cepInput.value == cep.value;
   }
 }

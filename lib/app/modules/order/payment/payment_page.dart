@@ -19,100 +19,102 @@ class PaymentPage extends GetView<PaymentController> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      appBar: GalegosAppBar(
-        context: context,
-      ),
-      body: SingleChildScrollView(
-        child: Obx(() {
-          return Column(
-            crossAxisAlignment: .start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
-                child: Text(
-                  'Pagamento',
-                  style: theme.textTheme.headlineLarge,
+      appBar: GalegosAppBar(context: context),
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Obx(() {
+            return Column(
+              crossAxisAlignment: .start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
+                  child: Text(
+                    'Pagamento',
+                    style: theme.textTheme.headlineLarge,
+                  ),
                 ),
-              ),
-              Center(
-                child: Column(
-                  spacing: 15,
-                  children: [
-                    CardValores(
-                      preco: controller.args['preco'],
-                      taxa: controller.args['taxa'],
-                      carrinho: false,
-                    ),
-                    _cardPagamento(
-                      context: context,
-                      title: 'Cartão',
-                      icon: Restaurante.credit_card,
-                      subtitle: 'Crédito ou Débito',
-                      type: PaymentType.cartao,
-                      controller: controller,
-                      theme: theme,
-                    ),
-                    _cardPagamento(
-                      context: context,
-                      title: 'Vale (VA/VR)',
-                      icon: Restaurante.ticket_alt,
-                      subtitle: 'Alimentação ou Refeição',
-                      type: PaymentType.vale,
-                      controller: controller,
-                      theme: theme,
-                    ),
-                    _cardPagamento(
-                      context: context,
-                      title: 'Dinheiro',
-                      icon: Restaurante.money_bill_wave,
-                      subtitle: 'Pagamento em espécie',
-                      type: PaymentType.dinheiro,
-                      controller: controller,
-                      theme: theme,
-                    ),
-                    _cardPagamento(
-                      context: context,
-                      title: 'PIX',
-                      icon: Icons.qr_code_2,
-                      subtitle: '',
-                      type: PaymentType.pix,
-                      controller: controller,
-                      theme: theme,
-                    ),
-                  ],
+                Center(
+                  child: Column(
+                    spacing: 15,
+                    children: [
+                      CardValores(
+                        preco: controller.args['preco'],
+                        taxa: controller.args['taxa'],
+                        carrinho: false,
+                      ),
+                      _cardPagamento(
+                        context: context,
+                        title: 'Cartão',
+                        icon: Restaurante.credit_card,
+                        subtitle: 'Crédito ou Débito',
+                        type: PaymentType.cartao,
+                        controller: controller,
+                        theme: theme,
+                      ),
+                      _cardPagamento(
+                        context: context,
+                        title: 'Vale (VA/VR)',
+                        icon: Restaurante.ticket_alt,
+                        subtitle: 'Alimentação ou Refeição',
+                        type: PaymentType.vale,
+                        controller: controller,
+                        theme: theme,
+                      ),
+                      _cardPagamento(
+                        context: context,
+                        title: 'Dinheiro',
+                        icon: Restaurante.money_bill_wave,
+                        subtitle: 'Pagamento em espécie',
+                        type: PaymentType.dinheiro,
+                        controller: controller,
+                        theme: theme,
+                      ),
+                      _cardPagamento(
+                        context: context,
+                        title: 'PIX',
+                        icon: Icons.qr_code_2,
+                        subtitle: '',
+                        type: PaymentType.pix,
+                        controller: controller,
+                        theme: theme,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              (controller.paymentType.value != PaymentType.nulo)
-                  ? Column(
-                      children: [
-                        Divider(),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Center(
-                          child: GalegosButtonDefault(
-                            label: 'AVANÇAR',
-                            width: context.widthTransformer(reducedBy: 10),
-                            onPressed: () {
-                              Get.toNamed(
-                                '/order/finish',
-                                arguments: controller.arguments(),
-                              );
-                            },
+                SizedBox(
+                  height: 20,
+                ),
+                (controller.paymentType.value != PaymentType.nulo)
+                    ? Column(
+                        children: [
+                          Divider(),
+                          SizedBox(
+                            height: 20,
                           ),
-                        ),
-                      ],
-                    )
-                  : SizedBox.shrink(),
-              SizedBox(
-                height: 50,
-              ),
-            ],
-          );
-        }),
+                          Center(
+                            child: GalegosButtonDefault(
+                              label: 'AVANÇAR',
+                              width: context.widthTransformer(reducedBy: 10),
+                              onPressed: () {
+                                Get.toNamed(
+                                  '/order/finish',
+                                  arguments: controller.arguments(),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    : SizedBox.shrink(),
+                SizedBox(
+                  height: 50,
+                ),
+              ],
+            );
+          }),
+        ),
       ),
     );
   }
@@ -128,136 +130,149 @@ Widget _cardPagamento({
   required ThemeData theme,
 }) {
   final isSelected = controller.paymentType.value == type;
-  return RadioGroup(
-    groupValue: controller.paymentType.value,
-    onChanged: (value) => controller.changePaymentType(value as PaymentType),
-    child: Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-      child: Card(
-        elevation: 5,
-        color: (isSelected) ? theme.colorScheme.tertiary : theme.colorScheme.secondary,
-        child: GestureDetector(
-          onTap: () => controller.changePaymentType(type),
-          child: SizedBox(
-            width: context.widthTransformer(reducedBy: 10),
-            child: Column(
-              children: [
-                ListTile(
-                  iconColor: (isSelected)
-                      ? theme.colorScheme.secondary
-                      : theme.colorScheme.tertiary,
-                  contentPadding: const EdgeInsets.all(8.0),
-                  title: Row(
+  final isPressed = false.obs;
+  return Obx(() {
+    final scale = isPressed.value ? 0.97 : 1.0;
+    return GestureDetector(
+      onTapCancel: () => isPressed.value = false,
+      onTapUp: (_) => isPressed.value = false,
+      onTapDown: (_) => isPressed.value = true,
+      child: AnimatedScale(
+        scale: scale,
+        duration: const Duration(milliseconds: 80),
+        child: RadioGroup(
+          groupValue: controller.paymentType.value,
+          onChanged: (value) => controller.changePaymentType(value as PaymentType),
+          child: Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+            child: Card(
+              elevation: 5,
+              color: (isSelected) ? theme.colorScheme.tertiary : theme.colorScheme.secondary,
+              child: GestureDetector(
+                onTap: () => controller.changePaymentType(type),
+                child: SizedBox(
+                  width: context.widthTransformer(reducedBy: 10),
+                  child: Column(
                     children: [
-                      Icon(icon),
-                      const SizedBox(
-                        width: 15,
+                      ListTile(
+                        iconColor: (isSelected)
+                            ? theme.colorScheme.secondary
+                            : theme.colorScheme.tertiary,
+                        contentPadding: const EdgeInsets.all(8.0),
+                        title: Row(
+                          children: [
+                            Icon(icon),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              title,
+                              style: (isSelected)
+                                  ? theme.textTheme.titleSmall?.copyWith(
+                                      color: AppColors.secondary,
+                                    )
+                                  : theme.textTheme.titleSmall,
+                            ),
+                          ],
+                        ),
+                        subtitle: Text(
+                          subtitle,
+                          style: (isSelected)
+                              ? theme.textTheme.bodyMedium?.copyWith(
+                                  color: AppColors.secondary,
+                                )
+                              : theme.textTheme.bodyMedium,
+                        ),
+                        leading: Radio<PaymentType>.adaptive(value: type),
                       ),
-                      Text(
-                        title,
-                        style: (isSelected)
-                            ? theme.textTheme.titleSmall?.copyWith(
-                                color: AppColors.secondary,
+                      if (isSelected)
+                        (type == PaymentType.cartao)
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  color: theme.colorScheme.secondary,
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    _cardType(
+                                      context: context,
+                                      title: 'Crédito',
+                                      subtitle: subtitle,
+                                      type: CardType.credito,
+                                      controller: controller,
+                                      theme: theme,
+                                    ),
+                                    _cardType(
+                                      context: context,
+                                      title: 'Débito',
+                                      subtitle: subtitle,
+                                      type: CardType.debito,
+                                      controller: controller,
+                                      theme: theme,
+                                    ),
+                                  ],
+                                ),
                               )
-                            : theme.textTheme.titleSmall,
-                      ),
+                            : (type == PaymentType.vale)
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  color: theme.colorScheme.secondary,
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    _cardVale(
+                                      context: context,
+                                      title: 'Alimentação',
+                                      subtitle: subtitle,
+                                      type: ValeType.alimentacao,
+                                      controller: controller,
+                                      theme: theme,
+                                    ),
+                                    _cardVale(
+                                      context: context,
+                                      title: 'Refeição',
+                                      subtitle: subtitle,
+                                      type: ValeType.refeicao,
+                                      controller: controller,
+                                      theme: theme,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : (type == PaymentType.pix)
+                            ? SizedBox.shrink()
+                            : Container(
+                                decoration: BoxDecoration(
+                                  color: theme.colorScheme.secondary,
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                  ),
+                                ),
+                                child: _cardDinheiro(
+                                  context: context,
+                                  controller: controller,
+                                  title: 'Troco para quanto?',
+                                  subtitle: 'Deixe vazio se não precisar de troco',
+                                ),
+                              ),
                     ],
                   ),
-                  subtitle: Text(
-                    subtitle,
-                    style: (isSelected)
-                        ? theme.textTheme.bodyMedium?.copyWith(
-                            color: AppColors.secondary,
-                          )
-                        : theme.textTheme.bodyMedium,
-                  ),
-                  leading: Radio<PaymentType>.adaptive(value: type),
                 ),
-                if (isSelected)
-                  (type == PaymentType.cartao)
-                      ? Container(
-                          decoration: BoxDecoration(
-                            color: theme.colorScheme.secondary,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10),
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              _cardType(
-                                context: context,
-                                title: 'Crédito',
-                                subtitle: subtitle,
-                                type: CardType.credito,
-                                controller: controller,
-                                theme: theme,
-                              ),
-                              _cardType(
-                                context: context,
-                                title: 'Débito',
-                                subtitle: subtitle,
-                                type: CardType.debito,
-                                controller: controller,
-                                theme: theme,
-                              ),
-                            ],
-                          ),
-                        )
-                      : (type == PaymentType.vale)
-                      ? Container(
-                          decoration: BoxDecoration(
-                            color: theme.colorScheme.secondary,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10),
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              _cardVale(
-                                context: context,
-                                title: 'Alimentação',
-                                subtitle: subtitle,
-                                type: ValeType.alimentacao,
-                                controller: controller,
-                                theme: theme,
-                              ),
-                              _cardVale(
-                                context: context,
-                                title: 'Refeição',
-                                subtitle: subtitle,
-                                type: ValeType.refeicao,
-                                controller: controller,
-                                theme: theme,
-                              ),
-                            ],
-                          ),
-                        )
-                      : (type == PaymentType.pix)
-                      ? SizedBox.shrink()
-                      : Container(
-                          decoration: BoxDecoration(
-                            color: theme.colorScheme.secondary,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10),
-                            ),
-                          ),
-                          child: _cardDinheiro(
-                            context: context,
-                            controller: controller,
-                            title: 'Troco para quanto?',
-                            subtitle: 'Deixe vazio se não precisar de troco',
-                          ),
-                        ),
-              ],
+              ),
             ),
           ),
         ),
       ),
-    ),
-  );
+    );
+  });
 }
 
 Widget _cardType({

@@ -27,5 +27,7 @@ class AppColors {
     onError: Colors.white,
     surface: background,
     onSurface: Color(0xFF3D3028),
+    primaryContainer: title,
+    secondaryContainer: text,
   );
 }

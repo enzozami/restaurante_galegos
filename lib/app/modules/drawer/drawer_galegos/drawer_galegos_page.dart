@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:restaurante_galegos/app/core/ui/dialogs/alert_dialog_confirm_exit.dart';
-import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
+import './drawer_galegos_controller.dart';
 
-import '../theme/app_colors.dart';
-
-class GalegosDrawer extends GetView<AuthServices> {
-  const GalegosDrawer({super.key});
+class DrawerGalegosPage extends GetView<DrawerGalegosController> {
+  const DrawerGalegosPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,27 +18,29 @@ class GalegosDrawer extends GetView<AuthServices> {
         children: [
           SizedBox(
             height: context.heightTransformer(reducedBy: 70),
-            child: UserAccountsDrawerHeader(
-              decoration: BoxDecoration(
-                color: theme.colorScheme.tertiary,
-              ),
-              accountName: Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Text(
-                  'Olá, ${controller.getUserName()}',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: AppColors.secondary,
+            child: Obx(() {
+              return UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.tertiary,
+                ),
+                accountName: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    'Olá, ${controller.nome}',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: theme.colorScheme.secondary,
+                    ),
                   ),
                 ),
-              ),
-              accountEmail: Visibility(
-                visible: controller.isAdmin(),
-                child: Padding(
+                accountEmail: Padding(
                   padding: const EdgeInsets.only(left: 10.0),
-                  child: Text('Administrador'),
+                  child: Text(
+                    controller.isAdmin ? 'Administrador' : controller.email,
+                    style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.secondary),
+                  ),
                 ),
-              ),
-            ),
+              );
+            }),
           ),
           ButtonDrawer(
             title: 'Perfil',
@@ -51,7 +51,7 @@ class GalegosDrawer extends GetView<AuthServices> {
           ButtonDrawer(
             title: 'Horário de funcionamento',
             onTap: () {
-              Get.toNamed('/time');
+              Get.toNamed('/horario_funcionamento');
             },
           ),
           ButtonDrawer(
@@ -96,25 +96,41 @@ class ButtonDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return InkWell(
-      splashColor: theme.splashColor,
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: (icon != null)
-                ? buttonDrawer(context, title, icon!, theme)
-                : Text(
-                    title,
-                    style: theme.textTheme.titleSmall,
-                  ),
+    final isPressed = false.obs;
+    return Obx(() {
+      final scale = isPressed.value ? 0.97 : 1.0;
+      return GestureDetector(
+        onTap: onTap,
+        onTapUp: (_) => isPressed.value = false,
+        onTapCancel: () => isPressed.value = false,
+        onTapDown: (_) => isPressed.value = true,
+        child: AnimatedScale(
+          scale: scale,
+          duration: const Duration(milliseconds: 80),
+          child: Container(
+            padding: EdgeInsets.only(top: 10, left: 15, right: 15),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: (icon != null)
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                      child: buttonDrawer(context, title, icon!, theme),
+                    )
+                  : SizedBox(
+                      width: context.widthTransformer(reducedBy: 10),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Text(
+                          title,
+                          style: theme.textTheme.titleSmall,
+                        ),
+                      ),
+                    ),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 

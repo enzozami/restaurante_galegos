@@ -33,16 +33,15 @@ class AuthRepositoryImpl implements AuthRepository {
       final data = userDoc.data()!;
       final bool isAdmin = data['isAdmin'] ?? false;
 
-      log('Usuário é administrador: $isAdmin - (AUTHREPOSITORY)');
-
       final storage = GetStorage();
-      storage.write(Constants.USER_KEY, firebaseUser.uid);
-      storage.write(Constants.ADMIN_KEY, isAdmin);
-      storage.write(Constants.USER_NAME, firebaseUser.displayName);
+      await storage.write(Constants.USER_KEY, firebaseUser.uid);
+      await storage.write(Constants.ADMIN_KEY, isAdmin);
+      await storage.write(Constants.USER_NAME, data['nome']);
+      await storage.write(Constants.USER_EMAIL, data['email']);
 
       return UserModel(
         uid: firebaseUser.uid,
-        name: data['nome'] ?? '',
+        nome: data['nome'] ?? '',
         email: data['email'] ?? '',
         password: password,
         phone: data['phone'],
@@ -111,10 +110,19 @@ class AuthRepositoryImpl implements AuthRepository {
       });
 
       final storage = GetStorage();
-      storage.write(Constants.USER_KEY, result.user?.uid);
-      storage.write(Constants.ADMIN_KEY, false);
-      storage.write(Constants.USER_NAME, result.user?.displayName);
-      return login(email: email, password: password);
+      await storage.write(Constants.USER_KEY, result.user?.uid);
+      await storage.write(Constants.ADMIN_KEY, false);
+      await storage.write(Constants.USER_NAME, name);
+      await storage.write(Constants.USER_EMAIL, email);
+
+      return UserModel(
+        uid: firebaseUser.uid,
+        nome: name,
+        email: email,
+        password: password,
+        phone: phone,
+        isAdmin: false,
+      );
     } on FirebaseAuthException catch (e) {
       late String mensagem;
 
@@ -157,17 +165,59 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> updateUserName({required String newName}) async {
+  Future<UserModel> getUser() async {
+    final userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(_firebase.currentUser?.uid)
+        .get();
+    if (!userDoc.exists) {
+      throw Exception("Usuário não encontrado");
+    }
+    final data = userDoc.data()!;
+
+    data['uid'] = userDoc.id;
+
+    return UserModel.fromMap(data);
+  }
+
+  @override
+  Future<void> updateData(String? newName, String? newEmail, String? newPhone) async {
+    final route = FirebaseFirestore.instance
+        .collection('users')
+        .doc(_firebase.currentUser?.uid.toString());
+
     if (_firebase.currentUser != null) {
-      await _firebase.currentUser?.updateDisplayName(newName);
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(_firebase.currentUser?.uid.toString())
-          .update(
-            {'nome': newName},
-          );
-      final storage = GetStorage();
-      storage.write(Constants.USER_NAME, newName);
+      if (newName != null) {
+        await _firebase.currentUser?.updateDisplayName(newName);
+        route.update(
+          {'nome': newName},
+        );
+        final storage = GetStorage();
+        storage.write(Constants.USER_NAME, newName);
+      }
+
+      if (newEmail != null) {
+        await _firebase.currentUser?.verifyBeforeUpdateEmail(newEmail);
+        route.update({'email': newEmail});
+        final storage = GetStorage();
+        storage.write(Constants.USER_NAME, newName);
+      }
+
+      if (newPhone != null) {
+        route.update({'phone': newPhone});
+      }
+    }
+  }
+
+  @override
+  Future<void> reauthenticate(String password) async {
+    final user = _firebase.currentUser;
+    if (user != null && user.email != null) {
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: password,
+      );
+      await user.reauthenticateWithCredential(credential);
     }
   }
 }

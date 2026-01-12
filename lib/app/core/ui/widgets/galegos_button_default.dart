@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class GalegosButtonDefault extends StatelessWidget {
   final String label;
@@ -20,21 +21,49 @@ class GalegosButtonDefault extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      height: heigth,
-      child: icon != null
-          ? ElevatedButton.icon(
-              style: style,
-              onPressed: onPressed,
-              label: Text(label),
-              icon: icon!,
-            )
-          : ElevatedButton(
-              style: style,
-              onPressed: onPressed,
-              child: Text(label),
+    // com o Get.put, variável NÃO é resetada quando o build rodar
+    final RxBool isPressed = Get.put(false.obs, tag: label);
+
+    return Obx(() {
+      final scale = isPressed.value ? 0.97 : 1.00;
+      return GestureDetector(
+        onTap: () async {
+          isPressed.value = true;
+          await 80.milliseconds.delay();
+          isPressed.value = false;
+          await 30.milliseconds.delay();
+          onPressed!();
+        },
+        onTapDown: (_) => isPressed.value = true,
+        onTapUp: (_) => isPressed.value = false,
+        onTapCancel: () => isPressed.value = false,
+        behavior: .opaque,
+        child: AnimatedScale(
+          scale: scale,
+          duration: const Duration(milliseconds: 80),
+          curve: Curves.easeInOut,
+          child: SizedBox(
+            width: width,
+            height: heigth,
+            child: IgnorePointer(
+              child: icon != null
+                  ? ElevatedButton.icon(
+                      style: style,
+                      // onPressed: onPressed,
+                      onPressed: () {},
+                      label: Text(label),
+                      icon: icon!,
+                    )
+                  : ElevatedButton(
+                      style: style,
+                      // onPressed: onPressed,
+                      onPressed: () {},
+                      child: Text(label),
+                    ),
             ),
-    );
+          ),
+        ),
+      );
+    });
   }
 }

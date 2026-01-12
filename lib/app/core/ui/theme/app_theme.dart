@@ -121,7 +121,7 @@ class AppTheme {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
       side: BorderSide(
-        color: const Color.fromARGB(255, 190, 132, 98),
+        color: const Color(0xFFBE8462),
       ),
     ),
   );
@@ -156,10 +156,12 @@ class AppTheme {
 
   NavigationBarThemeData get navigationbarTheme => NavigationBarThemeData(
     backgroundColor: colorScheme.tertiary,
+    elevation: 0,
     indicatorColor: AppColors.title,
     labelTextStyle: WidgetStateProperty.all(
       TextStyle(color: colorScheme.secondary),
     ),
+    surfaceTintColor: Colors.transparent,
   );
 
   AlertDialog get dialog => AlertDialog(

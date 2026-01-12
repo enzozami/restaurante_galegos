@@ -5,8 +5,6 @@ class SectionHeader extends StatelessWidget {
   final List<MultiSelectCard<String>> items;
   final void Function(List<String>, String) onChanged;
 
-  // final MultiSelectController<String> controller;
-
   const SectionHeader({
     super.key,
     required this.items,
@@ -17,19 +15,22 @@ class SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return MultiSelectContainer<String>(
-      // controller: controller,
       items: items,
       onChange: onChanged,
+      wrapSettings: WrapSettings(
+        spacing: 10,
+        alignment: .start,
+      ),
       itemsDecoration: MultiSelectDecorations(
         selectedDecoration: BoxDecoration(
           color: theme.colorScheme.primary,
           shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(50),
         ),
         decoration: BoxDecoration(
           color: theme.colorScheme.secondary,
           shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(50),
         ),
       ),
     );

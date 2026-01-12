@@ -6,7 +6,7 @@ import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/services/time/time_services.dart';
 
-class TimeController extends GetxController with LoaderMixin, MessagesMixin {
+class HorarioFuncionamentoController extends GetxController with LoaderMixin, MessagesMixin {
   final TimeServices _timeServices;
 
   final _loading = false.obs;
@@ -24,8 +24,10 @@ class TimeController extends GetxController with LoaderMixin, MessagesMixin {
   List<String> get dateTime => _dateTime.value;
   String get inicioTime => _inicioTime.value;
   String get fimTime => _fimTime.value;
+  RxBool restauranteAberto = false.obs;
 
-  TimeController({required TimeServices timeServices}) : _timeServices = timeServices;
+  HorarioFuncionamentoController({required TimeServices timeServices})
+    : _timeServices = timeServices;
 
   @override
   void onInit() {
@@ -38,6 +40,7 @@ class TimeController extends GetxController with LoaderMixin, MessagesMixin {
   Future<void> onReady() async {
     super.onReady();
     await time();
+    restauranteAberto.value = await _timeServices.openOrClosedRestaurant();
   }
 
   Future<void> time() async {
@@ -51,6 +54,7 @@ class TimeController extends GetxController with LoaderMixin, MessagesMixin {
 
       _inicioTime.value = data.first.inicio;
       _fimTime.value = data.first.fim;
+      _timeServices.openOrClosedRestaurant();
     } catch (e, s) {
       _loading.value = false;
       log('Erro ao carregar horário de funcionamento', error: e, stackTrace: s);

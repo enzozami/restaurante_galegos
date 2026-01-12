@@ -20,277 +20,275 @@ class CheckoutPage extends GetView<CheckoutController> {
     final PaymentType payment = controller.args['payment'];
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      appBar: GalegosAppBar(
-        context: context,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: .start,
-            mainAxisAlignment: .start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 15, left: 40, bottom: 15),
-                child: Text(
-                  'Revisar Dados',
-                  style: theme.textTheme.headlineLarge,
+      appBar: GalegosAppBar(context: context),
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              spacing: 15,
+              crossAxisAlignment: .start,
+              mainAxisAlignment: .start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 15, left: 40),
+                  child: Text(
+                    'Revisar Dados',
+                    style: theme.textTheme.headlineLarge,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15, left: 40),
-                child: Text(
-                  'Carrinho',
-                  style: theme.textTheme.titleLarge,
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 40),
+                  child: Text(
+                    'Carrinho',
+                    style: theme.textTheme.titleLarge,
+                  ),
                 ),
-              ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Obx(() {
-                    return ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: controller.args['itens'].length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final CarrinhoModel p = controller.args['itens'][index];
-                        return CardCarrinho(
-                          title: p.item.nameDisplay,
-                          description: p.item.subtitleDisplay,
-                          price: p.item.priceDisplay,
-                          quantity: p.item.quantidade.toString(),
-                          isViewFinish: true,
-                        );
-                      },
-                    );
-                  }),
+                Center(
+                  child: SizedBox(
+                    width: context.widthTransformer(reducedBy: 10),
+                    child: Obx(() {
+                      return ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: controller.args['itens'].length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final CarrinhoModel p = controller.args['itens'][index];
+                          return CardCarrinho(
+                            title: p.item.nameDisplay,
+                            description: p.item.subtitleDisplay,
+                            price: p.item.priceDisplay,
+                            quantity: p.item.quantidade.toString(),
+                            isViewFinish: true,
+                          );
+                        },
+                      );
+                    }),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15, left: 40),
-                child: Text(
-                  'Endereço',
-                  style: theme.textTheme.titleLarge,
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 40),
+                  child: Text(
+                    'Endereço',
+                    style: theme.textTheme.titleLarge,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  elevation: 5,
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Wrap(
-                      alignment: .spaceAround,
-                      crossAxisAlignment: .center,
-                      spacing: 10,
-                      runSpacing: 10,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 22.0),
-                          child: SizedBox(
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 8,
+                    right: 8,
+                  ),
+                  child: Card(
+                    elevation: 5,
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Wrap(
+                        alignment: .spaceAround,
+                        crossAxisAlignment: .center,
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 22.0),
+                            child: SizedBox(
+                              width: context.widthTransformer(reducedBy: 10),
+                              child: GalegosTextFormField(
+                                floatingLabelBehavior: .always,
+                                enabled: false,
+                                label: 'CEP',
+                                inputType: .text,
+                                controller: controller.cepFormatado,
+                                prefix: false,
+                                suffix: false,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
                             width: context.widthTransformer(reducedBy: 10),
                             child: GalegosTextFormField(
                               floatingLabelBehavior: .always,
                               enabled: false,
-                              label: 'CEP',
+                              label: 'Rua',
                               inputType: TextInputType.text,
                               controller: TextEditingController(
-                                text: controller.args['cep'],
+                                text: controller.args['rua'],
                               ),
                               prefix: false,
                               suffix: false,
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: context.widthTransformer(reducedBy: 10),
-                          child: GalegosTextFormField(
-                            floatingLabelBehavior: .always,
-                            enabled: false,
-                            label: 'Rua',
-                            inputType: TextInputType.text,
-                            controller: TextEditingController(
-                              text: controller.args['rua'],
-                            ),
-                            prefix: false,
-                            suffix: false,
-                          ),
-                        ),
-                        SizedBox(
-                          width: context.widthTransformer(reducedBy: 10),
-                          child: GalegosTextFormField(
-                            floatingLabelBehavior: .always,
-                            enabled: false,
-                            label: 'Bairro',
-                            inputType: TextInputType.text,
-                            controller: TextEditingController(
-                              text: controller.args['bairro'],
-                            ),
-                            prefix: false,
-                            suffix: false,
-                          ),
-                        ),
-                        SizedBox(
-                          width: context.widthTransformer(reducedBy: 10),
-                          child: GalegosTextFormField(
-                            floatingLabelBehavior: .always,
-                            enabled: false,
-                            label: 'Cidade',
-                            inputType: TextInputType.text,
-                            controller: TextEditingController(
-                              text: controller.args['cidade'],
-                            ),
-                            prefix: false,
-                            suffix: false,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 150,
-                          child: GalegosTextFormField(
-                            floatingLabelBehavior: .always,
-                            enabled: false,
-                            label: 'Estado',
-                            inputType: TextInputType.text,
-                            controller: TextEditingController(
-                              text: controller.args['estado'],
-                            ),
-                            prefix: false,
-                            suffix: false,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 150,
-                          child: GalegosTextFormField(
-                            floatingLabelBehavior: .auto,
-                            enabled: false,
-                            label: 'Número',
-                            controller: TextEditingController(
-                              text: controller.args['numero'].toString(),
-                            ),
-                            prefix: false,
-                            suffix: false,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15, left: 40),
-                child: Text(
-                  'Forma de Pagamento',
-                  style: theme.textTheme.titleLarge,
-                ),
-              ),
-              Center(
-                child: RadioGroup(
-                  groupValue: payment,
-                  onChanged: (_) {},
-                  child: Card(
-                    elevation: 5,
-                    color: theme.colorScheme.tertiary,
-                    child: SizedBox(
-                      width: context.widthTransformer(reducedBy: 10),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            iconColor: theme.colorScheme.secondary,
-                            contentPadding: const EdgeInsets.all(8.0),
-                            title: Row(
-                              children: [
-                                Icon(controller.getIconData()),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                Text(
-                                  controller.getNamePaymentType(),
-                                  style: theme.textTheme.titleSmall?.copyWith(
-                                    color: AppColors.secondary,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            subtitle: Text(
-                              'Forma selecionada*',
-                              style: theme.textTheme.bodyLarge?.copyWith(
-                                color: AppColors.secondary,
+                          SizedBox(
+                            width: context.widthTransformer(reducedBy: 10),
+                            child: GalegosTextFormField(
+                              floatingLabelBehavior: .always,
+                              enabled: false,
+                              label: 'Bairro',
+                              inputType: TextInputType.text,
+                              controller: TextEditingController(
+                                text: controller.args['bairro'],
                               ),
+                              prefix: false,
+                              suffix: false,
                             ),
-                            leading: Radio<PaymentType>(value: payment),
                           ),
-                          (controller.getType() != null)
-                              ? Container(
-                                  decoration: BoxDecoration(
-                                    color: theme.colorScheme.secondary,
-                                    borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(10),
-                                      bottomLeft: Radius.circular(10),
-                                    ),
-                                  ),
-                                  child: SizedBox(
-                                    width: context.widthTransformer(
-                                      reducedBy: 10,
-                                    ),
-                                    child: ListTile(
-                                      title: Column(
-                                        crossAxisAlignment: .start,
-                                        children: [
-                                          (controller.args['payment'] == PaymentType.dinheiro)
-                                              ? Text('Troco para: ')
-                                              : SizedBox.shrink(),
-                                          Text(
-                                            controller.getType()!,
-                                            style: theme.textTheme.bodyMedium,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : SizedBox.shrink(),
+                          SizedBox(
+                            width: context.widthTransformer(reducedBy: 10),
+                            child: GalegosTextFormField(
+                              floatingLabelBehavior: .always,
+                              enabled: false,
+                              label: 'Cidade',
+                              inputType: TextInputType.text,
+                              controller: TextEditingController(
+                                text: controller.args['cidade'],
+                              ),
+                              prefix: false,
+                              suffix: false,
+                            ),
+                          ),
+                          SizedBox(
+                            // width: 150,
+                            width: context.widthTransformer(reducedBy: 60),
+                            child: GalegosTextFormField(
+                              floatingLabelBehavior: .always,
+                              enabled: false,
+                              label: 'Estado',
+                              inputType: TextInputType.text,
+                              controller: TextEditingController(
+                                text: controller.args['estado'],
+                              ),
+                              prefix: false,
+                              suffix: false,
+                            ),
+                          ),
+                          SizedBox(
+                            // width: 150,
+                            width: context.widthTransformer(reducedBy: 60),
+                            child: GalegosTextFormField(
+                              floatingLabelBehavior: .auto,
+                              enabled: false,
+                              label: 'Número',
+                              controller: TextEditingController(
+                                text: controller.args['numero'].toString(),
+                              ),
+                              prefix: false,
+                              suffix: false,
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Divider(
-                color: theme.colorScheme.tertiary,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: CardValores(
-                  preco: controller.args['preco'],
-                  carrinho: false,
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 40),
+                  child: Text(
+                    'Forma de Pagamento',
+                    style: theme.textTheme.titleLarge,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Divider(
-                color: theme.colorScheme.tertiary,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: GalegosButtonDefault(
-                  label: 'FINALIZAR',
-                  width: context.widthTransformer(reducedBy: 10),
-                  onPressed: () async => await controller.createOrder(),
+                Center(
+                  child: RadioGroup(
+                    groupValue: payment,
+                    onChanged: (_) {},
+                    child: Card(
+                      elevation: 5,
+                      color: theme.colorScheme.tertiary,
+                      child: SizedBox(
+                        width: context.widthTransformer(reducedBy: 10),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              iconColor: theme.colorScheme.secondary,
+                              contentPadding: const EdgeInsets.all(8.0),
+                              title: Row(
+                                children: [
+                                  Icon(controller.getIconData()),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  Text(
+                                    controller.getNamePaymentType(),
+                                    style: theme.textTheme.titleSmall?.copyWith(
+                                      color: AppColors.secondary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              subtitle: Text(
+                                'Forma selecionada*',
+                                style: theme.textTheme.bodyLarge?.copyWith(
+                                  color: AppColors.secondary,
+                                ),
+                              ),
+                              leading: Radio<PaymentType>(value: payment),
+                            ),
+                            (controller.getType() != null)
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                      color: theme.colorScheme.secondary,
+                                      borderRadius: BorderRadius.only(
+                                        bottomRight: Radius.circular(10),
+                                        bottomLeft: Radius.circular(10),
+                                      ),
+                                    ),
+                                    child: SizedBox(
+                                      width: context.widthTransformer(
+                                        reducedBy: 10,
+                                      ),
+                                      child: ListTile(
+                                        title: Column(
+                                          crossAxisAlignment: .start,
+                                          children: [
+                                            (controller.args['payment'] == PaymentType.dinheiro)
+                                                ? Text('Troco para: ')
+                                                : SizedBox.shrink(),
+                                            Text(
+                                              controller.getType()!,
+                                              style: theme.textTheme.bodyMedium,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : SizedBox.shrink(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-            ],
+
+                Divider(
+                  color: theme.colorScheme.tertiary,
+                ),
+
+                Center(
+                  child: CardValores(
+                    preco: controller.args['preco'],
+                    carrinho: false,
+                  ),
+                ),
+
+                Divider(
+                  color: theme.colorScheme.tertiary,
+                ),
+
+                Center(
+                  child: GalegosButtonDefault(
+                    label: 'FINALIZAR',
+                    width: context.widthTransformer(reducedBy: 10),
+                    onPressed: () async => await controller.createOrder(),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
           ),
         ),
       ),

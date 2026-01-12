@@ -38,23 +38,34 @@ class OrderManagementController extends GetxController with LoaderMixin, Message
     await _ordersState.changeStatusOnTheWay(pedido, newTime);
   }
 
-  void onAdminOrderTapped(PedidoModel pedido) {
-    Get.bottomSheet(
+  void onAdminOrderTapped(PedidoModel pedido, {required BuildContext context}) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useRootNavigator: true,
+      useSafeArea: true,
+
       backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
       ),
-      isScrollControlled: true,
-      GalegosBottomSheet(
-        admin: admin,
-        pedido: pedido,
-        titleButtom: 'SAIR PARA ENTREGA',
-        onPressed: () async {
-          await orderFinished(pedido);
-          Get.back();
-        },
-        ordersReceived: true,
-      ),
+      transitionAnimationController: AnimationController(
+        vsync: Navigator.of(context),
+        duration: const Duration(milliseconds: 950),
+        reverseDuration: const Duration(milliseconds: 750),
+      )..forward(),
+      builder: (context) {
+        return GalegosBottomSheet(
+          admin: admin,
+          pedido: pedido,
+          titleButtom: 'SAIR PARA ENTREGA',
+          onPressed: () async {
+            await orderFinished(pedido);
+            Get.back();
+          },
+          ordersReceived: true,
+        );
+      },
     );
   }
 }

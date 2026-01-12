@@ -28,82 +28,7 @@ class DetailLunchboxesPage extends GetView<DetailLunchboxesController> {
       extendBodyBehindAppBar: true,
       body: Obx(() {
         final ThemeData theme = Theme.of(context);
-        return SingleChildScrollView(
-          child: Column(
-            spacing: 20,
-            crossAxisAlignment: .start,
-            children: [
-              SafeArea(child: Container()),
-              Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: CachedNetworkImage(
-                    imageUrl: controller.food.image,
-                    width: context.widthTransformer(reducedBy: 10),
-                    height: 250,
-                    fit: .cover,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Text(
-                  controller.food.name,
-                  style: theme.textTheme.headlineLarge,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15.0, right: 10),
-                child: Text(
-                  controller.food.description,
-                  style: theme.textTheme.titleSmall,
-                ),
-              ),
-              Center(
-                child: Row(
-                  mainAxisAlignment: .spaceAround,
-                  children: controller.food.pricePerSize.keys.map((size) {
-                    final isSelected = controller.sizeSelected.value == size;
-                    return GalegosButtonDefault(
-                      label: size.toUpperCase(),
-                      width: context.widthTransformer(reducedBy: 60),
-                      style: isSelected
-                          ? theme.elevatedButtonTheme.style
-                          : ElevatedButton.styleFrom(
-                              backgroundColor: Colors.grey[300],
-                              foregroundColor: Colors.grey[500],
-                            ),
-                      onPressed: () => controller.changeSizeSelected(size),
-                    );
-                  }).toList(),
-                ),
-              ),
-              (controller.sizeSelected.value == '')
-                  ? SizedBox.shrink()
-                  : // _foodDetailsBySelectedSize(theme, context, controller), //! ENQUANTO NAO TEM A PARTE DE GUARNIÇÕES E DE ADICIONAIS VAI FICAR NO SIZEDBOX - QUANDO TIVER NA API SERÁ REMOVIDO O SEGUNDO SIZEDBOX
-                    SizedBox(
-                      child: Row(
-                        mainAxisAlignment: .spaceAround,
-                        spacing: 30,
-                        children: [
-                          Text(
-                            FormatterHelper.formatCurrency(controller.price),
-                            style: theme.textTheme.headlineSmall?.copyWith(
-                              color: theme.primaryColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          GalegosPlusMinus(
-                            addCallback: controller.adicionarQuantidade,
-                            removeCallback: controller.removerQuantidade,
-                            quantityUnit: controller.quantity,
-                          ),
-                        ],
-                      ),
-                    ),
-            ],
-          ),
-        );
+        return _detailOrder(context: context, theme: theme, controller: controller);
       }),
     );
   }
@@ -219,25 +144,121 @@ Widget _adicionarNaMarmita(
   DetailLunchboxesController controller,
 ) {
   final ThemeData theme = Theme.of(context);
-  return FloatingActionButton.extended(
-    backgroundColor: theme.primaryColor,
-    onPressed: () => controller.exibirDialogoAdicionarAoCarrinho(
-      context: context,
-    ),
-    label: (controller.itemNoCarrinho() != null)
-        ? Text(
-            "ATUALIZAR CARRINHO - ${FormatterHelper.formatCurrency(controller.totalPrice)}",
-            style: theme.textTheme.labelLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: AppColors.title,
-            ),
-          )
-        : Text(
-            "ADICIONAR AO CARRINHO - ${FormatterHelper.formatCurrency(controller.totalPrice)}",
-            style: theme.textTheme.labelLarge?.copyWith(
-              color: AppColors.title,
-              fontWeight: FontWeight.bold,
+  final isPressed = false.obs;
+  return Obx(() {
+    final scale = isPressed.value ? 0.97 : 1.0;
+    return GestureDetector(
+      onTapDown: (_) => isPressed.value = true,
+      onTapUp: (_) => isPressed.value = false,
+      onTapCancel: () => isPressed.value = false,
+      child: AnimatedScale(
+        scale: scale,
+        duration: const Duration(milliseconds: 80),
+        child: FloatingActionButton.extended(
+          backgroundColor: theme.primaryColor,
+          onPressed: () => controller.exibirDialogoAdicionarAoCarrinho(
+            context: context,
+          ),
+          label: (controller.itemNoCarrinho() != null)
+              ? Text(
+                  "ATUALIZAR CARRINHO - ${FormatterHelper.formatCurrency(controller.totalPrice)}",
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.title,
+                  ),
+                )
+              : Text(
+                  "ADICIONAR AO CARRINHO - ${FormatterHelper.formatCurrency(controller.totalPrice)}",
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    color: AppColors.title,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+        ),
+      ),
+    );
+  });
+}
+
+Widget _detailOrder({
+  required BuildContext context,
+  required ThemeData theme,
+  required DetailLunchboxesController controller,
+}) {
+  return SingleChildScrollView(
+    child: Column(
+      spacing: 20,
+      crossAxisAlignment: .start,
+      children: [
+        SafeArea(child: Container()),
+        Center(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CachedNetworkImage(
+              imageUrl: controller.food.image,
+              width: context.widthTransformer(reducedBy: 10),
+              height: 250,
+              fit: .cover,
             ),
           ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 30.0),
+          child: Text(
+            controller.food.name,
+            style: theme.textTheme.headlineLarge,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15.0, right: 10),
+          child: Text(
+            controller.food.description,
+            style: theme.textTheme.titleSmall,
+          ),
+        ),
+        Center(
+          child: Row(
+            mainAxisAlignment: .spaceAround,
+            children: controller.food.pricePerSize.keys.map((size) {
+              final isSelected = controller.sizeSelected.value == size;
+              return GalegosButtonDefault(
+                label: size.toUpperCase(),
+                width: context.widthTransformer(reducedBy: 60),
+                style: isSelected
+                    ? theme.elevatedButtonTheme.style
+                    : ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey[300],
+                        foregroundColor: Colors.grey[500],
+                      ),
+                onPressed: () => controller.changeSizeSelected(size),
+              );
+            }).toList(),
+          ),
+        ),
+        (controller.sizeSelected.value == '')
+            ? SizedBox.shrink()
+            : // _foodDetailsBySelectedSize(theme, context, controller), //! ENQUANTO NAO TEM A PARTE DE GUARNIÇÕES E DE ADICIONAIS VAI FICAR NO SIZEDBOX - QUANDO TIVER NA API SERÁ REMOVIDO O SEGUNDO SIZEDBOX
+              SizedBox(
+                child: Row(
+                  mainAxisAlignment: .spaceAround,
+                  spacing: 30,
+                  children: [
+                    Text(
+                      FormatterHelper.formatCurrency(controller.price),
+                      style: theme.textTheme.headlineSmall?.copyWith(
+                        color: theme.primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    GalegosPlusMinus(
+                      addCallback: controller.adicionarQuantidade,
+                      removeCallback: controller.removerQuantidade,
+                      quantityUnit: controller.quantity,
+                    ),
+                  ],
+                ),
+              ),
+      ],
+    ),
   );
 }

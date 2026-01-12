@@ -15,11 +15,11 @@ class GalegosBindings implements Bindings {
     Get.lazyPut<TimeRepository>(() => TimeRepositoryImpl(), fenix: true);
     Get.lazyPut<TimeServices>(
       () => TimeServicesImpl(timeRepository: Get.find<TimeRepository>()),
+      fenix: true,
     );
     Get.lazyPut<AuthRepository>(() => AuthRepositoryImpl(), fenix: true);
-    Get.lazyPut<AuthServices>(
-      () => AuthServicesImpl(authRepository: Get.find<AuthRepository>()),
-      fenix: true,
+    Get.putAsync<AuthServices>(
+      () async => AuthServicesImpl(authRepository: Get.find<AuthRepository>()),
     );
   }
 }

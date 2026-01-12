@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurante_galegos/app/core/ui/dialogs/alert_for_add_to_cart.dart';
 import 'package:restaurante_galegos/app/modules/products/widgets/product_header.dart';
 import 'package:restaurante_galegos/app/modules/products/widgets/product_items.dart';
 
@@ -11,22 +10,24 @@ class ProductsPage extends GetView<ProductsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: controller.admin ? _FloatingActionButtonAdmin() : null,
-      body: RefreshIndicator.noSpinner(
-        onRefresh: controller.refreshProducts,
-        child: SingleChildScrollView(
-          controller: controller.scrollController,
-          child: Column(
-            children: [
-              ProductHeader(),
-              Obx(() {
-                if (controller.items.isEmpty) {
-                  return SizedBox.shrink();
-                }
-                return ProductItems();
-              }),
-            ],
+    return SafeArea(
+      child: Scaffold(
+        floatingActionButton: controller.admin ? _FloatingActionButtonAdmin() : null,
+        body: RefreshIndicator.noSpinner(
+          onRefresh: controller.refreshProducts,
+          child: SingleChildScrollView(
+            controller: controller.scrollController,
+            child: Column(
+              children: [
+                ProductHeader(),
+                Obx(() {
+                  if (controller.items.isEmpty) {
+                    return SizedBox.shrink();
+                  }
+                  return ProductItems();
+                }),
+              ],
+            ),
           ),
         ),
       ),
@@ -40,24 +41,33 @@ class _FloatingActionButtonAdmin extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return FloatingActionButton.extended(
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Form(
-              key: controller.formKey,
-              child: AlertForAddToCart(
-                isProduct: true,
-              ),
-            );
-          },
-        );
-      },
-      icon: Icon(Icons.add),
-      backgroundColor: theme.floatingActionButtonTheme.backgroundColor,
-      foregroundColor: theme.floatingActionButtonTheme.foregroundColor,
-      label: Text('Adicionar'),
-    );
+    final isPressed = false.obs;
+    return Obx(() {
+      final scale = isPressed.value ? 0.97 : 1.0;
+      return GestureDetector(
+        onTap: () async {
+          isPressed.value = true;
+          await 50.milliseconds.delay();
+          isPressed.value = false;
+          await 50.milliseconds.delay();
+          Get.toNamed('/admin/products');
+        },
+        onTapDown: (_) => isPressed.value = true,
+        onTapUp: (_) => isPressed.value = false,
+        onTapCancel: () => isPressed.value = false,
+        behavior: .opaque,
+        child: AnimatedScale(
+          scale: scale,
+          duration: const Duration(milliseconds: 80),
+          child: FloatingActionButton.extended(
+            onPressed: null,
+            icon: Icon(Icons.add),
+            backgroundColor: theme.floatingActionButtonTheme.backgroundColor,
+            foregroundColor: theme.floatingActionButtonTheme.foregroundColor,
+            label: Text('Adicionar'),
+          ),
+        ),
+      );
+    });
   }
 }

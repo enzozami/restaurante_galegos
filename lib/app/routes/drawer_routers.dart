@@ -3,8 +3,8 @@ import 'package:restaurante_galegos/app/modules/drawer/about_us/about_us_binding
 import 'package:restaurante_galegos/app/modules/drawer/about_us/about_us_page.dart';
 import 'package:restaurante_galegos/app/modules/drawer/profile/profile_bindings.dart';
 import 'package:restaurante_galegos/app/modules/drawer/profile/profile_page.dart';
-import 'package:restaurante_galegos/app/modules/drawer/time/time_bindings.dart';
-import 'package:restaurante_galegos/app/modules/drawer/time/time_page.dart';
+import 'package:restaurante_galegos/app/modules/drawer/horario_funcionamento/horario_funcionamento_bindings.dart';
+import 'package:restaurante_galegos/app/modules/drawer/horario_funcionamento/horario_funcionamento_page.dart';
 
 class DrawerRouters {
   DrawerRouters._();
@@ -21,9 +21,9 @@ class DrawerRouters {
       page: () => AboutUsPage(),
     ),
     GetPage(
-      name: '/time',
-      binding: TimeBindings(),
-      page: () => TimePage(),
+      name: '/horario_funcionamento',
+      binding: HorarioFuncionamentoBindings(),
+      page: () => HorarioFuncionamentoPage(),
     ),
   ];
 }

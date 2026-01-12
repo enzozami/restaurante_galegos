@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurante_galegos/app/core/enum/payment_type.dart';
+import 'package:restaurante_galegos/app/core/masks/mask_cep.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
@@ -25,6 +26,10 @@ class CheckoutController extends GetxController with LoaderMixin, MessagesMixin 
 
   final date = FormatterHelper.formatDateNumber();
   final time = FormatterHelper.formatDateAndTime();
+  final MaskCep cepFormatter = MaskCep();
+  String get cep => cepFormatter.maskText(args['cep']);
+  TextEditingController get cepFormatado => TextEditingController(text: cep);
+
   var id = 0;
 
   final _loading = false.obs;
@@ -62,7 +67,7 @@ class CheckoutController extends GetxController with LoaderMixin, MessagesMixin 
     bool sucesso = false;
     try {
       final user = _authServices.getUserId();
-      final name = _authServices.getUserName();
+      final name = _authServices.nome;
       final id = await _orderServices.generateSequentialOrderId();
       quantityRx.value = products.fold<int>(0, (sum, e) => sum + e.item.quantidade);
 
@@ -95,7 +100,7 @@ class CheckoutController extends GetxController with LoaderMixin, MessagesMixin 
         amountToPay: total,
         taxa: args['taxa'],
         status: 'preparando',
-        userName: name ?? '',
+        userName: name.value,
         date: date,
         time: time,
         timeFinished: '',
