@@ -136,6 +136,8 @@ class AboutUsController extends GetxController with LoaderMixin, MessagesMixin {
       if (newBuffet.text.isNotEmpty) buffet.value = newBuffet.text;
       if (newServicos.text.isNotEmpty) servicos.value = newServicos.text;
       if (newMarmitas.text.isNotEmpty) marmitas.value = newMarmitas.text;
+
+      Get.back();
     } catch (e) {
       log(e.toString());
     } finally {
