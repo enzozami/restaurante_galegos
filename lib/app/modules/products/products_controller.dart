@@ -245,48 +245,59 @@ class ProductsController extends GetxController with LoaderMixin, MessagesMixin 
     ProductModel product,
   ) {
     setSelectedItem(product);
-    Get.bottomSheet(
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useRootNavigator: true,
+      useSafeArea: true,
+
       backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
       ),
-      GalegosBottomSheet(
-        ordersReceived: false,
-        admin: admin,
-        image: product.image,
-        nameItem: product.name,
-        description: product.description ?? '',
-        titleButtom: (_carrinhoServices.getById(product.id) != null)
-            ? 'ATUALIZAR CARRINHO'
-            : 'ADICIONAR AO CARRINHO',
-        price: FormatterHelper.formatCurrency(product.price),
-        plusMinus: Obx(
-          () {
-            return GalegosPlusMinus(
-              addCallback: addProductUnit,
-              removeCallback: removeProductUnit,
-              quantityUnit: quantity,
-            );
-          },
-        ),
-        onPressed: () {
-          final idItem = carrinhoServices.getById(product.id);
+      transitionAnimationController: AnimationController(
+        vsync: Navigator.of(context),
+        duration: const Duration(milliseconds: 950),
+        reverseDuration: const Duration(milliseconds: 750),
+      )..forward(),
+      builder: (context) {
+        return GalegosBottomSheet(
+          ordersReceived: false,
+          admin: admin,
+          image: product.image,
+          nameItem: product.name,
+          description: product.description ?? '',
+          titleButtom: (_carrinhoServices.getById(product.id) != null)
+              ? 'ATUALIZAR CARRINHO'
+              : 'ADICIONAR AO CARRINHO',
+          price: FormatterHelper.formatCurrency(product.price),
+          plusMinus: Obx(
+            () {
+              return GalegosPlusMinus(
+                addCallback: addProductUnit,
+                removeCallback: removeProductUnit,
+                quantityUnit: quantity,
+              );
+            },
+          ),
+          onPressed: () {
+            final idItem = carrinhoServices.getById(product.id);
 
-          if (idItem == null) {
-            addItemsToCart();
-            _message.value = MessageModel(
-              title: 'Item: ${product.name}',
-              message: 'Item adicionado ao carrinho',
-              type: MessageType.info,
-            );
-            Get.close(0);
-          } else {
-            addItemsToCart();
-            Get.close(0);
-          }
-        },
-      ),
-      isScrollControlled: true,
+            if (idItem == null) {
+              addItemsToCart();
+              _message.value = MessageModel(
+                title: 'Item: ${product.name}',
+                message: 'Item adicionado ao carrinho',
+                type: MessageType.info,
+              );
+              Get.close(0);
+            } else {
+              addItemsToCart();
+              Get.close(0);
+            }
+          },
+        );
+      },
     ).whenComplete(() => clearSelection());
   }
 

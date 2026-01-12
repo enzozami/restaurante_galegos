@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurante_galegos/app/core/ui/cards/card_shimmer.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
 import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
@@ -73,10 +75,12 @@ Widget _clientBottomSheet(
   required String titleButtom,
 }) {
   final ThemeData theme = Theme.of(context);
+  final String validImageUrl = image.replaceAll(RegExp(r'(?<!https?:)//'), '/');
+
   return SingleChildScrollView(
     child: Container(
       clipBehavior: Clip.antiAlias,
-      height: Get.height * 0.75,
+      // height: Get.height * 0.8,
       decoration: BoxDecoration(
         color: AppColors.tertiary,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -85,14 +89,48 @@ Widget _clientBottomSheet(
         spacing: 30,
         crossAxisAlignment: .start,
         children: [
+          Center(
+            child: Container(
+              margin: const EdgeInsets.only(top: 10, bottom: 0),
+              height: 5,
+              width: 45,
+              decoration: BoxDecoration(
+                // ignore: deprecated_member_use
+                color: Colors.grey.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
           (image.isNotEmpty && image != '')
-              ? Image.network(
-                  image,
-                  fit: BoxFit.cover,
+              ? SizedBox(
                   width: Get.width,
                   height: Get.height * 0.35,
+                  child: CachedNetworkImage(
+                    imageUrl: validImageUrl,
+                    fit: .cover,
+                    httpHeaders: const {
+                      'User-Agent': 'Mozilla/5.0',
+                      'Accept': 'image/*',
+                    },
+                    fadeInDuration: const Duration(milliseconds: 700),
+                    fadeInCurve: Curves.easeIn,
+                    fadeOutDuration: const Duration(milliseconds: 300),
+                    placeholder: (context, url) => CardShimmer(
+                      height: Get.height * 0.35,
+                      width: double.infinity,
+                    ),
+                    errorWidget: (context, url, error) {
+                      return Container(
+                        color: Colors.grey[200],
+                        child: const Icon(Icons.broken_image, color: Colors.grey),
+                      );
+                    },
+                  ),
                 )
-              : SizedBox.shrink(),
+              : SizedBox(
+                  height: Get.height * 0.35,
+                  width: double.infinity,
+                ),
           Padding(
             padding: const EdgeInsets.only(left: 30),
             child: Text(
@@ -125,6 +163,9 @@ Widget _clientBottomSheet(
               width: context.widthTransformer(reducedBy: 10),
               onPressed: onPressed,
             ),
+          ),
+          const SizedBox(
+            height: 10,
           ),
         ],
       ),
@@ -286,6 +327,9 @@ Widget _ordersReceived({
                 onPressed: onPressed,
               ),
             ),
+          ),
+          const SizedBox(
+            height: 10,
           ),
         ],
       ),
@@ -453,6 +497,9 @@ Widget _outForDelivery({
                       onPressed: onPressed,
                     ),
                   ),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
               ],
             ),

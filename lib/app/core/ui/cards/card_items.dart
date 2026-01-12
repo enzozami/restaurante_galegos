@@ -109,7 +109,10 @@ class CardItems extends StatelessWidget {
                                   ),
                                   child: CachedNetworkImage(
                                     imageUrl: validImageUrl,
-                                    fit: BoxFit.cover,
+                                    fit: .cover,
+                                    fadeInDuration: const Duration(milliseconds: 700),
+                                    fadeInCurve: Curves.easeIn,
+                                    fadeOutDuration: const Duration(milliseconds: 300),
                                     /*
                                     breve explicação: ele vai usar o httpHeaders para ser interpretado como um navegador da internet e não como um robo (comportamento dele padrao)
                                     no main.dart foi impleemntado o HttpOverrides que serve para autorizar o download das imagens em qualquer site mesmo que nao seja seguro (nao usar em prod)
