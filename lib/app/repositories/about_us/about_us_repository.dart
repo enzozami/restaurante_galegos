@@ -2,4 +2,12 @@ import 'package:restaurante_galegos/app/models/about_us_model.dart';
 
 abstract interface class AboutUsRepository {
   Future<AboutUsModel> getAboutUs();
+  Future<void> updateData(
+    String? newWe,
+    String? newPhilosophy,
+    String? newWhyChooseUs,
+    String? newBuffet,
+    String? newService,
+    String? newLunchboxes,
+  );
 }

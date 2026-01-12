@@ -12,4 +12,24 @@ class AboutUsServicesImpl implements AboutUsServices {
 
   @override
   Future<AboutUsModel> getAboutUs() => _aboutUsRepository.getAboutUs();
+
+  @override
+  Future<void> updateData(
+    String? newWe,
+    String? newPhilosophy,
+    String? newWhyChooseUs,
+    String? newBuffet,
+    String? newService,
+    String? newLunchboxes,
+  ) async {
+    await _aboutUsRepository.updateData(
+      newWe,
+      newPhilosophy,
+      newWhyChooseUs,
+      newBuffet,
+      newService,
+      newLunchboxes,
+    );
+    await getAboutUs();
+  }
 }
