@@ -8,7 +8,10 @@ abstract interface class AuthServices {
   void logout();
   String? getUserId();
   Future<UserModel> getUser();
-  Future<UserModel> login({required String email, required String password});
+  Future<UserModel> login({
+    required String email,
+    required String password,
+  });
   Future<UserModel> register({
     required String name,
     required String email,
@@ -16,7 +19,11 @@ abstract interface class AuthServices {
     required String phone,
   });
   Future<void> resetPassword({required String email});
-  Future<void> updateData(String? newName, String? newEmail, PhoneAuthCredential? newPhone);
+  Future<void> updateData(
+    String? newName,
+    String? newEmail,
+    String? newPhone,
+  );
   Future<void> reauthenticate(String password);
   RxString get nome;
   RxString get email;

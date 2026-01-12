@@ -181,7 +181,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> updateData(String? newName, String? newEmail, PhoneAuthCredential? newPhone) async {
+  Future<void> updateData(String? newName, String? newEmail, String? newPhone) async {
     final route = FirebaseFirestore.instance
         .collection('users')
         .doc(_firebase.currentUser?.uid.toString());
@@ -204,7 +204,6 @@ class AuthRepositoryImpl implements AuthRepository {
       }
 
       if (newPhone != null) {
-        await _firebase.currentUser?.updatePhoneNumber(newPhone);
         route.update({'phone': newPhone});
       }
     }

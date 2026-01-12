@@ -8,7 +8,6 @@ import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 import 'package:restaurante_galegos/app/core/ui/widgets/galegos_button_default.dart';
-import 'package:restaurante_galegos/app/core/ui/widgets/galegos_text_form_field.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
 
 class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
@@ -20,7 +19,6 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
   final TextEditingController newPhoneEC = TextEditingController();
 
   final RxBool edit = false.obs;
-  String _verificationId = '';
 
   final _loading = false.obs;
   final _message = Rxn<MessageModel>();
@@ -41,7 +39,6 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
   Future<void> onReady() async {
     super.onReady();
     final user = await _authServices.getUser();
-    log('user - $user');
     nameClient.value = user.nome;
     phoneClient.value = user.phone;
     emailClient.value = user.email;
@@ -50,6 +47,8 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
   @override
   void onClose() {
     newNameEC.dispose();
+    newEmailEC.dispose();
+    newPhoneEC.dispose();
     super.onClose();
   }
 
@@ -78,13 +77,7 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
   Future<void> updateData() async {
     try {
       _loading.value = true;
-
-      if (newPhoneEC.text.isNotEmpty && newPhoneEC.text != phoneClient.value) {
-        await _verifyNewPhone(newPhoneEC.text);
-        return;
-      }
-
-      await _sendDataUpdate(null);
+      await _sendDataUpdate();
     } catch (e, s) {
       _loading.value = false;
       log(e.toString());
@@ -99,67 +92,17 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
     }
   }
 
-  Future<void> _verifyNewPhone(String phoneNumber) async {
-    await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: phoneNumber,
-      verificationCompleted: (phoneAuthCredential) async {
-        await _sendDataUpdate(phoneAuthCredential);
-      },
-      verificationFailed: (error) {
-        if (error.code == 'invalid-phone-number') {
-          _message.value = MessageModel(
-            title: 'Erro',
-            message: 'Número de telefone inválido',
-            type: MessageType.error,
-          );
-        }
-      },
-      codeSent: (verificationId, forceResendingToken) {
-        _loading.value = false;
-        _verificationId = verificationId;
-        _showPinCodeDialog();
-      },
-      codeAutoRetrievalTimeout: (verificationId) {},
-    );
-  }
-
-  void _showPinCodeDialog() {
-    final TextEditingController pinEC = TextEditingController();
-    Get.defaultDialog(
-      title: 'Verificação SMS',
-      content: Column(
-        children: [
-          Text('Digite o código enviado para seu novo número'),
-          GalegosTextFormField(
-            floatingLabelBehavior: .never,
-            prefix: false,
-            suffix: false,
-            controller: pinEC,
-            inputType: .number,
-          ),
-        ],
-      ),
-      confirm: GalegosButtonDefault(
-        label: 'Validar',
-        onPressed: () async {
-          final credential = PhoneAuthProvider.credential(
-            verificationId: _verificationId,
-            smsCode: pinEC.text,
-          );
-          Get.back();
-          await _sendDataUpdate(credential);
-        },
-      ),
-    );
-  }
-
-  Future<void> _sendDataUpdate(PhoneAuthCredential? credential) async {
+  Future<void> _sendDataUpdate() async {
     try {
       await _authServices.updateData(
         newNameEC.text.isNotEmpty ? newNameEC.text : null,
         newEmailEC.text.isNotEmpty ? newEmailEC.text : null,
-        credential,
+        newPhoneEC.text.isNotEmpty ? newPhoneEC.text : null,
       );
+
+      if (newNameEC.text.isNotEmpty) nameClient.value = newNameEC.text;
+      if (newEmailEC.text.isNotEmpty) emailClient.value = newEmailEC.text;
+      if (newPhoneEC.text.isNotEmpty) phoneClient.value = newPhoneEC.text;
 
       _message.value = MessageModel(
         title: 'Sucesso',
@@ -169,14 +112,14 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
       edit.value = false;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
-        _showReauthDialog(credential);
+        _showReauthDialog();
       }
     } finally {
       _loading.value = false;
     }
   }
 
-  void _showReauthDialog(PhoneAuthCredential? credential) {
+  void _showReauthDialog() {
     final TextEditingController passwordEC = TextEditingController();
 
     Get.defaultDialog(
@@ -239,7 +182,7 @@ class ProfileController extends GetxController with LoaderMixin, MessagesMixin {
 
             await _authServices.reauthenticate(passwordEC.text);
 
-            await _sendDataUpdate(credential);
+            await _sendDataUpdate();
           } catch (e) {
             _loading.value = false;
             _message.value = MessageModel(

@@ -83,7 +83,7 @@ class OrderManagementPage extends GetView<OrderManagementController> {
                       );
                       return CardHistory(
                         onTap: () {
-                          controller.onAdminOrderTapped(pedido);
+                          controller.onAdminOrderTapped(pedido, context: context);
                         },
                         id: pedido.id.hashCode.bitLength.toString(),
                         itens: carrinho,

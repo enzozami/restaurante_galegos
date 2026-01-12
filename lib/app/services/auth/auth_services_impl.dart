@@ -163,7 +163,7 @@ class AuthServicesImpl extends GetxService implements AuthServices {
       _authRepository.resetPassword(email: email);
 
   @override
-  Future<void> updateData(String? newName, String? newEmail, PhoneAuthCredential? newPhone) =>
+  Future<void> updateData(String? newName, String? newEmail, String? newPhone) =>
       _authRepository.updateData(newName, newEmail, newPhone);
 
   @override
