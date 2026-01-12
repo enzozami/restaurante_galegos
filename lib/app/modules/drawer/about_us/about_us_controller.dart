@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:js_interop';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -128,6 +129,13 @@ class AboutUsController extends GetxController with LoaderMixin, MessagesMixin {
         newServicos.text,
         newMarmitas.text,
       );
+
+      if (newQuemSomosEC.text.isNotEmpty) quemSomos.value = newQuemSomosEC.text;
+      if (newFilosofia.text.isNotEmpty) filosofia.value = newFilosofia.text;
+      if (newPorqueNos.text.isNotEmpty) porqueNos.value = newPorqueNos.text;
+      if (newBuffet.text.isNotEmpty) buffet.value = newBuffet.text;
+      if (newServicos.text.isNotEmpty) servicos.value = newServicos.text;
+      if (newMarmitas.text.isNotEmpty) marmitas.value = newMarmitas.text;
     } catch (e) {
       log(e.toString());
     } finally {
