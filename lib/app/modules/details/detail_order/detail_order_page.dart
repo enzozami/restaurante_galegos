@@ -166,21 +166,27 @@ Widget _adminPage(BuildContext context, DetailOrderController controller) {
                               children: controller.order.cart.map((pedido) {
                                 return Row(
                                   mainAxisAlignment: .spaceBetween,
+                                  crossAxisAlignment: .start,
                                   children: [
-                                    Row(
-                                      spacing: 10,
-                                      children: [
-                                        Text(
-                                          '${pedido.item.quantidade}x',
-                                          style: theme.textTheme.bodyLarge,
-                                        ),
-                                        Text(
-                                          pedido.item.alimento?.name ??
-                                              pedido.item.produto?.name ??
-                                              '',
-                                          style: theme.textTheme.bodyLarge,
-                                        ),
-                                      ],
+                                    Expanded(
+                                      child: Row(
+                                        spacing: 10,
+                                        children: [
+                                          Text(
+                                            '${pedido.item.quantidade}x',
+                                            style: theme.textTheme.bodyLarge,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              pedido.item.alimento?.name ??
+                                                  pedido.item.produto?.name ??
+                                                  '',
+                                              style: theme.textTheme.bodyLarge,
+                                              softWrap: true,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     Text(
                                       FormatterHelper.formatCurrency(
@@ -418,20 +424,25 @@ Widget _clientPage(BuildContext context, DetailOrderController controller) {
                                 return Row(
                                   mainAxisAlignment: .spaceBetween,
                                   children: [
-                                    Row(
-                                      spacing: 10,
-                                      children: [
-                                        Text(
-                                          '${pedido.item.quantidade}x',
-                                          style: theme.textTheme.bodyLarge,
-                                        ),
-                                        Text(
-                                          pedido.item.alimento?.name ??
-                                              pedido.item.produto?.name ??
-                                              '',
-                                          style: theme.textTheme.bodyLarge,
-                                        ),
-                                      ],
+                                    Expanded(
+                                      child: Row(
+                                        spacing: 10,
+                                        children: [
+                                          Text(
+                                            '${pedido.item.quantidade}x',
+                                            style: theme.textTheme.bodyLarge,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              pedido.item.alimento?.name ??
+                                                  pedido.item.produto?.name ??
+                                                  '',
+                                              style: theme.textTheme.bodyLarge,
+                                              softWrap: true,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     Text(
                                       FormatterHelper.formatCurrency(

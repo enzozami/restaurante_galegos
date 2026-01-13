@@ -37,7 +37,7 @@ class CardHistory extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             child: ListTile(
               title: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 8),
                 child: Row(
                   mainAxisAlignment: .spaceBetween,
                   children: [
@@ -72,29 +72,31 @@ class CardHistory extends StatelessWidget {
                   ],
                 ),
               ),
-              subtitle: Column(
-                spacing: 8,
-                crossAxisAlignment: .start,
-                children: [
-                  Divider(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0,
-                    ),
+              subtitle: Center(
+                child: Column(
+                  spacing: 8,
+                  crossAxisAlignment: .start,
+                  children: [
+                    Divider(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0,
+                      ),
 
-                    child: Text(
-                      'Carrinho:',
-                      style: theme.textTheme.titleSmall?.copyWith(fontSize: 16),
+                      child: Text(
+                        'Carrinho:',
+                        style: theme.textTheme.titleSmall?.copyWith(fontSize: 16),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 35.0, bottom: 8),
-                    child: Text(
-                      itens,
-                      style: theme.textTheme.labelLarge,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 35.0, bottom: 8),
+                      child: Text(
+                        itens,
+                        style: theme.textTheme.labelLarge,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
