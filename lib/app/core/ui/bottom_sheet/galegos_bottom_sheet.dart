@@ -226,13 +226,15 @@ Widget _ordersReceived({
                           ? pedido.cart.map((pedido) {
                               return Row(
                                 mainAxisAlignment: .spaceBetween,
+                                crossAxisAlignment: .start,
                                 children: [
-                                  Column(
-                                    crossAxisAlignment: .start,
-                                    children: [
-                                      Expanded(
-                                        child: Row(
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: .start,
+                                      children: [
+                                        Row(
                                           spacing: 10,
+                                          crossAxisAlignment: .start,
                                           children: [
                                             Text(
                                               '${pedido.item.quantidade}x',
@@ -253,14 +255,14 @@ Widget _ordersReceived({
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      Text(
-                                        '${FormatterHelper.formatCurrency(pedido.item.produto?.price ?? pedido.item.alimento?.pricePerSize[pedido.item.tamanho] ?? 0)} cada',
-                                        style: theme.textTheme.labelSmall?.copyWith(
-                                          color: AppColors.title,
+                                        Text(
+                                          '${FormatterHelper.formatCurrency(pedido.item.produto?.price ?? pedido.item.alimento?.pricePerSize[pedido.item.tamanho] ?? 0)} cada',
+                                          style: theme.textTheme.labelSmall?.copyWith(
+                                            color: AppColors.title,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                   Text(
                                     FormatterHelper.formatCurrency(
