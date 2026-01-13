@@ -230,24 +230,29 @@ Widget _ordersReceived({
                                   Column(
                                     crossAxisAlignment: .start,
                                     children: [
-                                      Row(
-                                        spacing: 10,
-                                        children: [
-                                          Text(
-                                            '${pedido.item.quantidade}x',
-                                            style: theme.textTheme.bodyLarge?.copyWith(
-                                              color: AppColors.title,
+                                      Expanded(
+                                        child: Row(
+                                          spacing: 10,
+                                          children: [
+                                            Text(
+                                              '${pedido.item.quantidade}x',
+                                              style: theme.textTheme.bodyLarge?.copyWith(
+                                                color: AppColors.title,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            pedido.item.alimento?.name ??
-                                                pedido.item.produto?.name ??
-                                                '',
-                                            style: theme.textTheme.bodyLarge?.copyWith(
-                                              color: AppColors.title,
+                                            Expanded(
+                                              child: Text(
+                                                pedido.item.alimento?.name ??
+                                                    pedido.item.produto?.name ??
+                                                    '',
+                                                style: theme.textTheme.bodyLarge?.copyWith(
+                                                  color: AppColors.title,
+                                                ),
+                                                softWrap: true,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                       Text(
                                         '${FormatterHelper.formatCurrency(pedido.item.produto?.price ?? pedido.item.alimento?.pricePerSize[pedido.item.tamanho] ?? 0)} cada',
