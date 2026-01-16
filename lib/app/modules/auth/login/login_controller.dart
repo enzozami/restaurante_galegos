@@ -63,6 +63,14 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
       if (!_validateLogin()) return;
 
       await _authServices.login(email: emailEC.text, password: passwordEC.text);
+
+      await _authServices.getUser();
+
+      if (await _authServices.openOrClosedRestaurant()) {
+        Get.offAllNamed('/home');
+      } else {
+        Get.toNamed('horarioFuncionamento');
+      }
     } on AuthException catch (e, s) {
       _loading.value = false;
       log('Falha no login', error: e, stackTrace: s);

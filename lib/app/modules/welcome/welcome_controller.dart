@@ -1,12 +1,11 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:restaurante_galegos/app/core/mixins/loader_mixin.dart';
 import 'package:restaurante_galegos/app/core/mixins/messages_mixin.dart';
 import 'package:restaurante_galegos/app/core/ui/formatter_helper.dart';
-import 'package:restaurante_galegos/app/repositories/auth/auth_repository.dart';
 import 'package:restaurante_galegos/app/services/auth/auth_services.dart';
-import 'package:restaurante_galegos/app/services/auth/auth_services_impl.dart';
 import 'package:restaurante_galegos/app/services/time/time_services.dart';
 
 class WelcomeController extends GetxController with LoaderMixin, MessagesMixin {
@@ -17,6 +16,8 @@ class WelcomeController extends GetxController with LoaderMixin, MessagesMixin {
   final _message = Rxn<MessageModel>();
   final dayNow = FormatterHelper.formatDate();
   final open = false.obs;
+  String? get getUserId => _authServices.getUserId();
+  Future<List<BiometricType>> get initBiometrics async => await _authServices.initBiometrics();
 
   RxBool get loading => _loading;
 
@@ -49,35 +50,38 @@ class WelcomeController extends GetxController with LoaderMixin, MessagesMixin {
 
   Future<void> accessApp() async {
     if (_loading.value) return;
+
+    if (_authServices.getUserId() == null) {
+      goToLogin();
+      return;
+    }
+
     try {
       _loading.value = true;
       await 1.seconds.delay();
 
-      if (!open.value) {
+      bool authenticated = await _authServices.auth();
+      if (authenticated) {
+        await _authServices.getUser();
+        if (!open.value) {
+          _loading.value = false;
+          await Future.delayed(Duration(milliseconds: 100));
+          Get.toNamed('horarioFuncionamento');
+          return;
+        }
         _loading.value = false;
-        await Future.delayed(Duration(milliseconds: 100));
-        Get.toNamed('horarioFuncionamento');
-        return;
-      }
-      if (!Get.isRegistered<AuthServicesImpl>()) {
-        await Get.putAsync(() async {
-          return await AuthServicesImpl(authRepository: Get.find<AuthRepository>()).init();
-        });
-      }
-      _loading.value = false;
-      await 100.milliseconds.delay();
-      if (Get.currentRoute == '/' && _authServices.getUserId() == null) {
-        goToLogin();
+        Get.offAllNamed('/home');
       }
     } catch (e, s) {
-      _loading.value = false;
       log(e.toString());
       log(s.toString());
+      _loading.value = false;
       _message.value = MessageModel(
-        title: 'Erro',
-        message: 'Erro ao inicializar AuthServices',
-        type: MessageType.error,
+        title: 'Sessão Expirada',
+        message: 'Por favor, faça login com sua senha novamente.',
+        type: MessageType.info,
       );
+      goToLogin();
     } finally {
       _loading.value = false;
     }

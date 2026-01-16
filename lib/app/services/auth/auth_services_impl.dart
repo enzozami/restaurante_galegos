@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:local_auth_android/local_auth_android.dart';
 import 'package:restaurante_galegos/app/core/constants/constants.dart';
 import 'package:restaurante_galegos/app/core/ui/theme/app_colors.dart';
 import 'package:restaurante_galegos/app/models/user_model.dart';
@@ -17,6 +21,8 @@ class AuthServicesImpl extends GetxService implements AuthServices {
   final _getStorage = GetStorage();
   final RxString _userEmail = ''.obs;
   final _name = ''.obs;
+  final LocalAuthentication _localAuthentication = LocalAuthentication();
+  bool deviceSuported = false;
 
   @override
   RxString get nome => _name;
@@ -111,14 +117,7 @@ class AuthServicesImpl extends GetxService implements AuthServices {
     });
 
     ever(_isLogged, (isLogged) async {
-      if (isLogged == true) {
-        if (await openOrClosedRestaurant()) {
-          Get.offAllNamed('/home');
-        } else {
-          logout();
-          _showClosedSnackbar();
-        }
-      } else if (isLogged == false) {
+      if (isLogged == false) {
         Get.offAllNamed('/');
       }
     });
@@ -127,7 +126,8 @@ class AuthServicesImpl extends GetxService implements AuthServices {
     return this;
   }
 
-  Future<void> _showClosedSnackbar() async {
+  @override
+  Future<void> showClosedSnackbar() async {
     final snapshot = await FirebaseFirestore.instance.collection('horario_funcionamento').get();
     final horariosApi = snapshot.docs.first.data();
 
@@ -167,15 +167,61 @@ class AuthServicesImpl extends GetxService implements AuthServices {
 
   @override
   Future<UserModel> getUser() async {
-    final user = await _authRepository.getUser();
-    _name.value = user.nome;
-    _userEmail.value = user.email;
+    try {
+      final user = await _authRepository.getUser();
+      _name.value = user.nome;
+      _userEmail.value = user.email;
 
-    await _getStorage.write(Constants.USER_NAME, user.nome);
-    await _getStorage.write(Constants.USER_EMAIL, user.email);
-    return user;
+      await _getStorage.write(Constants.USER_NAME, user.nome);
+      await _getStorage.write(Constants.USER_EMAIL, user.email);
+      return user;
+    } catch (e) {
+      log("Erro ao buscar usuário: $e");
+      logout();
+      rethrow;
+    }
   }
 
   @override
   Future<void> reauthenticate(String password) => _authRepository.reauthenticate(password);
+
+  @override
+  Future<List<BiometricType>> initBiometrics() async {
+    deviceSuported = await _localAuthentication.isDeviceSupported();
+    List<BiometricType> availableBiometric = <BiometricType>[];
+    if (deviceSuported) {
+      try {
+        if (await _localAuthentication.canCheckBiometrics) {
+          availableBiometric = await _localAuthentication.getAvailableBiometrics();
+          return availableBiometric;
+        }
+      } catch (e) {
+        deviceSuported = false;
+      }
+    }
+    return <BiometricType>[];
+  }
+
+  @override
+  Future<bool> auth() async {
+    bool authentication = false;
+    try {
+      authentication = await _localAuthentication.authenticate(
+        authMessages: [
+          AndroidAuthMessages(
+            signInTitle: 'Autenticação Requerida',
+            signInHint: 'Verificação de Identidade',
+            cancelButton: 'Cancelar',
+          ),
+        ],
+        persistAcrossBackgrounding: true,
+        sensitiveTransaction: true,
+        localizedReason: 'Desbloqueie para acessar aplicativo',
+        biometricOnly: true,
+      );
+      return authentication;
+    } catch (e) {
+      return false;
+    }
+  }
 }

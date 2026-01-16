@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:restaurante_galegos/app/models/user_model.dart';
 
 abstract interface class AuthServices {
@@ -28,4 +28,7 @@ abstract interface class AuthServices {
   RxString get nome;
   RxString get email;
   bool isAdmin();
+  Future<List<BiometricType>> initBiometrics();
+  Future<bool> auth();
+  Future<void> showClosedSnackbar();
 }
